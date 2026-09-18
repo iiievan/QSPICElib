@@ -1,0 +1,106 @@
+* ============================================================================
+* 74HCT244 - vosmerichnyj bufer s tretjim sostojaniem, povedencheskaja model'
+*
+* Istochnik: onsemi MM74HCT240/MM74HCT244, Publication Order MM74HCT244/D,
+*            Rev.3, June 2024
+* Versija modeli: 1.1
+* Kalibrovka:    ngspice-42 + QSpice, .tran s max shagom 0.05n
+*
+* ISTORIJA
+*   1.0 - bazovaja versija, 3 stupeni, test A5 ne prohodil
+*   1.1 - dobavlena zaderzhka razreshenija vyhoda (TPDZ), A5 prohodit;
+*         TTOL vynesen v params; dobavlena tablica temperaturnyh uglov
+*
+* ---------------------------------------------------------------------------
+* STRUKTURA - TRI STUPENI, i eto prinicipial'no:
+*   1. vhodnoj porog VTH (S_I1/S_I2) - bez zaderzhki
+*   2. RC-zaderzhka s porogami na SEREDINE razmaha (2.5 V +- VDB)
+*   3. vyhodnoj totem-pole ROH / ROL + kljuch tretjego sostojanija
+* Odnostupenchataja versija (RC srazu ot vhoda s porogom 1.4 V) dajot
+* nesimmetrichnye zaderzhki: tPLH 8.8 ns protiv tPHL 24.9 ns pri
+* dashitnyh 14 ns, potomu chto 1.4 V ne na seredine razmaha 0..5 V.
+* Cep' razreshenija OEB postroena tak zhe, po toj zhe prichine.
+*
+* ---------------------------------------------------------------------------
+* TEMPERATURNYE UGLY
+* VNIMANIE: model' NE imeet temperaturnoj zavisimosti. .step temp na nejo
+* ne dejstvuet voobshche. Ugly zadajutsja NABOROM PARAMETROV - tak zhe,
+* kak dashit zadajot ih otdel'nymi kolonkami garantirovannyh predelov.
+*
+*  CORNER  uslovie dashita        ROH    ROL    TPD     TPDZ
+*  --------------------------------------------------------
+*    1     +25 C, tipovye          50    33.3    9n     14n
+*    2     +25 C, predel          86.7   43.3   12.2n   19n
+*    3     -40...+85 C, predel   110     55     15n     23n
+*    4     -55...+125 C, predel  133     66.7   18n     28n
+*
+* ROH i ROL vychisleny iz DC-tablicy pri VCC=4.5 V, |IOUT|=6 mA:
+*   ROH = (4.5 - VOH)/6mA ,  ROL = VOL/6mA
+* TPD i TPDZ podobrany po AC-tablice tak, chtoby izmerennye tPLH i tPZH
+* legli na sootvetstvujushchij predel. Sm. fajl tests/74HCT244_test.cir
+*
+* ---------------------------------------------------------------------------
+* PARAMETRY
+*   ROH   vyhodnoe soprotivlenie pri vysokom urovne, Om
+*   ROL   to zhe pri nizkom, Om
+*   TPD   zaderzhka rasprostranenija vhod-vyhod (podgonochnaja)
+*   TPDZ  zaderzhka razreshenija/zapreta vyhoda (podgonochnaja)
+*   VTH   vhodnoj porog. 1.4 V - seredina mezhdu VIL=0.8 i VIH=2.0 dashita.
+*         Imenno poetomu 3.3 V s nozhki MK chitaetsja kak logicheskaja "1"
+*   VHY   gisterezis kljuchej
+*   VDB   raznos porogov verhnego i nizhnego kljucha (break-before-make)
+*   CIN   vhodnaja jomkost' (dashit: max 15 pF)
+*   COUT  vyhodnaja jomkost' (dashit: typ 15 pF, max 20 pF)
+*   TTOL  vremennoe razreshenie vokrug sobytija pereklyuchenija (TOL'KO QSpice)
+*
+* ---------------------------------------------------------------------------
+* PRO TTOL
+* QSpice schitaet s adaptivnym shagom. Kljuchi S - razryvnye elementy:
+* sam moment pereklyuchenija naxoditsja tochno, no SLEDUJUSHCHAJA tochka
+* mozhet okazat'sja daleko, i .meas nachinaet interpolirovat' mimo.
+* Proverено eksperimentom na etoj modeli (.tran bez ogranichenija shaga):
+*   TTOL=1n   -> tPLH = 14.94 ns
+*   TTOL=200n -> tPLH = 16.97 ns   (+14 %, front pri etom vygljadit normal'no)
+* To est' degradacija ne lomaet kartinku, a TIHO smeshchaet rezul'tat -
+* eto opasnee, chem javnaja lomanaja.
+* Vazhno: fronty (tTLH/tTHL) ot TTOL prakticheski ne zavisjat - oni sami
+* zastavljajut reshatel' mel'chit'. Stradajut tol'ko izmerenija po ODNOMU
+* peresecheniju urovnja, to est' zaderzhki.
+*
+* ---------------------------------------------------------------------------
+* CHEGO MODEL' NE VOSPROIZVODIT (proverjat' po dashitu glazami)
+*   - IOZ (utechka v Hi-Z) max 2.5 mkA pri +85 C, 10 mkA pri +125 C
+*   - IOUT abs max +-35 mA - eto DC-rejting, ne impul'snyj
+*   - ICC, CPD (90 pF na bufer v aktivnom sostojanii)
+*   - zavisimost' ot VCC vne diapazona 4.5...5.5 V
+*   - diapazon MM74HCT244: -55...+125 C
+* ============================================================================
+.subckt 74HCT244 IN OEB OUT VCC GND
++ params: ROH=50 ROL=33.3 TPD=9n TPDZ=14n VTH=1.4 VHY=0.2 VDB=0.25
++ CIN=15p COUT=15p TTOL=1n
+* --- stupen' 1: vhodnoj porog ---
+C_IN  IN   GND {CIN}
+S_I1  VCC  nlog IN  GND SWIN  TTOL={TTOL}
+S_I2  nlog GND  GND IN  SWINB TTOL={TTOL}
+R_LG  nlog GND  1meg
+* --- stupen' 2: zaderzhka signal'nogo trakta ---
+R_DEL nlog nd   1k
+C_DEL nd   GND  {1.4427*TPD/1k}
+* --- cep' razreshenija: porog + zaderzhka ---
+S_Z1  VCC  noeb OEB GND SWIN  TTOL={TTOL}
+S_Z2  noeb GND  GND OEB SWINB TTOL={TTOL}
+R_LZ  noeb GND  1meg
+R_ZD  noeb nz   1k
+C_ZD  nz   GND  {1.4427*TPDZ/1k}
+* --- stupen' 3: vyhodnoj kaskad ---
+S_UP  VCC  nmid nd  GND SWUP  TTOL={TTOL}
+S_DN  nmid GND  GND nd  SWDN  TTOL={TTOL}
+S_OE  nmid OUT  GND nz  SWOE  TTOL={TTOL}
+C_OUT OUT  GND  {COUT}
+R_LK  nmid GND  100meg
+.model SWIN  SW Ron=100    Roff=1g Vt={VTH}        Vh=0.05
+.model SWINB SW Ron=100    Roff=1g Vt={-VTH}       Vh=0.05
+.model SWUP  SW Ron={ROH}  Roff=1g Vt={2.5+VDB}    Vh={VHY}
+.model SWDN  SW Ron={ROL}  Roff=1g Vt={-(2.5-VDB)} Vh={VHY}
+.model SWOE  SW Ron=1m     Roff=1g Vt=-2.5         Vh={VHY}
+.ends 74HCT244

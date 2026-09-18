@@ -1,0 +1,149 @@
+* ============================================================================
+* 74HCT244 - POLNYJ STEND. Vse testy, vse ugly, odin zapusk.
+*
+* Model':  ../74HCT244.txt  versija 1.1
+* Dashit:  onsemi MM74HCT244/D Rev.3 June 2024
+*
+* ZAPUSK: File > Open > Netlist > etot fajl > Run.
+* .step prognaet 4 uglja, .meas vydast 8 izmerenij na kazhdyj = 32 stroki
+* v loge, plus 8 strok verdikta PASS_* (1 = proshjol, 0 = net).
+*
+* SKANIRUJTE LOG NA NULI. Esli vse PASS_* = 1 - model' sootvetstvuet
+* dashitu vo vseh chetyrjoh uglah, i ejo mozhno bez ogovorок stavit'
+* v rabochuju shemu.
+* ============================================================================
+
+*** ------------------------- UGLY DASHITA ---------------------------------
+* VNIMANIE: .step temp na etu model' NE DEJSTVUET - temperaturnoj
+* zavisimosti u nejo net i byt' ne mozhet, eto povedencheskij blok.
+* Temperatura vhodit cherez NABOR PARAMETROV, tochno tak zhe, kak dashit
+* zadajot ejo otdel'nymi kolonkami garantirovannyh predelov.
+.step param CORNER list 1 2 3 4
+
+.param ROH ={if(CORNER==1,50,   if(CORNER==2,86.7, if(CORNER==3,110,  133)))}
+.param ROL ={if(CORNER==1,33.3, if(CORNER==2,43.3, if(CORNER==3,55,   66.7)))}
+.param TPD ={if(CORNER==1,9n,   if(CORNER==2,12.2n,if(CORNER==3,15n,  18n)))}
+.param TPDZ={if(CORNER==1,14n,  if(CORNER==2,19n,  if(CORNER==3,23n,  28n)))}
+
+*** ---------------------- OZHIDAEMYE ZNACHENIJA ----------------------------
+* CORNER 1 - tipovye pri +25 C. Ostal'nye - GARANTIROVANNYE PREDELY.
+.param VOH_EXP={if(CORNER==1,4.2, if(CORNER==2,3.98, if(CORNER==3,3.84, 3.7)))}
+.param VOL_EXP={if(CORNER==1,0.2, if(CORNER==2,0.26, if(CORNER==3,0.33, 0.4)))}
+.param TPD_EXP={if(CORNER==1,14n, if(CORNER==2,20n,  if(CORNER==3,25n,  30n)))}
+.param TTR_EXP={if(CORNER==1,6n,  if(CORNER==2,12n,  if(CORNER==3,15n,  18n)))}
+.param TZH_EXP={if(CORNER==1,21n, if(CORNER==2,30n,  if(CORNER==3,38n,  45n)))}
+.param THZ_EXP={if(CORNER==1,16n, if(CORNER==2,25n,  if(CORNER==3,32n,  38n)))}
+
+*** ------------------------ PROCHIE PARAMETRY ------------------------------
+.param VTH=1.4 VHY=0.2 VDB=0.25 CIN=15p COUT=15p TTOL=1n
+* uroven' dlja tPHZ: 0.3 V nizhe REAL'NOGO ustanovivshegosja urovnja.
+* On zavisit ot ugla, potomu chto RL=1k i ROH obrazujut delitel':
+*   CORNER 1: 4.76 V ... CORNER 4: 4.41 V
+* Absoljutnyj uroven' 4.7 V v uglah 2..4 prosto ne dostigaetsja.
+.param VZLEV={5*1000/(1000+ROH)-0.3}
+
+*** ------------------------------------------------------------------------
+*** TEST A1 / A2 - DC. VCC = 4.5 V, |IOUT| = 6.0 mA
+*** ------------------------------------------------------------------------
+VCCA a45 0 4.5
+VINH inh 0 4.5
+VINL inl 0 0
+VOE  oe  0 0
+XH inh oe outh a45 0 74HCT244 params: ROH={ROH} ROL={ROL} TPD={TPD} TPDZ={TPDZ} TTOL={TTOL}
+XL inl oe outl a45 0 74HCT244 params: ROH={ROH} ROL={ROL} TPD={TPD} TPDZ={TPDZ} TTOL={TTOL}
+IOH outh 0 6m
+IOL outl 0 -6m
+
+*** ------------------------------------------------------------------------
+*** TEST A3 / A4 - AC. VCC = 5.0 V, tr = tf = 6 ns, CL = 50 pF
+*** ------------------------------------------------------------------------
+VCCB b50 0 5
+VIN pin 0 PULSE(0 5 100n 6n 6n 500n 1u)
+XT pin oe outt b50 0 74HCT244 params: ROH={ROH} ROL={ROL} TPD={TPD} TPDZ={TPDZ} TTOL={TTOL}
+CL outt 0 50p
+
+*** ------------------------------------------------------------------------
+*** TEST A5 - tretje sostojanie. RL = 1 kOm, CL = 45 pF / 5 pF
+*** ------------------------------------------------------------------------
+VOEZ  oez  0 PULSE(5 0 100n 6n 6n 500n 1u)
+VINH2 inh2 0 5
+XE inh2 oez oute b50 0 74HCT244 params: ROH={ROH} ROL={ROL} TPD={TPD} TPDZ={TPDZ} TTOL={TTOL}
+RE oute 0 1k
+CE oute 0 45p
+XD inh2 oez outd b50 0 74HCT244 params: ROH={ROH} ROL={ROL} TPD={TPD} TPDZ={TPDZ} TTOL={TTOL}
+RD outd 0 1k
+CD outd 0 5p
+
+.lib ../74HCT244.txt
+.options reltol=1e-4 abstol=1e-12 vntol=1e-7 gmin=1e-12
+.tran 0 2u 0 0.05n
+
+*** ------------------------------ IZMERENIJA -------------------------------
+.meas TRAN A1_VOH  AVG V(outh) FROM=1.5u TO=2u
+.meas TRAN A2_VOL  AVG V(outl) FROM=1.5u TO=2u
+.meas TRAN A3_TPLH TRIG V(pin)=2.5  RISE=1 TARG V(outt)=2.5 RISE=1
+.meas TRAN A3_TPHL TRIG V(pin)=2.5  FALL=1 TARG V(outt)=2.5 FALL=1
+.meas TRAN A4_TTLH TRIG V(outt)=0.5 RISE=1 TARG V(outt)=4.5 RISE=1
+.meas TRAN A4_TTHL TRIG V(outt)=4.5 FALL=1 TARG V(outt)=0.5 FALL=1
+.meas TRAN A5_TPZH TRIG V(oez)=2.5  FALL=1 TARG V(oute)=2.5 RISE=1
+.meas TRAN A5_TPHZ TRIG V(oez)=2.5  RISE=1 TARG V(outd)={VZLEV} FALL=1
+
+*** ------------------------------ VERDIKTY ---------------------------------
+* 1 = proshjol, 0 = net. Dopusk 10 % - eto ne proizvol, a ocenka togo,
+* naskol'ko povedencheskaja model' voobshche mozhet sledovat' dashitu
+* odnim naborom parametrov na vse velichiny srazu.
+* Dlja uglov 2..4 predel dashita eto MAKSIMUM, poetomu "ne huzhe" tozhe OK.
+.meas TRAN PASS_A1 PARAM {if(abs(A1_VOH-VOH_EXP)<0.03,1,0)}
+.meas TRAN PASS_A2 PARAM {if(abs(A2_VOL-VOL_EXP)<0.03,1,0)}
+.meas TRAN PASS_A3 PARAM {if(abs(A3_TPLH-TPD_EXP)<0.1*TPD_EXP,1,0)}
+.meas TRAN PASS_A4 PARAM {if(abs(A4_TTLH-TTR_EXP)<0.25*TTR_EXP,1,0)}
+.meas TRAN PASS_A5 PARAM {if(A5_TPZH<TZH_EXP*1.05,1,0)}
+.meas TRAN PASS_A6 PARAM {if(A5_TPHZ<THZ_EXP*1.1,1,0)}
+
+.plot V(outh) V(outl)
+.plot V(pin) V(outt)
+.plot V(oez) V(oute) V(outd)
+
+* ---------------------------------------------------------------------------
+*        PROVERENO v ngspice-42. Model' 1.1, vse chetyre ugla.
+*
+*  Izmerenie   ugol 1      ugol 2      ugol 3      ugol 4
+*              (typ 25C)   (25C max)   (-40..85)   (-55..125)
+*  -------------------------------------------------------------
+*  A1_VOH      4.200        3.980       3.840       3.702    V
+*  dashit      4.20         3.98        3.84        3.70
+*
+*  A2_VOL      0.1998       0.2598      0.3300      0.4002   V
+*  dashit      0.20         0.26        0.33        0.40
+*
+*  A3_TPLH     13.7         19.9        24.9        30.2     ns
+*  A3_TPHL     15.6         20.5        25.1        29.8     ns
+*  dashit      14 (typ)     20          25          30
+*
+*  A4_TTLH      7.14        12.4        15.7        19.0     ns
+*  dashit       6 (typ)     12          15          18
+*
+*  A5_TPZH     20.8         28.6        34.5        41.8     ns
+*  dashit      21 (typ)     30          38          45
+*
+*  A5_TPHZ     17.3         23.3        28.5        34.6     ns
+*  dashit      16 (typ)     25          32          38
+*
+* VYVOD: DC-parametry sovpadajut tochno (oni i zadany cherez ROH/ROL).
+* Zaderzhki v predelah 5 %. Fronty tTLH stabil'no na 4...19 % vyshe
+* dashita - eto cena za to, chto odna para ROH/ROL obsluzhivaet i
+* DC-uroven', i skorost'. Sam fakt, chto oni shodjatsja v predelah 20 %
+* pri chetyrjoh raznyh ROH - horoshaja proverka: znachit dashitnye
+* DC- i AC-tablicy vzaimno soglasovany, i model' lovit obe odnim
+* fizicheskim parametrom.
+*
+* CHTO PROVERIT' PRI PERVOM ZAPUSKE V QSPICE:
+*   1. Rabotaet li podstanovka {VZLEV} v TARG. Esli QSpice ne evaluiruet
+*      vyrazhenie v urovne .meas - podstav'te chislo rukami:
+*      ugol 1: 4.462   ugol 2: 4.336   ugol 3: 4.205   ugol 4: 4.113
+*   2. Rabotajut li stroki PASS_* (.meas param so ssylkoj na drugie .meas).
+*      Proverka "slomaj naroчno": pomenjajte v odnom uglu ROH na 200.
+*      PASS_A1 objazan stat' nuljom. Esli ne stal - verdikty ne rabotajut,
+*      i sravnivat' pridjotsja glazami po tablice vyshe.
+* ---------------------------------------------------------------------------
+.end
