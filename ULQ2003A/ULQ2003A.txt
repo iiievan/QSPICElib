@@ -1,0 +1,107 @@
+* ============================================================================
+* ULQ2003A - massiv iz semi darlingtonov s otkrytym kollektorom
+*            i klampirujushchimi diodami. Povedencheskaja model' odnogo kanala.
+*
+* Istochnik: onsemi ULN2003A, ULQ2003A - High Voltage, High Current
+*            Darlington Transistor Arrays,
+*            Publication Order Number ULN2003A/D, Rev.1, June 2025
+* Versija modeli: 1.0
+* Kalibrovka:    ngspice-42, .tran 0 40u 0 5n
+*
+* ---------------------------------------------------------------------------
+* !!! ULN2003A ILI ULQ2003A - ETO NE VSJO RAVNO !!!
+*
+* Elektricheski oni identichny, i eta model' opisyvaet oba. No po
+* MAXIMUM RATINGS (str.2) rabochij diapazon temperatury raznyj:
+*
+*     ULN2003A :  -20 ... +85 C
+*     ULQ2003A :  -40 ... +85 C
+*
+* Dlja privoda protivopozharnoj zaslonki (-30 C) godится TOL'KO ULQ2003A.
+* Model' temperaturu ne vosproizvodit voobshche, poetomu simuljacija etu
+* oshibku NE pojmaet - proverjat' po specifikacii.
+*
+* ---------------------------------------------------------------------------
+* STRUKTURA
+*   1. vhodnaja cep': rezistor RIN (v dashite 2.7 kOm, str.1 Figure 1)
+*      i diodnyj perehod baza-emitter. Nuzhna dlja vosproizvedenija
+*      vhodnogo toka II(on) - MK dolzhen ego obespechit'.
+*   2. porogovyj kaskad po naprjazheniju na vhode (VTHU), bez zaderzhki
+*   3. RC-zaderzhka s porogami na seredine razmaha
+*   4. vyhod: otkrytyj kollektor = kljuch posledovatel'no s istochnikom
+*      VSAT i soprotivleniem RON. Takaja para tochno vosproizvodit vse
+*      TRI tochki VCE(sat) iz dashita odnovremenno
+*   5. klampirujushchij diod na vyvod COM
+*
+* Vhodnoj tok i pereklyuchenie v modeli NE SVJAZANY prichinno: kljuch
+* upravljaetsja naprjazheniem na IN, a vhodnaja cep' tol'ko potrebljaet tok.
+* Dlja darlingtona s hFE > 1000 (str.3) eto dopustimoe uproshchenie.
+*
+* ---------------------------------------------------------------------------
+* UGLY
+* VNIMANIE: v otlichie ot 74HCT244, u ULQ2003A v dashite NET kolonok
+* po temperature. Tablica ELECTRICAL CHARACTERISTICS (str.3) dana
+* tol'ko dlja TA = 25 C, s kolonkami Typ i Max. Poetomu uglov DVA.
+*
+*  CORNER  kolonka dashita   VSAT   RON   TPDU   VTHU   RIN     RSD
+*  ----------------------------------------------------------------
+*    1     Typ  (+25 C)      0.75   1.0   0.2u   1.4    2.7k    1.85
+*    2     Max  (+25 C)      0.90   2.0   0.8u   2.4    1.846k  3.26
+*
+* VSAT i RON vyvedeny iz trjoh tochek VCE(sat) linejnoj podgonkoj:
+*   Typ: 0.85 V pri 100 mA, 0.95 pri 200 mA, 1.10 pri 350 mA
+*        naklon (1.10-0.85)/0.25 = 1.0 Om, otsechka 0.85-0.1*1.0 = 0.75 V
+*   Max: 1.10 / 1.30 / 1.60  ->  naklon 2.0 Om, otsechka 0.90 V
+* Podrobno - v tests/TEST_README.md
+*
+* ---------------------------------------------------------------------------
+* PARAMETRY
+*   VSAT  otsechka VCE(sat) pri nulevom toke, V
+*   RON   naklon VCE(sat) po toku, Om
+*   TPDU  zaderzhka vklyuchenija/vyklyuchenija (podgonochnaja)
+*   VTHU  porog vhoda. Typ 1.4 V; max 2.4 V - eto VI(on) iz dashita
+*         pri IC = 200 mA. Ot 3.3 V s nozhki M032 zapas est', no
+*         v hudshem sluchae vsego 0.9 V - proverit' na plate
+*   RIN   vhodnoj rezistor (dashit: 2.7 kOm)
+*   RSD   posledovatel'noe soprotivlenie klamp-dioda (podgonochnoe)
+*   CINU  vhodnaja jomkost' (dashit: typ 15 pF, max 30 pF)
+*   TTOL  vremennoe razreshenie vokrug pereklyuchenija (TOL'KO QSpice)
+*
+* ---------------------------------------------------------------------------
+* CHEGO MODEL' NE VOSPROIZVODIT
+*   - TEMPERATURU. Sm. predupezhdenie pro ULN/ULQ vyshe
+*   - ICEX (utechka vykljuchennogo vyhoda) max 50 mkA pri +25 C,
+*     100 mkA pri +85 C. V nashej sheme na delitele zatvora 1k/1k eto
+*     dajot 50 mV smeshchenija - proverit', chto P-kanal ostajotsja zakryt
+*   - II(off) 50...100 mkA
+*   - hFE i svjaz' vhodnogo toka s vyhodnym
+*   - IC max 500 mA neprерывno; grafik Figure 7 (str.4) - zavisimost'
+*     dopustimogo toka ot skvazhnosti i chisla zadejstvovannyh kanalov
+*   - RthJA 100 C/Vt (str.2) - teplovoj rezhim schitat' otdel'no
+* ============================================================================
+.subckt ULQ2003A IN OUT COM GND
++ params: VSAT=0.75 RON=1.0 TPDU=0.2u VTHU=1.4 RIN=2.7k RSD=1.85
++ CINU=15p TTOL=10n
+* --- vhodnaja cep': tok, no ne upravlenie ---
+R_INP IN  nb  {RIN}
+D_BE  nb  GND DIN
+C_IN  IN  GND {CINU}
+* --- porogovyj kaskad ---
+V5U   n5u GND 5
+S_U1  n5u nlu IN  GND SWINU  TTOL={TTOL}
+S_U2  nlu GND GND IN  SWINUB TTOL={TTOL}
+R_LGU nlu GND 1meg
+* --- zaderzhka ---
+R_DEL nlu nd  1k
+C_DEL nd  GND {1.4427*TPDU/1k}
+* --- vyhod s otkrytym kollektorom ---
+S_Q   OUT nst nd GND SWQ TTOL={TTOL}
+V_ST  nst GND {VSAT}
+D_CL  OUT COM DCL
+R_LK  OUT GND 1g
+.model SWINU  SW Ron=100    Roff=1g Vt={VTHU}  Vh=0.05
+.model SWINUB SW Ron=100    Roff=1g Vt={-VTHU} Vh=0.05
+.model SWQ    SW Ron={RON}  Roff=1g Vt=2.5     Vh=0.2
+.model DCL    D(Is=2n N=1.75 Rs={RSD})
+.model DIN    D(Is=5.3f N=2)
+.ends ULQ2003A

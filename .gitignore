@@ -1,0 +1,32 @@
+# ============================================================================
+#  Rezul'taty simulacii - vsegda peresozdajutsja, v repozitorii ne nuzhny
+# ============================================================================
+*.qraw
+*.out
+*.csv
+*.log
+
+# Rezervnye kopii i vremennye fajly QSPICE
+*.bak
+*~
+~*
+
+# VNIMANIE: *.cir NE ignoriruem!
+# V etoj biblioteke stendy napisany rukami i javljajutsja ISHODNIKOM.
+# (QSPICE takzhe generiruet .cir iz .qsch - esli nachnjote polzovatsja
+#  shemami, dobavljajte takie fajly v isklyuchenija poimenno, naprimer:
+#  /Nekij_komponent/tests/sxema_avtogen.cir )
+
+# ============================================================================
+#  Sistemnyj musor
+# ============================================================================
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ============================================================================
+#  Redaktory
+# ============================================================================
+.vscode/
+.idea/
+*.swp

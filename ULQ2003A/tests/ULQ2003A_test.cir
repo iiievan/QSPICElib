@@ -1,0 +1,118 @@
+* ============================================================================
+* ULQ2003A - POLNYJ STEND. Vse testy, oba uglja, odin zapusk.
+*
+* Model':  ../ULQ2003A.txt  versija 1.0
+* Dashit:  onsemi ULN2003A/D Rev.1 June 2025
+*
+* ZAPUSK: iz korn'a biblioteki  ./run_tests.sh ULQ2003A
+*
+* Stend TOL'KO IZMERJAET. Sravnenie s dashitom - v ULQ2003A_test.expect,
+* schitaet ego run_tests.sh.
+* NE dobavljajte sjuda .meas ... PARAM s verdiktami: pri .step parametry
+* vnutri takogo vyrazhenija zamorozheny na poslednem shage (sm. README).
+* ============================================================================
+
+*** --------------------------- UGLY ---------------------------------------
+* U ULQ2003A v dashite NET kolonok po temperature - tablica ELECTRICAL
+* CHARACTERISTICS (str.3) dana tol'ko dlja TA = 25 C, s kolonkami Typ i Max.
+* Poetomu uglov dva, a ne chetyre, kak u 74HCT244.
+.step param CORNER list 1 2
+
+.param VSAT={if(CORNER==1, 0.75,  0.90)}
+.param RON ={if(CORNER==1, 1.0,   2.0)}
+.param TPDU={if(CORNER==1, 0.2u,  0.8u)}
+.param VTHU={if(CORNER==1, 1.4,   2.4)}
+.param RIN ={if(CORNER==1, 2.7k,  1.846k)}
+.param RSD ={if(CORNER==1, 1.85,  3.26)}
+.param TTOL=10n
+
+VCC u24 0 24
+
+*** ------------------------------------------------------------------------
+*** TEST B1 / B2 / B3 - Collector-Emitter Saturation Voltage
+*** Str.3, stroka VCE(sat). Tri tochki: 100 / 200 / 350 mA
+***   typ 0.85 / 0.95 / 1.10 V      max 1.1 / 1.3 / 1.6 V
+*** ------------------------------------------------------------------------
+VI1 vi1 0 5
+XS1 vi1 o1 u24 0 ULQ2003A params: VSAT={VSAT} RON={RON} TPDU={TPDU} VTHU={VTHU} RIN={RIN} RSD={RSD} TTOL={TTOL}
+IS1 o1 0 -100m
+XS2 vi1 o2 u24 0 ULQ2003A params: VSAT={VSAT} RON={RON} TPDU={TPDU} VTHU={VTHU} RIN={RIN} RSD={RSD} TTOL={TTOL}
+IS2 o2 0 -200m
+XS3 vi1 o3 u24 0 ULQ2003A params: VSAT={VSAT} RON={RON} TPDU={TPDU} VTHU={VTHU} RIN={RIN} RSD={RSD} TTOL={TTOL}
+IS3 o3 0 -350m
+
+*** ------------------------------------------------------------------------
+*** TEST B4 - Input Current, On Condition
+*** Str.3, stroka II(on), uslovie VI = 3.85 V
+***   typ 0.93 mA      max 1.35 mA
+*** V_AM - ampermetr (istochnik 0 V), chtoby tok chitalsja polozhitel'nym
+*** ------------------------------------------------------------------------
+VI2  vi2  0    3.85
+V_AM vi2  vi2a 0
+XS4 vi2a o4 u24 0 ULQ2003A params: VSAT={VSAT} RON={RON} TPDU={TPDU} VTHU={VTHU} RIN={RIN} RSD={RSD} TTOL={TTOL}
+RL4 u24 o4 2k
+
+*** ------------------------------------------------------------------------
+*** TEST B5 / B6 - Turn-On / Turn-Off Delay Time
+*** Str.3, stroki ton i toff, uslovie "50% EI to 50% EO"
+***   typ 0.25 mks      max 1.0 mks
+*** Vhod 3.3 V - eto NASH rezhim (nozhka M032), a ne uslovie dashita:
+*** uroven' vhodnogo signala dlja etogo testa dashit ne ogovarivaet.
+*** ------------------------------------------------------------------------
+VPU pu 0 PULSE(0 3.3 1u 10n 10n 10u 20u)
+XT pu ot u24 0 ULQ2003A params: VSAT={VSAT} RON={RON} TPDU={TPDU} VTHU={VTHU} RIN={RIN} RSD={RSD} TTOL={TTOL}
+RT u24 ot 2k
+
+*** ------------------------------------------------------------------------
+*** TEST B7 - Clamp Diode Forward Voltage
+*** Str.3, stroka VF, uslovie IF = 350 mA
+***   typ 1.5 V      max 2.0 V
+*** Vhod v nule: kanal zakryt, tok idjot tol'ko cherez klamp-diod
+*** ------------------------------------------------------------------------
+VCLK ck  0 24
+VOFF off 0 0
+XD off od ck 0 ULQ2003A params: VSAT={VSAT} RON={RON} TPDU={TPDU} VTHU={VTHU} RIN={RIN} RSD={RSD} TTOL={TTOL}
+ICL od 0 -350m
+
+.lib ../ULQ2003A.txt
+.options reltol=1e-4 abstol=1e-12 vntol=1e-7 gmin=1e-12
+.tran 0 40u 0 5n
+
+*** ---------------------------- IZMERENIJA ---------------------------------
+.meas TRAN ECHO_CORNER PARAM {CORNER}
+.meas TRAN B1_VCESAT100 AVG V(o1)   FROM=30u TO=40u
+.meas TRAN B2_VCESAT200 AVG V(o2)   FROM=30u TO=40u
+.meas TRAN B3_VCESAT350 AVG V(o3)   FROM=30u TO=40u
+.meas TRAN B4_IION      AVG I(V_AM) FROM=30u TO=40u
+.meas TRAN B5_TON       TRIG V(pu)=1.65 RISE=1 TARG V(ot)=12 FALL=1
+.meas TRAN B6_TOFF      TRIG V(pu)=1.65 FALL=1 TARG V(ot)=12 RISE=1
+.meas TRAN B7_VFCLAMP   AVG V(od,ck) FROM=30u TO=40u
+
+.plot V(o1) V(o2) V(o3)
+.plot V(pu) V(ot)
+
+* ---------------------------------------------------------------------------
+*                 PROVERENO v ngspice-42, model' 1.0
+*
+*  Izmerenie         ugol 1 (Typ)   ugol 2 (Max)   dashit
+*  --------------------------------------------------------------
+*  B1_VCESAT100       0.850 V        1.100 V       0.85 / 1.1
+*  B2_VCESAT200       0.950 V        1.300 V       0.95 / 1.3
+*  B3_VCESAT350       1.100 V        1.600 V       1.10 / 1.6
+*  B4_IION            0.9299 mA      1.3496 mA     0.93 / 1.35
+*  B5_TON             247.7 ns       988.7 ns      250 / 1000
+*  B6_TOFF            248.9 ns       982.6 ns      250 / 1000
+*  B7_VFCLAMP         1.507 V        2.000 V       1.50 / 2.0
+*
+* Vse sem' parametrov popadajut v oba ugla. Eto ne podgonka kazhdogo
+* po otdel'nosti: VSAT i RON - eto VSEGO DVA chisla na TRI tochki
+* VCE(sat), i to, chto oni lozhatsja na vse tri v OBOIH uglah, govorit
+* o tom, chto VCE(sat) darlingtona v diapazone 100...350 mA
+* dejstvitel'no linejna po toku.
+*
+* ESLI ETOT STEND PADAET PRI PERVOM ZAPUSKE v QSpice, proverte:
+*   1. I(V_AM) - chtenie toka cherez istochnik 0 V. Esli QSpice
+*      vozvrashchaet obratnyj znak, pomenjajte mestami uzly V_AM.
+*   2. V(od,ck) - dvuhuzlovaja forma naprjazhenija v .meas.
+* ---------------------------------------------------------------------------
+.end

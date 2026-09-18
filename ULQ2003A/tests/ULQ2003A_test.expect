@@ -1,0 +1,19 @@
+# =============================================================================
+#  Ozhidaemye znachenija dlja ULQ2003A_test.cir
+#  Istochnik: onsemi ULN2003A/D Rev.1 June 2025, str.3
+#  Podrobno o tom, otkuda kazhdaja cifra - v TEST_README.md
+#
+#  Uglov DVA: 1 = kolonka Typ, 2 = kolonka Max.
+#  Kolonok po temperature v dashite ULQ2003A net.
+#
+#  rezhimy: abs / rel / max / min - sm. README.md v korne biblioteki
+# =============================================================================
+# izmerenie      rezhim  dopusk   ugol1    ugol2
+ECHO_CORNER      abs     0.1      1        2
+B1_VCESAT100     abs     0.02     0.85     1.10
+B2_VCESAT200     abs     0.02     0.95     1.30
+B3_VCESAT350     abs     0.02     1.10     1.60
+B4_IION          abs     0.02m    0.93m    1.35m
+B5_TON           abs     20n      250n     1000n
+B6_TOFF          abs     20n      250n     1000n
+B7_VFCLAMP       abs     0.02     1.50     2.00
