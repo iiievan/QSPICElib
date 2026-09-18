@@ -153,7 +153,8 @@ for bench in "${BENCHES[@]}"; do
     fi
 
     if [ ! -f "$name.expect" ]; then
-        echo "    ${YEL}net fajla $name.expect - tol'ko svodka, bez verdiktov${RST}"
+        echo "    ${RED}NET FAJLA $name.expect - sverjat' ne s chem, stend ne zachtjon${RST}"
+        TOTAL_FAIL=$((TOTAL_FAIL+1))
         echo "$parsed" | while IFS='|' read -r nm vals; do
             printf "${DIM}    %-14s %s${RST}\n" "$nm" "$vals"
         done

@@ -1,3 +1,15 @@
+# =============================================================================
+#  Ozhidaemye znachenija dlja 74HCT244_test.cir
+#  Istochnik: onsemi MM74HCT244/D Rev.3 June 2024
+#  Podrobno o tom, otkuda kazhdaja cifra - v TEST_README.md
+#
+#  rezhimy sravnenija:
+#    abs  |izmereno - ozhidanie| <= dopusk
+#    rel  |izmereno - ozhidanie| <= dopusk * ozhidanie
+#    max   izmereno <= ozhidanie * (1 + dopusk)   <- dlja predelov dashita
+#    min   izmereno >= ozhidanie * (1 - dopusk)
+#  Suffiksy p n u m k ponimajutsja.
+# =============================================================================
 # izmerenie  rezhim  dopusk  ugol1 ugol2 ugol3 ugol4
 A1_VOH       abs     0.03    4.20  3.98  3.84  3.70
 A2_VOL       abs     0.03    0.20  0.26  0.33  0.40
@@ -5,5 +17,6 @@ A3_TPLH      max     0.15    14n   20n   25n   30n
 A3_TPHL      max     0.15    14n   20n   25n   30n
 A4_TTLH      max     0.25    6n    12n   15n   18n
 A4_TTHL      max     0.25    6n    12n   15n   18n
-A5_TPZH      max     0.12    21n   30n   38n   45n
+A5_TPZH      max     0.12    20n   30n   38n   45n
 A5_TPHZ      max     0.12    16n   25n   32n   38n
+ECHO_CORNER  abs     0.1     1     2     3     4

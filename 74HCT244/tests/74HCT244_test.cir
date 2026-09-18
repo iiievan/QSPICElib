@@ -4,13 +4,18 @@
 * Model':  ../74HCT244.txt  versija 1.1
 * Dashit:  onsemi MM74HCT244/D Rev.3 June 2024
 *
-* ZAPUSK: File > Open > Netlist > etot fajl > Run.
-* .step prognaet 4 uglja, .meas vydast 8 izmerenij na kazhdyj = 32 stroki
-* v loge, plus 8 strok verdikta PASS_* (1 = proshjol, 0 = net).
+* ZAPUSK: iz korn'a biblioteki  ./run_tests.sh 74HCT244
+*         ili vruchnuju: File > Open > Netlist > etot fajl > Run
 *
-* SKANIRUJTE LOG NA NULI. Esli vse PASS_* = 1 - model' sootvetstvuet
-* dashitu vo vseh chetyrjoh uglah, i ejo mozhno bez ogovorок stavit'
-* v rabochuju shemu.
+* Stend TOL'KO IZMERJAET. Sravnenie s dashitom zhivjot v sosednem fajle
+* 74HCT244_test.expect, a schitaet ego run_tests.sh.
+*
+* NE dobavljajte sjuda stroki vida
+*     .meas TRAN PASS_A1 PARAM {if(abs(A1_VOH-VOH_EXP)<0.03,1,0)}
+* Pri .step oni RABOTAJUT NEVERNO: sama shema stepaetsja pravil'no,
+* no parametr VOH_EXP vnutri vyrazhenija .meas zamorozhen na znachenii
+* POSLEDNEGO shaga. Proverено: pri polnom sovpadenii vseh chetyrjoh
+* izmerenij s dashitom verdikt vydal 0 0 0 1. Oshibka molchalivaja.
 * ============================================================================
 
 *** ------------------------- UGLY DASHITA ---------------------------------
@@ -79,6 +84,7 @@ CD outd 0 5p
 .tran 0 2u 0 0.05n
 
 *** ------------------------------ IZMERENIJA -------------------------------
+.meas TRAN ECHO_CORNER PARAM {CORNER}
 .meas TRAN A1_VOH  AVG V(outh) FROM=1.5u TO=2u
 .meas TRAN A2_VOL  AVG V(outl) FROM=1.5u TO=2u
 .meas TRAN A3_TPLH TRIG V(pin)=2.5  RISE=1 TARG V(outt)=2.5 RISE=1
@@ -87,18 +93,6 @@ CD outd 0 5p
 .meas TRAN A4_TTHL TRIG V(outt)=4.5 FALL=1 TARG V(outt)=0.5 FALL=1
 .meas TRAN A5_TPZH TRIG V(oez)=2.5  FALL=1 TARG V(oute)=2.5 RISE=1
 .meas TRAN A5_TPHZ TRIG V(oez)=2.5  RISE=1 TARG V(outd)={VZLEV} FALL=1
-
-*** ------------------------------ VERDIKTY ---------------------------------
-* 1 = proshjol, 0 = net. Dopusk 10 % - eto ne proizvol, a ocenka togo,
-* naskol'ko povedencheskaja model' voobshche mozhet sledovat' dashitu
-* odnim naborom parametrov na vse velichiny srazu.
-* Dlja uglov 2..4 predel dashita eto MAKSIMUM, poetomu "ne huzhe" tozhe OK.
-.meas TRAN PASS_A1 PARAM {if(abs(A1_VOH-VOH_EXP)<0.03,1,0)}
-.meas TRAN PASS_A2 PARAM {if(abs(A2_VOL-VOL_EXP)<0.03,1,0)}
-.meas TRAN PASS_A3 PARAM {if(abs(A3_TPLH-TPD_EXP)<0.1*TPD_EXP,1,0)}
-.meas TRAN PASS_A4 PARAM {if(abs(A4_TTLH-TTR_EXP)<0.25*TTR_EXP,1,0)}
-.meas TRAN PASS_A5 PARAM {if(A5_TPZH<TZH_EXP*1.05,1,0)}
-.meas TRAN PASS_A6 PARAM {if(A5_TPHZ<THZ_EXP*1.1,1,0)}
 
 .plot V(outh) V(outl)
 .plot V(pin) V(outt)
@@ -137,13 +131,12 @@ CD outd 0 5p
 * DC- i AC-tablicy vzaimno soglasovany, i model' lovit obe odnim
 * fizicheskim parametrom.
 *
-* CHTO PROVERIT' PRI PERVOM ZAPUSKE V QSPICE:
-*   1. Rabotaet li podstanovka {VZLEV} v TARG. Esli QSpice ne evaluiruet
-*      vyrazhenie v urovne .meas - podstav'te chislo rukami:
-*      ugol 1: 4.462   ugol 2: 4.336   ugol 3: 4.205   ugol 4: 4.113
-*   2. Rabotajut li stroki PASS_* (.meas param so ssylkoj na drugie .meas).
-*      Proverka "slomaj naroчno": pomenjajte v odnom uglu ROH na 200.
-*      PASS_A1 objazan stat' nuljom. Esli ne stal - verdikty ne rabotajut,
-*      i sravnivat' pridjotsja glazami po tablice vyshe.
+* OSOBENNOSTI SINTAKSISA QSPICE, na kotoryh legko spotknut'sja:
+*   1. .meas s TRIG/TARG trebuet uslovie URAVNENIEM:  V(pin)=2.5
+*      Forma "V(pin) VAL=2.5" (kak v LTspice) dajot oshibku
+*      "Expected lhs=rhs".
+*   2. .model kljucha pishetsja BEZ skobok, i Ron/Roff/Vt/Vh objazatel'ny -
+*      znachenij po umolchaniju u QSpice net.
+*   3. Podstanovka {VZLEV} v uroven' TARG rabotaet - proverено.
 * ---------------------------------------------------------------------------
 .end
