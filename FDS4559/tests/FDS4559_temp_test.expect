@@ -1,0 +1,9 @@
+# =============================================================================
+# FDS4559_temp_test.cir expectations, TJ = 125 C
+# Source: onsemi FDS4559/D Rev.4, July 2022, p.2 RDS(on) table
+# =============================================================================
+# measurement    mode  tolerance  expected
+T1_N_R10_TYP      warn_rel      0.08      0.324
+T1_N_R10_MAX      max   0.02       0.423
+T2_P_R10_TYP      warn_rel      0.08      0.455
+T2_P_R10_MAX      max   0.02       0.665

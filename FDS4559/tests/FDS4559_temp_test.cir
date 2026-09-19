@@ -1,0 +1,34 @@
+* ============================================================================
+* FDS4559 - TEMPERATURE ANCHOR, TJ = 125 C
+*
+* Datasheet has exact tabulated RDS(on) values at 125 C only for VGS = +/-10 V.
+* This bench validates the temperature dependence independently from the 25 C
+* bench. It does NOT invent -35/+60 limits; those will be application corners.
+* ============================================================================
+
+.temp 125
+
+*** Q1 N-channel: VGS=10 V, ID=4.5 A, TJ=125 C
+*** typ 72 mOhm, max 94 mOhm => VDS 0.324 / 0.423 V
+V_NG n_g 0 10
+I_NR 0 n_r 4.5
+M_NR n_r n_g 0 0 FDS4559_N
+
+*** Q2 P-channel: VGS=-10 V, ID=-3.5 A, TJ=125 C
+*** typ 130 mOhm, max 190 mOhm => VSD 0.455 / 0.665 V
+V_PG p_g 0 -10
+I_PR p_r 0 3.5
+M_PR p_r p_g 0 0 FDS4559_P
+
+.lib ../FDS4559_N.txt
+.lib ../FDS4559_P.txt
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 20u 0 50n
+
+.meas TRAN T1_N_R10_TYP AVG V(n_r)   FROM=15u TO=20u
+.meas TRAN T1_N_R10_MAX AVG V(n_r)   FROM=15u TO=20u
+.meas TRAN T2_P_R10_TYP AVG V(0,p_r) FROM=15u TO=20u
+.meas TRAN T2_P_R10_MAX AVG V(0,p_r) FROM=15u TO=20u
+
+.plot V(n_r) V(0,p_r)
+.end

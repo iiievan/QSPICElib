@@ -1,0 +1,28 @@
+# =============================================================================
+# FDS4559_test.cir expectations
+# Source: onsemi FDS4559/D Rev.4, July 2022, electrical characteristics pp.2-3
+#
+# Typ targets validate the nominal model fit.
+# Min/Max targets validate guaranteed datasheet bounds.
+# For RDS(on), the bench measures VDS/VSD at the exact datasheet current,
+# therefore expected voltages below are I * RDS(on).
+# =============================================================================
+# measurement   mode  tolerance  expected
+N1_VTH_TYP      warn_abs      0.25      2.2
+N1_VTH_MIN      min   0.02       1.0
+N1_VTH_MAX      max   0.02       3.0
+N2_R10_TYP      warn_rel      0.08      0.189
+N2_R10_MAX      max   0.02       0.2475
+N3_R45_TYP      warn_rel      0.08      0.220
+N3_R45_MAX      max   0.02       0.300
+N4_VSD_TYP      warn_abs      0.08      0.8
+N4_VSD_MAX      max   0.02       1.2
+P1_VTH_TYP      warn_abs      0.25      1.6
+P1_VTH_MIN      min   0.02       1.0
+P1_VTH_MAX      max   0.02       3.0
+P2_R10_TYP      warn_rel      0.08      0.287
+P2_R10_MAX      max   0.02       0.3675
+P3_R45_TYP      warn_rel      0.08      0.3255
+P3_R45_MAX      max   0.02       0.4185
+P4_VSD_TYP      warn_abs      0.08      0.8
+P4_VSD_MAX      max   0.02       1.2

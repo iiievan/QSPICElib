@@ -2,15 +2,20 @@
 # =============================================================================
 #  run_tests.sh - regressionnyj progon biblioteki modelej QSPICE
 #
-#  Nahodit stendy po maske */tests/*_test.cir, prognaet cherez QSPICE64,
-#  izvlekaet .meas cherez QPOST, sravnivaet s fajlom ozhidanij *.expect
-#  i pechataet svodku. Kod vozvrata: 0 - vsjo proshlo, 1 - provaly,
-#  2 - oshibka okruzhenija.
+#  Po umolchaniju nahodit core-stendy <component>/tests/*_test.cir. Application
+#  stendy zapuskajutsja javnym putem ili --all. Izvlekaet .meas cherez QPOST,
+#  sravnivaet s fajlom ozhidanij *.expect
+#  i pechataet svodku. Kod vozvrata: 0 - hard-trebovanija proshli (WARN dopustimy),
+#  1 - est' FAIL, 2 - oshibka okruzhenija.
+#
+#  WARN_AS_FAIL=1 delaet WARN fatal'nymi dlja CI.
 #
 #  ZAPUSK iz Git Bash:
 #      chmod +x run_tests.sh
 #      ./run_tests.sh
 #      ./run_tests.sh 74HCT244            # tol'ko odin komponent
+#      ./run_tests.sh applications/S6061NS-40DF
+#      ./run_tests.sh --all                # core + application tests
 #      KEEP_RAW=1 ./run_tests.sh          # ne udaljat' .qraw
 #      QSPICE_DIR="/c/Qspice" ./run_tests.sh
 #
@@ -20,10 +25,15 @@
 #      A1_VOH       abs     0.03    4.20  3.98  3.84  3.70
 #      A3_TPLH      max     0.15    14n   20n   25n   30n
 #
-#  rezhimy: abs |izm-ozh| <= dopusk
+#  hard-rezhimy:
+#           abs |izm-ozh| <= dopusk
 #           rel |izm-ozh| <= dopusk*ozh
 #           max  izm <= ozh*(1+dopusk)     dlja predel'nyh znachenij dashita
 #           min  izm >= ozh*(1-dopusk)
+#  warning-rezhimy (ne valjat CI):
+#           warn_abs | warn_rel | warn_max | warn_min
+#  Tipichnye/nominal'nye tochki dashita sleduet proverjat' cherez WARN,
+#  garantirovannye min/max i application requirements - cherez hard-rezhimy.
 #  Suffiksy p n u m k ponimajutsja. Uglov mozhet byt' men'she, chem shagov
 #  .step - togda poslednee znachenie ispol'zuetsja dlja ostavshihsja.
 #
@@ -41,8 +51,9 @@
 set -u
 
 QSPICE_DIR="${QSPICE_DIR:-/c/Program Files/QSPICE}"
-COMPONENT="${1:-*}"
+TARGET="${1:-}"
 KEEP_RAW="${KEEP_RAW:-0}"
+WARN_AS_FAIL="${WARN_AS_FAIL:-0}"
 
 QSPICE="$QSPICE_DIR/QSPICE64.exe"
 QPOST="$QSPICE_DIR/QPOST.exe"
@@ -104,31 +115,60 @@ NR==FNR {
 {
     nm = $1
     if (!(nm in mode)) { printf "SKIP|%s|%s\n", nm, $2; next }
+
+    md = mode[nm]
+    severity = "FAIL"
+    if (substr(md, 1, 5) == "warn_") {
+        severity = "WARN"
+        md = substr(md, 6)
+    }
+
     split($2, v, " ")
     bad = ""
     for (i = 1; i in v; i++) {
         m = v[i] + 0
         e = (nexp[nm] >= i) ? exp_v[nm, i] : exp_v[nm, nexp[nm]]
         ok = 0
-        if      (mode[nm] == "abs") ok = (m - e < tol[nm] && e - m < tol[nm])
-        else if (mode[nm] == "rel") ok = (m - e < tol[nm]*e && e - m < tol[nm]*e)
-        else if (mode[nm] == "max") ok = (m <= e * (1 + tol[nm]))
-        else if (mode[nm] == "min") ok = (m >= e * (1 - tol[nm]))
+        if      (md == "abs") ok = (m - e < tol[nm] && e - m < tol[nm])
+        else if (md == "rel") ok = (m - e < tol[nm]*e && e - m < tol[nm]*e)
+        else if (md == "max") ok = (m <= e * (1 + tol[nm]))
+        else if (md == "min") ok = (m >= e * (1 - tol[nm]))
+        else {
+            printf "BADMODE|%s|%s|%s\n", nm, $2, mode[nm]
+            next
+        }
         if (!ok) bad = bad " " i
     }
-    if (bad == "") printf "OK|%s|%s\n", nm, $2
-    else           printf "FAIL|%s|%s|%s\n", nm, $2, substr(bad, 2)
+    if (bad == "")          printf "OK|%s|%s\n", nm, $2
+    else if (severity=="WARN") printf "WARN|%s|%s|%s\n", nm, $2, substr(bad, 2)
+    else                     printf "FAIL|%s|%s|%s\n", nm, $2, substr(bad, 2)
 }
 AWK
 
-mapfile -t BENCHES < <(find . -path "./$COMPONENT/tests/*_test.cir" | sort)
+if [ -z "$TARGET" ]; then
+    # Po umolchaniju regression biblioteki: tol'ko komponenty verhnego urovnja.
+    # applications/ ne dolzhny delat' universal'nuju biblioteku zavisimoj ot odnogo izdelija.
+    mapfile -t BENCHES < <(find . -mindepth 3 -maxdepth 3 -type f -path "./*/tests/*_test.cir" | sort)
+elif [ "$TARGET" = "--all" ]; then
+    mapfile -t BENCHES < <(find . -type f -path "*/tests/*_test.cir" | sort)
+elif [ -d "$TARGET" ]; then
+    mapfile -t BENCHES < <(find "$TARGET" -type f -path "*/tests/*_test.cir" | sort)
+elif [ -d "./$TARGET" ]; then
+    mapfile -t BENCHES < <(find "./$TARGET" -type f -path "*/tests/*_test.cir" | sort)
+else
+    echo "${YEL}Ne najden katalog: $TARGET${RST}"
+    exit 2
+fi
 [ "${#BENCHES[@]}" -gt 0 ] || { echo "${YEL}Stendy ne najdeny${RST}"; exit 2; }
 
 echo
 echo "Najdeno stendov: ${#BENCHES[@]}"
 printf '=%.0s' {1..70}; echo
 
+TOTAL_PASS=0
+TOTAL_WARN=0
 TOTAL_FAIL=0
+TOTAL_SKIP=0
 
 for bench in "${BENCHES[@]}"; do
     dir="$(dirname "$bench")"; file="$(basename "$bench")"; name="${file%.cir}"
@@ -163,10 +203,16 @@ for bench in "${BENCHES[@]}"; do
 
     while IFS='|' read -r st nm vals which; do
         case "$st" in
-            OK)   printf "    %-14s ${GRN}ok${RST}\n" "$nm" ;;
+            OK)   printf "    %-14s ${GRN}PASS${RST}\n" "$nm"
+                  TOTAL_PASS=$((TOTAL_PASS+1)) ;;
+            WARN) printf "    %-14s ${YEL}WARN${RST} (ugly: %s)\n" "$nm" "$which"
+                  TOTAL_WARN=$((TOTAL_WARN+1)) ;;
             FAIL) printf "    %-14s ${RED}FAIL${RST} (ugly: %s)\n" "$nm" "$which"
                   TOTAL_FAIL=$((TOTAL_FAIL+1)) ;;
-            SKIP) printf "${DIM}    %-14s  net v .expect${RST}\n" "$nm" ;;
+            SKIP) printf "${DIM}    %-14s  net v .expect${RST}\n" "$nm"
+                  TOTAL_SKIP=$((TOTAL_SKIP+1)) ;;
+            BADMODE) printf "    %-14s ${RED}NEIZVESTNYJ REZHIM: %s${RST}\n" "$nm" "$which"
+                     TOTAL_FAIL=$((TOTAL_FAIL+1)) ;;
         esac
         printf "${DIM}    %-14s %s${RST}\n" "" "$vals"
     done < <(echo "$parsed" | awk "$CHECK_AWK" "$name.expect" -)
@@ -177,8 +223,22 @@ done
 
 echo
 printf '=%.0s' {1..70}; echo
-if [ "$TOTAL_FAIL" -eq 0 ]; then
-    echo "${GRN}VSE STENDY PROSHLI${RST}"; exit 0
-else
-    echo "${RED}PROVALENO: $TOTAL_FAIL${RST}"; exit 1
+printf "PASS: ${GRN}%d${RST}  WARN: ${YEL}%d${RST}  FAIL: ${RED}%d${RST}" \
+       "$TOTAL_PASS" "$TOTAL_WARN" "$TOTAL_FAIL"
+[ "$TOTAL_SKIP" -eq 0 ] || printf "  SKIP: ${DIM}%d${RST}" "$TOTAL_SKIP"
+echo
+
+if [ "$TOTAL_FAIL" -gt 0 ]; then
+    echo "${RED}EST' HARD FAIL: $TOTAL_FAIL${RST}"
+    exit 1
 fi
+if [ "$TOTAL_WARN" -gt 0 ]; then
+    if [ "$WARN_AS_FAIL" = "1" ]; then
+        echo "${RED}WARN_AS_FAIL=1: WARN SCHITAJUTSJA KAK FAIL; WARN=$TOTAL_WARN${RST}"
+        exit 1
+    fi
+    echo "${YEL}VSE HARD-TREBOVANIJA PROSHLI; WARN: $TOTAL_WARN${RST}"
+    exit 0
+fi
+echo "${GRN}VSE STENDY PROSHLI BEZ PREDUPREZHDENIJ${RST}"
+exit 0

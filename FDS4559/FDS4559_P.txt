@@ -1,0 +1,6 @@
+.model FDS4559_P VDMOS pchan Rs=36.1m Rd=36.1m Rg=9
++ Vto=-2.09 Kp=17.6 lambda=17.8m RonX=0.743 eta=75m Vtotc=2m
++ Is=11.9p N=1.17481 Rb=15.5m Eg=1.11 XTI=3.70972 trb1=1.47m
++ Cgs=872p Cgdmin=47.1p Cgdmax=519p Cjo=0 Tnom=25 mfg="ONSEMI"
++ Vds=-60 Ids=-3.5 Ron=82m Qg=15n
++ Trs1=6.0m Trd1=6.0m

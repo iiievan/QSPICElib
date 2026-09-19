@@ -1,0 +1,136 @@
+* ============================================================================
+* S6061NS-40DF - APPLICATION HALF-BRIDGE STATIC TEST, VBUS = 24 V
+*
+* This is NOT a datasheet fixture. It reproduces one phase leg of the planned
+* SOLOON controller using the already verified library blocks:
+*
+*   M032 3.3 V -> 74HCT244 @ 5 V -> 470R -> N-MOS gate
+*   M032 3.3 V -> ULQ2003A -> 1k/1k divider -> P-MOS gate
+*   FDS4559 complementary half bridge, 24 V bus
+*
+* Four independent copies are used so both bridge states can be checked at
+* the two application currents without changing the DUT during the temperature sweep:
+*   HS_ON  @ 0.15 A   normal running current
+*   HS_ON  @ 0.50 A   squeeze/current-limit target
+*   LS_ON  @ 0.15 A
+*   LS_ON  @ 0.50 A
+*
+* Temperature corners: -35 / +25 / +60 C. Only the FDS4559 model has a real
+* temperature law. 74HCT244 is instantiated with its -40...+85 C guaranteed
+* corner and ULQ2003A with its 25 C Max corner, i.e. gate drive is deliberately
+* conservative rather than pretending those behavioural models are thermal.
+*
+* The .expect file contains S6061NS-40DF application requirements, not library/datasheet targets.
+* ============================================================================
+
+.temp -35 25 60
+
+*** Common supplies and logic levels
+V_BUS   vbus  0  24
+V_5     v5    0  5
+V_OE    oeb   0  0
+V_P_ON  p_on  0  3.3
+V_P_OFF p_off 0  0
+V_N_ON  n_on  0  3.3
+V_N_OFF n_off 0  0
+
+*** Conservative driver corners used by every copy
+* 74HCT244 corner 3: guaranteed -40...+85 C
+* ULQ2003A corner 2: Max electrical characteristics at 25 C
+
+*** ========================================================================
+*** H15 - HIGH SIDE ON, 0.15 A
+*** ========================================================================
+M_P_H15 h15 pg_h15 vbus vbus FDS4559_P
+M_N_H15 h15 ng_h15 0    0    FDS4559_N
+R_PU_H15 vbus   pg_h15 1k
+R_PD_H15 pg_h15 u_h15  1k
+X_U_H15  p_on u_h15 vbus 0 ULQ2003A
++ params: VSAT=0.90 RON=2.0 TPDU=0.8u VTHU=2.4 RIN=1.846k RSD=3.26
+X_H_H15  n_off oeb d_h15 v5 0 74HCT244
++ params: ROH=110 ROL=55 TPD=15n TPDZ=23n
+R_NG_H15 d_h15 ng_h15 470
+I_LOAD_H15 h15 0 150m
+
+*** ========================================================================
+*** H50 - HIGH SIDE ON, 0.50 A
+*** ========================================================================
+M_P_H50 h50 pg_h50 vbus vbus FDS4559_P
+M_N_H50 h50 ng_h50 0    0    FDS4559_N
+R_PU_H50 vbus   pg_h50 1k
+R_PD_H50 pg_h50 u_h50  1k
+X_U_H50  p_on u_h50 vbus 0 ULQ2003A
++ params: VSAT=0.90 RON=2.0 TPDU=0.8u VTHU=2.4 RIN=1.846k RSD=3.26
+X_H_H50  n_off oeb d_h50 v5 0 74HCT244
++ params: ROH=110 ROL=55 TPD=15n TPDZ=23n
+R_NG_H50 d_h50 ng_h50 470
+I_LOAD_H50 h50 0 500m
+
+*** ========================================================================
+*** L15 - LOW SIDE ON, 0.15 A
+*** ========================================================================
+M_P_L15 l15 pg_l15 vbus vbus FDS4559_P
+M_N_L15 l15 ng_l15 0    0    FDS4559_N
+R_PU_L15 vbus   pg_l15 1k
+R_PD_L15 pg_l15 u_l15  1k
+X_U_L15  p_off u_l15 vbus 0 ULQ2003A
++ params: VSAT=0.90 RON=2.0 TPDU=0.8u VTHU=2.4 RIN=1.846k RSD=3.26
+X_H_L15  n_on oeb d_l15 v5 0 74HCT244
++ params: ROH=110 ROL=55 TPD=15n TPDZ=23n
+R_NG_L15 d_l15 ng_l15 470
+I_LOAD_L15 vbus l15 150m
+
+*** ========================================================================
+*** L50 - LOW SIDE ON, 0.50 A
+*** ========================================================================
+M_P_L50 l50 pg_l50 vbus vbus FDS4559_P
+M_N_L50 l50 ng_l50 0    0    FDS4559_N
+R_PU_L50 vbus   pg_l50 1k
+R_PD_L50 pg_l50 u_l50  1k
+X_U_L50  p_off u_l50 vbus 0 ULQ2003A
++ params: VSAT=0.90 RON=2.0 TPDU=0.8u VTHU=2.4 RIN=1.846k RSD=3.26
+X_H_L50  n_on oeb d_l50 v5 0 74HCT244
++ params: ROH=110 ROL=55 TPD=15n TPDZ=23n
+R_NG_L50 d_l50 ng_l50 470
+I_LOAD_L50 vbus l50 500m
+
+.lib ../../../FDS4559/FDS4559_N.txt
+.lib ../../../FDS4559/FDS4559_P.txt
+.lib ../../../74HCT244/74HCT244.txt
+.lib ../../../ULQ2003A/ULQ2003A.txt
+
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 100u 0 20n
+
+*** ------------------------------ MEASUREMENTS -----------------------------
+* Conduction drop. Same physical measure is compared with one hard max.
+.meas TRAN HB_H15_DROP_MAX AVG V(vbus,h15) FROM=80u TO=100u
+.meas TRAN HB_H50_DROP_MAX AVG V(vbus,h50) FROM=80u TO=100u
+.meas TRAN HB_L15_DROP_MAX AVG V(l15)      FROM=80u TO=100u
+.meas TRAN HB_L50_DROP_MAX AVG V(l50)      FROM=80u TO=100u
+
+* High-side ON gate drive: positive magnitude VSG = V(source,gate).
+.meas TRAN HB_H15_VSG_MIN  AVG V(vbus,pg_h15) FROM=80u TO=100u
+.meas TRAN HB_H15_VSG_MAX  AVG V(vbus,pg_h15) FROM=80u TO=100u
+.meas TRAN HB_H50_VSG_MIN  AVG V(vbus,pg_h50) FROM=80u TO=100u
+.meas TRAN HB_H50_VSG_MAX  AVG V(vbus,pg_h50) FROM=80u TO=100u
+
+* N-channel must remain positively driven when LOW side is selected.
+.meas TRAN HB_L15_VGS_MIN  AVG V(ng_l15) FROM=80u TO=100u
+.meas TRAN HB_L15_VGS_MAX  AVG V(ng_l15) FROM=80u TO=100u
+.meas TRAN HB_L50_VGS_MIN  AVG V(ng_l50) FROM=80u TO=100u
+.meas TRAN HB_L50_VGS_MAX  AVG V(ng_l50) FROM=80u TO=100u
+
+* Opposite device must be truly OFF in each static bridge state.
+.meas TRAN HB_H15_NG_OFF   AVG V(ng_h15)         FROM=80u TO=100u
+.meas TRAN HB_H50_NG_OFF   AVG V(ng_h50)         FROM=80u TO=100u
+.meas TRAN HB_L15_PG_OFF   AVG V(vbus,pg_l15)    FROM=80u TO=100u
+.meas TRAN HB_L50_PG_OFF   AVG V(vbus,pg_l50)    FROM=80u TO=100u
+
+* ULQ2003A collector voltage in the heaviest high-side state. This verifies
+* that a 3.3 V M032 output still drives the conservative Max-corner ULQ model.
+.meas TRAN HB_ULQ_VCE_MAX  AVG V(u_h50) FROM=80u TO=100u
+
+.plot V(h50) V(l50)
+.plot V(vbus,pg_h50) V(ng_l50) V(u_h50)
+.end

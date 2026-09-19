@@ -1,0 +1,119 @@
+* ============================================================================
+* FDS4559 - DC VERIFICATION BENCH, TA = 25 C
+*
+* Models:  ../FDS4559_N.txt / ../FDS4559_P.txt
+* Datasheet: onsemi FDS4559/D Rev.4, July 2022
+*
+* RUN: from library root:  ./run_tests.sh FDS4559
+*
+* The bench ONLY measures. Limits/typical targets live in FDS4559_test.expect.
+* Several .meas lines intentionally read the same node: one checks the typical
+* fit and another checks the guaranteed datasheet limit.
+* ============================================================================
+
+.temp 25
+
+*** ------------------------------------------------------------------------
+*** N1 - Gate threshold, Q1 N-channel
+*** Datasheet p.2: VDS = VGS, ID = 250 uA; min 1.0, typ 2.2, max 3.0 V
+*** Diode-connected MOSFET; current source forces 250 uA.
+*** ------------------------------------------------------------------------
+I_NTH 0 n_th 250u
+M_NTH n_th n_th 0 0 FDS4559_N
+
+*** ------------------------------------------------------------------------
+*** N2 - RDS(on), Q1 N-channel, VGS = 10 V, ID = 4.5 A
+*** Datasheet: typ 42 mOhm, max 55 mOhm
+*** Expected VDS = I*R = 0.189 V typ, 0.2475 V max.
+*** ------------------------------------------------------------------------
+V_NG10 n_g10 0 10
+I_NR10 0 n_r10 4.5
+M_NR10 n_r10 n_g10 0 0 FDS4559_N
+
+*** ------------------------------------------------------------------------
+*** N3 - RDS(on), Q1 N-channel, VGS = 4.5 V, ID = 4.0 A
+*** Datasheet: typ 55 mOhm, max 75 mOhm
+*** Expected VDS = 0.220 V typ, 0.300 V max.
+*** ------------------------------------------------------------------------
+V_NG45 n_g45 0 4.5
+I_NR45 0 n_r45 4
+M_NR45 n_r45 n_g45 0 0 FDS4559_N
+
+*** ------------------------------------------------------------------------
+*** N4 - Body diode, Q1 N-channel
+*** Datasheet p.3: VGS = 0, IS = 1.3 A; typ 0.8 V, max 1.2 V.
+*** Pulling drain below source forward-biases the intrinsic diode.
+*** ------------------------------------------------------------------------
+V_NGD n_gd 0 0
+I_NDIO n_dio 0 1.3
+M_NDIO n_dio n_gd 0 0 FDS4559_N
+
+*** ------------------------------------------------------------------------
+*** P1 - Gate threshold, Q2 P-channel
+*** Datasheet p.2: VDS = VGS, ID = -250 uA; -1 / -1.6 / -3 V.
+*** We measure |VGS| = V(source,gate), hence positive 1 / 1.6 / 3 V.
+*** This is also the first polarity sanity check for the generated PMOS model.
+*** ------------------------------------------------------------------------
+I_PTH p_th 0 250u
+M_PTH p_th p_th 0 0 FDS4559_P
+
+*** ------------------------------------------------------------------------
+*** P2 - RDS(on), Q2 P-channel, VGS = -10 V, ID = -3.5 A
+*** Datasheet: typ 82 mOhm, max 105 mOhm
+*** Source = 0 V, gate = -10 V, drain is pulled negative by 3.5 A.
+*** We measure VSD = V(source,drain): 0.287 V typ, 0.3675 V max.
+*** ------------------------------------------------------------------------
+V_PG10 p_g10 0 -10
+I_PR10 p_r10 0 3.5
+M_PR10 p_r10 p_g10 0 0 FDS4559_P
+
+*** ------------------------------------------------------------------------
+*** P3 - RDS(on), Q2 P-channel, VGS = -4.5 V, ID = -3.1 A
+*** Datasheet: typ 105 mOhm, max 135 mOhm
+*** Expected VSD = 0.3255 V typ, 0.4185 V max.
+*** ------------------------------------------------------------------------
+V_PG45 p_g45 0 -4.5
+I_PR45 p_r45 0 3.1
+M_PR45 p_r45 p_g45 0 0 FDS4559_P
+
+*** ------------------------------------------------------------------------
+*** P4 - Body diode, Q2 P-channel
+*** Datasheet p.3: VGS = 0, IS = -1.3 A; typ -0.8 V, max -1.2 V.
+*** We measure magnitude VDS = V(drain,source), hence +0.8 / +1.2 V.
+*** ------------------------------------------------------------------------
+V_PGD p_gd 0 0
+I_PDIO 0 p_dio 1.3
+M_PDIO p_dio p_gd 0 0 FDS4559_P
+
+.lib ../FDS4559_N.txt
+.lib ../FDS4559_P.txt
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 20u 0 50n
+
+*** ------------------------------ MEASUREMENTS -----------------------------
+* Threshold: duplicate measures intentionally check typical + both limits.
+.meas TRAN N1_VTH_TYP AVG V(n_th)   FROM=15u TO=20u
+.meas TRAN N1_VTH_MIN AVG V(n_th)   FROM=15u TO=20u
+.meas TRAN N1_VTH_MAX AVG V(n_th)   FROM=15u TO=20u
+
+.meas TRAN N2_R10_TYP AVG V(n_r10)  FROM=15u TO=20u
+.meas TRAN N2_R10_MAX AVG V(n_r10)  FROM=15u TO=20u
+.meas TRAN N3_R45_TYP AVG V(n_r45)  FROM=15u TO=20u
+.meas TRAN N3_R45_MAX AVG V(n_r45)  FROM=15u TO=20u
+.meas TRAN N4_VSD_TYP AVG V(0,n_dio) FROM=15u TO=20u
+.meas TRAN N4_VSD_MAX AVG V(0,n_dio) FROM=15u TO=20u
+
+.meas TRAN P1_VTH_TYP AVG V(0,p_th)  FROM=15u TO=20u
+.meas TRAN P1_VTH_MIN AVG V(0,p_th)  FROM=15u TO=20u
+.meas TRAN P1_VTH_MAX AVG V(0,p_th)  FROM=15u TO=20u
+
+.meas TRAN P2_R10_TYP AVG V(0,p_r10) FROM=15u TO=20u
+.meas TRAN P2_R10_MAX AVG V(0,p_r10) FROM=15u TO=20u
+.meas TRAN P3_R45_TYP AVG V(0,p_r45) FROM=15u TO=20u
+.meas TRAN P3_R45_MAX AVG V(0,p_r45) FROM=15u TO=20u
+.meas TRAN P4_VSD_TYP AVG V(p_dio)   FROM=15u TO=20u
+.meas TRAN P4_VSD_MAX AVG V(p_dio)   FROM=15u TO=20u
+
+.plot V(n_th) V(n_r10) V(n_r45) V(0,n_dio)
+.plot V(0,p_th) V(0,p_r10) V(0,p_r45) V(p_dio)
+.end
