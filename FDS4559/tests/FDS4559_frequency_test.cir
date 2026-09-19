@@ -17,7 +17,12 @@
 * hard functional invariant, while edge-time limits are diagnostic WARNs.
 *
 * One bridge and nine stepped corners replace the former 7 x 6 sweep matrix.
-* Only four voltages required by .meas are saved, keeping .qraw small.
+* Only seven voltages required by .meas are saved, keeping .qraw small.
+*
+* QPOST limitation found by the first real run:
+*   stepped parameters inside .meas PARAM and parameter-derived FROM/TO windows
+*   may remain frozen at the first step.  Measurements below therefore use the
+*   complete transient and echo CORNER through a physical DC voltage source.
 * ============================================================================
 
 .param VBUS=30
@@ -41,6 +46,7 @@
 
 V_BUS    vb 0 {VBUS}
 V_REF    vr 0 {VBUS/2}
+V_CORNER corner_echo 0 {CORNER}
 
 * P-channel drive: V(vb,pdrv) pulses 0 -> 10 V, so the gate goes 30 -> 20 V.
 V_GP     vb pdrv PULSE(0 {VDRV} {TSTART} 1n 1n {TON} {TPER})
@@ -60,21 +66,26 @@ R_LOAD   sw vr {RLOAD}
 .tran 0 {TSTART+3*TPER} 0 {TMAX}
 
 * Keep QPOST input deliberately small.
-.save V(vb) V(pg) V(ng) V(sw)
+.save V(vb) V(pdrv) V(pg) V(ndrv) V(ng) V(sw) V(corner_echo)
 
-* Direct corner echo also proves that QPOST returned all nine steps.
-.meas TRAN ECHO_CORNER PARAM {CORNER}
+* A measured physical node avoids frozen .meas PARAM expressions.
+.meas TRAN ECHO_CORNER AVG V(corner_echo)
 
-* Complete gate drive and rail reach over the two final periods.
-.meas TRAN HB_P_VSG_PK MAX V(vb,pg) FROM={TSTART+TPER} TO={TSTART+3*TPER}
-.meas TRAN HB_N_VGS_PK MAX V(ng)    FROM={TSTART+TPER} TO={TSTART+3*TPER}
-.meas TRAN HB_SW_MAX    MAX V(sw)    FROM={TSTART+TPER} TO={TSTART+3*TPER}
-.meas TRAN HB_SW_MIN    MIN V(sw)    FROM={TSTART+TPER} TO={TSTART+3*TPER}
+* Full-transient extrema are safe here: the initial 0/15-V state cannot make
+* any of these four limits pass accidentally.
+.meas TRAN HB_P_VSG_PK MAX V(vb,pg)
+.meas TRAN HB_N_VGS_PK MAX V(ng)
+.meas TRAN HB_SW_MAX    MAX V(sw)
+.meas TRAN HB_SW_MIN    MIN V(sw)
 
-* The initial switch node is VBUS/2.  RISE=1 therefore selects the first
-* complete low-to-high transition; FALL=1 selects the first high-to-low one.
-.meas TRAN HB_SW_TR TRIG V(sw)={0.1*VBUS} RISE=1 TARG V(sw)={0.9*VBUS} RISE=1
-.meas TRAN HB_SW_TF TRIG V(sw)={0.9*VBUS} FALL=1 TARG V(sw)={0.1*VBUS} FALL=1
+* Measure from the 50% driver-command crossing, ahead of RGEN, to the output
+* rail.  This matches the intent of datasheet switching-delay measurements,
+* excludes the deliberate 500-ns dead time and prevents QPOST from pairing
+* a trigger in one cycle with a target in another cycle.
+.meas TRAN HB_TO_HIGH     TRIG V(vb,pdrv)={VDRV/2} RISE=1 TARG V(sw)={0.9*VBUS} RISE=1
+.meas TRAN HB_TO_HIGH_POS TRIG V(vb,pdrv)={VDRV/2} RISE=1 TARG V(sw)={0.9*VBUS} RISE=1
+.meas TRAN HB_TO_LOW      TRIG V(ndrv)={VDRV/2}    RISE=1 TARG V(sw)={0.1*VBUS} FALL=1
+.meas TRAN HB_TO_LOW_POS  TRIG V(ndrv)={VDRV/2}    RISE=1 TARG V(sw)={0.1*VBUS} FALL=1
 
 .plot V(sw) V(vb,pg) V(ng)
 .end

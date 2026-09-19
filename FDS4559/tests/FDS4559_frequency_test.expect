@@ -17,5 +17,7 @@ HB_P_VSG_PK      min        0.01       9
 HB_N_VGS_PK      min        0.01       9
 HB_SW_MAX        min        0          27
 HB_SW_MIN        max        0          3
-HB_SW_TR         warn_max   0          250n
-HB_SW_TF         warn_max   0          250n
+HB_TO_HIGH       warn_max   0          250n
+HB_TO_HIGH_POS   min        0          0
+HB_TO_LOW        warn_max   0          250n
+HB_TO_LOW_POS    min        0          0
