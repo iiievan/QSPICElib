@@ -1,0 +1,22 @@
+* TI LM358B section 5.5, G=+1 slew rate; rated-temperature functional sweep.
+* TI SLOS068AB, October 2024. See TEST_README.md for provenance.
+* PREVIEW: TI LM358B acceptance run pending.
+.step temp list -40 25 85
+.lib ../LM358B.txt
+V_CC cc 0 15
+V_IN inp 0 PWL(0 2 10u 2 10.01u 4 50u 4 50.01u 2 100u 2)
+X_DUT inp out cc 0 out LM358B
+R_LOAD out 0 10k
+B_ERR err 0 V={abs(V(out,inp))}
+B_ET et 0 V={temp}
+.tran 0 100u 0 10n
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(err) V(et) V(out)
+.meas TRAN RISE_1V_TIME TRIG V(out)=2.5 RISE=1 TD=10u TARG V(out)=3.5 RISE=1 TD=10u
+.meas TRAN FALL_1V_TIME TRIG V(out)=3.5 FALL=1 TD=50u TARG V(out)=2.5 FALL=1 TD=50u
+.meas TRAN HIGH_SETTLED MAX V(err) FROM=40u TO=45u
+.meas TRAN LOW_SETTLED MAX V(err) FROM=90u TO=95u
+.meas TRAN OUTPUT_LOWER_BOUND MIN V(out)
+.meas TRAN OUTPUT_UPPER_BOUND MAX V(out)
+.meas TRAN ACTUAL_TEMP AVG V(et) FROM=90u TO=95u
+.end

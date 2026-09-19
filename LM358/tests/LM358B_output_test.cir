@@ -1,0 +1,60 @@
+* TI LM358B output table, section 5.5; 25 C.
+* PREVIEW: TI LM358B acceptance run pending.
+.temp 25
+.lib ../LM358B.txt
+V_CC cc 0 5
+V_HP hp 0 2
+V_HM hm 0 1
+X_H50 hp hm cc 0 h50 LM358B
+I_H50 h50 0 50u
+X_H1M hp hm cc 0 h1m LM358B
+I_H1M h1m 0 1m
+X_H5M hp hm cc 0 h5m LM358B
+I_H5M h5m 0 5m
+B_HEAD50 head50 0 V={5-V(h50)}
+B_HEAD1M head1m 0 V={5-V(h1m)}
+B_HEAD5M head5m 0 V={5-V(h5m)}
+V_LP lp 0 0
+V_LM lm 0 1
+X_LOW lp lm cc 0 low LM358B
+R_LOW low 0 10k
+V_SRC_CC src_cc 0 15
+V_SRC_P src_p 0 2
+V_SRC_M src_m 0 1
+V_SRC_O src_o 0 7.5
+X_SRC src_p src_m src_cc 0 src_o LM358B
+B_SRC_I src_i 0 V={I(V_SRC_O)}
+V_SNK_CC snk_cc 0 15
+V_SNK_P snk_p 0 1
+V_SNK_M snk_m 0 2
+V_SNK_O snk_o 0 15
+X_SNK snk_p snk_m snk_cc 0 snk_o LM358B
+B_SNK_I snk_i 0 V={-I(V_SNK_O)}
+V_LOW_O low_o 0 0.2
+X_LOW_I lp lm cc 0 low_o LM358B
+B_LOW_I low_i 0 V={-I(V_LOW_O)}
+V_ISC_CC isc_cc 0 20
+V_ISC_P isc_p 0 1
+V_ISC_M isc_m 0 0
+V_ISC_O isc_o 0 0
+X_ISC isc_p isc_m isc_cc 0 isc_o LM358B
+B_ISC_I isc_i 0 V={I(V_ISC_O)}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC HEADROOM_50U_TYP AVG V(head50)
+.meas DC HEADROOM_50U_MAX AVG V(head50)
+.meas DC HEADROOM_1M_TYP AVG V(head1m)
+.meas DC HEADROOM_1M_MAX AVG V(head1m)
+.meas DC HEADROOM_5M_TYP AVG V(head5m)
+.meas DC HEADROOM_5M_MAX AVG V(head5m)
+.meas DC VOL_TYP AVG V(low)
+.meas DC VOL_MAX AVG V(low)
+.meas DC ISOURCE_TYP AVG V(src_i)
+.meas DC ISOURCE_MIN AVG V(src_i)
+.meas DC ISINK_TYP AVG V(snk_i)
+.meas DC ISINK_MIN AVG V(snk_i)
+.meas DC ISINK_200MV_TYP AVG V(low_i)
+.meas DC ISINK_200MV_MIN AVG V(low_i)
+.meas DC ISC_TYP AVG V(isc_i)
+.meas DC ISC_MAX AVG V(isc_i)
+.end

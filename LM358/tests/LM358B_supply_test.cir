@@ -1,0 +1,36 @@
+* LM358B dual package IQ and loaded supply-current accounting
+* TI SLOS068AB, October 2024. See TEST_README.md for provenance.
+* PREVIEW: TI LM358B acceptance run pending.
+.step temp list -40 25 85
+.lib ../LM358B.txt
+V_Q5CC Q5cc 0 5
+V_Q5ONE Q5one 0 1
+X_Q5 Q5a Q5one 0 0 0 Q5one Q5b Q5cc LM358B_DUAL
+B_Q5_iq Q5_iq 0 V={-I(V_Q5CC)}
+V_Q36CC Q36cc 0 36
+V_Q36ONE Q36one 0 1
+X_Q36 Q36a Q36one 0 0 0 Q36one Q36b Q36cc LM358B_DUAL
+B_Q36_iq Q36_iq 0 V={-I(V_Q36CC)}
+V_CC0 cc0 0 5
+V_CC1 cc1 0 5
+V_REF ref 0 2
+X_IDLE ref idle cc0 0 idle LM358B
+X_LOAD ref loaded cc1 0 loaded LM358B
+R_LOAD loaded 0 1k
+B_accounting accounting 0 V={abs(-I(V_CC1)+I(V_CC0)-V(loaded)/1000)}
+B_actual_temp actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(Q36_iq) V(Q36a) V(Q36b) V(Q5_iq) V(Q5a) V(Q5b) V(accounting) V(actual_temp)
+.meas DC Q5_IQ_TYP AVG V(Q5_iq)
+.meas DC Q5_IQ_MAX AVG V(Q5_iq)
+.meas DC Q5_OUTA_LOW AVG V(Q5a)
+.meas DC Q5_OUTB_LOW AVG V(Q5b)
+.meas DC Q36_IQ_TYP AVG V(Q36_iq)
+.meas DC Q36_IQ_MAX AVG V(Q36_iq)
+.meas DC Q36_OUTA_LOW AVG V(Q36a)
+.meas DC Q36_OUTB_LOW AVG V(Q36b)
+.meas DC LOAD_CURRENT_ACCOUNTING AVG V(accounting)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

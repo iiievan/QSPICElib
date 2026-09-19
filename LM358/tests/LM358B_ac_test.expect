@@ -1,0 +1,10 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+GAIN_1HZ                 warn_abs  3          102.9226
+GAIN_100HZ               warn_abs  3          81.5836
+GAIN_1KHZ                warn_abs  3          61.5836
+GAIN_10KHZ               warn_abs  3          41.5836
+GAIN_100KHZ              warn_abs  3          21.5836
+GAIN_1MHZ                warn_abs  4          0
+FINITE_GAIN_1KHZ         min       0          100
+UNITY_CROSSING           warn_rel  0.3        1.2e6

@@ -1,0 +1,23 @@
+* TI LM358B section 5.5 and Fig.5-5; nominal AC fit.
+* TI SLOS068AB, October 2024. See TEST_README.md for provenance.
+* PREVIEW: TI LM358B acceptance run pending.
+.temp 25
+.lib ../LM358B.txt
+V_CC cc 0 15
+V_IN inp 0 DC 2 AC 1
+X_DUT inp inm cc 0 out LM358B
+R_LOAD out 0 10k
+L_DC out inm 1G
+C_AC inm 0 1
+.ac dec 80 1 10Meg
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(out)
+.meas AC GAIN_1HZ FIND 20*log10(abs(V(out))) AT=1
+.meas AC GAIN_100HZ FIND 20*log10(abs(V(out))) AT=100
+.meas AC GAIN_1KHZ FIND 20*log10(abs(V(out))) AT=1000
+.meas AC GAIN_10KHZ FIND 20*log10(abs(V(out))) AT=10000
+.meas AC GAIN_100KHZ FIND 20*log10(abs(V(out))) AT=100000
+.meas AC GAIN_1MHZ FIND 20*log10(abs(V(out))) AT=1000000
+.meas AC FINITE_GAIN_1KHZ FIND abs(V(out)) AT=1000
+.meas AC UNITY_CROSSING WHEN abs(V(out))=1 FALL=1
+.end

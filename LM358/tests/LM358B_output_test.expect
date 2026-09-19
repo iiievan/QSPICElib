@@ -1,0 +1,17 @@
+# TI SLOS068AB section 5.5; typ = WARN, min/max = hard.
+HEADROOM_50U_TYP        warn_abs  0.08       1.35
+HEADROOM_50U_MAX        max       0          1.42
+HEADROOM_1M_TYP         warn_abs  0.08       1.40
+HEADROOM_1M_MAX         max       0          1.48
+HEADROOM_5M_TYP         warn_abs  0.08       1.50
+HEADROOM_5M_MAX         max       0          1.61
+VOL_TYP                 warn_abs  0.002      5m
+VOL_MAX                 max       0          20m
+ISOURCE_TYP             warn_rel  0.15       30m
+ISOURCE_MIN             min       0          20m
+ISINK_TYP               warn_rel  0.15       20m
+ISINK_MIN               min       0          10m
+ISINK_200MV_TYP         warn_rel  0.15       100u
+ISINK_200MV_MIN         min       0          60u
+ISC_TYP                 warn_rel  0.3        40m
+ISC_MAX                 max       0          60m

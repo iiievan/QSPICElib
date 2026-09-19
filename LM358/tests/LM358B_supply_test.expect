@@ -1,0 +1,12 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+Q5_IQ_TYP                warn_rel  0.08       600u 600u 600u
+Q5_IQ_MAX                max       0          920u 920u 920u
+Q5_OUTA_LOW              max       0          20m 20m 20m
+Q5_OUTB_LOW              max       0          20m 20m 20m
+Q36_IQ_TYP               warn_rel  0.08       600u 600u 600u
+Q36_IQ_MAX               max       0          1.6m 1.6m 1.6m
+Q36_OUTA_LOW             max       0          20m 20m 20m
+Q36_OUTB_LOW             max       0          20m 20m 20m
+LOAD_CURRENT_ACCOUNTING  max       0          1u 1u 1u
+ACTUAL_TEMP              abs       0.001      -40 25 85

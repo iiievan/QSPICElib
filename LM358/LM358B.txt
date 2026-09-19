@@ -1,6 +1,6 @@
 * ============================================================================
-* LM358B / LM358BA - TI SLOS068AB, October 2024; model 0.1.0-preview
-* BEHAVIORAL NOMINAL FIT, NOT a TI transistor model. QSPICE validation pending.
+* LM358B / LM358BA - TI SLOS068AB, October 2024; model 0.2.0-preview
+* BEHAVIORAL NOMINAL FIT, NOT a TI transistor model. Full regression pending.
 * Reference: datasheets/LM358B-TI-SLOS068AB.pdf, section 5.5.
 * One amplifier: INP INM VCC VEE OUT. Two instances draw one package's IQ.
 * LM358B_DUAL below follows physical pins 1..8; it adds no extra supply current.
@@ -34,9 +34,9 @@
 .subckt LM358B INP INM VCC VEE OUT
 + params: VOS25=0.3m DVOSDT=3.5u IB25=10n TCIB=0 IOS25=0.5n DIOSDT=10p
 + AOL=140k GBW=1.2Meg FP2=1.8Meg SRP=500k SRN=500k
-+ CMRR=93.9794 PSRR=113.9794 RO=50 COUT=5p
++ CMRR=93.9794 PSRR=113.9794 RO=38.5 COUT=5p
 + ISRC=30m ISINK=20m ISINKLOW=100u VLOW=5m
-+ HEAD5=1.42 HEAD36=1.42 IQ5=600u IQ36=600u
++ HEAD5=1.4175 HEAD36=1.4175 IQ5=600u IQ36=600u
 
 * Physical temperature enters expressions, including .step temp runs.
 B_DT dt VEE V={temp-25}
@@ -52,10 +52,10 @@ B_IBP VCC INP I={max(IB25+TCIB*V(dt,VEE)
 B_IBM VCC INM I={max(IB25+TCIB*V(dt,VEE)
 + -(IOS25+DIOSDT*V(dt,VEE))/2,0)}
 
-* Dominant pole: C=1 nF; gm=2*pi*GBW*C. AOL is calibrated with RL=2 kohm.
+* Dominant pole: C=1 nF; gm=2*pi*GBW*C. AOL is calibrated with RL=10 kohm.
 * Separate rise/fall current limits give slew without an ideal voltage step.
 B_GM VEE dom I={limit(6.283185307179586*GBW*1n*V(err,VEE),-SRN*1n,SRP*1n)}
-R_DOM dom VEE {AOL*(1+RO/2000)/(6.283185307179586*GBW*1n)}
+R_DOM dom VEE {AOL*(1+RO/10000)/(6.283185307179586*GBW*1n)}
 C_DOM dom VEE 1n
 * Anti-windup prevents an unphysical thousand-volt hidden dominant-pole state.
 B_AW dom VEE I={max(V(dom,VEE)-max(V(VCC,VEE)-V(head,VEE),VLOW),0)

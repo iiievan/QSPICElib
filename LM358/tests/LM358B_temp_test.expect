@@ -1,0 +1,14 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+VOS_MAX                  max       0          4m 4m 4m
+VOS_NOMINAL_LINE         warn_abs  0.1m       0.0725m 0.3m 0.51m
+IB_MAX                   max       0          50n 50n 50n
+IOS_MAX                  max       0          5n 5n 5n
+IOS_NOMINAL_LINE         warn_abs  0.05n      0.15n 0.5n 1.1n
+AOL_MIN                  min       0          35k 35k 35k
+CML_OFFSET_MAX           max       0          4m 4m 4m
+CMH_OFFSET_MAX           max       0          4m 4m 4m
+VOH30_2K_MIN             min       0          27 27 27
+VOH30_10K_MIN            min       0          27 27 27
+VOL_MAX                  max       0          20m 20m 20m
+ACTUAL_TEMP              abs       0.001      -40 25 85

@@ -1,0 +1,95 @@
+* TI LM358B DC table, section 5.5; ideal static output servos.
+* TI SLOS068AB, October 2024. See TEST_README.md for provenance.
+* PREVIEW: TI LM358B acceptance run pending.
+.temp 25
+.lib ../LM358B.txt
+V_OS5LCC OS5Lcc 0 5
+V_OS5LCM OS5Lcm 0 0
+V_OS5LT OS5Lt 0 1.4
+E_OS5LS OS5Lbase OS5Lcm OS5Lout OS5Lt 1000
+V_OS5LIP OS5Lcm OS5Lip 0
+V_OS5LIM OS5Lbase OS5Lim 0
+X_OS5L OS5Lip OS5Lim OS5Lcc 0 OS5Lout LM358B
+B_OS5L_abs OS5L_abs 0 V={abs(V(OS5Lim,OS5Lip))}
+V_OS5HCC OS5Hcc 0 5
+V_OS5HCM OS5Hcm 0 3.29
+V_OS5HT OS5Ht 0 1.4
+E_OS5HS OS5Hbase OS5Hcm OS5Hout OS5Ht 1000
+V_OS5HIP OS5Hcm OS5Hip 0
+V_OS5HIM OS5Hbase OS5Him 0
+X_OS5H OS5Hip OS5Him OS5Hcc 0 OS5Hout LM358B
+B_OS5H_abs OS5H_abs 0 V={abs(V(OS5Him,OS5Hip))}
+V_OS30LCC OS30Lcc 0 30
+V_OS30LCM OS30Lcm 0 0
+V_OS30LT OS30Lt 0 1.4
+E_OS30LS OS30Lbase OS30Lcm OS30Lout OS30Lt 1000
+V_OS30LIP OS30Lcm OS30Lip 0
+V_OS30LIM OS30Lbase OS30Lim 0
+X_OS30L OS30Lip OS30Lim OS30Lcc 0 OS30Lout LM358B
+B_OS30L_abs OS30L_abs 0 V={abs(V(OS30Lim,OS30Lip))}
+V_OS30HCC OS30Hcc 0 30
+V_OS30HCM OS30Hcm 0 28.29
+V_OS30HT OS30Ht 0 1.4
+E_OS30HS OS30Hbase OS30Hcm OS30Hout OS30Ht 1000
+V_OS30HIP OS30Hcm OS30Hip 0
+V_OS30HIM OS30Hbase OS30Him 0
+X_OS30H OS30Hip OS30Him OS30Hcc 0 OS30Hout LM358B
+B_OS30H_abs OS30H_abs 0 V={abs(V(OS30Him,OS30Hip))}
+B_ib ib 0 V={-(I(V_OS5LIP)+I(V_OS5LIM))/2}
+B_ios ios 0 V={abs(I(V_OS5LIP)-I(V_OS5LIM))}
+V_GLOCC GLOcc 0 15
+V_GLOCM GLOcm 0 2
+V_GLOT GLOt 0 1
+E_GLOS GLObase GLOcm GLOout GLOt 1000
+V_GLOIP GLOcm GLOip 0
+V_GLOIM GLObase GLOim 0
+X_GLO GLOip GLOim GLOcc 0 GLOout LM358B
+R_GLOL GLOout 0 10000
+V_GHICC GHIcc 0 15
+V_GHICM GHIcm 0 2
+V_GHIT GHIt 0 11
+E_GHIS GHIbase GHIcm GHIout GHIt 1000
+V_GHIIP GHIcm GHIip 0
+V_GHIIM GHIbase GHIim 0
+X_GHI GHIip GHIim GHIcc 0 GHIout LM358B
+R_GHIL GHIout 0 10000
+B_aol aol 0 V={abs(V(GHIout,GLOout))/max(abs(V(GHIip,GHIim)-V(GLOip,GLOim)),1p)}
+V_CM0CC CM0cc 0 5
+V_CM0CM CM0cm 0 0
+V_CM0T CM0t 0 1.4
+E_CM0S CM0base CM0cm CM0out CM0t 1000
+V_CM0IP CM0cm CM0ip 0
+V_CM0IM CM0base CM0im 0
+X_CM0 CM0ip CM0im CM0cc 0 CM0out LM358B
+V_CM3CC CM3cc 0 5
+V_CM3CM CM3cm 0 3
+V_CM3T CM3t 0 1.4
+E_CM3S CM3base CM3cm CM3out CM3t 1000
+V_CM3IP CM3cm CM3ip 0
+V_CM3IM CM3base CM3im 0
+X_CM3 CM3ip CM3im CM3cc 0 CM3out LM358B
+B_cmrr cmrr 0 V={20*log10(3/max(abs(V(CM3im,CM3ip)-V(CM0im,CM0ip)),1p))}
+B_psrr psrr 0 V={20*log10(25/max(abs(V(OS30Lim,OS30Lip)-V(OS5Lim,OS5Lip)),1p))}
+B_actual_temp actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(OS30H_abs) V(OS30L_abs) V(OS5H_abs) V(OS5L_abs) V(actual_temp) V(aol) V(cmrr) V(ib) V(ios) V(psrr)
+.meas DC OS5L_MAX AVG V(OS5L_abs)
+.meas DC VOS_TYP AVG V(OS5L_abs)
+.meas DC OS5H_MAX AVG V(OS5H_abs)
+.meas DC OS30L_MAX AVG V(OS30L_abs)
+.meas DC OS30H_MAX AVG V(OS30H_abs)
+.meas DC IB_TYP AVG V(ib)
+.meas DC IB_MAX AVG V(ib)
+.meas DC IB_OUTWARD AVG V(ib)
+.meas DC IOS_TYP AVG V(ios)
+.meas DC IOS_MAX AVG V(ios)
+.meas DC AOL_TYP AVG V(aol)
+.meas DC AOL_MIN AVG V(aol)
+.meas DC CMRR_TYP AVG V(cmrr)
+.meas DC CMRR_MIN AVG V(cmrr)
+.meas DC PSRR_TYP AVG V(psrr)
+.meas DC PSRR_MIN AVG V(psrr)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end
