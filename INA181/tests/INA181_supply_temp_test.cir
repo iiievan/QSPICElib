@@ -1,0 +1,37 @@
+* Supply, temperature, offset/gain drift and quiescent current.
+.step temp list -40 25 125
+.lib ../INA181A1.txt
+V_REF ref 0 1.35
+V_CM_P cmp 0 12
+V_CM_M cmm 0 12
+V_S27 s27 0 2.7
+X_27 cmp cmm s27 0 ref o27 INA181A1
+V_S5 s5 0 5
+X_5 cmp cmm s5 0 ref o5 INA181A1
+V_S55 s55 0 5.5
+X_55 cmp cmm s55 0 ref o55 INA181A1
+B_PSRR psrr 0 V={abs(((V(o55)-V(o27))/20)/(5.5-2.7))}
+B_VOS vos 0 V={abs((V(o5)-V(ref))/20)}
+V_SIQ siq 0 5
+X_IQ cmp cmm siq 0 ref oiq INA181A1
+B_IQ iq 0 V={-I(V_SIQ)}
+V_DP dp 0 12.025
+V_DM dm 0 11.975
+X_GAIN dp dm s5 0 ref og INA181A1
+B_GAIN gain 0 V={(V(og)-V(ref))/0.05}
+B_GAIN_ERR gain_err 0 V={abs(V(gain)/20-1)}
+B_S27_ERR s27_err 0 V={abs(V(o27)-V(ref))}
+B_S55_ERR s55_err 0 V={abs(V(o55)-V(ref))}
+B_TEMP actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC PSRR_TYP AVG V(psrr)
+.meas DC PSRR_MAX AVG V(psrr)
+.meas DC VOS_MAX_TEMP AVG V(vos)
+.meas DC GAIN_ERROR_TEMP AVG V(gain_err)
+.meas DC IQ_TYP AVG V(iq)
+.meas DC IQ_MAX AVG V(iq)
+.meas DC SUPPLY_27_FUNCTIONAL AVG V(s27_err)
+.meas DC SUPPLY_55_FUNCTIONAL AVG V(s55_err)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

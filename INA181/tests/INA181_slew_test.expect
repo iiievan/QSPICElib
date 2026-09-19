@@ -1,0 +1,7 @@
+RISE_2V_TIME  warn_rel  0.20   1u 1u 1u
+FALL_2V_TIME  warn_rel  0.20   1u 1u 1u
+HIGH_SETTLED  max       0      20m 20m 20m
+LOW_SETTLED   max       0      20m 20m 20m
+OUTPUT_MIN    min       0      0 0 0
+OUTPUT_MAX    max       0      5 5 5
+ACTUAL_TEMP   abs       0.001  -40 25 125

@@ -1,0 +1,33 @@
+* REF transfer, bidirectionality and output swing.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_CM cm 0 12
+V_R0 r0 0 0
+X_LOW cm cm vs 0 r0 low INA181A1
+R_LOW low 0 10k
+V_R25 r25 0 2.5
+V_PP pp 0 12.05
+V_PM pm 0 11.95
+X_POS pp pm vs 0 r25 pos INA181A1
+V_NP np 0 11.95
+V_NM nm 0 12.05
+X_NEG np nm vs 0 r25 neg INA181A1
+V_OVP ovp 0 13
+V_OVM ovm 0 11
+X_HIGH ovp ovm vs 0 r25 high INA181A1
+R_HIGH high 0 10k
+B_POS_ERR pos_err 0 V={abs(V(pos)-4.5)}
+B_NEG_ERR neg_err 0 V={abs(V(neg)-0.5)}
+B_SYM sym 0 V={abs((V(pos)-2.5)-(2.5-V(neg)))}
+B_HIGH_HEAD high_head 0 V={5-V(high)}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC POSITIVE_TRANSFER AVG V(pos_err)
+.meas DC NEGATIVE_TRANSFER AVG V(neg_err)
+.meas DC BIDIRECTIONAL_SYMMETRY AVG V(sym)
+.meas DC VSN_TYP AVG V(low)
+.meas DC VSN_MAX AVG V(low)
+.meas DC VSP_TYP AVG V(high_head)
+.meas DC VSP_MAX AVG V(high_head)
+.end

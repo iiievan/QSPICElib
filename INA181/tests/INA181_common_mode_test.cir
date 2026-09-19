@@ -1,0 +1,31 @@
+* Common-mode range and CMRR at VSENSE=0.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_M02P m02p 0 -0.2
+V_M02M m02m 0 -0.2
+X_M02 m02p m02m vs 0 ref om02 INA181A1
+V_0P z0p 0 0
+V_0M z0m 0 0
+X_0 z0p z0m vs 0 ref o0 INA181A1
+V_12P p12 0 12
+V_12M m12 0 12
+X_12 p12 m12 vs 0 ref o12 INA181A1
+V_26P p26 0 26
+V_26M m26 0 26
+X_26 p26 m26 vs 0 ref o26 INA181A1
+B_CMRR cmrr 0 V={20*log10(26.2/max(abs((V(o26)-V(om02))/20),1p))}
+B_E02 e02 0 V={abs(V(om02)-2.5)}
+B_E0 e0 0 V={abs(V(o0)-2.5)}
+B_E12 e12 0 V={abs(V(o12)-2.5)}
+B_E26 e26 0 V={abs(V(o26)-2.5)}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC CMRR_TYP AVG V(cmrr)
+.meas DC CMRR_MIN AVG V(cmrr)
+.meas DC CM_M02_FUNCTIONAL AVG V(e02)
+.meas DC CM_0_FUNCTIONAL AVG V(e0)
+.meas DC CM_12_FUNCTIONAL AVG V(e12)
+.meas DC CM_26_FUNCTIONAL AVG V(e26)
+.end

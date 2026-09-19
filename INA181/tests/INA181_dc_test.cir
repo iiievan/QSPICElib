@@ -1,0 +1,30 @@
+* INA181A1 gain, offset and input currents; TI SBOS793H section 6.5.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_NP np 0 11.975
+V_NM nm 0 12.025
+X_NEG np nm vs 0 ref outn INA181A1
+V_ZP zp 0 12
+V_ZM zm 0 12
+X_ZERO zp zm vs 0 ref outz INA181A1
+V_PP pp 0 12.025
+V_PM pm 0 11.975
+X_POS pp pm vs 0 ref outp INA181A1
+B_GAIN gain 0 V={(V(outp)-V(outn))/0.1}
+B_VOS vos 0 V={(V(outz)-V(ref))/20}
+B_IBIAS ibias 0 V={(I(V_ZP)+I(V_ZM))/2}
+B_IOS ios 0 V={abs(I(V_ZP)-I(V_ZM))}
+B_GAIN_ERR gain_err 0 V={abs(V(gain)/20-1)}
+B_VOS_ABS vos_abs 0 V={abs(V(vos))}
+B_IBIAS_ABS ibias_abs 0 V={abs(V(ibias))}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC GAIN_TYP AVG V(gain)
+.meas DC GAIN_ERROR_MAX AVG V(gain_err)
+.meas DC VOS_TYP AVG V(vos_abs)
+.meas DC VOS_MAX AVG V(vos_abs)
+.meas DC IBIAS_TYP AVG V(ibias_abs)
+.meas DC IOS_TYP AVG V(ios)
+.end

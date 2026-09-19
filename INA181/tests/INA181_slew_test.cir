@@ -1,0 +1,23 @@
+* INA181A1 large-signal response and 2-V/us slew rate.
+.step temp list -40 25 125
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_CM cm 0 12
+V_DIFF diff 0 PWL(0 -75m 10u -75m 10.01u 75m 30u 75m 30.01u -75m 50u -75m)
+E_INP inp 0 VALUE={V(cm)+V(diff)/2}
+E_INM inm 0 VALUE={V(cm)-V(diff)/2}
+X_DUT inp inm vs 0 ref out INA181A1
+C_LOAD out 0 10p
+B_HIGH_ERR high_err 0 V={abs(V(out)-4)}
+B_LOW_ERR low_err 0 V={abs(V(out)-1)}
+B_TEMP actual_temp 0 V={temp}
+.tran 0 50u 0 5n
+.meas TRAN RISE_2V_TIME TRIG V(out)=1.5 RISE=1 TD=10u TARG V(out)=3.5 RISE=1 TD=10u
+.meas TRAN FALL_2V_TIME TRIG V(out)=3.5 FALL=1 TD=30u TARG V(out)=1.5 FALL=1 TD=30u
+.meas TRAN HIGH_SETTLED MAX V(high_err) FROM=25u TO=29u
+.meas TRAN LOW_SETTLED MAX V(low_err) FROM=45u TO=49u
+.meas TRAN OUTPUT_MIN MIN V(out)
+.meas TRAN OUTPUT_MAX MAX V(out)
+.meas TRAN ACTUAL_TEMP AVG V(actual_temp) FROM=45u TO=49u
+.end

@@ -1,0 +1,4 @@
+GAIN_1KHZ             warn_rel  0.02  20
+GAIN_100KHZ           warn_rel  0.10  19.23
+BANDWIDTH              warn_rel  0.15  350k
+HIGH_FREQ_ATTENUATION  max       0     1

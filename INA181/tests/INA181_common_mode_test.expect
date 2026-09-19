@@ -1,0 +1,6 @@
+CMRR_TYP          warn_abs  1      100
+CMRR_MIN          min       0      84
+CM_M02_FUNCTIONAL max       0      20m
+CM_0_FUNCTIONAL   max       0      20m
+CM_12_FUNCTIONAL  max       0      20m
+CM_26_FUNCTIONAL  max       0      20m

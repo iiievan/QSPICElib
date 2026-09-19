@@ -1,0 +1,9 @@
+PSRR_TYP             warn_abs  2u     8u 8u 8u
+PSRR_MAX             max       0      40u 40u 40u
+VOS_MAX_TEMP         max       0      500u 500u 500u
+GAIN_ERROR_TEMP      max       0      0.01 0.01 0.01
+IQ_TYP               warn_abs  20u    195u 195u 195u
+IQ_MAX               max       0      300u 300u 300u
+SUPPLY_27_FUNCTIONAL max       0      20m 20m 20m
+SUPPLY_55_FUNCTIONAL max       0      20m 20m 20m
+ACTUAL_TEMP          abs       0.001  -40 25 125

@@ -1,0 +1,38 @@
+* ============================================================================
+* INA181A1 - TI SBOS793H, November 2023; behavioral model 0.1.0-preview
+* Pins: INP INM VS GND REF OUT.  Gain option A1 only: 20 V/V.
+* Nominal behavioral fit, not an official TI transistor-level model.
+* Rated operation: VS=2.7..5.5 V, VCM=-0.2..26 V, TA=-40..125 C.
+* VOS(T)=25u + 0.2u*(temp-25); selected sign represents one nominal sample.
+* CMRR and PSRR are DC fits.  One-pole BW and slew limiting are approximations.
+* No voltage/current noise, ESD, damage, self-heating, package parasitics,
+* shutdown/backfeed accuracy, or statistical/process correlation.
+* ============================================================================
+.subckt INA181A1 INP INM VS GND REF OUT
++ params: GAIN=20 VOS25=25u DVOSDT=0.2u CMRR=100 PSRR_UV=8u
++ BW=350k SR=2Meg IQ=195u VLOW=0.5m VHIGH=20m
++ ROUT=5 ILIM=8m CSTATE=1n COUT=10p IBIAS=75u IOS=0.05u
+
+B_DT dt GND V={temp-25}
+B_ERR err GND V={V(INP,INM)+VOS25+DVOSDT*V(dt,GND)
++ +((V(INP,GND)+V(INM,GND))/2-12)*10**(-CMRR/20)
++ +(V(VS,GND)-5)*PSRR_UV}
+B_TARGET target GND V={limit(V(REF,GND)+GAIN*V(err,GND),
++ VLOW,max(V(VS,GND)-VHIGH,VLOW))}
+
+* Internal closed-loop state: 350-kHz small-signal pole, 2-V/us slew limit.
+B_DYN GND state I={limit(6.283185307179586*BW*CSTATE*V(target,state),
++ -SR*CSTATE,SR*CSTATE)}
+C_STATE state GND {CSTATE}
+
+* Finite output drive through the real supply rails.
+B_CMD cmd GND V={limit(V(state,OUT)/ROUT,-ILIM,ILIM)}
+B_UP VS OUT I={max(V(cmd,GND),0)}
+B_DN OUT GND I={max(-V(cmd,GND),0)}
+C_OUT OUT GND {COUT}
+
+* Nominal input currents.  Differential mismatch is IOS.
+B_IBP INP GND I={max(IBIAS+IOS/2,0)}
+B_IBM INM GND I={max(IBIAS-IOS/2,0)}
+B_IQ VS GND I={IQ}
+.ends INA181A1

@@ -1,0 +1,7 @@
+# Typ = WARN; table maximum and invariants = hard.
+GAIN_TYP       warn_abs  0.05   20
+GAIN_ERROR_MAX max       0      0.01
+VOS_TYP        warn_abs  10u    25u
+VOS_MAX        max       0      150u
+IBIAS_TYP      warn_abs  10u    75u
+IOS_TYP        warn_abs  0.02u  0.05u

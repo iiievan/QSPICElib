@@ -1,0 +1,15 @@
+* INA181A1 small-signal bandwidth, CLOAD=10 pF.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_INP inp 0 DC 12 AC 1
+V_INM inm 0 DC 12 AC 0
+X_DUT inp inm vs 0 ref out INA181A1
+C_LOAD out 0 10p
+.ac dec 80 10 10Meg
+.meas AC GAIN_1KHZ FIND abs(V(out)) AT=1000
+.meas AC GAIN_100KHZ FIND abs(V(out)) AT=100000
+.meas AC BANDWIDTH WHEN abs(V(out))=14.1421356 FALL=1
+.meas AC HIGH_FREQ_ATTENUATION FIND abs(V(out)) AT=10Meg
+.end

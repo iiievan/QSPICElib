@@ -103,7 +103,8 @@ QSPICE_library/
 │       └── TEST_RESULTS.md       ← сохранённый проверенный протокол
 ├── 74HCT244/
 ├── ULQ2003A/
-└── LM358/                        ← onsemi 0.1.0 validated; TI B/BA 0.2.0-preview
+├── LM358/                        ← onsemi 0.1.0 validated; TI B/BA 0.2.0-preview
+└── INA181/                       ← INA181A1 0.1.0-preview
 ```
 
 ### Граница универсального теста
@@ -397,6 +398,7 @@ cat out.txt
 | FDS4559 | 1.1 | onsemi FDS4559/D Rev.4, July 2022 | DC/125 °C проверены; исправленный compact frequency test ждёт повторного прогона |
 | LM358 | 0.1.0 | onsemi LM358/D Rev.36, September 2024 | 94 PASS, 1 ожидаемый WARN, 0 FAIL |
 | LM358B / LM358BA | 0.2.0-preview | TI SLOS068AB, October 2024 | 8 стендов приёмки подготовлены; полный QSPICE-прогон ожидается |
+| INA181A1 | 0.1.0-preview | TI SBOS793H, November 2023 | Модель A1 и 6 универсальных стендов подготовлены |
 
 > **ULQ2003A, а не ULN2003A.** Электрически они идентичны, но рабочий
 > диапазон разный: ULN от −20 °C, ULQ от −40 °C. Для привода заслонки

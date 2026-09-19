@@ -1,0 +1,7 @@
+POSITIVE_TRANSFER       max       0      20m
+NEGATIVE_TRANSFER       max       0      20m
+BIDIRECTIONAL_SYMMETRY  max       0      2m
+VSN_TYP                 warn_abs  0.5m   0.5m
+VSN_MAX                 max       0      5m
+VSP_TYP                 warn_abs  10m    20m
+VSP_MAX                 max       0      30m
