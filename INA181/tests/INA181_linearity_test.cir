@@ -1,0 +1,19 @@
+* INA181A1 full specified linear output range and nonlinearity.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_CM cm 0 12
+V_DIFF diff 0 0
+E_INP inp 0 VALUE={V(cm)+V(diff)/2}
+E_INM inm 0 VALUE={V(cm)-V(diff)/2}
+X_DUT inp inm vs 0 ref out INA181A1
+* At VCM=12 V the model nominal offset is 25 uV.
+B_IDEAL ideal 0 V={V(ref)+20*(V(diff)+25u)}
+B_NONLIN nonlin 0 V={abs(V(out)-V(ideal))/4}
+.dc V_DIFF -100m 100m 1m
+.meas DC NONLINEARITY_MAX MAX V(nonlin)
+.meas DC OUTPUT_AT_NEG100M FIND V(out) AT=-100m
+.meas DC OUTPUT_AT_ZERO FIND V(out) AT=0
+.meas DC OUTPUT_AT_POS100M FIND V(out) AT=100m
+.end

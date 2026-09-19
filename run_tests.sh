@@ -95,6 +95,8 @@ function append_value(v) {
 }
 /^[[:space:]]*\.meas[[:space:]]/ {
     nm = $3; gsub(/[:,]$/, "", nm); cur = toupper(nm)
+    header = tolower($0)
+    is_find_at[cur] = (header ~ /[[:space:]]find[[:space:]]/ && header ~ /[[:space:]]at[[:space:]]*=/)
     if (!(cur in seen)) { order[++n] = cur; seen[cur] = 1 }
     next
 }
@@ -115,20 +117,35 @@ cur != "" && $0 ~ /^[[:space:]]*([0-9]+[[:space:]]+)?\(/ {
     }
     cur=""; next
 }
+# A DC FIND ... AT= record contains the result and the sweep coordinate:
+#     0.5005  -0.1
+# With .step QPOST prefixes the row with the step number.  This must be
+# handled before the generic two-column stepped-result rule below.
+cur != "" && is_find_at[cur] {
+    line=$0; sub(/^[[:space:]]+/, "", line)
+    nf=split(line, field, /[[:space:]]+/)
+    if (nf == 2 && number(field[1]) && number(field[2])) {
+        append_value(field[1]); next
+    }
+    if (nf == 3 && field[1] ~ /^[0-9]+$/ && number(field[2]) && number(field[3])) {
+        append_value(field[2]); next
+    }
+}
 cur != "" && $0 ~ /^[[:space:]]*[0-9]+[[:space:]]+[-+]?[0-9.]+([eE][-+]?[0-9]+)?[[:space:]]*$/ {
     vals[cur] = vals[cur] (vals[cur] == "" ? "" : " ") $2; next
 }
 cur != "" && $0 ~ /^[[:space:]]*[-+]?[0-9.]+([eE][-+]?[0-9]+)?[[:space:]]*$/ {
     append_value($1); next
 }
-# QPOST annotates transient MIN/MAX values with the time at which they occur:
+# QPOST annotates TRAN and DC MIN/MAX values with their independent variable:
 #     0.250143 (at Time=1.58028e-06)
+#     1.27676e-14 (at V_DIFF=0.016)
 # Only the first scalar is the .meas result.  The annotation is metadata and
 # must not make an otherwise valid measurement disappear.
 cur != "" {
     line=$0; sub(/^[[:space:]]+/, "", line)
     split(line, field, /[[:space:]]+/)
-    if (number(field[1]) && field[2] == "(at" && field[3] ~ /^[Tt]ime=/) {
+    if (number(field[1]) && field[2] == "(at" && field[3] ~ /=/) {
         append_value(field[1]); next
     }
 }

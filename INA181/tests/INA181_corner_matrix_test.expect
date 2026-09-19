@@ -1,0 +1,4 @@
+CORNER_MAX_ERROR  max  0      25m 25m 25m
+CORNER_OUTPUT_MIN min  0      0 0 0
+CORNER_ABOVE_RAIL max  0      0 0 0
+ACTUAL_TEMP       abs  0.001  -40 25 125

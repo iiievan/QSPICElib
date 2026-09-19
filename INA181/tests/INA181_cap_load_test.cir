@@ -1,0 +1,18 @@
+* Maximum specified capacitive load: no sustained oscillation at CLOAD=1 nF.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_CM cm 0 12
+V_DIFF diff 0 PWL(0 -50m 10u -50m 10.01u 50m 60u 50m)
+E_INP inp 0 VALUE={V(cm)+V(diff)/2}
+E_INM inm 0 VALUE={V(cm)-V(diff)/2}
+X_DUT inp inm vs 0 ref out INA181A1
+C_LOAD out 0 1n
+B_FINAL_ERR final_err 0 V={abs(V(out)-3.5005)}
+.tran 0 60u 0 5n
+.meas TRAN OUTPUT_MAX MAX V(out) FROM=10u TO=60u
+.meas TRAN OUTPUT_MIN MIN V(out) FROM=10u TO=60u
+.meas TRAN FINAL_ERROR MAX V(final_err) FROM=50u TO=60u
+.meas TRAN LATE_RIPPLE PP V(out) FROM=50u TO=60u
+.end

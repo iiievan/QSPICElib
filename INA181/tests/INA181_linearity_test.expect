@@ -1,0 +1,4 @@
+NONLINEARITY_MAX  max       0      0.0001
+OUTPUT_AT_NEG100M abs       2m     0.5005
+OUTPUT_AT_ZERO    abs       2m     2.5005
+OUTPUT_AT_POS100M abs       2m     4.5005

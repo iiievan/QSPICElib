@@ -1,0 +1,4 @@
+OUTPUT_MAX  max  0  3.55
+OUTPUT_MIN  min  0  1.45
+FINAL_ERROR max 0  10m
+LATE_RIPPLE max 0  2m

@@ -1,0 +1,22 @@
+* Differential overload: correct saturation polarity and recovery within 20 us.
+.temp 25
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_CM cm 0 12
+V_DIFF diff 0 PWL(0 500m 10u 500m 10.01u 25m 30u 25m
++ 30.01u -500m 50u -500m 50.01u -25m 75u -25m)
+E_INP inp 0 VALUE={V(cm)+V(diff)/2}
+E_INM inm 0 VALUE={V(cm)-V(diff)/2}
+X_DUT inp inm vs 0 ref out INA181A1
+C_LOAD out 0 10p
+B_POS_ERR pos_err 0 V={abs(V(out)-3.0005)}
+B_NEG_ERR neg_err 0 V={abs(V(out)-2.0005)}
+.tran 0 75u 0 5n
+.meas TRAN HIGH_SAT_MIN MIN V(out) FROM=5u TO=9u
+.meas TRAN POS_RECOVERY_ERROR MAX V(pos_err) FROM=25u TO=29u
+.meas TRAN LOW_SAT_MAX MAX V(out) FROM=45u TO=49u
+.meas TRAN NEG_RECOVERY_ERROR MAX V(neg_err) FROM=70u TO=74u
+.meas TRAN NO_PHASE_REVERSAL_MIN MIN V(out)
+.meas TRAN NO_PHASE_REVERSAL_MAX MAX V(out)
+.end

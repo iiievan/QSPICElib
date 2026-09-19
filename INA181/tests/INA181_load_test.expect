@@ -1,0 +1,3 @@
+VSP_RL10K  max  0      30m 30m 30m
+VSN_RL10K  max  0      5m 5m 5m
+ACTUAL_TEMP abs 0.001  -40 25 125

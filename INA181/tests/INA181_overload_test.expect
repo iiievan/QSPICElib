@@ -1,0 +1,6 @@
+HIGH_SAT_MIN          min  0  4.90
+POS_RECOVERY_ERROR    max  0  10m
+LOW_SAT_MAX           max  0  0.10
+NEG_RECOVERY_ERROR    max  0  10m
+NO_PHASE_REVERSAL_MIN min  0  0
+NO_PHASE_REVERSAL_MAX max  0  5

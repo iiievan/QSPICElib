@@ -1,0 +1,82 @@
+* 48 operating corners: 2 supplies x 2 VCM x 4 REF/sense cases x 3 temps.
+.step temp list -40 25 125
+.lib ../INA181A1.txt
+V_S27 s27 0 2.7
+V_S55 s55 0 5.5
+V_R0 r0 0 0
+V_R135 r135 0 1.35
+V_R275 r275 0 2.75
+V_R27 r27 0 2.7
+V_R55 r55 0 5.5
+
+* VS=2.7 V, VCM=-0.2 V: REF=0/+25m, REF=VS/2/+/-25m, REF=VS/-25m.
+V_A0P a0p 0 -0.1875
+V_A0M a0m 0 -0.2125
+X_A0 a0p a0m s27 0 r0 a0 INA181A1
+V_A1P a1p 0 -0.1875
+V_A1M a1m 0 -0.2125
+X_A1 a1p a1m s27 0 r135 a1 INA181A1
+V_A2P a2p 0 -0.2125
+V_A2M a2m 0 -0.1875
+X_A2 a2p a2m s27 0 r135 a2 INA181A1
+V_A3P a3p 0 -0.2125
+V_A3M a3m 0 -0.1875
+X_A3 a3p a3m s27 0 r27 a3 INA181A1
+
+* VS=2.7 V, VCM=26 V.
+V_B0P b0p 0 26.0125
+V_B0M b0m 0 25.9875
+X_B0 b0p b0m s27 0 r0 b0 INA181A1
+X_B1 b0p b0m s27 0 r135 b1 INA181A1
+V_B2P b2p 0 25.9875
+V_B2M b2m 0 26.0125
+X_B2 b2p b2m s27 0 r135 b2 INA181A1
+X_B3 b2p b2m s27 0 r27 b3 INA181A1
+
+* VS=5.5 V, VCM=-0.2 V.
+X_C0 a0p a0m s55 0 r0 c0 INA181A1
+X_C1 a0p a0m s55 0 r275 c1 INA181A1
+X_C2 a2p a2m s55 0 r275 c2 INA181A1
+X_C3 a2p a2m s55 0 r55 c3 INA181A1
+
+* VS=5.5 V, VCM=26 V.
+X_D0 b0p b0m s55 0 r0 d0 INA181A1
+X_D1 b0p b0m s55 0 r275 d1 INA181A1
+X_D2 b2p b2m s55 0 r275 d2 INA181A1
+X_D3 b2p b2m s55 0 r55 d3 INA181A1
+
+* Ideal outputs include nominal VOS(T), CMRR and PSRR terms from the model.
+B_VOS vos 0 V={25u+0.2u*(temp-25)}
+B_EA0 ea0 0 V={abs(V(a0)-(20*(25m+V(vos)+(-0.2-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EA1 ea1 0 V={abs(V(a1)-(1.35+20*(25m+V(vos)+(-0.2-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EA2 ea2 0 V={abs(V(a2)-(1.35+20*(-25m+V(vos)+(-0.2-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EA3 ea3 0 V={abs(V(a3)-(2.7+20*(-25m+V(vos)+(-0.2-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EB0 eb0 0 V={abs(V(b0)-(20*(25m+V(vos)+(26-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EB1 eb1 0 V={abs(V(b1)-(1.35+20*(25m+V(vos)+(26-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EB2 eb2 0 V={abs(V(b2)-(1.35+20*(-25m+V(vos)+(26-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EB3 eb3 0 V={abs(V(b3)-(2.7+20*(-25m+V(vos)+(26-12)*10**(-100/20)+(2.7-5)*8u)))}
+B_EC0 ec0 0 V={abs(V(c0)-(20*(25m+V(vos)+(-0.2-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_EC1 ec1 0 V={abs(V(c1)-(2.75+20*(25m+V(vos)+(-0.2-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_EC2 ec2 0 V={abs(V(c2)-(2.75+20*(-25m+V(vos)+(-0.2-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_EC3 ec3 0 V={abs(V(c3)-(5.5+20*(-25m+V(vos)+(-0.2-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_ED0 ed0 0 V={abs(V(d0)-(20*(25m+V(vos)+(26-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_ED1 ed1 0 V={abs(V(d1)-(2.75+20*(25m+V(vos)+(26-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_ED2 ed2 0 V={abs(V(d2)-(2.75+20*(-25m+V(vos)+(26-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_ED3 ed3 0 V={abs(V(d3)-(5.5+20*(-25m+V(vos)+(26-12)*10**(-100/20)+(5.5-5)*8u)))}
+B_MAX1 max1 0 V={max(max(max(V(ea0),V(ea1)),max(V(ea2),V(ea3))),max(max(V(eb0),V(eb1)),max(V(eb2),V(eb3))))}
+B_MAX2 max2 0 V={max(max(max(V(ec0),V(ec1)),max(V(ec2),V(ec3))),max(max(V(ed0),V(ed1)),max(V(ed2),V(ed3))))}
+B_MAXERR maxerr 0 V={max(V(max1),V(max2))}
+B_LOW1 low1 0 V={min(min(min(V(a0),V(a1)),min(V(a2),V(a3))),min(min(V(b0),V(b1)),min(V(b2),V(b3))))}
+B_LOW2 low2 0 V={min(min(min(V(c0),V(c1)),min(V(c2),V(c3))),min(min(V(d0),V(d1)),min(V(d2),V(d3))))}
+B_LOWEST lowest 0 V={min(V(low1),V(low2))}
+B_ABOVE27 above27 0 V={max(max(max(V(a0),V(a1)),max(V(a2),V(a3))),max(max(V(b0),V(b1)),max(V(b2),V(b3))))-2.7}
+B_ABOVE55 above55 0 V={max(max(max(V(c0),V(c1)),max(V(c2),V(c3))),max(max(V(d0),V(d1)),max(V(d2),V(d3))))-5.5}
+B_ABOVE_RAIL above_rail 0 V={max(V(above27),V(above55))}
+B_TEMP actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC CORNER_MAX_ERROR AVG V(maxerr)
+.meas DC CORNER_OUTPUT_MIN AVG V(lowest)
+.meas DC CORNER_ABOVE_RAIL AVG V(above_rail)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

@@ -1,0 +1,23 @@
+* Rail swing under the data-sheet specified RL=10 kohm to GND.
+.step temp list -40 25 125
+.lib ../INA181A1.txt
+V_VS vs 0 5
+V_REF ref 0 2.5
+V_CM cm 0 12
+V_HIP hip 0 13
+V_HIM him 0 11
+X_HIGH hip him vs 0 ref high INA181A1
+R_HIGH high 0 10k
+V_LOP lop 0 11
+V_LOM lom 0 13
+X_LOW lop lom vs 0 ref low INA181A1
+R_LOW low 0 10k
+B_HIGH_HEAD high_head 0 V={5-V(high)}
+B_LOW_HEAD low_head 0 V={V(low)}
+B_TEMP actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.meas DC VSP_RL10K AVG V(high_head)
+.meas DC VSN_RL10K AVG V(low_head)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

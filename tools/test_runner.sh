@@ -27,6 +27,9 @@ compare() { awk -f "$task_tmp/CHECK_AWK.awk" "$task_tmp/case.expect" -; }
 
 check scalar "$(printf '.meas tran a avg V(a):\n1.25e-3\n' | parse)" 'A|1.25e-3'
 check tran_extremum "$(printf '.meas tran a min V(a):\n  0.250143 (at Time=1.58028e-06)\n' | parse)" 'A|0.250143'
+check dc_extremum "$(printf '.meas dc a max V(a):\n  1.27676e-14 (at V_DIFF=0.016)\n' | parse)" 'A|1.27676e-14'
+check dc_find_at "$(printf '.meas dc a find V(out) at=-100m:\n  0.5005 -0.1\n' | parse)" 'A|0.5005'
+check dc_find_at_steps "$(printf '.meas dc a find V(out) at=-100m:\n1 0.5005 -0.1\n2 0.5010 -0.1\n' | parse)" 'A|0.5005 0.5010'
 check steps "$(printf '.meas dc t avg V(t):\n1 -35\n2 0\n3 25\n' | parse)" 'T|-35 0 25'
 check ac_real "$(printf '.meas ac g find abs(V(out)):\n( 1.2e+3, 0 )\n' | parse)" 'G|1.2e+3'
 check ac_steps "$(printf '.meas ac g find abs(V(out)):\n1 (1.2e+3, 0)\n2 (1.3e+3, -0.0e+0)\n' | parse)" 'G|1.2e+3 1.3e+3'

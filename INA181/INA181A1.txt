@@ -1,5 +1,5 @@
 * ============================================================================
-* INA181A1 - TI SBOS793H, November 2023; behavioral model 0.1.0-preview
+* INA181A1 - TI SBOS793H, November 2023; behavioral model 0.2.0 validated
 * Pins: INP INM VS GND REF OUT.  Gain option A1 only: 20 V/V.
 * Nominal behavioral fit, not an official TI transistor-level model.
 * Rated operation: VS=2.7..5.5 V, VCM=-0.2..26 V, TA=-40..125 C.
