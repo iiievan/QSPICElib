@@ -1,0 +1,95 @@
+* ============================================================================
+* FDS4559 - COMPARATIVE GATE DEAD-TIME MARGIN TEST, 10 V vs 4.5 V
+*
+* Purpose:
+*   Compare the gate-transition non-overlap margin at the two gate voltages
+*   used by the library tests.  Two otherwise identical half bridges run in
+*   parallel at 400 kHz and +25 C while commanded dead time is stepped through
+*   500 / 100 / 50 / 20 / 10 / 5 / 0 ns.
+*
+* This is model characterization, not a datasheet guarantee.  The datasheet
+* specifies neither minimum dead time nor maximum PWM frequency.  The model
+* also omits driver impedance, PCB/package parasitics and electrothermal rise.
+*
+* Gate margin definition:
+*   P->N: time from P-gate VSG falling through 1 V to N-gate VGS rising
+*         through 1 V.
+*   N->P: time from N-gate VGS falling through 1 V to P-gate VSG rising
+*         through 1 V.
+*   Positive = conservative non-overlap at the datasheet minimum VGS(th).
+*   Negative = both gates exceed 1 V at once: potential channel overlap.
+*
+* It is intentionally not called a measured shoot-through current.  Negative
+* margin is a warning that a real driver/application must be checked with its
+* own parasitics, current waveform, load and thermal model.
+* ============================================================================
+
+.param VBUS=30
+.param ILOAD=1
+.param RGEN=6
+.param FSW=400k
+.param TJ=25
+.param CORNER=1
+
+.param DTNS={if(CORNER==1,500,if(CORNER==2,100,if(CORNER==3,50,if(CORNER==4,20,if(CORNER==5,10,if(CORNER==6,5,0))))))}
+.param DEADTIME={DTNS*1n}
+.param TPER={1/FSW}
+.param TON={TPER/2-DEADTIME}
+.param TSTART={TPER}
+.param RLOAD={VBUS/(2*ILOAD)}
+.param TMAX=5n
+
+.step param CORNER list 1 2 3 4 5 6 7
+
+V_CORNER corner_echo 0 {CORNER}
+V_DT_ECHO dt_echo 0 {DTNS}
+
+* --- 10-V bridge ------------------------------------------------------------
+V_BUS10  vb10 0 {VBUS}
+V_REF10  vr10 0 {VBUS/2}
+V_GP10   vb10 pdrv10 PULSE(0 10 {TSTART} 1n 1n {TON} {TPER})
+R_GP10   pdrv10 pg10 {RGEN}
+V_GN10   ndrv10 0 PULSE(0 10 {TSTART+TPER/2} 1n 1n {TON} {TPER})
+R_GN10   ndrv10 ng10 {RGEN}
+M_P10    sw10 pg10 vb10 vb10 FDS4559_P temp={TJ}
+M_N10    sw10 ng10 0 0 FDS4559_N temp={TJ}
+R_LOAD10 sw10 vr10 {RLOAD}
+
+* --- 4.5-V bridge -----------------------------------------------------------
+V_BUS45  vb45 0 {VBUS}
+V_REF45  vr45 0 {VBUS/2}
+V_GP45   vb45 pdrv45 PULSE(0 4.5 {TSTART} 1n 1n {TON} {TPER})
+R_GP45   pdrv45 pg45 {RGEN}
+V_GN45   ndrv45 0 PULSE(0 4.5 {TSTART+TPER/2} 1n 1n {TON} {TPER})
+R_GN45   ndrv45 ng45 {RGEN}
+M_P45    sw45 pg45 vb45 vb45 FDS4559_P temp={TJ}
+M_N45    sw45 ng45 0 0 FDS4559_N temp={TJ}
+R_LOAD45 sw45 vr45 {RLOAD}
+
+.lib ../FDS4559_N.txt
+.lib ../FDS4559_P.txt
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 {TSTART+2*TPER} 0 {TMAX}
+
+.save V(corner_echo) V(dt_echo) V(vb10) V(pg10) V(ng10) V(sw10) V(vb45) V(pg45) V(ng45) V(sw45)
+
+.meas TRAN ECHO_CORNER AVG V(corner_echo)
+.meas TRAN ECHO_DT_NS  AVG V(dt_echo)
+
+* Output reach remains diagnostic in this intentionally boundary-seeking test.
+.meas TRAN DT10_SW_MAX MAX V(sw10)
+.meas TRAN DT10_SW_MIN MIN V(sw10)
+.meas TRAN DT45_SW_MAX MAX V(sw45)
+.meas TRAN DT45_SW_MIN MIN V(sw45)
+
+* First P->N edge and first complete N->P edge.  RISE=2 selects the second
+* P turn-on, after the first N pulse.  QPOST can return a negative interval;
+* that is the useful overlap indication and is deliberately preserved.
+.meas TRAN DT10_PN_MARGIN TRIG V(vb10,pg10)=1 FALL=1 TARG V(ng10)=1 RISE=1
+.meas TRAN DT10_NP_MARGIN TRIG V(ng10)=1 FALL=1 TARG V(vb10,pg10)=1 RISE=2
+.meas TRAN DT45_PN_MARGIN TRIG V(vb45,pg45)=1 FALL=1 TARG V(ng45)=1 RISE=1
+.meas TRAN DT45_NP_MARGIN TRIG V(ng45)=1 FALL=1 TARG V(vb45,pg45)=1 RISE=2
+
+.plot V(sw10) V(sw45)
+.plot V(vb10,pg10) V(ng10) V(vb45,pg45) V(ng45)
+.end

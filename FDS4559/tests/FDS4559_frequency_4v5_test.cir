@@ -1,0 +1,79 @@
+* ============================================================================
+* FDS4559 - 4.5-V COMPLEMENTARY HALF-BRIDGE FREQUENCY TEST
+*
+* Purpose:
+*   Verify complete high/low switching with the logic-level gate drive for
+*   which the datasheet specifies static RDS(on), at three PWM frequencies
+*   and across the datasheet operating-junction-temperature range.
+*
+* Generic fixture (not an application recommendation):
+*   VBUS = 30 V, load ~= 1 A, VGS = +/-4.5 V, RGEN = 6 ohm,
+*   dead time = 500 ns
+*   Frequencies: 20 kHz, 100 kHz, 400 kHz
+*   Junction temperatures: -55 C, +25 C, +175 C
+*
+* The datasheet guarantees static RDS(on) at |VGS| = 4.5 V, but its switching
+* table uses 10 V.  Rail reach is therefore a hard functional invariant here;
+* measured edge times are model-characterization WARNs, not datasheet limits.
+*
+* This is a separate fixed-VDRV bench because QPOST may freeze stepped
+* parameters used inside .meas thresholds.  Only seven voltages are saved.
+* ============================================================================
+
+.param VBUS=30
+.param VDRV=4.5
+.param ILOAD=1
+.param RGEN=6
+.param DEADTIME=500n
+.param CORNER=1
+
+* Corners 1..3: 20 kHz; 4..6: 100 kHz; 7..9: 400 kHz.
+* Within each frequency group: -55 C, +25 C, +175 C.
+.param FSW={if(CORNER<4,20k,if(CORNER<7,100k,400k))}
+.param TJ={if(CORNER==1,-55,if(CORNER==2,25,if(CORNER==3,175,if(CORNER==4,-55,if(CORNER==5,25,if(CORNER==6,175,if(CORNER==7,-55,if(CORNER==8,25,175))))))))}
+.param TPER={1/FSW}
+.param TON={TPER/2-DEADTIME}
+.param TSTART={TPER}
+.param RLOAD={VBUS/(2*ILOAD)}
+.param TMAX=50n
+
+.step param CORNER list 1 2 3 4 5 6 7 8 9
+
+V_BUS    vb 0 {VBUS}
+V_REF    vr 0 {VBUS/2}
+V_CORNER corner_echo 0 {CORNER}
+
+* P-channel drive: V(vb,pdrv) pulses 0 -> 4.5 V.
+V_GP     vb pdrv PULSE(0 {VDRV} {TSTART} 1n 1n {TON} {TPER})
+R_GP     pdrv pg {RGEN}
+
+* N-channel starts after half a period.  TON leaves commanded dead time.
+V_GN     ndrv 0 PULSE(0 {VDRV} {TSTART+TPER/2} 1n 1n {TON} {TPER})
+R_GN     ndrv ng {RGEN}
+
+M_P      sw pg vb vb FDS4559_P temp={TJ}
+M_N      sw ng 0  0  FDS4559_N temp={TJ}
+R_LOAD   sw vr {RLOAD}
+
+.lib ../FDS4559_N.txt
+.lib ../FDS4559_P.txt
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 {TSTART+3*TPER} 0 {TMAX}
+
+.save V(vb) V(pdrv) V(pg) V(ndrv) V(ng) V(sw) V(corner_echo)
+
+.meas TRAN ECHO_CORNER AVG V(corner_echo)
+.meas TRAN HB45_P_VSG_PK MAX V(vb,pg)
+.meas TRAN HB45_N_VGS_PK MAX V(ng)
+.meas TRAN HB45_SW_MAX    MAX V(sw)
+.meas TRAN HB45_SW_MIN    MIN V(sw)
+
+* Command-to-rail response.  VDRV is fixed in this bench, so these thresholds
+* cannot be frozen to a different stepped gate voltage by QPOST.
+.meas TRAN HB45_TO_HIGH     TRIG V(vb,pdrv)=2.25 RISE=1 TARG V(sw)=27 RISE=1
+.meas TRAN HB45_TO_HIGH_POS TRIG V(vb,pdrv)=2.25 RISE=1 TARG V(sw)=27 RISE=1
+.meas TRAN HB45_TO_LOW      TRIG V(ndrv)=2.25    RISE=1 TARG V(sw)=3  FALL=1
+.meas TRAN HB45_TO_LOW_POS  TRIG V(ndrv)=2.25    RISE=1 TARG V(sw)=3  FALL=1
+
+.plot V(sw) V(vb,pg) V(ng)
+.end

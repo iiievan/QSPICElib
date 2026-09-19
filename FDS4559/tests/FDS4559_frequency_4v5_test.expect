@@ -1,0 +1,22 @@
+# =============================================================================
+# FDS4559 logic-level (4.5-V) half-bridge frequency expectations
+#
+# Corner map:
+#   1  20 kHz  -55 C       4  100 kHz  -55 C       7  400 kHz  -55 C
+#   2  20 kHz  +25 C       5  100 kHz  +25 C       8  400 kHz  +25 C
+#   3  20 kHz +175 C       6  100 kHz +175 C       9  400 kHz +175 C
+#
+# Static RDS(on) is specified at 4.5 V, but switching time is not.  Complete
+# gate drive and rail reach are hard functional checks; 250 ns is diagnostic.
+# Repeated expectations also require all nine QPOST values for every measure.
+# =============================================================================
+# measurement       mode       tolerance  expected
+ECHO_CORNER          abs        0.01       1 2 3 4 5 6 7 8 9
+HB45_P_VSG_PK        min        0.01       4.05 4.05 4.05 4.05 4.05 4.05 4.05 4.05 4.05
+HB45_N_VGS_PK        min        0.01       4.05 4.05 4.05 4.05 4.05 4.05 4.05 4.05 4.05
+HB45_SW_MAX          min        0          27 27 27 27 27 27 27 27 27
+HB45_SW_MIN          max        0          3 3 3 3 3 3 3 3 3
+HB45_TO_HIGH         warn_max   0          250n 250n 250n 250n 250n 250n 250n 250n 250n
+HB45_TO_HIGH_POS     min        0          0 0 0 0 0 0 0 0 0
+HB45_TO_LOW          warn_max   0          250n 250n 250n 250n 250n 250n 250n 250n 250n
+HB45_TO_LOW_POS      min        0          0 0 0 0 0 0 0 0 0
