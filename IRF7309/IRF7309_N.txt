@@ -1,4 +1,4 @@
-* IRF7309 N-channel, 30 V; QSPICE VDMOS model, 0.1.0-preview.
+* IRF7309 N-channel, 30 V; QSPICE VDMOS model, 0.2.0-preview.
 * Source: KSKelvin-Github/Qspice, SPICE-Library/SPICE-MOSFET-KSKelvin.lib
 * Commit: c51d63f46173b16c4b5c309ac31e081df6b4c5e4
 * Original model: irf7309n-ltspice. Identifier normalized for this library.

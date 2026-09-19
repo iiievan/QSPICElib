@@ -1,0 +1,32 @@
+* IRF7309 gate charge at the datasheet operating points.
+* A constant 1-mA gate current makes elapsed microseconds equal charge in nC.
+.temp 25
+.lib ../IRF7309_N.txt
+.lib ../IRF7309_P.txt
+.model DCLAMP D(IS=1m N=0.1 RS=10m CJO=0)
+
+* N-channel: VDS=16 V, ID=2.6 A, final VGS=4.5 V.
+V_NDD ndd 0 16
+I_NLOAD ndd nd 2.6
+D_NCLAMP nd ndd DCLAMP
+I_NG 0 ng PULSE(0 1m 0 1n 1n 100u 200u)
+R_NGDC ng 0 1G
+M_NQ nd ng 0 0 IRF7309_N
+
+* P-channel: VDS=-16 V, ID=-2.2 A, final VGS=-4.5 V.
+V_PDD pdd 0 -16
+I_PLOAD pd pdd 2.2
+D_PCLAMP pdd pd DCLAMP
+I_PG pg 0 PULSE(0 1m 0 1n 1n 100u 200u)
+R_PGDC pg 0 1G
+M_PQ pd pg 0 0 IRF7309_P
+
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 35u 0 2n
+
+* With IG=1 mA: t[us] numerically equals Q[nC].
+.meas TRAN N_QG_TYP WHEN V(ng)=4.5 RISE=1
+.meas TRAN N_QG_MAX WHEN V(ng)=4.5 RISE=1
+.meas TRAN P_QG_TYP WHEN V(pg)=-4.5 FALL=1
+.meas TRAN P_QG_MAX WHEN V(pg)=-4.5 FALL=1
+.end

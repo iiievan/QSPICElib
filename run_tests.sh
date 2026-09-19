@@ -357,9 +357,9 @@ for bench in "${BENCHES[@]}"; do
         case "$st" in
             OK)   printf "    %-14s ${GRN}PASS${RST}\n" "$nm"
                   TOTAL_PASS=$((TOTAL_PASS+1)); verdict="PASS" ;;
-            WARN) printf "    %-14s ${YEL}WARN${RST} (ugly: %s)\n" "$nm" "$which"
+            WARN) printf "    %-14s ${YEL}WARN${RST} (corners: %s)\n" "$nm" "$which"
                   TOTAL_WARN=$((TOTAL_WARN+1)); verdict="WARN" ;;
-            FAIL) printf "    %-14s ${RED}FAIL${RST} (ugly: %s)\n" "$nm" "$which"
+            FAIL) printf "    %-14s ${RED}FAIL${RST} (corners: %s)\n" "$nm" "$which"
                   TOTAL_FAIL=$((TOTAL_FAIL+1)); verdict="FAIL" ;;
             SKIP) printf "${DIM}    %-14s  net v .expect${RST}\n" "$nm"
                   TOTAL_SKIP=$((TOTAL_SKIP+1)); verdict="SKIP" ;;

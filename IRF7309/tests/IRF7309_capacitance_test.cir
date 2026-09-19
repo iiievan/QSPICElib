@@ -1,0 +1,33 @@
+* IRF7309 typical capacitances at |VDS|=15 V, VGS=0, f=1 MHz.
+.temp 25
+.lib ../IRF7309_N.txt
+.lib ../IRF7309_P.txt
+
+* Ciss: drain is AC-grounded; gate is excited with AC 1 V.
+V_NCISS_D nciss_d 0 15
+V_NCISS_G nciss_g 0 DC 0 AC 1
+M_NCISS nciss_d nciss_g 0 0 IRF7309_N
+V_PCISS_D pciss_d 0 -15
+V_PCISS_G pciss_g 0 DC 0 AC 1
+M_PCISS pciss_d pciss_g 0 0 IRF7309_P
+
+* Coss and Crss: gate is held at AC ground; drain is excited with AC 1 V.
+V_NCO_G nco_g 0 0
+V_NCO_D nco_d 0 DC 15 AC 1
+M_NCO nco_d nco_g 0 0 IRF7309_N
+V_PCO_G pco_g 0 0
+V_PCO_D pco_d 0 DC -15 AC 1
+M_PCO pco_d pco_g 0 0 IRF7309_P
+
+* QSPICE rejects a sweep whose start and stop frequencies are identical.
+* Two almost coincident points retain the exact 1-MHz datasheet measurement.
+* Keep 2*pi*f numeric here: QPOST returns NaN when "pi" is used in a
+* post-processing .meas expression, although the simulator accepts it.
+.ac lin 2 1Meg 1.001Meg
+.meas AC N_CISS FIND abs(I(V_NCISS_G))/6.283185307179586e6 AT=1Meg
+.meas AC P_CISS FIND abs(I(V_PCISS_G))/6.283185307179586e6 AT=1Meg
+.meas AC N_COSS FIND abs(I(V_NCO_D))/6.283185307179586e6 AT=1Meg
+.meas AC P_COSS FIND abs(I(V_PCO_D))/6.283185307179586e6 AT=1Meg
+.meas AC N_CRSS FIND abs(I(V_NCO_G))/6.283185307179586e6 AT=1Meg
+.meas AC P_CRSS FIND abs(I(V_PCO_G))/6.283185307179586e6 AT=1Meg
+.end

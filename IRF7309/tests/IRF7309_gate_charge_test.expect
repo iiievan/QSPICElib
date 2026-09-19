@@ -1,0 +1,7 @@
+# Qg is specified with a guaranteed 25-nC maximum for both channels.
+# Current product data gives 16.7 nC typical at |VGS|=4.5 V.
+# Since IG=1 mA, 16.7 nC -> 16.7 us and 25 nC -> 25 us.
+N_QG_TYP  warn_rel  0.35  16.7u
+N_QG_MAX  max       0     25u
+P_QG_TYP  warn_rel  0.35  16.7u
+P_QG_MAX  max       0     25u

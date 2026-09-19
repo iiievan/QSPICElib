@@ -1,0 +1,7 @@
+# Typical-only datasheet values: deviations are WARN, never hard FAIL.
+N_CISS  warn_rel  0.25  520p
+P_CISS  warn_rel  0.25  440p
+N_COSS  warn_rel  0.25  180p
+P_COSS  warn_rel  0.25  200p
+N_CRSS  warn_rel  0.30  72p
+P_CRSS  warn_rel  0.30  93p

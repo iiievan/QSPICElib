@@ -1,4 +1,4 @@
-# IRF7309 — 0.1.0-preview
+# IRF7309 — 0.2.0-preview
 
 Комплементарная пара International Rectifier / Infineon: N-channel 30 В и
 P-channel −30 В в SO-8. Файлы содержат отдельные QSPICE VDMOS-модели каналов.
@@ -15,9 +15,10 @@ M_P drain gate source source IRF7309_P
 `c51d63f46173b16c4b5c309ac31e081df6b4c5e4`. Идентификаторы нормализованы.
 Лицензия исходника — GPL-3.0; её копия находится в `LICENSE-GPL-3.0.txt`.
 
-## Этап 1: статическая приёмка
+## Приёмка отдельных каналов
 
-Первый стенд проверяет при 25 °C отдельно для N- и P-канала:
+Статический стенд фактически прошёл при 25 °C: 12 PASS, 0 WARN, 0 FAIL.
+Отдельно для N- и P-канала проверяются:
 
 - `VGS(th)` при `VDS=VGS`, `|ID|=250 мкА`;
 - `RDS(on)` при `|VGS|=10 В`;
@@ -29,8 +30,10 @@ M_P drain gate source source IRF7309_P
 KEEP_RAW=1 ./run_tests.sh IRF7309
 ```
 
-Dead-time, complementary half-bridge, частотный sweep, capacitance и gate
-charge намеренно отложены до завершения базовой статической приёмки.
+Второй этап добавляет три независимых стенда: capacitance при 1 МГц, полный
+gate charge при табличных рабочих точках и resistive-load switching times.
+Dead-time, complementary half-bridge и частотные sweep намеренно пока не
+добавлены.
 
 ## Ограничения
 

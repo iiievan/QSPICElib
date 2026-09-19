@@ -1,0 +1,33 @@
+* IRF7309 resistive-load switching at the tabulated conditions.
+.temp 25
+.lib ../IRF7309_N.txt
+.lib ../IRF7309_P.txt
+
+* N-channel: VDD=10 V, RD=3.8 ohm, RG=6 ohm, VGS drive 0..4.5 V.
+V_NDD ndd 0 10
+R_ND ndd nd 3.8
+V_NDRV ndrv 0 PULSE(0 4.5 5u 1n 1n 10u 25u)
+R_NG ndrv ng 6
+M_NSW nd ng 0 0 IRF7309_N
+
+* P-channel: VDD=-10 V, RD=4.5 ohm, RG=6 ohm, VGS drive 0..-4.5 V.
+V_PDD pdd 0 -10
+R_PD pdd pd 4.5
+V_PDRV pdrv 0 PULSE(0 -4.5 5u 1n 1n 10u 25u)
+R_PG pdrv pg 6
+M_PSW pd pg 0 0 IRF7309_P
+B_PVD pvd 0 V={-V(pd)}
+
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 22u 0 100p
+
+.meas TRAN N_TDON TRIG V(ndrv)=0.45 RISE=1 TARG V(nd)=9 FALL=1
+.meas TRAN N_TR   TRIG V(nd)=9 FALL=1 TARG V(nd)=1 FALL=1
+.meas TRAN N_TDOFF TRIG V(ndrv)=4.05 FALL=1 TARG V(nd)=1 RISE=1
+.meas TRAN N_TF   TRIG V(nd)=1 RISE=1 TARG V(nd)=9 RISE=1
+
+.meas TRAN P_TDON TRIG V(pdrv)=-0.45 FALL=1 TARG V(pvd)=9 FALL=1
+.meas TRAN P_TR   TRIG V(pvd)=9 FALL=1 TARG V(pvd)=1 FALL=1
+.meas TRAN P_TDOFF TRIG V(pdrv)=-4.05 RISE=1 TARG V(pvd)=1 RISE=1
+.meas TRAN P_TF   TRIG V(pvd)=1 RISE=1 TARG V(pvd)=9 RISE=1
+.end

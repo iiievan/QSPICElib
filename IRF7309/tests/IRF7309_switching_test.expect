@@ -1,0 +1,9 @@
+# Datasheet values are typical, therefore deviations are WARN-only.
+N_TDON   warn_rel  0.50  6.8n
+N_TR     warn_rel  0.50  21n
+N_TDOFF  warn_rel  0.50  22n
+N_TF     warn_rel  0.50  7.7n
+P_TDON   warn_rel  0.50  11n
+P_TR     warn_rel  0.50  17n
+P_TDOFF  warn_rel  0.50  25n
+P_TF     warn_rel  0.50  18n
