@@ -1,0 +1,21 @@
+# =============================================================================
+# FDS4559 compact half-bridge frequency expectations
+#
+# Corner map:
+#   1  20 kHz  -55 C       4  100 kHz  -55 C       7  400 kHz  -55 C
+#   2  20 kHz  +25 C       5  100 kHz  +25 C       8  400 kHz  +25 C
+#   3  20 kHz +175 C       6  100 kHz +175 C       9  400 kHz +175 C
+#
+# Hard limits only assert complete commanded gate drive and that the midpoint
+# reaches the outer 10% of the 30-V bus.  The 250-ns edge target is a WARN:
+# neither maximum PWM frequency nor edge time over temperature is guaranteed
+# by the datasheet.
+# =============================================================================
+# measurement    mode       tolerance  expected
+ECHO_CORNER      abs        0.01       1 2 3 4 5 6 7 8 9
+HB_P_VSG_PK      min        0.01       9
+HB_N_VGS_PK      min        0.01       9
+HB_SW_MAX        min        0          27
+HB_SW_MIN        max        0          3
+HB_SW_TR         warn_max   0          250n
+HB_SW_TF         warn_max   0          250n
