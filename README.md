@@ -104,7 +104,8 @@ QSPICE_library/
 ├── 74HCT244/
 ├── ULQ2003A/
 ├── LM358/                        ← onsemi 0.1.0 validated; TI B/BA 0.2.0-preview
-└── INA181/                       ← INA181A1 0.2.0 validated
+├── INA181/                       ← INA181A1 0.2.0 validated
+└── IRF7309/                      ← N/P 30 V, 0.1.0-preview; статическая приёмка
 ```
 
 ### Граница универсального теста
@@ -399,6 +400,7 @@ cat out.txt
 | LM358 | 0.1.0 | onsemi LM358/D Rev.36, September 2024 | 94 PASS, 1 ожидаемый WARN, 0 FAIL |
 | LM358B / LM358BA | 0.2.0-preview | TI SLOS068AB, October 2024 | 8 стендов приёмки подготовлены; полный QSPICE-прогон ожидается |
 | INA181A1 | 0.2.0 validated | TI SBOS793H, November 2023 | 11 стендов; 60 PASS, 0 WARN, 0 FAIL |
+| IRF7309 | 0.1.0-preview | International Rectifier / Infineon PD-9.1243B | N/P-модели и первый статический стенд; QSPICE-прогон ожидается |
 
 > **ULQ2003A, а не ULN2003A.** Электрически они идентичны, но рабочий
 > диапазон разный: ULN от −20 °C, ULQ от −40 °C. Для привода заслонки

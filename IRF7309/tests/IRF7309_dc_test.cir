@@ -1,0 +1,65 @@
+* ============================================================================
+* IRF7309 - PHASE 1 STATIC DATASHEET VALIDATION, TJ = 25 C
+* Datasheet: International Rectifier / Infineon PD-9.1243B
+* No half-bridge, dead-time, frequency, capacitance or gate-charge tests here.
+* ============================================================================
+.temp 25
+.lib ../IRF7309_N.txt
+.lib ../IRF7309_P.txt
+
+* Gate threshold: VDS=VGS, |ID|=250 uA.
+I_NTH 0 n_th 250u
+M_NTH n_th n_th 0 0 IRF7309_N
+I_PTH p_th 0 250u
+M_PTH p_th p_th 0 0 IRF7309_P
+
+* N-channel RDS(on): 10 V / 2.4 A and 4.5 V / 2.0 A.
+V_NG10 n_g10 0 10
+I_NR10 0 n_r10 2.4
+M_NR10 n_r10 n_g10 0 0 IRF7309_N
+V_NG45 n_g45 0 4.5
+I_NR45 0 n_r45 2.0
+M_NR45 n_r45 n_g45 0 0 IRF7309_N
+B_NR10 n_r10_ohm 0 V={abs(V(n_r10)/2.4)}
+B_NR45 n_r45_ohm 0 V={abs(V(n_r45)/2.0)}
+
+* P-channel RDS(on): -10 V / -1.8 A and -4.5 V / -1.5 A.
+V_PG10 p_g10 0 -10
+I_PR10 p_r10 0 1.8
+M_PR10 p_r10 p_g10 0 0 IRF7309_P
+V_PG45 p_g45 0 -4.5
+I_PR45 p_r45 0 1.5
+M_PR45 p_r45 p_g45 0 0 IRF7309_P
+B_PR10 p_r10_ohm 0 V={abs(V(p_r10)/1.8)}
+B_PR45 p_r45_ohm 0 V={abs(V(p_r45)/1.5)}
+
+* Off-state drain leakage at |VDS|=24 V, VGS=0.
+V_NLEAK n_leak 0 24
+M_NLEAK n_leak 0 0 0 IRF7309_N
+B_NLEAK n_leak_abs 0 V={abs(I(V_NLEAK))}
+V_PLEAK p_leak 0 -24
+M_PLEAK p_leak 0 0 0 IRF7309_P
+B_PLEAK p_leak_abs 0 V={abs(I(V_PLEAK))}
+
+* Body diodes at |IS|=1.8 A, VGS=0.
+I_NDIO n_dio 0 1.8
+M_NDIO n_dio 0 0 0 IRF7309_N
+I_PDIO 0 p_dio 1.8
+M_PDIO p_dio 0 0 0 IRF7309_P
+
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 20u 0 50n
+
+.meas TRAN N_VTH_MIN AVG V(n_th) FROM=15u TO=20u
+.meas TRAN N_VTH_MAX AVG V(n_th) FROM=15u TO=20u
+.meas TRAN P_VTH_MIN AVG V(0,p_th) FROM=15u TO=20u
+.meas TRAN P_VTH_MAX AVG V(0,p_th) FROM=15u TO=20u
+.meas TRAN N_RDS_10V_MAX AVG V(n_r10_ohm) FROM=15u TO=20u
+.meas TRAN N_RDS_4V5_MAX AVG V(n_r45_ohm) FROM=15u TO=20u
+.meas TRAN P_RDS_10V_MAX AVG V(p_r10_ohm) FROM=15u TO=20u
+.meas TRAN P_RDS_4V5_MAX AVG V(p_r45_ohm) FROM=15u TO=20u
+.meas TRAN N_IDSS_25C_MAX AVG V(n_leak_abs) FROM=15u TO=20u
+.meas TRAN P_IDSS_25C_MAX AVG V(p_leak_abs) FROM=15u TO=20u
+.meas TRAN N_VSD_MAX AVG V(0,n_dio) FROM=15u TO=20u
+.meas TRAN P_VSD_MAX AVG V(p_dio) FROM=15u TO=20u
+.end
