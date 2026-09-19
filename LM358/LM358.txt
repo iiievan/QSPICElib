@@ -1,0 +1,87 @@
+* ============================================================================
+* LM358 - onsemi LM358/D, Rev.36, September 2024; model 0.1.0-preview
+* BEHAVIORAL FIT, NOT an onsemi transistor model. QSPICE validation PENDING.
+* Reference: datasheets/LM358-D.PDF, ordinary LM358 column (NOT LM358A/LM2904).
+* One amplifier: INP INM VCC VEE OUT. Two instances draw one package's IQ.
+* LM358_DUAL below follows physical pins 1..8; it adds no extra supply current.
+*
+* Calibration: p.4 DC table; Fig.5/7 approximate two-pole fit; Fig.3 slew fit.
+* GBW is the dominant-pole gain product, not the final two-pole unity frequency.
+* Datasheet temperature rating: 0..70 C. Below 0 C is extrapolation ONLY.
+* Temperature is read explicitly from QSPICE's `temp` in B_DT (degrees C).
+* VOS(T) = VOS25 + DVOSDT*(T-25); IOS likewise. Sign is one possible sample.
+*                 -35 C       0 C        25 C       60 C       70 C
+* VOS, nominal     1.580m      1.825m     2.000m     2.245m     2.315m
+* IOS, nominal    4.400n      4.750n     5.000n     5.350n     5.450n
+* IB, nominal    45n at all T: slope UNKNOWN, TCIB=0 is not a measured curve.
+* AOL/GBW/SR/RO/current limits/headroom/IQ temperature slopes are UNKNOWN.
+* Room-temperature parameters are retained, not inferred from max limits.
+*
+* Limitations: no input/output noise, channel crosstalk, input ESD, phase
+* reversal, validated behavior outside VICR, power-off/backfeed, startup/UVLO,
+* self-heating, thermal shutdown, package parasitics or measured overload
+* recovery. Two-pole dynamics and sink crossover are approximations.
+* FP2/RO/COUT and low-sink knee are engineering choices, not datasheet values.
+* CMRR/PSRR are DC fits; their frequency dependence is not validated.
+* CMRR is referenced to 5 V. CM error is scaled by 5/VS above 5 V to keep
+* full-range VOS within its table bound; this supply dependence is an assumption.
+* Input bias and supply-current table takes precedence over conflicting
+* Fig.8/9 typical plots. No statistical/process correlation is implied.
+* DO NOT use a green nominal regression as proof of worst-case hardware.
+* ============================================================================
+.subckt LM358 INP INM VCC VEE OUT
++ params: VOS25=2m DVOSDT=7u IB25=45n TCIB=0 IOS25=5n DIOSDT=10p
++ AOL=100k GBW=1.4Meg FP2=650k SRP=450k SRN=700k
++ CMRR=70 PSRR=100 RO=50 COUT=5p
++ ISRC=40m ISINK=20m ISINKLOW=50u VLOW=5.025m
++ HEAD5=1.4125 HEAD30=1.86 IQ5=700u IQ30=1.5m
+
+* Physical temperature enters expressions, including .step temp runs.
+B_DT dt VEE V={temp-25}
+B_HEAD head VEE V={HEAD5+(HEAD30-HEAD5)*(V(VCC,VEE)-5)/25}
+B_ERR err VEE V={V(INP,INM)+VOS25+DVOSDT*V(dt,VEE)
++ +(V(INP,VEE)+V(INM,VEE))/2*10**(-CMRR/20)*5/max(V(VCC,VEE),5)
++ +(V(VCC,VEE)-5)*10**(-PSRR/20)}
+
+* PNP input stage: both input bias currents flow OUT of the input pins.
+* Finite nonzero input current; arbitrary signed IOS is supported.
+B_IBP VCC INP I={max(IB25+TCIB*V(dt,VEE)
++ +(IOS25+DIOSDT*V(dt,VEE))/2,0)}
+B_IBM VCC INM I={max(IB25+TCIB*V(dt,VEE)
++ -(IOS25+DIOSDT*V(dt,VEE))/2,0)}
+
+* Dominant pole: C=1 nF; gm=2*pi*GBW*C. AOL is calibrated with RL=2 kohm.
+* Separate rise/fall current limits give slew without an ideal voltage step.
+B_GM VEE dom I={limit(6.283185307179586*GBW*1n*V(err,VEE),-SRN*1n,SRP*1n)}
+R_DOM dom VEE {AOL*(1+RO/2000)/(6.283185307179586*GBW*1n)}
+C_DOM dom VEE 1n
+* Anti-windup prevents an unphysical thousand-volt hidden dominant-pole state.
+B_AW dom VEE I={max(V(dom,VEE)-max(V(VCC,VEE)-V(head,VEE),VLOW),0)
++ +min(V(dom,VEE)-VLOW,0)}
+* Buffer the second pole: its capacitor must not double the dominant C.
+E_BUFFER buffered VEE dom VEE 1
+R_HF buffered hf {1/(6.283185307179586*FP2*1n)}
+C_HF hf VEE 1n
+B_DRIVE drive VEE V={limit(V(hf,VEE),VLOW,max(V(VCC,VEE)-V(head,VEE),VLOW))}
+
+* Asymmetric output: 40 mA source, 20 mA sink away from the lower rail.
+* At VO=0.2 V only 50 uA nominal sink (p.4), not 20 mA!
+* The 0.4..1.2 V transition shape has no measured calibration in this PDF.
+B_SINK sink VEE V={ISINKLOW*limit(V(OUT,VEE)/0.2,0,1)
++ +max(ISINK-ISINKLOW,0)*limit((V(OUT,VEE)-0.4)/0.8,0,1)}
+B_CMD cmd VEE V={limit((V(drive,VEE)-V(OUT,VEE))/RO,-V(sink,VEE),ISRC)}
+* Deliver load current through the actual supply rails, not global ground.
+B_UP VCC OUT I={max(V(cmd,VEE),0)}
+B_DN OUT VEE I={max(-V(cmd,VEE),0)}
+C_OUT OUT VEE {COUT}
+* IQ5/IQ30 are TOTAL DUAL-device quiescent currents; each core uses half.
+* Positive output load current is already included by B_UP.
+B_IQ VCC VEE I={(IQ5+(IQ30-IQ5)*(limit(V(VCC,VEE),5,30)-5)/25)/2}
+.ends LM358
+
+* Physical DIP/SOIC pin order: OUTA INMA INPA VEE INPB INMB OUTB VCC.
+* Use two explicit LM358 cores for independent process/parameter corners.
+.subckt LM358_DUAL OUTA INMA INPA VEE INPB INMB OUTB VCC
+X_A INPA INMA VCC VEE OUTA LM358
+X_B INPB INMB VCC VEE OUTB LM358
+.ends LM358_DUAL

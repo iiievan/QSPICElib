@@ -1,0 +1,9 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+RISE_1V_TIME             warn_rel  0.3        2.222222u 2.222222u 2.222222u 2.222222u
+FALL_1V_TIME             warn_rel  0.3        1.428571u 1.428571u 1.428571u 1.428571u
+HIGH_SETTLED             max       0          0.01 0.01 0.01 0.01
+LOW_SETTLED              max       0          0.01 0.01 0.01 0.01
+OUTPUT_LOWER_BOUND       min       0          0 0 0 0
+OUTPUT_UPPER_BOUND       max       0          15 15 15 15
+ACTUAL_TEMP              abs       0.001      0 25 60 70

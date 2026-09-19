@@ -1,0 +1,438 @@
+
+ishopov@DESKTOP-VKUCH4V MINGW64 /d/2.github/QSPICElib (main)
+$ KKEEP_RAW=1 ./run_tests.sh LM358
+bash: $'\302\226KEEP_RAW=1': command not found
+
+ishopov@DESKTOP-VKUCH4V MINGW64 /d/2.github/QSPICElib (main)
+$ ./run_tests.sh LM358
+
+Najdeno stendov: 11
+======================================================================
+
+--- LM358_ac_test
+    GAIN_1HZ       PASS
+                   99.9773
+    GAIN_100HZ     PASS
+                   82.6283
+    GAIN_1KHZ      PASS
+                   62.7077
+    GAIN_10KHZ     PASS
+                   42.7075
+    GAIN_100KHZ    PASS
+                   22.6069
+    GAIN_1MHZ      PASS
+                   -2.56372
+    FINITE_GAIN_1KHZ PASS
+                   1365.8
+    UNITY_CROSSING PASS
+                   837597
+
+--- LM358_cold_extrapolation_test
+    VOS_EXTRAPOLATION PASS
+                   0.00156659 0.00167161 0.00180463
+    IOS_EXTRAPOLATION PASS
+                   4.4e-09 4.55e-09 4.74e-09
+    WITHIN_DATASHEET_RATING WARN (ugly: 1 2 3)
+                   0 0 0
+    FEEDBACK_SANITY_ONLY PASS
+                   0.0018867 0.00199172 0.00212474
+    ACTUAL_TEMP    PASS
+                   -35 -20 -1
+
+--- LM358_dc_test
+    OS5L_MAX       PASS
+                   0.00198666
+    VOS_TYP        PASS
+                   0.00198666
+    OS5H_MAX       PASS
+                   0.00302721
+    OS30L_MAX      PASS
+                   0.0022364
+    OS30H_MAX      PASS
+                   0.00372745
+    IB_TYP         PASS
+                   4.5e-08
+    IB_MAX         PASS
+                   4.5e-08
+    IB_OUTWARD     PASS
+                   4.5e-08
+    IOS_TYP        PASS
+                   5e-09
+    IOS_MAX        PASS
+                   5e-09
+    AOL_TYP        PASS
+                   99994.7
+    AOL_MIN        PASS
+                   99994.7
+    CMRR_TYP       PASS
+                   69.9986
+    CMRR_MIN       PASS
+                   69.9986
+    PSRR_TYP       PASS
+                   100.009
+    PSRR_MIN       PASS
+                   100.009
+    ACTUAL_TEMP    PASS
+                   25
+
+--- LM358_functional_test
+    RAIL_TRANSLATION PASS
+                   3.25437e-11 1.09366e-11 2.48104e-11 2.59734e-11 3.608e-11
+    FOLLOWER_A_HIGH PASS
+                   0.00219317 0.00243821 0.00261323 0.00285827 0.00292828
+    FOLLOWER_A_LOW PASS
+                   0.0018867 0.00213174 0.00230677 0.0025518 0.00262181
+    QUIET_CHANNEL_B_HIGH PASS
+                   0.00203994 0.00228497 0.00246 0.00270504 0.00277505
+    QUIET_CHANNEL_B_LOW PASS
+                   0.00203994 0.00228497 0.00246 0.00270504 0.00277505
+    INVERTING_GAIN_HIGH PASS
+                   0.00433558 0.00482736 0.00517863 0.00567041 0.00581091
+    INVERTING_GAIN_LOW PASS
+                   0.00429616 0.00478794 0.00513921 0.00563099 0.0057715
+    ACTUAL_TEMP    PASS
+                   -35 0 25 60 70
+
+--- LM358_output_test
+    VOH5_TYP       PASS
+                   3.5
+    VOH5_MIN       PASS
+                   3.5
+    VOH30_2K_MIN   PASS
+                   27.4537
+    VOH30_10K_TYP  PASS
+                   28
+    VOH30_10K_MIN  PASS
+                   28
+    VOL_TYP        PASS
+                   0.005
+    VOL_MAX        PASS
+                   0.005
+    VOL_POLARITY   PASS
+                   0.005
+    ISOURCE_TYP    PASS
+                   0.04
+    ISOURCE_MIN    PASS
+                   0.04
+    ISINK_TYP      PASS
+                   0.02
+    ISINK_MIN      PASS
+                   0.02
+    ISINK_200MV_TYP PASS
+                   5e-05
+    ISINK_200MV_MIN PASS
+                   5e-05
+    ISC_TYP        PASS
+                   0.04
+    ISC_MAX        PASS
+                   0.04
+
+--- LM358_parameter_test
+    SIGNED_OFFSET_SEPARATION PASS
+                   0.00365058 0.00400063 0.00463073
+    ACTUAL_TEMP    PASS
+                   0 25 70
+
+--- LM358_slew_test
+    RISE_1V_TIME   PASS
+                   2.27999e-06 2.27999e-06 2.28e-06 2.28e-06
+    FALL_1V_TIME   PASS
+                   1.46828e-06 1.46828e-06 1.46827e-06 1.46827e-06
+    HIGH_SETTLED   PASS
+                   0.00230674 0.00248174 0.00272675 0.00279676
+    LOW_SETTLED    PASS
+                   0.00211591 0.00229092 0.00253593 0.00260593
+    OUTPUT_LOWER_BOUND PASS
+                   1.94478 1.94495 1.9452 1.94527
+    OUTPUT_UPPER_BOUND PASS
+                   4.03894 4.03911 4.03936 4.03943
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+--- LM358_small_signal_test
+    ni odnogo .meas ne razobrano - proverte LM358_small_signal_test.out
+
+--- LM358_supply_range_test
+    S3_FEEDBACK    PASS
+                   0.0019585 0.00213353 0.00237856 0.00244857
+    S5_FEEDBACK    PASS
+                   0.0019785 0.00215353 0.00239857 0.00246858
+    S15_FEEDBACK   PASS
+                   0.00197289 0.00214789 0.0023929 0.00246291
+    S30_FEEDBACK   PASS
+                   0.00209648 0.00227149 0.00251649 0.00258649
+    S32_FEEDBACK   PASS
+                   0.00211483 0.00228984 0.00253484 0.00260484
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+--- LM358_supply_test
+    Q5_IQ_TYP      PASS
+                   0.00070018 0.00070018 0.00070018 0.00070018
+    Q5_IQ_MAX      PASS
+                   0.00070018 0.00070018 0.00070018 0.00070018
+    Q5_OUTA_LOW    PASS
+                   0.005025 0.005025 0.005025 0.005025
+    Q5_OUTB_LOW    PASS
+                   0.005025 0.005025 0.005025 0.005025
+    Q30_IQ_TYP     PASS
+                   0.00150018 0.00150018 0.00150018 0.00150018
+    Q30_IQ_MAX     PASS
+                   0.00150018 0.00150018 0.00150018 0.00150018
+    Q30_OUTA_LOW   PASS
+                   0.005025 0.005025 0.005025 0.005025
+    Q30_OUTB_LOW   PASS
+                   0.005025 0.005025 0.005025 0.005025
+    LOAD_CURRENT_ACCOUNTING PASS
+                   4.2625e-08 4.25e-08 4.2325e-08 4.2275e-08
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+--- LM358_temp_test
+    VOS_MAX        PASS
+                   0.00181163 0.00198666 0.00223169 0.00230171
+    VOS_NOMINAL_LINE PASS
+                   0.00181163 0.00198666 0.00223169 0.00230171
+    IB_MAX         PASS
+                   4.5e-08 4.5e-08 4.5e-08 4.5e-08
+    IOS_MAX        PASS
+                   4.75e-09 5e-09 5.35e-09 5.45e-09
+    IOS_NOMINAL_LINE PASS
+                   4.75e-09 5e-09 5.35e-09 5.45e-09
+    AOL_MIN        PASS
+                   99994.7 99994.7 99994.7 99994.7
+    CML_OFFSET_MAX PASS
+                   0.0020614 0.0022364 0.00248141 0.00255141
+    CMH_OFFSET_MAX PASS
+                   0.00353664 0.00371164 0.00395665 0.00402665
+    VOH30_2K_MIN   PASS
+                   27.4537 27.4537 27.4537 27.4537
+    VOH30_10K_MIN  PASS
+                   28 28 28 28
+    VOL_MAX        PASS
+                   0.005 0.005 0.005 0.005
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+======================================================================
+PASS: 90  WARN: 1  FAIL: 1
+Otchet: TEST_RESULTS.md
+EST' HARD FAIL: 1
+
+ishopov@DESKTOP-VKUCH4V MINGW64 /d/2.github/QSPICElib (main)
+$ KEEP_RAW=1 ./run_tests.sh LM358
+
+Najdeno stendov: 11
+======================================================================
+
+--- LM358_ac_test
+    GAIN_1HZ       PASS
+                   99.9773
+    GAIN_100HZ     PASS
+                   82.6283
+    GAIN_1KHZ      PASS
+                   62.7077
+    GAIN_10KHZ     PASS
+                   42.7075
+    GAIN_100KHZ    PASS
+                   22.6069
+    GAIN_1MHZ      PASS
+                   -2.56372
+    FINITE_GAIN_1KHZ PASS
+                   1365.8
+    UNITY_CROSSING PASS
+                   837597
+
+--- LM358_cold_extrapolation_test
+    VOS_EXTRAPOLATION PASS
+                   0.00156659 0.00167161 0.00180463
+    IOS_EXTRAPOLATION PASS
+                   4.4e-09 4.55e-09 4.74e-09
+    WITHIN_DATASHEET_RATING WARN (ugly: 1 2 3)
+                   0 0 0
+    FEEDBACK_SANITY_ONLY PASS
+                   0.0018867 0.00199172 0.00212474
+    ACTUAL_TEMP    PASS
+                   -35 -20 -1
+
+--- LM358_dc_test
+    OS5L_MAX       PASS
+                   0.00198666
+    VOS_TYP        PASS
+                   0.00198666
+    OS5H_MAX       PASS
+                   0.00302721
+    OS30L_MAX      PASS
+                   0.0022364
+    OS30H_MAX      PASS
+                   0.00372745
+    IB_TYP         PASS
+                   4.5e-08
+    IB_MAX         PASS
+                   4.5e-08
+    IB_OUTWARD     PASS
+                   4.5e-08
+    IOS_TYP        PASS
+                   5e-09
+    IOS_MAX        PASS
+                   5e-09
+    AOL_TYP        PASS
+                   99994.7
+    AOL_MIN        PASS
+                   99994.7
+    CMRR_TYP       PASS
+                   69.9986
+    CMRR_MIN       PASS
+                   69.9986
+    PSRR_TYP       PASS
+                   100.009
+    PSRR_MIN       PASS
+                   100.009
+    ACTUAL_TEMP    PASS
+                   25
+
+--- LM358_functional_test
+    RAIL_TRANSLATION PASS
+                   3.25437e-11 1.09366e-11 2.48104e-11 2.59734e-11 3.608e-11
+    FOLLOWER_A_HIGH PASS
+                   0.00219317 0.00243821 0.00261323 0.00285827 0.00292828
+    FOLLOWER_A_LOW PASS
+                   0.0018867 0.00213174 0.00230677 0.0025518 0.00262181
+    QUIET_CHANNEL_B_HIGH PASS
+                   0.00203994 0.00228497 0.00246 0.00270504 0.00277505
+    QUIET_CHANNEL_B_LOW PASS
+                   0.00203994 0.00228497 0.00246 0.00270504 0.00277505
+    INVERTING_GAIN_HIGH PASS
+                   0.00433558 0.00482736 0.00517863 0.00567041 0.00581091
+    INVERTING_GAIN_LOW PASS
+                   0.00429616 0.00478794 0.00513921 0.00563099 0.0057715
+    ACTUAL_TEMP    PASS
+                   -35 0 25 60 70
+
+--- LM358_output_test
+    VOH5_TYP       PASS
+                   3.5
+    VOH5_MIN       PASS
+                   3.5
+    VOH30_2K_MIN   PASS
+                   27.4537
+    VOH30_10K_TYP  PASS
+                   28
+    VOH30_10K_MIN  PASS
+                   28
+    VOL_TYP        PASS
+                   0.005
+    VOL_MAX        PASS
+                   0.005
+    VOL_POLARITY   PASS
+                   0.005
+    ISOURCE_TYP    PASS
+                   0.04
+    ISOURCE_MIN    PASS
+                   0.04
+    ISINK_TYP      PASS
+                   0.02
+    ISINK_MIN      PASS
+                   0.02
+    ISINK_200MV_TYP PASS
+                   5e-05
+    ISINK_200MV_MIN PASS
+                   5e-05
+    ISC_TYP        PASS
+                   0.04
+    ISC_MAX        PASS
+                   0.04
+
+--- LM358_parameter_test
+    SIGNED_OFFSET_SEPARATION PASS
+                   0.00365058 0.00400063 0.00463073
+    ACTUAL_TEMP    PASS
+                   0 25 70
+
+--- LM358_slew_test
+    RISE_1V_TIME   PASS
+                   2.27999e-06 2.27999e-06 2.28e-06 2.28e-06
+    FALL_1V_TIME   PASS
+                   1.46828e-06 1.46828e-06 1.46827e-06 1.46827e-06
+    HIGH_SETTLED   PASS
+                   0.00230674 0.00248174 0.00272675 0.00279676
+    LOW_SETTLED    PASS
+                   0.00211591 0.00229092 0.00253593 0.00260593
+    OUTPUT_LOWER_BOUND PASS
+                   1.94478 1.94495 1.9452 1.94527
+    OUTPUT_UPPER_BOUND PASS
+                   4.03894 4.03911 4.03936 4.03943
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+--- LM358_small_signal_test
+    ni odnogo .meas ne razobrano - proverte LM358_small_signal_test.out
+
+--- LM358_supply_range_test
+    S3_FEEDBACK    PASS
+                   0.0019585 0.00213353 0.00237856 0.00244857
+    S5_FEEDBACK    PASS
+                   0.0019785 0.00215353 0.00239857 0.00246858
+    S15_FEEDBACK   PASS
+                   0.00197289 0.00214789 0.0023929 0.00246291
+    S30_FEEDBACK   PASS
+                   0.00209648 0.00227149 0.00251649 0.00258649
+    S32_FEEDBACK   PASS
+                   0.00211483 0.00228984 0.00253484 0.00260484
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+--- LM358_supply_test
+    Q5_IQ_TYP      PASS
+                   0.00070018 0.00070018 0.00070018 0.00070018
+    Q5_IQ_MAX      PASS
+                   0.00070018 0.00070018 0.00070018 0.00070018
+    Q5_OUTA_LOW    PASS
+                   0.005025 0.005025 0.005025 0.005025
+    Q5_OUTB_LOW    PASS
+                   0.005025 0.005025 0.005025 0.005025
+    Q30_IQ_TYP     PASS
+                   0.00150018 0.00150018 0.00150018 0.00150018
+    Q30_IQ_MAX     PASS
+                   0.00150018 0.00150018 0.00150018 0.00150018
+    Q30_OUTA_LOW   PASS
+                   0.005025 0.005025 0.005025 0.005025
+    Q30_OUTB_LOW   PASS
+                   0.005025 0.005025 0.005025 0.005025
+    LOAD_CURRENT_ACCOUNTING PASS
+                   4.2625e-08 4.25e-08 4.2325e-08 4.2275e-08
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+--- LM358_temp_test
+    VOS_MAX        PASS
+                   0.00181163 0.00198666 0.00223169 0.00230171
+    VOS_NOMINAL_LINE PASS
+                   0.00181163 0.00198666 0.00223169 0.00230171
+    IB_MAX         PASS
+                   4.5e-08 4.5e-08 4.5e-08 4.5e-08
+    IOS_MAX        PASS
+                   4.75e-09 5e-09 5.35e-09 5.45e-09
+    IOS_NOMINAL_LINE PASS
+                   4.75e-09 5e-09 5.35e-09 5.45e-09
+    AOL_MIN        PASS
+                   99994.7 99994.7 99994.7 99994.7
+    CML_OFFSET_MAX PASS
+                   0.0020614 0.0022364 0.00248141 0.00255141
+    CMH_OFFSET_MAX PASS
+                   0.00353664 0.00371164 0.00395665 0.00402665
+    VOH30_2K_MIN   PASS
+                   27.4537 27.4537 27.4537 27.4537
+    VOH30_10K_MIN  PASS
+                   28 28 28 28
+    VOL_MAX        PASS
+                   0.005 0.005 0.005 0.005
+    ACTUAL_TEMP    PASS
+                   0 25 60 70
+
+======================================================================
+PASS: 90  WARN: 1  FAIL: 1
+Otchet: TEST_RESULTS.md
+EST' HARD FAIL: 1
+
+ishopov@DESKTOP-VKUCH4V MINGW64 /d/2.github/QSPICElib (main)

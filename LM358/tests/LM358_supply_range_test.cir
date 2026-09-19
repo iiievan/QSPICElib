@@ -1,0 +1,42 @@
+* LM358 3/5/15/30/32 V operation at rated endpoint temperatures
+* onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
+* PREVIEW: no QSPICE run has been performed in this environment.
+.step temp list 0 25 60 70
+.lib ../LM358.txt
+V_S3 S3cc 0 3
+V_S3IN S3in 0 .5
+X_S3 S3in S3out S3cc 0 S3out LM358
+R_S3 S3out 0 10k
+B_S3_err S3_err 0 V={abs(V(S3out,S3in))}
+V_S5 S5cc 0 5
+V_S5IN S5in 0 .5
+X_S5 S5in S5out S5cc 0 S5out LM358
+R_S5 S5out 0 10k
+B_S5_err S5_err 0 V={abs(V(S5out,S5in))}
+V_S15 S15cc 0 15
+V_S15IN S15in 0 .5
+X_S15 S15in S15out S15cc 0 S15out LM358
+R_S15 S15out 0 10k
+B_S15_err S15_err 0 V={abs(V(S15out,S15in))}
+V_S30 S30cc 0 30
+V_S30IN S30in 0 .5
+X_S30 S30in S30out S30cc 0 S30out LM358
+R_S30 S30out 0 10k
+B_S30_err S30_err 0 V={abs(V(S30out,S30in))}
+V_S32 S32cc 0 32
+V_S32IN S32in 0 .5
+X_S32 S32in S32out S32cc 0 S32out LM358
+R_S32 S32out 0 10k
+B_S32_err S32_err 0 V={abs(V(S32out,S32in))}
+B_actual_temp actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(S15_err) V(S30_err) V(S32_err) V(S3_err) V(S5_err) V(actual_temp)
+.meas DC S3_FEEDBACK AVG V(S3_err)
+.meas DC S5_FEEDBACK AVG V(S5_err)
+.meas DC S15_FEEDBACK AVG V(S15_err)
+.meas DC S30_FEEDBACK AVG V(S30_err)
+.meas DC S32_FEEDBACK AVG V(S32_err)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

@@ -1,0 +1,8 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+S3_FEEDBACK              max       0          0.02 0.02 0.02 0.02
+S5_FEEDBACK              max       0          0.02 0.02 0.02 0.02
+S15_FEEDBACK             max       0          0.02 0.02 0.02 0.02
+S30_FEEDBACK             max       0          0.02 0.02 0.02 0.02
+S32_FEEDBACK             max       0          0.02 0.02 0.02 0.02
+ACTUAL_TEMP              abs       0.001      0 25 60 70

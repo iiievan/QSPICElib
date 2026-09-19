@@ -1,0 +1,36 @@
+* LM358 dual package IQ and loaded supply-current accounting
+* onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
+* PREVIEW: no QSPICE run has been performed in this environment.
+.step temp list 0 25 60 70
+.lib ../LM358.txt
+V_Q5CC Q5cc 0 5
+V_Q5ONE Q5one 0 1
+X_Q5 Q5a Q5one 0 0 0 Q5one Q5b Q5cc LM358_DUAL
+B_Q5_iq Q5_iq 0 V={-I(V_Q5CC)}
+V_Q30CC Q30cc 0 30
+V_Q30ONE Q30one 0 1
+X_Q30 Q30a Q30one 0 0 0 Q30one Q30b Q30cc LM358_DUAL
+B_Q30_iq Q30_iq 0 V={-I(V_Q30CC)}
+V_CC0 cc0 0 5
+V_CC1 cc1 0 5
+V_REF ref 0 2
+X_IDLE ref idle cc0 0 idle LM358
+X_LOAD ref loaded cc1 0 loaded LM358
+R_LOAD loaded 0 1k
+B_accounting accounting 0 V={abs(-I(V_CC1)+I(V_CC0)-V(loaded)/1000)}
+B_actual_temp actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(Q30_iq) V(Q30a) V(Q30b) V(Q5_iq) V(Q5a) V(Q5b) V(accounting) V(actual_temp)
+.meas DC Q5_IQ_TYP AVG V(Q5_iq)
+.meas DC Q5_IQ_MAX AVG V(Q5_iq)
+.meas DC Q5_OUTA_LOW AVG V(Q5a)
+.meas DC Q5_OUTB_LOW AVG V(Q5b)
+.meas DC Q30_IQ_TYP AVG V(Q30_iq)
+.meas DC Q30_IQ_MAX AVG V(Q30_iq)
+.meas DC Q30_OUTA_LOW AVG V(Q30a)
+.meas DC Q30_OUTB_LOW AVG V(Q30b)
+.meas DC LOAD_CURRENT_ACCOUNTING AVG V(accounting)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

@@ -87,10 +87,30 @@ run_limited() {
 # Format: stroka ".meas tran <imja> ...:" , dalee stroki "<nomer shaga> <znachenie>"
 # (bez .step - prosto "<znachenie>").
 read -r -d '' PARSE_AWK <<'AWK' || true
+function number(s) {
+    return s ~ /^[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][-+]?[0-9]+)?$/
+}
 /^[[:space:]]*\.meas[[:space:]]/ {
     nm = $3; gsub(/[:,]$/, "", nm); cur = toupper(nm)
     if (!(cur in seen)) { order[++n] = cur; seen[cur] = 1 }
     next
+}
+# QPOST may print real-valued AC expressions as (real, 0).
+# Never silently discard a nonzero imaginary part: a complex measurement is
+# not a scalar expectation and must remain missing / FAIL downstream.
+cur != "" && index($0, "(") > 0 {
+    line=$0; sub(/^[[:space:]]+/, "", line)
+    sub(/^[0-9]+[[:space:]]+/, "", line)
+    if (line ~ /^\([^()]+,[^()]+\)[[:space:]]*$/) {
+        sub(/^\(/, "", line); sub(/\)[[:space:]]*$/, "", line)
+        split(line, pair, /,/)
+        gsub(/[[:space:]]/, "", pair[1]); gsub(/[[:space:]]/, "", pair[2])
+        if (number(pair[1]) && number(pair[2]) && pair[2]+0 == 0) {
+            vals[cur] = vals[cur] (vals[cur] == "" ? "" : " ") pair[1]
+            next
+        }
+    }
+    cur=""; next
 }
 cur != "" && $0 ~ /^[[:space:]]*[0-9]+[[:space:]]+[-+]?[0-9.]+([eE][-+]?[0-9]+)?[[:space:]]*$/ {
     vals[cur] = vals[cur] (vals[cur] == "" ? "" : " ") $2; next
@@ -139,13 +159,18 @@ NR==FNR {
     }
 
     nv = split($2, v, " ")
+    # Missing data is a test-harness failure even for a typical/WARN target.
+    if (nv < nexp[nm]) {
+        printf "FAIL|%s|%s|missing steps: got %d expected at least %d\n", nm, $2, nv, nexp[nm]
+        next
+    }
     bad = ""
     for (i = 1; i <= nv; i++) {
         m = v[i] + 0
         e = (nexp[nm] >= i) ? exp_v[nm, i] : exp_v[nm, nexp[nm]]
         ok = 0
-        if      (md == "abs") ok = (m - e < tol[nm] && e - m < tol[nm])
-        else if (md == "rel") ok = (m - e < tol[nm]*e && e - m < tol[nm]*e)
+        if      (md == "abs") ok = (m - e <= tol[nm] && e - m <= tol[nm])
+        else if (md == "rel") ok = (m - e <= tol[nm]*((e<0)?-e:e) && e - m <= tol[nm]*((e<0)?-e:e))
         else if (md == "max") ok = (m <= e * (1 + tol[nm]))
         else if (md == "min") ok = (m >= e * (1 - tol[nm]))
         else {

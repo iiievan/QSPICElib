@@ -1,0 +1,6 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+FALL_UNDERSHOOT          warn_abs  0.02       0.24
+RISE_OVERSHOOT           warn_abs  0.02       0.4
+SETTLED_LOW              max       0          0.01
+SETTLED_HIGH             max       0          0.01

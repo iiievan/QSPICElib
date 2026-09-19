@@ -1,0 +1,7 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+VOS_EXTRAPOLATION        warn_abs  0.0001     1.580m 1.685m 1.818m
+IOS_EXTRAPOLATION        warn_abs  5e-10      4.4n 4.55n 4.74n
+WITHIN_DATASHEET_RATING  warn_min  0          1 1 1
+FEEDBACK_SANITY_ONLY     max       0          0.02 0.02 0.02
+ACTUAL_TEMP              abs       0.001      -35 -20 -1

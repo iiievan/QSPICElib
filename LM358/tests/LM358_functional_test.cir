@@ -1,0 +1,43 @@
+* LM358 generic feedback, dual pinout and rail translation; engineering criteria
+* onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
+* PREVIEW: no QSPICE run has been performed in this environment.
+.step temp list -35 0 25 60 70
+.lib ../LM358.txt
+V_ACC Acc 0 5
+V_AEE Aee 0 0
+V_AP Ap Aee PWL(0 1 20u 1 20.1u 2 60u 2 60.1u 1 100u 1)
+V_AQ Aq Aee 1.5
+X_A Aoa Aoa Ap Aee Aq Aob Aob Acc LM358_DUAL
+R_AA Aoa Aee 10k
+R_AB Aob Aee 10k
+V_BCC Bcc 0 7
+V_BEE Bee 0 2
+V_BP Bp Bee PWL(0 1 20u 1 20.1u 2 60u 2 60.1u 1 100u 1)
+V_BQ Bq Bee 1.5
+X_B Boa Boa Bp Bee Bq Bob Bob Bcc LM358_DUAL
+R_BA Boa Bee 10k
+R_BB Bob Bee 10k
+B_SHIFT shift 0 V={abs(V(Boa,Bee)-V(Aoa,Aee))}
+B_AERR aerr 0 V={abs(V(Aoa,Ap))}
+B_BERR berr 0 V={abs(V(Aob,Aq))}
+B_TEMP et 0 V={temp}
+V_P5 p5 0 5
+V_N5 n5 0 -5
+V_IN invin 0 PWL(0 -1 20u -1 20.1u 1 60u 1 60.1u -1 100u -1)
+X_INV 0 invm p5 n5 invout LM358
+R_IN invin invm 10k
+R_FB invout invm 10k
+R_IL invout 0 10k
+B_IERR ierr 0 V={abs(V(invout)+V(invin))}
+.tran 0 100u 0 20n
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(aerr) V(berr) V(et) V(ierr) V(shift)
+.meas TRAN RAIL_TRANSLATION MAX V(shift)
+.meas TRAN FOLLOWER_A_HIGH MAX V(aerr) FROM=45u TO=55u
+.meas TRAN FOLLOWER_A_LOW MAX V(aerr) FROM=85u TO=95u
+.meas TRAN QUIET_CHANNEL_B_HIGH MAX V(berr) FROM=45u TO=55u
+.meas TRAN QUIET_CHANNEL_B_LOW MAX V(berr) FROM=85u TO=95u
+.meas TRAN INVERTING_GAIN_HIGH MAX V(ierr) FROM=45u TO=55u
+.meas TRAN INVERTING_GAIN_LOW MAX V(ierr) FROM=85u TO=95u
+.meas TRAN ACTUAL_TEMP AVG V(et) FROM=85u TO=95u
+.end

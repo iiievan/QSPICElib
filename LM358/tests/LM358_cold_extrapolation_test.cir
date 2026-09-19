@@ -1,0 +1,31 @@
+* LM358 OUTSIDE LM358 rating: qualitative extrapolation, NOT guaranteed behavior
+* onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
+* PREVIEW: no QSPICE run has been performed in this environment.
+.step temp list -35 -20 -1
+.lib ../LM358.txt
+V_OSCC OScc 0 5
+V_OSCM OScm 0 0
+V_OST OSt 0 1.4
+E_OSS OSbase OScm OSout OSt 1000
+V_OSIP OScm OSip 0
+V_OSIM OSbase OSim 0
+X_OS OSip OSim OScc 0 OSout LM358
+B_os os 0 V={V(OSim,OSip)}
+B_ios ios 0 V={abs(I(V_OSIP)-I(V_OSIM))}
+B_rated rated 0 V={if(temp<0,0,if(temp>70,0,1))}
+V_CC cc 0 5
+V_IN in 0 1
+X_F in out cc 0 out LM358
+R_L out 0 10k
+B_followerr followerr 0 V={abs(V(out,in))}
+B_actual_temp actual_temp 0 V={temp}
+V_SCAN scan 0 0
+.dc V_SCAN 0 1 1
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(actual_temp) V(followerr) V(ios) V(os) V(rated)
+.meas DC VOS_EXTRAPOLATION AVG V(os)
+.meas DC IOS_EXTRAPOLATION AVG V(ios)
+.meas DC WITHIN_DATASHEET_RATING AVG V(rated)
+.meas DC FEEDBACK_SANITY_ONLY AVG V(followerr)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end

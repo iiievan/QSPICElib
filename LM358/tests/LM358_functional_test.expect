@@ -1,0 +1,10 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+RAIL_TRANSLATION         max       0          100u 100u 100u 100u 100u
+FOLLOWER_A_HIGH          max       0          0.02 0.02 0.02 0.02 0.02
+FOLLOWER_A_LOW           max       0          0.02 0.02 0.02 0.02 0.02
+QUIET_CHANNEL_B_HIGH     max       0          0.02 0.02 0.02 0.02 0.02
+QUIET_CHANNEL_B_LOW      max       0          0.02 0.02 0.02 0.02 0.02
+INVERTING_GAIN_HIGH      max       0          0.02 0.02 0.02 0.02 0.02
+INVERTING_GAIN_LOW       max       0          0.02 0.02 0.02 0.02 0.02
+ACTUAL_TEMP              abs       0.001      -35 0 25 60 70

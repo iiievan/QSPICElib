@@ -1,0 +1,18 @@
+* LM358 Fig.7, 30 V, CL=50 pF; graphical typical shape only
+* onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
+* PREVIEW: no QSPICE run has been performed in this environment.
+.temp 25
+.lib ../LM358.txt
+V_CC cc 0 30
+V_IN inp 0 PWL(0 380m 1u 380m 1.001u 280m 6u 280m 6.001u 380m 10u 380m)
+X_DUT inp out cc 0 out LM358
+C_LOAD out 0 50p
+B_ERR err 0 V={abs(V(out,inp))}
+.tran 0 10u 0 2n
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.save V(err) V(out)
+.meas TRAN FALL_UNDERSHOOT MIN V(out) FROM=1u TO=3u
+.meas TRAN RISE_OVERSHOOT MAX V(out) FROM=6u TO=8u
+.meas TRAN SETTLED_LOW MAX V(err) FROM=4u TO=5u
+.meas TRAN SETTLED_HIGH MAX V(err) FROM=9u TO=10u
+.end

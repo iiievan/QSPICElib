@@ -1,0 +1,4 @@
+# measurement mode tolerance expected (SI units)
+# Typ/graphical targets = WARN; datasheet bounds / fixture invariants = hard.
+SIGNED_OFFSET_SEPARATION abs       5e-06      3.65m 4m 4.63m
+ACTUAL_TEMP              abs       0.001      0 25 70
