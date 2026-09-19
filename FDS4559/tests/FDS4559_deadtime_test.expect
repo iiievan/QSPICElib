@@ -1,21 +1,21 @@
 # =============================================================================
 # FDS4559 comparative dead-time characterization, +25 C / 400 kHz / RGEN=6R
 #
-# Corner:          1    2    3    4    5   6   7
-# Commanded DT ns: 500  100  50   20   10  5   0
+# Corner:          1    2    3   4   5   6   7   8   9   10  11  12
+# Commanded DT ns: 500  100  50  40  35  30  25  20  15   10   5   0
 #
 # Only the corner echoes are hard checks.  Rail reach and positive gate margin
 # are WARN diagnostics because the datasheet guarantees neither a minimum dead
 # time nor switching at 4.5 V.  Negative margin marks potential gate overlap.
 # =============================================================================
 # measurement       mode       tolerance  expected
-ECHO_CORNER          abs        0.01       1 2 3 4 5 6 7
-ECHO_DT_NS           abs        0.01       500 100 50 20 10 5 0
-DT10_SW_MAX          warn_min   0          27 27 27 27 27 27 27
-DT10_SW_MIN          warn_max   0          3 3 3 3 3 3 3
-DT45_SW_MAX          warn_min   0          27 27 27 27 27 27 27
-DT45_SW_MIN          warn_max   0          3 3 3 3 3 3 3
-DT10_PN_MARGIN       warn_min   0          0 0 0 0 0 0 0
-DT10_NP_MARGIN       warn_min   0          0 0 0 0 0 0 0
-DT45_PN_MARGIN       warn_min   0          0 0 0 0 0 0 0
-DT45_NP_MARGIN       warn_min   0          0 0 0 0 0 0 0
+ECHO_CORNER          abs        0.01       1 2 3 4 5 6 7 8 9 10 11 12
+ECHO_DT_NS           abs        0.01       500 100 50 40 35 30 25 20 15 10 5 0
+DT10_SW_MAX          warn_min   0          27 27 27 27 27 27 27 27 27 27 27 27
+DT10_SW_MIN          warn_max   0          3 3 3 3 3 3 3 3 3 3 3 3
+DT45_SW_MAX          warn_min   0          27 27 27 27 27 27 27 27 27 27 27 27
+DT45_SW_MIN          warn_max   0          3 3 3 3 3 3 3 3 3 3 3 3
+DT10_PN_MARGIN       warn_min   0          0 0 0 0 0 0 0 0 0 0 0 0
+DT10_NP_MARGIN       warn_min   0          0 0 0 0 0 0 0 0 0 0 0 0
+DT45_PN_MARGIN       warn_min   0          0 0 0 0 0 0 0 0 0 0 0 0
+DT45_NP_MARGIN       warn_min   0          0 0 0 0 0 0 0 0 0 0 0 0

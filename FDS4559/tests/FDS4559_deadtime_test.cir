@@ -5,7 +5,7 @@
 *   Compare the gate-transition non-overlap margin at the two gate voltages
 *   used by the library tests.  Two otherwise identical half bridges run in
 *   parallel at 400 kHz and +25 C while commanded dead time is stepped through
-*   500 / 100 / 50 / 20 / 10 / 5 / 0 ns.
+*   500 / 100 / 50 / 40 / 35 / 30 / 25 / 20 / 15 / 10 / 5 / 0 ns.
 *
 * This is model characterization, not a datasheet guarantee.  The datasheet
 * specifies neither minimum dead time nor maximum PWM frequency.  The model
@@ -31,7 +31,7 @@
 .param TJ=25
 .param CORNER=1
 
-.param DTNS={if(CORNER==1,500,if(CORNER==2,100,if(CORNER==3,50,if(CORNER==4,20,if(CORNER==5,10,if(CORNER==6,5,0))))))}
+.param DTNS={if(CORNER==1,500,if(CORNER==2,100,if(CORNER==3,50,if(CORNER==4,40,if(CORNER==5,35,if(CORNER==6,30,if(CORNER==7,25,if(CORNER==8,20,if(CORNER==9,15,if(CORNER==10,10,if(CORNER==11,5,0)))))))))))}
 .param DEADTIME={DTNS*1n}
 .param TPER={1/FSW}
 .param TON={TPER/2-DEADTIME}
@@ -39,7 +39,7 @@
 .param RLOAD={VBUS/(2*ILOAD)}
 .param TMAX=5n
 
-.step param CORNER list 1 2 3 4 5 6 7
+.step param CORNER list 1 2 3 4 5 6 7 8 9 10 11 12
 
 V_CORNER corner_echo 0 {CORNER}
 V_DT_ECHO dt_echo 0 {DTNS}
@@ -82,13 +82,14 @@ R_LOAD45 sw45 vr45 {RLOAD}
 .meas TRAN DT45_SW_MAX MAX V(sw45)
 .meas TRAN DT45_SW_MIN MIN V(sw45)
 
-* First P->N edge and first complete N->P edge.  RISE=2 selects the second
-* P turn-on, after the first N pulse.  QPOST can return a negative interval;
-* that is the useful overlap indication and is deliberately preserved.
-.meas TRAN DT10_PN_MARGIN TRIG V(vb10,pg10)=1 FALL=1 TARG V(ng10)=1 RISE=1
-.meas TRAN DT10_NP_MARGIN TRIG V(ng10)=1 FALL=1 TARG V(vb10,pg10)=1 RISE=2
-.meas TRAN DT45_PN_MARGIN TRIG V(vb45,pg45)=1 FALL=1 TARG V(ng45)=1 RISE=1
-.meas TRAN DT45_NP_MARGIN TRIG V(ng45)=1 FALL=1 TARG V(vb45,pg45)=1 RISE=2
+* Fixed TD gates isolate one commutation without stepped FROM/TO expressions:
+*   P->N occurs after 3 us; N->P occurs after 4 us.
+* RISE/FALL counts therefore restart inside the intended half-cycle.  QPOST
+* can still return a negative interval; that is the useful overlap indication.
+.meas TRAN DT10_PN_MARGIN TRIG V(vb10,pg10)=1 TD=3u FALL=1 TARG V(ng10)=1 TD=3u RISE=1
+.meas TRAN DT10_NP_MARGIN TRIG V(ng10)=1 TD=4u FALL=1 TARG V(vb10,pg10)=1 TD=4u RISE=1
+.meas TRAN DT45_PN_MARGIN TRIG V(vb45,pg45)=1 TD=3u FALL=1 TARG V(ng45)=1 TD=3u RISE=1
+.meas TRAN DT45_NP_MARGIN TRIG V(ng45)=1 TD=4u FALL=1 TARG V(vb45,pg45)=1 TD=4u RISE=1
 
 .plot V(sw10) V(sw45)
 .plot V(vb10,pg10) V(ng10) V(vb45,pg45) V(ng45)
