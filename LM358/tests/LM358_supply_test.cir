@@ -1,6 +1,6 @@
 * LM358 dual package IQ and loaded supply-current accounting
 * onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
-* PREVIEW: no QSPICE run has been performed in this environment.
+* Validated with QSPICE/QPOST on 2026-09-19; see TEST_RESULTS.md.
 .step temp list 0 25 60 70
 .lib ../LM358.txt
 V_Q5CC Q5cc 0 5

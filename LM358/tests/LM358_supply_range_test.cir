@@ -1,6 +1,6 @@
 * LM358 3/5/15/30/32 V operation at rated endpoint temperatures
 * onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
-* PREVIEW: no QSPICE run has been performed in this environment.
+* Validated with QSPICE/QPOST on 2026-09-19; see TEST_RESULTS.md.
 .step temp list 0 25 60 70
 .lib ../LM358.txt
 V_S3 S3cc 0 3

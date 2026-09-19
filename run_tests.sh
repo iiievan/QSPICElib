@@ -90,6 +90,9 @@ read -r -d '' PARSE_AWK <<'AWK' || true
 function number(s) {
     return s ~ /^[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][-+]?[0-9]+)?$/
 }
+function append_value(v) {
+    vals[cur] = vals[cur] (vals[cur] == "" ? "" : " ") v
+}
 /^[[:space:]]*\.meas[[:space:]]/ {
     nm = $3; gsub(/[:,]$/, "", nm); cur = toupper(nm)
     if (!(cur in seen)) { order[++n] = cur; seen[cur] = 1 }
@@ -98,7 +101,7 @@ function number(s) {
 # QPOST may print real-valued AC expressions as (real, 0).
 # Never silently discard a nonzero imaginary part: a complex measurement is
 # not a scalar expectation and must remain missing / FAIL downstream.
-cur != "" && index($0, "(") > 0 {
+cur != "" && $0 ~ /^[[:space:]]*([0-9]+[[:space:]]+)?\(/ {
     line=$0; sub(/^[[:space:]]+/, "", line)
     sub(/^[0-9]+[[:space:]]+/, "", line)
     if (line ~ /^\([^()]+,[^()]+\)[[:space:]]*$/) {
@@ -116,7 +119,18 @@ cur != "" && $0 ~ /^[[:space:]]*[0-9]+[[:space:]]+[-+]?[0-9.]+([eE][-+]?[0-9]+)?
     vals[cur] = vals[cur] (vals[cur] == "" ? "" : " ") $2; next
 }
 cur != "" && $0 ~ /^[[:space:]]*[-+]?[0-9.]+([eE][-+]?[0-9]+)?[[:space:]]*$/ {
-    vals[cur] = vals[cur] (vals[cur] == "" ? "" : " ") $1; next
+    append_value($1); next
+}
+# QPOST annotates transient MIN/MAX values with the time at which they occur:
+#     0.250143 (at Time=1.58028e-06)
+# Only the first scalar is the .meas result.  The annotation is metadata and
+# must not make an otherwise valid measurement disappear.
+cur != "" {
+    line=$0; sub(/^[[:space:]]+/, "", line)
+    split(line, field, /[[:space:]]+/)
+    if (number(field[1]) && field[2] == "(at" && field[3] ~ /^[Tt]ime=/) {
+        append_value(field[1]); next
+    }
 }
 /^[[:space:]]*$/ { next }
 { cur = "" }

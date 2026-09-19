@@ -1,6 +1,6 @@
 * LM358 DC table, p.4; ideal static output servos, VO approximately 1.4 V
 * onsemi LM358/D Rev.36, Sep 2024. See TEST_README.md for provenance.
-* PREVIEW: no QSPICE run has been performed in this environment.
+* Validated with QSPICE/QPOST on 2026-09-19; see TEST_RESULTS.md.
 .temp 25
 .lib ../LM358.txt
 V_OS5LCC OS5Lcc 0 5

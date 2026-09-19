@@ -1,0 +1,5 @@
+# Both grades use one nominal model; the A grade changes guaranteed VOS only.
+B_FEEDBACK   max 0 5m 5m 5m
+BA_FEEDBACK  max 0 5m 5m 5m
+B_BA_MATCH   max 0 1u 1u 1u
+ACTUAL_TEMP  abs 0.001 -40 25 85

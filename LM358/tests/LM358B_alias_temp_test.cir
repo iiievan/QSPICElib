@@ -1,0 +1,20 @@
+* TI LM358B/LM358BA public-name and rated-temperature contract.
+* TI SLOS068AB, October 2024, sections 5.3 and 5.5.
+.step temp list -40 25 85
+.lib ../LM358B.txt
+V_CC cc 0 5
+V_IN in 0 1
+X_B  in out_b  cc 0 out_b  LM358B
+X_BA in out_ba cc 0 out_ba LM358BA
+B_ERR_B  err_b  0 V={abs(V(out_b)-V(in))}
+B_ERR_BA err_ba 0 V={abs(V(out_ba)-V(in))}
+B_MATCH  match  0 V={abs(V(out_b)-V(out_ba))}
+B_TEMP   actual_temp 0 V={temp}
+* QSPICE rejects a zero-span sweep (start == stop).  Two adjacent points keep
+* the operating point effectively at 1 V while making DC AVG well-defined.
+.dc V_IN 1 1.001 1m
+.meas DC B_FEEDBACK  AVG V(err_b)
+.meas DC BA_FEEDBACK AVG V(err_ba)
+.meas DC B_BA_MATCH  AVG V(match)
+.meas DC ACTUAL_TEMP AVG V(actual_temp)
+.end
