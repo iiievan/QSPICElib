@@ -32,11 +32,11 @@ KEEP_RAW=1 ./run_tests.sh IRF7309
 ```
 
 Три стенда проверяют capacitance при 1 МГц, полный gate charge при табличных
-рабочих точках и resistive-load switching times. Повторный прогон подтвердил
-10 PASS DC, 2 PASS Qg, 4 PASS и 4 WARN switching, но QPOST вернул `NaN`
-для шести AC-измерений через `I(V...)`. Стенд ёмкости теперь измеряет
-`V(sense)` на резисторах 1 Ом; его требуется повторить командой
-`KEEP_RAW=1 ./run_tests.sh IRF7309` в QSPICE. Прежние результаты переключения
+рабочих точках и resistive-load switching times. Третий прогон пользователя
+дал 19 PASS, 7 WARN, 0 FAIL: 10 PASS DC, 2 PASS Qg, 4 PASS и 4 WARN
+switching, 3 PASS и 3 WARN по ёмкостям. Стенд ёмкости измеряет
+`V(sense)` на резисторах 1 Ом; P Coss и N/P Crss заметно отличаются от
+типовых значений. Прежние результаты переключения
 получены с приводом 4,5 В вместо 10 В по рис. 21a даташита. Gate charge
 типового порога 16,7 нКл в приложенном даташите нет: проверяется 25 нКл max.
 Стендов dead-time, complementary half-bridge и частотного sweep пока нет.
