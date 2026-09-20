@@ -17,7 +17,8 @@ M_P drain gate source source IRF7309_P
 
 ## Приёмка отдельных каналов
 
-Статический стенд фактически прошёл при 25 °C: 12 PASS, 0 WARN, 0 FAIL.
+Приложенный статический прогон при 25 °C: 12 PASS, 0 WARN, 0 FAIL;
+два теста максимума `|VGS(th)|=3 В` исключены как отсутствующие в даташите.
 Отдельно для N- и P-канала проверяются:
 
 - `VGS(th)` при `VDS=VGS`, `|ID|=250 мкА`;
@@ -30,10 +31,15 @@ M_P drain gate source source IRF7309_P
 KEEP_RAW=1 ./run_tests.sh IRF7309
 ```
 
-Второй этап добавляет три независимых стенда: capacitance при 1 МГц, полный
-gate charge при табличных рабочих точках и resistive-load switching times.
-Dead-time, complementary half-bridge и частотные sweep намеренно пока не
-добавлены.
+Три стенда проверяют capacitance при 1 МГц, полный gate charge при табличных
+рабочих точках и resistive-load switching times. Повторный прогон подтвердил
+10 PASS DC, 2 PASS Qg, 4 PASS и 4 WARN switching, но QPOST вернул `NaN`
+для шести AC-измерений через `I(V...)`. Стенд ёмкости теперь измеряет
+`V(sense)` на резисторах 1 Ом; его требуется повторить командой
+`KEEP_RAW=1 ./run_tests.sh IRF7309` в QSPICE. Прежние результаты переключения
+получены с приводом 4,5 В вместо 10 В по рис. 21a даташита. Gate charge
+типового порога 16,7 нКл в приложенном даташите нет: проверяется 25 нКл max.
+Стендов dead-time, complementary half-bridge и частотного sweep пока нет.
 
 ## Ограничения
 

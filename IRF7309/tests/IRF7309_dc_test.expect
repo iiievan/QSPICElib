@@ -1,9 +1,7 @@
 # IRF7309 PD-9.1243B, Electrical Characteristics, TJ=25 C.
 # Guaranteed datasheet bounds are hard FAIL criteria.
 N_VTH_MIN       min  0  1.0
-N_VTH_MAX       max  0  3.0
 P_VTH_MIN       min  0  1.0
-P_VTH_MAX       max  0  3.0
 N_RDS_10V_MAX   max  0  0.050
 N_RDS_4V5_MAX   max  0  0.080
 P_RDS_10V_MAX   max  0  0.100

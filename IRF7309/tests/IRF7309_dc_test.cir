@@ -51,9 +51,7 @@ M_PDIO p_dio 0 0 0 IRF7309_P
 .tran 0 20u 0 50n
 
 .meas TRAN N_VTH_MIN AVG V(n_th) FROM=15u TO=20u
-.meas TRAN N_VTH_MAX AVG V(n_th) FROM=15u TO=20u
 .meas TRAN P_VTH_MIN AVG V(0,p_th) FROM=15u TO=20u
-.meas TRAN P_VTH_MAX AVG V(0,p_th) FROM=15u TO=20u
 .meas TRAN N_RDS_10V_MAX AVG V(n_r10_ohm) FROM=15u TO=20u
 .meas TRAN N_RDS_4V5_MAX AVG V(n_r45_ohm) FROM=15u TO=20u
 .meas TRAN P_RDS_10V_MAX AVG V(p_r10_ohm) FROM=15u TO=20u

@@ -1,33 +1,41 @@
 * IRF7309 typical capacitances at |VDS|=15 V, VGS=0, f=1 MHz.
+* QPOST returned NaN for FIND expressions using I(V...). Measure the
+* corresponding current as voltage across a 1-ohm resistor instead.
+* AC drive is 1 V; V(sense) / 1 ohm = current. The expected voltage is
+* 2*pi*1MHz*C*1ohm. Bias errors and loading from 1 ohm are negligible
+* compared with the hundreds of ohms of capacitive reactance at 1 MHz.
 .temp 25
 .lib ../IRF7309_N.txt
 .lib ../IRF7309_P.txt
 
-* Ciss: drain is AC-grounded; gate is excited with AC 1 V.
+* Ciss: drain AC grounded, gate excited through a floating 1-V source.
 V_NCISS_D nciss_d 0 15
-V_NCISS_G nciss_g 0 DC 0 AC 1
+V_NCISS_G nciss_g nciss_s DC 0 AC 1
+R_NCISS_S nciss_s 0 1
 M_NCISS nciss_d nciss_g 0 0 IRF7309_N
 V_PCISS_D pciss_d 0 -15
-V_PCISS_G pciss_g 0 DC 0 AC 1
+V_PCISS_G pciss_g pciss_s DC 0 AC 1
+R_PCISS_S pciss_s 0 1
 M_PCISS pciss_d pciss_g 0 0 IRF7309_P
 
-* Coss and Crss: gate is held at AC ground; drain is excited with AC 1 V.
-V_NCO_G nco_g 0 0
-V_NCO_D nco_d 0 DC 15 AC 1
+* Coss: drain excited through a floating source; gate held at AC ground
+* through 1 ohm. Its voltage yields Crss from the transfer current.
+V_NCO_D nco_d nco_s DC 15 AC 1
+R_NCO_S nco_s 0 1
+R_NCO_G nco_g 0 1
 M_NCO nco_d nco_g 0 0 IRF7309_N
-V_PCO_G pco_g 0 0
-V_PCO_D pco_d 0 DC -15 AC 1
+V_PCO_D pco_d pco_s DC -15 AC 1
+R_PCO_S pco_s 0 1
+R_PCO_G pco_g 0 1
 M_PCO pco_d pco_g 0 0 IRF7309_P
 
-* QSPICE rejects a sweep whose start and stop frequencies are identical.
-* Two almost coincident points retain the exact 1-MHz datasheet measurement.
-* Keep 2*pi*f numeric here: QPOST returns NaN when "pi" is used in a
-* post-processing .meas expression, although the simulator accepts it.
-.ac lin 2 1Meg 1.001Meg
-.meas AC N_CISS FIND abs(I(V_NCISS_G))/6.283185307179586e6 AT=1Meg
-.meas AC P_CISS FIND abs(I(V_PCISS_G))/6.283185307179586e6 AT=1Meg
-.meas AC N_COSS FIND abs(I(V_NCO_D))/6.283185307179586e6 AT=1Meg
-.meas AC P_COSS FIND abs(I(V_PCO_D))/6.283185307179586e6 AT=1Meg
-.meas AC N_CRSS FIND abs(I(V_NCO_G))/6.283185307179586e6 AT=1Meg
-.meas AC P_CRSS FIND abs(I(V_PCO_G))/6.283185307179586e6 AT=1Meg
+* Place 1 MHz inside the sweep, not on either endpoint.
+.ac dec 10 100k 10Meg
+.save V(nciss_s) V(pciss_s) V(nco_s) V(pco_s) V(nco_g) V(pco_g)
+.meas AC N_CISS FIND abs(V(nciss_s)) AT=1Meg
+.meas AC P_CISS FIND abs(V(pciss_s)) AT=1Meg
+.meas AC N_COSS FIND abs(V(nco_s)) AT=1Meg
+.meas AC P_COSS FIND abs(V(pco_s)) AT=1Meg
+.meas AC N_CRSS FIND abs(V(nco_g)) AT=1Meg
+.meas AC P_CRSS FIND abs(V(pco_g)) AT=1Meg
 .end

@@ -25,8 +25,6 @@ M_PQ pd pg 0 0 IRF7309_P
 .tran 0 35u 0 2n
 
 * With IG=1 mA: t[us] numerically equals Q[nC].
-.meas TRAN N_QG_TYP WHEN V(ng)=4.5 RISE=1
 .meas TRAN N_QG_MAX WHEN V(ng)=4.5 RISE=1
-.meas TRAN P_QG_TYP WHEN V(pg)=-4.5 FALL=1
 .meas TRAN P_QG_MAX WHEN V(pg)=-4.5 FALL=1
 .end
