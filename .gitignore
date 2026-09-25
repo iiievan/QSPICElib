@@ -2,6 +2,7 @@
 #  Rezul'taty simulacii - vsegda peresozdajutsja, v repozitorii ne nuzhny
 # ============================================================================
 *.qraw
+*.qopraw
 *.out
 *.csv
 *.log

@@ -33,6 +33,7 @@ C_OUT OUT GND {COUT}
 
 * Nominal input currents.  Differential mismatch is IOS.
 B_IBP INP GND I={max(IBIAS+IOS/2,0)}
-B_IBM INM GND I={max(IBIAS-IOS/2,0)}
+V_SENCE_IBM INM ibm_int 0
+B_IBM ibm_int GND I={max(IBIAS-IOS/2,0)}
 B_IQ VS GND I={IQ}
 .ends INA181A1
