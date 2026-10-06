@@ -1,0 +1,16 @@
+* Kexin p.2: Qg typ 2.5n, Qgd typ 1.2n at VGS=4.5V, VDS=50V,
+* ID=1.6A. Gate charged at 1mA, so 1us corresponds to 1nC.
+.temp 25
+.lib ../IRLML0100.txt
+Vdd dd 0 50
+Iload dd d 1.6
+.model DCLAMP D(IS=1m N=0.1 RS=10m CJO=0)
+Dclamp d dd DCLAMP
+Ig 0 g PULSE(0 1m 1u 1n 1n 8u 20u)
+Rgdc g 0 1G
+Mq d g 0 0 IRLML0100
+.tran 0 8u 0 1n
+* Two timing differences are numerically nC for a 1mA gate current.
+.meas TRAN QG_4V5 TRIG V(g)=0.01 RISE=1 TARG V(g)=4.5 RISE=1
+.meas TRAN QGD_90_10 TRIG V(d)=45 FALL=1 TARG V(d)=5 FALL=1
+.end

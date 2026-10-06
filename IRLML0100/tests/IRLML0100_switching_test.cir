@@ -1,0 +1,16 @@
+* Kexin IRLML0100-23 p.2 and Fig.10: resistive-load switching at 25 C.
+* VGS=4.5V, VDS=50V, ID=1A, RGEN=6.8 ohm. Typical ns values only.
+.temp 25
+.lib ../IRLML0100.txt
+Vdd vdd 0 50
+Rload vdd drain 50
+Vdrv drv 0 PULSE(0 4.5 5u 1n 1n 1u 2m)
+Rg drv gate 6.8
+Muut drain gate 0 0 IRLML0100
+.tran 0 8u 0 100p
+* Datasheet 10/90% thresholds, measured on first switching cycle.
+.meas TRAN T_ON_DELAY TRIG V(drv)=0.45 RISE=1 TARG V(drain)=45 FALL=1
+.meas TRAN T_ON_RISE TRIG V(drain)=45 FALL=1 TARG V(drain)=5 FALL=1
+.meas TRAN T_OFF_DELAY TRIG V(drv)=4.05 FALL=1 TARG V(drain)=5 RISE=1
+.meas TRAN T_OFF_FALL TRIG V(drain)=5 RISE=1 TARG V(drain)=45 RISE=1
+.end

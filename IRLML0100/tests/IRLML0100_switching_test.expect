@@ -1,0 +1,5 @@
+# Kexin p.2, typical switching values only; WARN diagnostics, not guaranteed.
+T_ON_DELAY  warn_rel 0.75  2.2n
+T_ON_RISE   warn_rel 0.75  2.1n
+T_OFF_DELAY warn_rel 0.75  9n
+T_OFF_FALL  warn_rel 0.75  3.6n

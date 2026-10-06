@@ -1,0 +1,4 @@
+# Values below are 2*pi*1MHz*C*1ohm in volts. Kexin p.2 gives TYP only.
+CISS warn_rel 0.25 1.822124m
+COSS warn_rel 0.35 169.646u
+CRSS warn_rel 0.40 81.681u

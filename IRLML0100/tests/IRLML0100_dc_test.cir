@@ -1,0 +1,35 @@
+* Kexin IRLML0100-23 pp.1-2. All tabulated tests at Ta=25 C.
+.temp 25
+.lib ../IRLML0100.txt
+* VGS(th): VDS=VGS, ID=250uA. Datasheet range 1..2.5V.
+Ith 0 th 250u
+Mth th th 0 0 IRLML0100
+* RDS(on): gate4.5V/ID1.3A, gate10V/ID1.6A; read VDS.
+Vg45 g45 0 4.5
+I45 0 d45 1.3
+M45 d45 g45 0 0 IRLML0100
+Vg10 g10 0 10
+I10 0 d10 1.6
+M10 d10 g10 0 0 IRLML0100
+* 3.3V/5mA diagnostic for the 24V/4.7k pull-up; NOT a guaranteed RDS(on).
+Vg33 g33 0 3.3
+I33 0 d33 5m
+M33 d33 g33 0 0 IRLML0100
+* Body diode at IS=1.1A with VGS=0, max VSD=1.3V.
+Idio ddio 0 1.1
+Mdio ddio 0 0 0 IRLML0100
+* Off-state leakage at 100V/25C, upper limit 20uA.
+Voff doff 0 100
+Moff doff 0 0 0 IRLML0100
+Boff leak 0 V={-I(Voff)}
+.tran 0 25u 0 100n
+.meas TRAN VTH_MIN AVG V(th) FROM=20u TO=25u
+.meas TRAN VTH_MAX AVG V(th) FROM=20u TO=25u
+.meas TRAN R45_TYP AVG V(d45) FROM=20u TO=25u
+.meas TRAN R45_MAX AVG V(d45) FROM=20u TO=25u
+.meas TRAN R10_TYP AVG V(d10) FROM=20u TO=25u
+.meas TRAN R10_MAX AVG V(d10) FROM=20u TO=25u
+.meas TRAN V33_5MA AVG V(d33) FROM=20u TO=25u
+.meas TRAN VSD_MAX AVG V(0,ddio) FROM=20u TO=25u
+.meas TRAN IDSS_MAX AVG V(leak) FROM=20u TO=25u
+.end

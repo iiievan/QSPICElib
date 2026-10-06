@@ -1,0 +1,4 @@
+# Typical charge values are WARN diagnostics. Gate plateau bounds are
+# read at 90% and 10% VDS, an approximate extraction of Qgd.
+QG_4V5    warn_rel 0.40 2.5u
+QGD_90_10 warn_rel 0.60 1.2u

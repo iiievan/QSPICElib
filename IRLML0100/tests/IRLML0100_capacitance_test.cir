@@ -1,0 +1,21 @@
+* Kexin p.2: Ciss=290p, Coss=27p, Crss=13p typical at VDS=25V,
+* VGS=0V, f=1MHz. Three separate AC-biased MOSFETs.
+* A 1-ohm resistor converts 1V AC current to a voltage; QPOST FIND abs(I)
+* can return NaN on some QSPICE versions, so measure these voltages.
+.temp 25
+.lib ../IRLML0100.txt
+* Ciss = Cgs+Cgd, drain AC grounded by 25V source.
+VciD cid 0 25
+VciG cig cis DC 0 AC 1
+Rci cis 0 1
+Mci cid cig 0 0 IRLML0100
+* Coss = Cds+Cgd; reverse transfer sensed through 1-ohm gate resistor.
+VcoD cod cos DC 25 AC 1
+Rco cos 0 1
+RcoG cog 0 1
+Mco cod cog 0 0 IRLML0100
+.ac dec 10 100k 10Meg
+.meas AC CISS FIND abs(V(cis)) AT=1Meg
+.meas AC COSS FIND abs(V(cos)) AT=1Meg
+.meas AC CRSS FIND abs(V(cog)) AT=1Meg
+.end

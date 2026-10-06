@@ -1,0 +1,31 @@
+* Application frequency sweep for the Kexin IRLML0100 candidate model.
+* Single low-side switch: 24V rail, 4.7k pull-up (~5mA), VGS=3.3V,
+* 100-ohm external gate resistor and 100k gate-source return.
+* Corners: 20kHz/100kHz/400kHz x -35/25/60 C. Temperature is a
+* model sensitivity sweep, NOT validated device performance at those limits.
+* Do not use stepped parameters directly inside .meas thresholds: QPOST may
+* freeze them at the first step. All measured thresholds are fixed voltages.
+.param CORNER=1
+.param FSW={if(CORNER<4,20k,if(CORNER<7,100k,400k))}
+.param TJ={if(CORNER==1,-35,if(CORNER==2,25,if(CORNER==3,60,if(CORNER==4,-35,if(CORNER==5,25,if(CORNER==6,60,if(CORNER==7,-35,if(CORNER==8,25,60))))))))}
+.param TPER={1/FSW}
+.step param CORNER list 1 2 3 4 5 6 7 8 9
+Vbus bus 0 24
+Rpull bus drain 4.7k
+Vcmd cmd 0 PULSE(0 3.3 {TPER} 1n 1n {TPER/2} {TPER})
+Rg cmd gate 100
+Rgs gate 0 100k
+Vcorner corner_echo 0 {CORNER}
+Muut drain gate 0 0 IRLML0100 temp={TJ}
+.lib ../IRLML0100.txt
+.tran 0 {3*TPER} 0 10n
+.save V(cmd) V(gate) V(drain) V(corner_echo)
+.meas TRAN CORNER_ECHO AVG V(corner_echo)
+.meas TRAN GATE_PEAK MAX V(gate)
+.meas TRAN DRAIN_LOW MIN V(drain)
+.meas TRAN DRAIN_HIGH MAX V(drain)
+.meas TRAN TO_LOW TRIG V(cmd)=1.65 RISE=1 TARG V(drain)=2.4 FALL=1
+.meas TRAN TO_LOW_POS TRIG V(cmd)=1.65 RISE=1 TARG V(drain)=2.4 FALL=1
+.meas TRAN TO_HIGH TRIG V(cmd)=1.65 FALL=1 TARG V(drain)=21.6 RISE=1
+.meas TRAN TO_HIGH_POS TRIG V(cmd)=1.65 FALL=1 TARG V(drain)=21.6 RISE=1
+.end

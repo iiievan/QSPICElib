@@ -1,0 +1,5 @@
+# Functional checks of *the model* with a 5mA load. Physical devices at
+# VGS=3.3V are not guaranteed by the supplied datasheet.
+GATE_ON warn_abs 0.03 3.3
+OUT_ON  max      0    0.3
+OUT_OFF min      0    23

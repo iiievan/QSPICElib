@@ -1,0 +1,15 @@
+* Application-oriented functional fixture (NOT datasheet 3.3V guarantee).
+* 24V, 4.7k pull-up (~5mA) driven directly from a 3.3V MCU output.
+.temp 25
+.lib ../IRLML0100.txt
+Vbus bus 0 24
+Rpull bus out 4.7k
+Vdrv drv 0 PULSE(0 3.3 10u 10n 10n 10u 30u)
+Rgate drv gate 100
+Rgs gate 0 100k
+Msw out gate 0 0 IRLML0100
+.tran 0 30u 0 10n
+.meas TRAN GATE_ON FIND V(gate) AT=15u
+.meas TRAN OUT_ON FIND V(out) AT=15u
+.meas TRAN OUT_OFF FIND V(out) AT=25u
+.end

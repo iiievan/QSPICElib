@@ -1,0 +1,10 @@
+# Threshold limit at 250uA is guaranteed, but not 3.3V on-resistance.
+VTH_MIN   min       0     1.0
+VTH_MAX   max       0     2.5
+R45_TYP   warn_rel  0.15  0.247
+R45_MAX   max       0     0.3055
+R10_TYP   warn_rel  0.15  0.2848
+R10_MAX   max       0     0.352
+V33_5MA  warn_max  0     0.025
+VSD_MAX   max       0     1.3
+IDSS_MAX  max       0     20u

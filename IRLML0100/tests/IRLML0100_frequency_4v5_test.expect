@@ -1,0 +1,11 @@
+# Corner order: 20kHz (-35/25/60C), 100kHz (-35/25/60C),
+# 400kHz (-35/25/60C). Rail reach is a model functional check.
+# No maximum PWM frequency, edge speed or 3.3V RDS(on) is guaranteed.
+CORNER_ECHO abs      0.01 1 2 3 4 5 6 7 8 9
+GATE_PEAK  min      0    4.3 4.3 4.3 4.3 4.3 4.3 4.3 4.3 4.3
+DRAIN_LOW max      0    2.4 2.4 2.4 2.4 2.4 2.4 2.4 2.4 2.4
+DRAIN_HIGH min     0    21.6 21.6 21.6 21.6 21.6 21.6 21.6 21.6 21.6
+TO_LOW     warn_max 0    1u 1u 1u 1u 1u 1u 1u 1u 1u
+TO_LOW_POS min      0    0 0 0 0 0 0 0 0 0
+TO_HIGH    warn_max 0    1u 1u 1u 1u 1u 1u 1u 1u 1u
+TO_HIGH_POS min     0    0 0 0 0 0 0 0 0 0
