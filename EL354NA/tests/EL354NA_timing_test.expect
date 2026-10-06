@@ -1,0 +1,4 @@
+# Everlight p.3: tr/tf maximum 18us at IC=2mA/RL=100R/Ta=25C.
+T_RISE_IC max       0      18u
+T_FALL_IC max       0      18u
+VCE_ON       warn_abs 0.15  2

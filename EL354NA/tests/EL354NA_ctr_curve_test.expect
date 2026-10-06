@@ -1,0 +1,4 @@
+# Everlight EL354N-G Rev.6 p.4 Fig.3, VCE=5V, Ta=25C.
+# Read graph approximately at IF=0.5,1,2,5,10,20,30mA, scaled to
+# a nominal illustrative CTR1M=0.5. Typical plot: diagnostic WARN only.
+CTR_FIG3 warn_abs 0.14 0.34 0.50 0.71 0.94 1.07 1.12 1.00

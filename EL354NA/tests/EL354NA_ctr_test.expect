@@ -1,0 +1,5 @@
+# Everlight EL354N-G p.3: rank A CTR 50..150%, at 1mA/5V/25C.
+# Step list is explicit, and each model corner must yield the assigned CTR.
+CTR_POS    abs 0.01    0.5 1 1.5
+CTR_NEG    abs 0.01    0.5 1 1.5
+CTR_SYM    max 0       0.001

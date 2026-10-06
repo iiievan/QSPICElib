@@ -1,0 +1,4 @@
+# At 5/15ms output is pulled low; at 10ms it releases near 3.3V.
+V_POS  max 0 1
+V_ZERO min 0 3.2
+V_NEG  max 0 1

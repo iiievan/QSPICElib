@@ -1,0 +1,6 @@
+# Everlight EL354N-G p.3: at IF=20mA/IC=1mA, VCEsat typ .1V, max .2V.
+VCE_SAT  max      0       0.2
+VCE_SAT_TYP warn_abs 0.03 0.1
+IC_LOAD  warn_abs 0.04m   1m
+# At 20V, IF=0, dark current max=1e-7A. Model uses Rdark=1G.
+ICEO_20V max      0       100n

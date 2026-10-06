@@ -1,0 +1,26 @@
+* Everlight EL354N-G p.3 VF at IF=20mA; bidirectional LED symmetry at 25C.
+.temp 25
+.lib ../EL354NA.txt
+I_pos20 0 p20 DC 20m
+I_neg20 0 n20 DC 20m
+I_pos1 0 p1 DC 1m
+I_neg1 0 n1 DC 1m
+Vcp20 cp20 0 5
+Vcn20 cn20 0 5
+Vcp1 cp1 0 5
+Vcn1 cn1 0 5
+Xp20 p20 0 cp20 0 EL354NA
+Xn20 0 n20 cn20 0 EL354NA
+Xp1 p1 0 cp1 0 EL354NA
+Xn1 0 n1 cn1 0 EL354NA
+Bsym20 sym20 0 V={abs(V(p20)-V(n20))}
+Bsym1 sym1 0 V={abs(V(p1)-V(n1))}
+Vscan scan 0 0
+.dc Vscan 0 1 1
+.meas DC VF20_TYP AVG V(p20)
+.meas DC VF20_MAX AVG V(p20)
+.meas DC VF20_REV_MAX AVG V(n20)
+.meas DC VF1_DIAGNOSTIC AVG V(p1)
+.meas DC LED_SYM20 AVG V(sym20)
+.meas DC LED_SYM1 AVG V(sym1)
+.end

@@ -1,0 +1,20 @@
+* Everlight EL354N-G p.3 rank A CTR test conditions: IF=+/-1mA, VCE=5V, Ta=25C.
+* Steps: rank A low, an interior sample, rank A high.
+.temp 25
+.lib ../EL354NA.txt
+.step param GAIN list 0.5 1 1.5
+Ip 0 ap DC 1m
+In 0 kn DC 1m
+Vcp cp 0 5
+Vcn cn 0 5
+Xp ap 0 cp 0 EL354NA params: CTR1M={GAIN}
+Xn 0 kn cn 0 EL354NA params: CTR1M={GAIN}
+Bpos ctrpos 0 V={-I(Vcp)/1m}
+Bneg ctrneg 0 V={-I(Vcn)/1m}
+Bsym sym 0 V={abs(V(ctrpos)-V(ctrneg))}
+Vscan scan 0 0
+.dc Vscan 0 1 1
+.meas DC CTR_POS AVG V(ctrpos)
+.meas DC CTR_NEG AVG V(ctrneg)
+.meas DC CTR_SYM AVG V(sym)
+.end

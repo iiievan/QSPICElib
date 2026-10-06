@@ -1,0 +1,14 @@
+* Everlight EL354N-G p.3: tr/tf max 18us, RL=100R, IC~2mA.
+* IF=2.7mA and VCC=2.2V give ~2mA and VCE~2V with this nominal model.
+* Naming below refers to transistor current: turn-on makes V(out) FALL.
+.temp 25
+.lib ../EL354NA.txt
+Iled 0 led PULSE(0 2.7m 20u 0.1u 0.1u 50u 100u)
+Vcc vcc 0 2.2
+Rload vcc out 100
+Xuut led 0 out 0 EL354NA params: CTR1M=0.5
+.tran 0 95u 0 0.05u
+.meas TRAN VCE_ON AVG V(out) FROM=60u TO=65u
+.meas TRAN T_RISE_IC TRIG V(out)=2.18 FALL=1 TARG V(out)=2.02 FALL=1
+.meas TRAN T_FALL_IC TRIG V(out)=2.02 RISE=1 TARG V(out)=2.18 RISE=1
+.end

@@ -1,0 +1,4 @@
+# |I(Vac)| for 1Vrms, 1kHz, 50pF typ = 314nA (apparent capacitance).
+# Everlight EL354N-G p.3 Ct typ 50pF, max 250pF; typical is diagnostic only.
+INPUT_I_1KHZ warn_abs 40n 314n
+INPUT_I_MAX  max      0   1.571u
