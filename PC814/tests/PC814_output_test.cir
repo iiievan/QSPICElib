@@ -1,0 +1,18 @@
+* PC814 p.2: VCE(sat) at IF=20mA and IC about 1mA; dark current at 20V.
+.temp 25
+.lib ../PC814.txt
+.step param GAIN list 0.2 0.5 1
+Iled 0 led DC 20m
+Vcc vcc 0 5
+Rload vcc csat 4.9k
+Xsat led 0 csat 0 PC814 params: CTR1M={GAIN}
+Vdark cdark 0 20
+Xdark 0 0 cdark 0 PC814 params: CTR1M={GAIN}
+Bdarkmon darkmon 0 V={-I(Vdark)}
+Vscan scan 0 0
+.dc Vscan 0 1 1
+.meas DC VCE_SAT AVG V(csat)
+.meas DC VCE_SAT_TYP AVG V(csat)
+.meas DC IC_LOAD AVG I(Rload)
+.meas DC ICEO_20V AVG V(darkmon)
+.end

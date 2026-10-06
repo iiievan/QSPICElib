@@ -1,0 +1,36 @@
+* PC814 v0.2 - 25 C behavioral model of an AC-input optocoupler.
+* Supplied Sharp PC814 Series data sheet (pages 2-4); compare likely
+* Lite-On LTV-814S package/temperature separately before procurement.
+* Pins: LED 1, LED 2, collector 4, emitter 3. Example:
+* X1 led1 led2 collector emitter PC814 params: CTR1M=0.5
+* CTR1M = IC/IF at IF=1mA and VCE=5V, at 25 C (dimensionless).
+* Rank A: 0.5 .. 1.5; unselected: 0.2 .. 3.0. Default 0.5 matches the
+* representative Fig. 5 curve at 1mA, not a guaranteed typical value.
+* Fig. 5 shape was fitted only for IF about 0.5 .. 20mA. Outside this
+* interval, neither the curve nor output absolute maxima are guaranteed.
+* TAU=2u gives an approximate 4.4us 10%-90% optical step response.
+* Only the diode's intrinsic SPICE temperature scaling is present; CTR,
+* switching/storage and leakage have no validated temperature dependence.
+
+.SUBCKT PC814 A K C E PARAMS: CTR1M=0.5 TAU=2u
+* Two LED chips wired back-to-back, each sensed with a zero-volt source.
+Dforward A fwd D814_LED
+Vforward fwd K 0
+Dreverse K rev D814_LED
+Vreverse rev A 0
+.MODEL D814_LED D(IS=9.4e-12 N=2.09 RS=2 CJO=25p)
+
+* Current from E to drive charges R/C control node; V(drive,E)/1k = IF.
+* The previous draft had the Boptical terminals reversed: photo output
+* then drove the wrong polarity. CTR tests catch that regression.
+Boptical E drive I=max(I(Vforward),0)+max(I(Vreverse),0)
+Roptical drive E 1k
+Coptical drive E {TAU/1k}
+
+* Smooth empirical fit to Fig. 5, normalized to 1 at IF=1mA.
+* With a 1k control resistor the node voltage is IF in mA (numerically).
+* Shape(IF): 0.61 at 0.5mA; 1 at 1mA; 1.92 at 5mA; 2.17 at 20mA.
+* VCE factor is 1 at 5V and has an approximate 0.1V saturation knee.
+Bphoto C E I={CTR1M}*max(V(drive,E),0)/1k*(2.276*max(V(drive,E),0)/(max(V(drive,E),0)+1.276))**1.12*exp((1-max(V(drive,E),0))/251)*(5.11/4.91)*max(V(C,E)-0.09,0)/(max(V(C,E)-0.09,0)+0.2)
+Rdark C E 1G
+.ENDS PC814

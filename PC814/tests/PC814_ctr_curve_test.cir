@@ -1,0 +1,13 @@
+* Representative Sharp PC814 p.3 Fig.5 (NOT guaranteed limits).
+* A single nominal curve at CTR1M=0.5; test normalized dependence on IF.
+.temp 25
+.lib ../PC814.txt
+.step param ITEST list 0.5m 1m 2m 5m 10m 20m
+Iled 0 led {ITEST}
+Vce collector 0 5
+Xuut led 0 collector 0 PC814 params: CTR1M=0.5
+Bctr ctr 0 V={-I(Vce)/ITEST}
+Vscan scan 0 0
+.dc Vscan 0 1 1
+.meas DC CTR_FIG5 AVG V(ctr)
+.end

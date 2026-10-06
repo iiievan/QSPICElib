@@ -1,0 +1,12 @@
+* Sharp PC814 p.2: two-terminal input capacitance at VAK=0, f=1kHz.
+.temp 25
+.lib ../PC814.txt
+Vac a 0 DC 0 AC 1
+Vce c 0 5
+Xuut a 0 c 0 PC814
+* QSPICE may reject a one-point LIN sweep. Use a range with 1kHz on the grid
+* so QPOST FIND ... AT=1k remains unambiguous.
+.ac dec 20 100 10k
+.meas AC INPUT_I_1KHZ FIND abs(I(Vac)) AT=1k
+.meas AC INPUT_I_MAX FIND abs(I(Vac)) AT=1k
+.end

@@ -1,0 +1,7 @@
+# Hard datasheet limit at IC=2mA/RL=100R is 18us each at Ta=25C.
+T_RISE_IC max       0      18u
+T_FALL_IC max       0      18u
+# Illustrative simple single-pole model cannot promise exact 4us/3us typical.
+T_RISE_IC_TYP warn_abs 2u    4u
+T_FALL_IC_TYP warn_abs 2u    3u
+VCE_ON       warn_abs 0.15  2

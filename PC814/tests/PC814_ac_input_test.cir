@@ -1,0 +1,14 @@
+* Universal AC-input functional regression: both half-waves must conduct.
+* 24V peak 50Hz is an isolated fixture, not the S2000 mains input circuit.
+.temp 25
+.lib ../PC814.txt
+Vline line 0 SIN(0 24 50)
+Rled line led 22k
+Vlogic vcc 0 3.3
+Rpull vcc out 10k
+Xuut led 0 out 0 PC814 params: CTR1M=0.5
+.tran 0 22m 0 2u
+.meas TRAN V_POS FIND V(out) AT=5m
+.meas TRAN V_ZERO FIND V(out) AT=10m
+.meas TRAN V_NEG FIND V(out) AT=15m
+.end

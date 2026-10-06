@@ -1,0 +1,5 @@
+# Sharp PC814 p.2: unrestricted CTR 20..300%, rank A 50..150%, at 1mA/5V/25C.
+# Step list is explicit, and each model corner must yield the assigned CTR.
+CTR_POS    abs 0.01    0.2 0.5 1 1.5 3
+CTR_NEG    abs 0.01    0.2 0.5 1 1.5 3
+CTR_SYM    max 0       0.001

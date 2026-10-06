@@ -1,0 +1,9 @@
+# Sharp PC814 Series p.2: VF(20mA) typ=1.2V, max=1.4V, at 25C.
+VF20_TYP         warn_abs 0.06    1.2
+VF20_MAX         max      0       1.4
+VF20_REV_MAX     max      0       1.4
+# Fig.4 approximate at 1mA, not a guaranteed production limit.
+VF1_DIAGNOSTIC   warn_abs 0.15    1.05
+# Same bidirectional LED I-V is a structural invariant of the model.
+LED_SYM20        max      0       0.005
+LED_SYM1         max      0       0.005
