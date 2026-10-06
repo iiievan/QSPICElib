@@ -1,8 +1,8 @@
 # IRLML0100: bench map
 
 Source: attached Kexin IRLML0100 (KRLML0100) PDF, pp. 1–3. The user ran
-the original four benches: 17 PASS, 0 WARN, 0 FAIL. Three new dynamic/frequency
-benches await their first QSPICE/QPOST run. See `TEST_RESULTS.md`.
+all seven benches: 37 PASS, 0 WARN, 0 FAIL. The original four-bench run
+reported 17 PASS, 0 WARN, 0 FAIL. See `TEST_RESULTS.md` and the saved logs.
 
 ## Static and component characterization
 

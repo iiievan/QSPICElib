@@ -25,8 +25,8 @@ Four baseline fixtures cover 25 °C tabulated DC limits and typical points,
 Three further benches cover tabulated switching conditions and 20/100/400 kHz
 operation with 3.3 V and 4.5 V gate drive at three application temperatures.
 See `tests/TEST_README.md` for conditions and the distinction between hard
-limits and typical WARN diagnostics. `tests/TEST_RESULTS.md` separates the
-four benches already run by the user from the three new benches still pending.
+limits and typical WARN diagnostics. `tests/TEST_RESULTS.md` records the
+seven-bench QSPICE run with 37 PASS and no WARN or FAIL, and retains its log.
 
 ## Limits for our S2000 circuit
 
