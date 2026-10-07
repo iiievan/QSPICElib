@@ -1,0 +1,18 @@
+* Ciss/Coss/Crss at VDS=-25V, VGS=0, f=1MHz, table p.2.
+* abs(V(sense)) = 2*pi*f*C*1ohm. Rg is part of the model.
+.temp 25
+.lib ../IRF7328.txt
+V_CISS_D ciss_d 0 -25
+V_CISS_G ciss_g ciss_s DC 0 AC 1
+R_CISS_S ciss_s 0 1
+M_CISS ciss_d ciss_g 0 0 IRF7328
+V_CO_D co_d co_s DC -25 AC 1
+R_CO_S co_s 0 1
+R_CO_G co_g 0 1
+M_CO co_d co_g 0 0 IRF7328
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.ac dec 20 100k 10Meg
+.meas AC CISS_TYP FIND abs(V(ciss_s)) AT=1Meg
+.meas AC COSS_TYP FIND abs(V(co_s)) AT=1Meg
+.meas AC CRSS_TYP FIND abs(V(co_g)) AT=1Meg
+.end

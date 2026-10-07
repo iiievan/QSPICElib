@@ -1,0 +1,20 @@
+* Controlled IF=10mA -> IR=10mA commutation; RL=99+1=100ohm.
+* Return clamp carries forced reverse current after DUT charge is exhausted.
+* An ideal current edge/return clamp is an engineering fixture; compare its
+* waveform against NXP Fig.7 before accepting the tabulated 4ns criterion.
+.temp 25
+.lib ../BAS316.txt
+.model DRETURN D Is=1p N=0.1 Rs=1m Cjo=0 tt=0
+I_COMM 0 drive PULSE(10m -10m 100n 20p 20p 100n 400n)
+R_LOAD drive anode 99
+D_DUT anode sense BAS316
+R_SENSE sense 0 1
+V_RETURN return 0 -5
+D_RETURN return drive DRETURN
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 180n 0 20p
+.meas TRAN IF_INITIAL AVG V(sense) FROM=80n TO=95n
+.meas TRAN IR_PEAK MIN V(sense) FROM=100n TO=130n
+.meas TRAN TRR_EST TRIG V(sense)=0 FALL=1 TARG V(sense)=-1m RISE=1
+.meas TRAN IR_FINAL AVG V(sense) FROM=160n TO=180n
+.end

@@ -1,0 +1,11 @@
+* BAS316, NXP, SOD323; engineering fit 0.1.0-preview; 22 current bench checks passed.
+* Source: supplied NXP product data sheet, 2004-02-04, pp.3-5.
+* DC fit to approximate Fig.3 typical 25C points; table VF values are MAX.
+* Fig.6 junction-capacitance fit retained from user's generator output.
+* TT=2n is an INITIAL transit-time estimate, not the tabulated trr=4ns max.
+* Physical SOD323 pins: 1=K, 2=A; SPICE diode node order is A K.
+* Hot DC leakage passed; hot transient previously failed at t=0.
+* No fitted avalanche knee, self-heating or forward-recovery overshoot.
+.model BAS316 D Is=11.824n N=2.04368 Rs=1.22148 Eg=1.11 XTI=3
++ Cjo=573f M=0.0362 Vj=0.0312 tt=2n Tnom=25
++ mfg="NXP" Vrev=100 Iave=0.25

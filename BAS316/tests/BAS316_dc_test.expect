@@ -1,0 +1,11 @@
+# NXP table p.3 max; approximate Fig.3 typical targets use WARN.
+VF_1M_MAX max 0 0.715
+VF_10M_MAX max 0 0.855
+VF_50M_MAX max 0 1.0
+VF_150M_MAX max 0 1.25
+VF_1M_TYP warn_abs 0.04 0.60
+VF_10M_TYP warn_abs 0.04 0.72
+VF_50M_TYP warn_abs 0.04 0.87
+VF_150M_TYP warn_abs 0.04 1.04
+IR_25_MAX max 0 30n
+IR_75_MAX max 0 1u

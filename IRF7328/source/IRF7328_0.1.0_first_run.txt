@@ -1,0 +1,29 @@
+* IRF7328 single P-channel die, IR PD-94000, 2000-10-04.
+* 0.1.0-preview: corrected user's generator fit; QSPICE NOT RUN here.
+* Original file is preserved under source/ for comparison.
+* Vto double minus corrected; TT=18n is a trial estimate, not trr=37ns.
+* Channel and body-diode DC fit retained; temperature terms not validated.
+* Capacitance initial fit: Cgs=2675p-262p; Cds(-25V)=409p-262p.
+* Cgdmin/Cgdmax require joint tuning against AC and Qg benches.
+* Internal Rg=6 retained as an assumption; external test Rg=6 is separate.
+* Ratings/metadata do not implement breakdown, heating or current limiting.
+.model IRF7328 VDMOS pchan Rs=6.38m Rd=6.38m Rg=6 Vto=-1.94
++ Kp=4.41 lambda=4.06m RonX=4.49 eta=75m Vtotc=2m Is=98.7p
++ N=1.25885 Rb=9.09m Eg=1.11 XTI=10.0569 trb1=1.97m Cgs=2.413n
++ Cgdmin=220p Cgdmax=1.91n Cjo=834.76p Vj=0.8 M=0.5 tt=18n Tnom=25
++ mfg="International Rectifier" Vds=-30 Ids=-8 Ron=17m Qg=52n
+
+* Logical dual-die wrapper: D1 G1 S1 D2 G2 S2, independent P channels.
+.subckt IRF7328_DUAL D1 G1 S1 D2 G2 S2
+M1 D1 G1 S1 S1 IRF7328
+M2 D2 G2 S2 S2 IRF7328
+.ends IRF7328_DUAL
+
+* SO-8 top view, actual pin order 1..8: S1 G1 S2 G2 D2 D2 D1 D1.
+* Paired drain pins linked with 1u-ohm numerical shorts. No lead parasitic fit.
+.subckt IRF7328_SO8 1 2 3 4 5 6 7 8
+M1 8 2 1 1 IRF7328
+M2 5 4 3 3 IRF7328
+R_D1 7 8 1u
+R_D2 5 6 1u
+.ends IRF7328_SO8

@@ -30,6 +30,12 @@ check tran_extremum "$(printf '.meas tran a min V(a):\n  0.250143 (at Time=1.580
 check dc_extremum "$(printf '.meas dc a max V(a):\n  1.27676e-14 (at V_DIFF=0.016)\n' | parse)" 'A|1.27676e-14'
 check dc_find_at "$(printf '.meas dc a find V(out) at=-100m:\n  0.5005 -0.1\n' | parse)" 'A|0.5005'
 check dc_find_at_steps "$(printf '.meas dc a find V(out) at=-100m:\n1 0.5005 -0.1\n2 0.5010 -0.1\n' | parse)" 'A|0.5005 0.5010'
+# FIND WHEN may use a scalar or result+coordinate form; an integer result
+# must not be misread as a step number. These are parser fixtures, not QSPICE output.
+check dc_find_when "$(printf '.meas dc r find v(rd10) when v(sense)=8 cross=1:\n0.017 -8.136\n' | parse)" 'R|0.017'
+check dc_find_when_integer "$(printf '.meas dc r find v(x) when v(sense)=1 cross=1:\n1 -3\n' | parse)" 'R|1'
+check dc_find_when_scalar "$(printf '.meas dc r find v(rd10) when v(sense)=8 cross=1:\n0.017\n' | parse)" 'R|0.017'
+check dc_find_when_steps "$(printf '.meas dc r find v(rd10) when v(sense)=8 cross=1:\n1 0.017 -8.136\n2 0.018 -8.144\n' | parse)" 'R|0.017 0.018'
 check steps "$(printf '.meas dc t avg V(t):\n1 -35\n2 0\n3 25\n' | parse)" 'T|-35 0 25'
 check ac_real "$(printf '.meas ac g find abs(V(out)):\n( 1.2e+3, 0 )\n' | parse)" 'G|1.2e+3'
 check ac_steps "$(printf '.meas ac g find abs(V(out)):\n1 (1.2e+3, 0)\n2 (1.3e+3, -0.0e+0)\n' | parse)" 'G|1.2e+3 1.3e+3'

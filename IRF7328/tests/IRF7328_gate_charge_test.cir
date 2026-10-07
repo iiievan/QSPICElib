@@ -1,0 +1,16 @@
+* Qg table: ID=-8A, VDS=-15V, final VGS=-10V, TJ=25C.
+* Constant 1mA gate sink: elapsed seconds = Qg/1mA.
+.temp 25
+.lib ../IRF7328.txt
+.model DCLAMP D Is=1m N=0.1 Rs=10m Cjo=0 tt=0
+V_DD dd 0 -15
+I_LOAD d dd 8
+D_CLAMP dd d DCLAMP
+I_GATE g 0 PULSE(0 1m 0 1n 1n 100u 200u)
+R_GDC g 0 1G
+M_Q d g 0 0 IRF7328
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 85u 0 2n
+.meas TRAN QG_TIME_TYP WHEN V(g)=-10 FALL=1
+.meas TRAN QG_TIME_MAX WHEN V(g)=-10 FALL=1
+.end

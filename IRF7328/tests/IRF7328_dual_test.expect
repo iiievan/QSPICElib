@@ -1,0 +1,7 @@
+# Functional bounds of this fixture, not extra datasheet specifications.
+D1_ON max 0 0.1
+D2_ON max 0 0.1
+D1_OFF min 0 14.9
+D2_OFF min 0 14.9
+D1_PAIR max 0 2u
+D2_PAIR max 0 2u

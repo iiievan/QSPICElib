@@ -1,0 +1,7 @@
+# Voltage across 1ohm corresponding to C at 1MHz.
+C_0_TYP warn_rel 0.12 3.76991118431e-06
+C_2_TYP warn_rel 0.12 3.11017672705e-06
+C_4_TYP warn_rel 0.12 3.01592894745e-06
+C_8_TYP warn_rel 0.12 2.92168116784e-06
+C_16_TYP warn_rel 0.12 2.8902652413e-06
+C_0_MAX max 0 9.42477796077e-06

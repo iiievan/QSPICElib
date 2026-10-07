@@ -1,0 +1,28 @@
+* Junction capacitance: current sensed by 1-ohm resistor, f=1MHz.
+* abs(V(sense)) = 2*pi*1MHz*C*1ohm, not capacitance in farads.
+.temp 25
+.lib ../BAS316.txt
+V_C0 a0 sense0 DC -0 AC 1
+R_C0 sense0 0 1
+D_C0 a0 0 BAS316
+V_C2 a2 sense2 DC -2 AC 1
+R_C2 sense2 0 1
+D_C2 a2 0 BAS316
+V_C4 a4 sense4 DC -4 AC 1
+R_C4 sense4 0 1
+D_C4 a4 0 BAS316
+V_C8 a8 sense8 DC -8 AC 1
+R_C8 sense8 0 1
+D_C8 a8 0 BAS316
+V_C16 a16 sense16 DC -16 AC 1
+R_C16 sense16 0 1
+D_C16 a16 0 BAS316
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.ac dec 20 100k 10Meg
+.meas AC C_0_TYP FIND abs(V(sense0)) AT=1Meg
+.meas AC C_2_TYP FIND abs(V(sense2)) AT=1Meg
+.meas AC C_4_TYP FIND abs(V(sense4)) AT=1Meg
+.meas AC C_8_TYP FIND abs(V(sense8)) AT=1Meg
+.meas AC C_16_TYP FIND abs(V(sense16)) AT=1Meg
+.meas AC C_0_MAX FIND abs(V(sense0)) AT=1Meg
+.end

@@ -1,0 +1,6 @@
+# IF/IR in A because sense resistor is 1ohm.
+IF_INITIAL abs 0.0001 10m
+IR_PEAK abs 0.0005 -10m
+IR_FINAL abs 0.0001 0
+# Diagnostic: actual generator waveform from Fig.7 is not reproduced exactly.
+TRR_EST warn_max 0 4n

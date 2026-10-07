@@ -77,7 +77,8 @@ esac
 
 run_limited() {
     if [ "$TEST_TIMEOUT_SEC" -gt 0 ] && command -v timeout >/dev/null 2>&1; then
-        timeout "${TEST_TIMEOUT_SEC}s" "$@"
+        # Bound termination as well as execution; some processes ignore TERM.
+        timeout --kill-after=5s "${TEST_TIMEOUT_SEC}s" "$@"
     else
         "$@"
     fi
@@ -96,7 +97,9 @@ function append_value(v) {
 /^[[:space:]]*\.meas[[:space:]]/ {
     nm = $3; gsub(/[:,]$/, "", nm); cur = toupper(nm)
     header = tolower($0)
-    is_find_at[cur] = (header ~ /[[:space:]]find[[:space:]]/ && header ~ /[[:space:]]at[[:space:]]*=/)
+    is_find_at[cur] = (header ~ /[[:space:]]find[[:space:]]/ &&
+        (header ~ /[[:space:]]at[[:space:]]*=/ ||
+         (tolower($2)=="dc" && header ~ /[[:space:]]when[[:space:]]/)))
     if (!(cur in seen)) { order[++n] = cur; seen[cur] = 1 }
     next
 }
@@ -117,7 +120,7 @@ cur != "" && $0 ~ /^[[:space:]]*([0-9]+[[:space:]]+)?\(/ {
     }
     cur=""; next
 }
-# A DC FIND ... AT= record contains the result and the sweep coordinate:
+# A DC FIND ... AT=/WHEN record can contain result and sweep coordinate:
 #     0.5005  -0.1
 # With .step QPOST prefixes the row with the step number.  This must be
 # handled before the generic two-column stepped-result rule below.
@@ -277,33 +280,39 @@ for bench in "${BENCHES[@]}"; do
     rm -f "$name.qraw" "$name.out"
 
     sim_rc=0
-    run_limited "$QSPICE" -binary "$file" >/dev/null 2>&1 || sim_rc=$?
+    run_limited "$QSPICE" -binary "$file" >"$name.qspice.log" 2>&1 || sim_rc=$?
     if [ "$sim_rc" -ne 0 ]; then
-        if [ "$sim_rc" -eq 124 ]; then
-            echo "    ${RED}QSPICE timeout (${TEST_TIMEOUT_SEC} s)${RST}"
-            printf '| `SIMULATION` | **FAIL** | timeout after %s s |\n' "$TEST_TIMEOUT_SEC" >> "$REPORT_TMP"
+        if [ "$sim_rc" -eq 124 ] || [ "$sim_rc" -eq 137 ]; then
+            echo "    ${RED}QSPICE timeout / forced termination (${TEST_TIMEOUT_SEC} s + up to 5 s)${RST}"
+            printf '| `SIMULATION` | **FAIL** | timeout / forced termination after %s s (5 s kill grace) |\n' "$TEST_TIMEOUT_SEC" >> "$REPORT_TMP"
         else
             echo "    ${RED}QSPICE zavershilsja s kodom $sim_rc${RST}"
             printf '| `SIMULATION` | **FAIL** | QSPICE exit code %s |\n' "$sim_rc" >> "$REPORT_TMP"
         fi
+        echo "    Log: $dir/$name.qspice.log"
+        [ ! -s "$name.qspice.log" ] || tail -n 20 "$name.qspice.log"
         TOTAL_FAIL=$((TOTAL_FAIL+1)); popd >/dev/null; continue
     fi
     if [ ! -f "$name.qraw" ]; then
         echo "    ${RED}simulacija upala, .qraw net${RST}"
         echo '| `SIMULATION` | **FAIL** | QSPICE did not create `.qraw` |' >> "$REPORT_TMP"
+        echo "    Log: $dir/$name.qspice.log"
+        [ ! -s "$name.qspice.log" ] || tail -n 20 "$name.qspice.log"
         TOTAL_FAIL=$((TOTAL_FAIL+1)); popd >/dev/null; continue
     fi
 
     post_rc=0
-    run_limited "$QPOST" "$file" -o "$name.out" >/dev/null 2>&1 || post_rc=$?
+    run_limited "$QPOST" "$file" -o "$name.out" >"$name.qpost.log" 2>&1 || post_rc=$?
     if [ "$post_rc" -ne 0 ]; then
-        if [ "$post_rc" -eq 124 ]; then
-            echo "    ${RED}QPOST timeout (${TEST_TIMEOUT_SEC} s)${RST}"
-            printf '| `QPOST` | **FAIL** | timeout after %s s |\n' "$TEST_TIMEOUT_SEC" >> "$REPORT_TMP"
+        if [ "$post_rc" -eq 124 ] || [ "$post_rc" -eq 137 ]; then
+            echo "    ${RED}QPOST timeout / forced termination (${TEST_TIMEOUT_SEC} s + up to 5 s)${RST}"
+            printf '| `QPOST` | **FAIL** | timeout / forced termination after %s s (5 s kill grace) |\n' "$TEST_TIMEOUT_SEC" >> "$REPORT_TMP"
         else
             echo "    ${RED}QPOST zavershilsja s kodom $post_rc${RST}"
             printf '| `QPOST` | **FAIL** | QPOST exit code %s |\n' "$post_rc" >> "$REPORT_TMP"
         fi
+        echo "    Log: $dir/$name.qpost.log"
+        [ ! -s "$name.qpost.log" ] || tail -n 20 "$name.qpost.log"
         TOTAL_FAIL=$((TOTAL_FAIL+1)); popd >/dev/null; continue
     fi
     if [ ! -s "$name.out" ]; then

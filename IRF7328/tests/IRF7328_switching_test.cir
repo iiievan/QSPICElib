@@ -1,0 +1,23 @@
+* Resistive switching, IR table p.2 / Fig.10: VDD=-15V, ID~1A,
+* VGS drive 0..-10V; external RG=6ohm, RD=15ohm. TJ=25C.
+* Delay triggers use the external gate pin V(g), as the Fig.10a probe.
+* Model also retains the user's internal Rg=6; both act in the circuit.
+.temp 25
+.lib ../IRF7328.txt
+V_DD dd 0 -15
+R_D dd d 15
+V_DRV drv 0 PULSE(0 -10 1u 1n 1n 1u 2m)
+R_G drv g 6
+M_SW d g 0 0 IRF7328
+B_VD vd 0 V={-V(d)}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 4u 0 100p
+.meas TRAN TDON_TYP TRIG V(g)=-1 FALL=1 TARG V(vd)=13.5 FALL=1
+.meas TRAN TDON_MAX TRIG V(g)=-1 FALL=1 TARG V(vd)=13.5 FALL=1
+.meas TRAN TR_TYP TRIG V(vd)=13.5 FALL=1 TARG V(vd)=1.5 FALL=1
+.meas TRAN TR_MAX TRIG V(vd)=13.5 FALL=1 TARG V(vd)=1.5 FALL=1
+.meas TRAN TDOFF_TYP TRIG V(g)=-9 RISE=1 TARG V(vd)=1.5 RISE=1
+.meas TRAN TDOFF_MAX TRIG V(g)=-9 RISE=1 TARG V(vd)=1.5 RISE=1
+.meas TRAN TF_TYP TRIG V(vd)=1.5 RISE=1 TARG V(vd)=13.5 RISE=1
+.meas TRAN TF_MAX TRIG V(vd)=1.5 RISE=1 TARG V(vd)=13.5 RISE=1
+.end

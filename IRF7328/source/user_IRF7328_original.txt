@@ -1,0 +1,5 @@
+.model IRF7328 VDMOS pchan Rs=6.38m Rd=6.38m Rg=6 Vto=--1.94
++ Kp=4.41 lambda=4.06m RonX=4.49 eta=75m Vtotc=2m Is=98.7p
++ N=1.25885 Rb=9.09m Eg=1.11 XTI=10.0569 trb1=1.97m Cgs=2.93n
++ Cgdmin=270p Cgdmax=1.91n Cjo=0 tt=18 Tnom=25
++ mfg="International rectifier" Vds=-30 Ids=-8 Ron=17m Qg=52n

@@ -1,0 +1,13 @@
+* BAS316 static reverse leakage at TJ=150C; NXP electrical table p.3.
+* DC sweep avoids a transient initialization failure in revision2.
+* No change to TT, Cjo, temperature, gmin, or datasheet criteria.
+.temp 150
+.lib ../BAS316.txt
+V_REV rev 0 0
+D_REV rev 0 BAS316
+B_IR ir 0 V={abs(I(V_REV))}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.dc V_REV 0 -75 -0.1
+.meas DC IR_25_HOT_MAX FIND V(ir) AT=-25
+.meas DC IR_75_HOT_MAX FIND V(ir) AT=-75
+.end

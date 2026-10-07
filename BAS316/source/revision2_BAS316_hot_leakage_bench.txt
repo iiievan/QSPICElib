@@ -1,0 +1,14 @@
+* BAS316 reverse leakage limits at TJ=150C, NXP table p.3.
+.temp 150
+.lib ../BAS316.txt
+V_R25 r25 0 -25
+D_R25 r25 0 BAS316
+B_R25 ir25 0 V={abs(I(V_R25))}
+V_R75 r75 0 -75
+D_R75 r75 0 BAS316
+B_R75 ir75 0 V={abs(I(V_R75))}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 20u 0 50n
+.meas TRAN IR_25_HOT_MAX AVG V(ir25) FROM=15u TO=20u
+.meas TRAN IR_75_HOT_MAX AVG V(ir75) FROM=15u TO=20u
+.end

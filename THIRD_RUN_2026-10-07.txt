@@ -1,0 +1,144 @@
+shopov@zelenograd-28 MINGW64 ~/code/QSPICElib (main)
+$ TEST_TIMEOUT_SEC=60 KEEP_RAW=1 ./run_tests.sh BAS316/
+
+Najdeno stendov: 4
+======================================================================
+
+--- BAS316_capacitance_test
+    C_0_TYP        PASS
+                   3.61012e-06
+    C_2_TYP        PASS
+                   3.09515e-06
+    C_4_TYP        PASS
+                   3.0193e-06
+    C_8_TYP        PASS
+                   2.9449e-06
+    C_16_TYP       PASS
+                   2.87212e-06
+    C_0_MAX        PASS
+                   3.61012e-06
+
+--- BAS316_dc_test
+    VF_1M_MAX      PASS
+                   0.596939
+    VF_1M_TYP      PASS
+                   0.596939
+    VF_10M_MAX     PASS
+                   0.728834
+    VF_10M_TYP     PASS
+                   0.728834
+    VF_50M_MAX     PASS
+                   0.862201
+    VF_50M_TYP     PASS
+                   0.862201
+    VF_150M_MAX    PASS
+                   1.04203
+    VF_150M_TYP    PASS
+                   1.04203
+    IR_25_MAX      PASS
+                   1.1849e-08
+    IR_75_MAX      PASS
+                   1.1899e-08
+
+--- BAS316_hot_leakage_test
+    IR_25_HOT_MAX  PASS
+                   1.01873e-05
+    IR_75_HOT_MAX  PASS
+                   1.01873e-05
+
+--- BAS316_recovery_test
+    IF_INITIAL     PASS
+                   0.01
+    IR_PEAK        PASS
+                   -0.01
+    TRR_EST        PASS
+                   1.79431e-09
+    IR_FINAL       PASS
+                   -1.18291e-08
+
+======================================================================
+PASS: 22  WARN: 0  FAIL: 0
+Otchet: TEST_RESULTS.md
+VSE STENDY PROSHLI BEZ PREDUPREZHDENIJ
+
+shopov@zelenograd-28 MINGW64 ~/code/QSPICElib (main)
+$ TEST_TIMEOUT_SEC=60 KEEP_RAW=1 ./run_tests.sh IRF7328
+
+Najdeno stendov: 6
+======================================================================
+
+--- IRF7328_capacitance_test
+    CISS_TYP       PASS
+                   0.0165955
+    COSS_TYP       PASS
+                   0.00246909
+    CRSS_TYP       PASS
+                   0.00153691
+
+--- IRF7328_dc_test
+    VTH_MIN        PASS
+                   1.79868
+    VTH_MAX        PASS
+                   1.79868
+    R10_TYP        PASS
+                   0.0166049
+    R10_MAX        PASS
+                   0.0166049
+    R45_TYP        PASS
+                   0.0268095
+    R45_MAX        PASS
+                   0.0268095
+    IDSS_MAX       PASS
+                   3.76346e-07
+    VSD_MAX        PASS
+                   0.785749
+
+--- IRF7328_dual_test
+    D1_ON          PASS
+                   0.0165185
+    D2_OFF         PASS
+                   15
+    D1_OFF         PASS
+                   15
+    D2_ON          PASS
+                   0.0165185
+    D1_PAIR        PASS
+                   9.98899e-07
+    D2_PAIR        PASS
+                   9.98899e-07
+
+--- IRF7328_gate_charge_test
+    QG_TIME_TYP    PASS
+                   4.82359e-05
+    QG_TIME_MAX    PASS
+                   4.82359e-05
+
+--- IRF7328_hot_leakage_test
+    IDSS_HOT_MAX   PASS
+                   4.03576e-07
+
+--- IRF7328_switching_test
+    TDON_TYP       PASS
+                   1.03363e-08
+    TDON_MAX       PASS
+                   1.03363e-08
+    TR_TYP         PASS
+                   1.23037e-08
+    TR_MAX         PASS
+                   1.23037e-08
+    TDOFF_TYP      WARN (corners: 1)
+                   8.56613e-08
+    TDOFF_MAX      PASS
+                   8.56613e-08
+    TF_TYP         WARN (corners: 1)
+                   4.16846e-08
+    TF_MAX         PASS
+                   4.16846e-08
+
+======================================================================
+PASS: 26  WARN: 2  FAIL: 0
+Otchet: TEST_RESULTS.md
+VSE HARD-TREBOVANIJA PROSHLI; WARN: 2
+
+shopov@zelenograd-28 MINGW64 ~/code/QSPICElib (main)
+$

@@ -1,0 +1,2 @@
+.model BAS316 D Is=12.7m N=21.9359 Rs=100p Eg=1.11 XTI=33.1946
++ Cjo=573f m=36.2m Vj=31.2m tt=667µ mfg="NXP" Vrev=100 Iave=0.25

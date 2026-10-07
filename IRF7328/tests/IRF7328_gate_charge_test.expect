@@ -1,0 +1,3 @@
+# These results are seconds; multiply by IG=1mA to obtain coulombs.
+QG_TIME_TYP warn_rel 0.20 52u
+QG_TIME_MAX max 0 78u

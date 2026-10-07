@@ -1,0 +1,29 @@
+* IR PD-94000 electrical table p.2, TJ=25C; one P-channel die.
+.temp 25
+.lib ../IRF7328.txt
+I_TH th 0 250u
+M_TH th th 0 0 IRF7328
+V_G10 g10 0 -10
+I_R10 r10 0 8
+M_R10 r10 g10 0 0 IRF7328
+B_R10 rd10 0 V={abs(V(r10)/8)}
+V_G45 g45 0 -4.5
+I_R45 r45 0 6.8
+M_R45 r45 g45 0 0 IRF7328
+B_R45 rd45 0 V={abs(V(r45)/6.8)}
+V_LEAK leak 0 -24
+M_LEAK leak 0 0 0 IRF7328
+B_LEAK idss 0 V={abs(I(V_LEAK))}
+I_DIO 0 dio 2
+M_DIO dio 0 0 0 IRF7328
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 20u 0 50n
+.meas TRAN VTH_MIN AVG V(0,th) FROM=15u TO=20u
+.meas TRAN VTH_MAX AVG V(0,th) FROM=15u TO=20u
+.meas TRAN R10_TYP AVG V(rd10) FROM=15u TO=20u
+.meas TRAN R10_MAX AVG V(rd10) FROM=15u TO=20u
+.meas TRAN R45_TYP AVG V(rd45) FROM=15u TO=20u
+.meas TRAN R45_MAX AVG V(rd45) FROM=15u TO=20u
+.meas TRAN IDSS_MAX AVG V(idss) FROM=15u TO=20u
+.meas TRAN VSD_MAX AVG V(dio) FROM=15u TO=20u
+.end

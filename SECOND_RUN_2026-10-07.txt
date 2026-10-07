@@ -1,0 +1,80 @@
+shopov@zelenograd-28 MINGW64 ~/code/QSPICElib (main)
+$ KEEP_RAW=1 ./run_tests.sh BAS316/
+
+Najdeno stendov: 4
+======================================================================
+
+--- BAS316_capacitance_test
+    C_0_TYP        PASS
+                   3.61012e-06
+    C_2_TYP        PASS
+                   3.09515e-06
+    C_4_TYP        PASS
+                   3.0193e-06
+    C_8_TYP        PASS
+                   2.9449e-06
+    C_16_TYP       PASS
+                   2.87212e-06
+    C_0_MAX        PASS
+                   3.61012e-06
+
+--- BAS316_dc_test
+    VF_1M_MAX      PASS
+                   0.596939
+    VF_1M_TYP      PASS
+                   0.596939
+    VF_10M_MAX     PASS
+                   0.728834
+    VF_10M_TYP     PASS
+                   0.728834
+    VF_50M_MAX     PASS
+                   0.862201
+    VF_50M_TYP     PASS
+                   0.862201
+    VF_150M_MAX    PASS
+                   1.04203
+    VF_150M_TYP    PASS
+                   1.04203
+    IR_25_MAX      PASS
+                   1.1849e-08
+    IR_75_MAX      PASS
+                   1.1899e-08
+
+--- BAS316_hot_leakage_test
+    QSPICE zavershilsja s kodom 127
+    Log: BAS316/tests/BAS316_hot_leakage_test.qspice.log
+C:\Users\shopov\code\QSPICElib\BAS316\tests\BAS316_hot_leakage_test.cir
+Fatal error: Timestep too small(1.25e-19) at t=0
+
+
+--- BAS316_recovery_test
+    IF_INITIAL     PASS
+                   0.01
+    IR_PEAK        PASS
+                   -0.01
+    TRR_EST        PASS
+                   1.79431e-09
+    IR_FINAL       PASS
+                   -1.18291e-08
+
+======================================================================
+PASS: 20  WARN: 0  FAIL: 1
+Otchet: TEST_RESULTS.md
+EST' HARD FAIL: 1
+
+shopov@zelenograd-28 MINGW64 ~/code/QSPICElib (main)
+$ KEEP_RAW=1 ./run_tests.sh IRF7328
+
+Najdeno stendov: 6
+======================================================================
+
+--- IRF7328_capacitance_test
+    CISS_TYP       PASS
+                   0.0165955
+    COSS_TYP       PASS
+                   0.00246909
+    CRSS_TYP       PASS
+                   0.00153691
+
+--- IRF7328_dc_test
+

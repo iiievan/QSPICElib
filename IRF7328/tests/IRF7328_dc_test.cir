@@ -1,0 +1,48 @@
+* IRF7328 electrical table p.2, TJ=25C. Static voltage sweep.
+* Revision2 ideal current forcing failed operating-point source stepping.
+* Each DUT is voltage driven through 1ohm; measure actual DUT voltage
+* WHEN that resistor's voltage reaches the required current (1V=1A).
+* Ballast voltage is excluded from VTH, VSD, and RDS measurements.
+* One positive 0..10V scan drives all independent fixtures.
+.temp 25
+.lib ../IRF7328.txt
+V_SCAN scan 0 0
+
+* Threshold: gate and drain tied; |ID|=250uA.
+E_TH th_drive 0 scan 0 -0.25
+R_TH th_drive th 1
+M_TH th th 0 0 IRF7328
+
+* RDS: external VGS=-10V at |ID|=8A, and -4.5V at |ID|=6.8A.
+V_G10 g10 0 -10
+E_R10 r10_drive 0 scan 0 -1
+R_S10 r10_drive r10 1
+M_R10 r10 g10 0 0 IRF7328
+B_R10 rd10 0 V={abs(V(r10)/8)}
+V_G45 g45 0 -4.5
+E_R45 r45_drive 0 scan 0 -1
+R_S45 r45_drive r45 1
+M_R45 r45 g45 0 0 IRF7328
+B_R45 rd45 0 V={abs(V(r45)/6.8)}
+
+* Fixed leakage fixture: VDS=-24V, VGS=0.
+V_LEAK leak 0 -24
+M_LEAK leak 0 0 0 IRF7328
+B_LEAK idss 0 V={abs(I(V_LEAK))}
+
+* Body diode: VGS=0, |IS|=2A; positive drain voltage for P-channel.
+E_DIO dio_drive 0 scan 0 0.3
+R_DIO dio_drive dio 1
+M_DIO dio 0 0 0 IRF7328
+
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.dc V_SCAN 0 10 5m
+.meas DC VTH_MIN FIND V(0,th) WHEN V(th,th_drive)=250u CROSS=1
+.meas DC VTH_MAX FIND V(0,th) WHEN V(th,th_drive)=250u CROSS=1
+.meas DC R10_TYP FIND V(rd10) WHEN V(r10,r10_drive)=8 CROSS=1
+.meas DC R10_MAX FIND V(rd10) WHEN V(r10,r10_drive)=8 CROSS=1
+.meas DC R45_TYP FIND V(rd45) WHEN V(r45,r45_drive)=6.8 CROSS=1
+.meas DC R45_MAX FIND V(rd45) WHEN V(r45,r45_drive)=6.8 CROSS=1
+.meas DC IDSS_MAX AVG V(idss)
+.meas DC VSD_MAX FIND V(dio) WHEN V(dio_drive,dio)=2 CROSS=1
+.end
