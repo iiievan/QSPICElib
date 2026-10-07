@@ -1,0 +1,35 @@
+* YJM05GP06A/N06A model-only half-bridge characterization at 10V drive.
+* 24V, ~1A resistor to mid-rail; 20/100/400kHz x -35/25/60C.
+* This is not the final 4.7k P-gate network, motor or MOSFET rating.
+.param CORNER=1
+.param FSW={if(CORNER<4,20k,if(CORNER<7,100k,400k))}
+.param TJ={if(CORNER==1,-35,if(CORNER==2,25,if(CORNER==3,60,if(CORNER==4,-35,if(CORNER==5,25,if(CORNER==6,60,if(CORNER==7,-35,if(CORNER==8,25,60))))))))}
+.param TPER={1/FSW}
+.param TON={TPER/2-250n}
+.step param CORNER list 1 2 3 4 5 6 7 8 9
+Vbus vb 0 24
+* The 12-ohm load to 12V draws about 1A at either rail.
+Vref vr 0 12
+Rload sw vr 12
+Vcorner corner_echo 0 {CORNER}
+Vgp vb pdrv PULSE(0 10 {TPER} 1n 1n {TON} {TPER})
+Rgp pdrv pg 6
+Vgn ndrv 0 PULSE(0 10 {TPER+TPER/2} 1n 1n {TON} {TPER})
+Rgn ndrv ng 6
+Mp sw pg vb vb YJM05GP06A temp={TJ}
+Mn sw ng 0 0 YJM05N06A temp={TJ}
+.lib ../YJM05N06A.txt
+.lib ../YJM05GP06A.txt
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 {4*TPER} 0 50n
+.save V(vb) V(pg) V(ng) V(sw) V(pdrv) V(ndrv) V(corner_echo)
+.meas TRAN ECHO_CORNER AVG V(corner_echo)
+.meas TRAN P_GATE MAX V(vb,pg)
+.meas TRAN N_GATE MAX V(ng)
+.meas TRAN SW_HIGH MAX V(sw)
+.meas TRAN SW_LOW MIN V(sw)
+.meas TRAN TO_HIGH TRIG V(vb,pdrv)=5 RISE=1 TARG V(sw)=21.6 RISE=1
+.meas TRAN TO_HIGH_POS TRIG V(vb,pdrv)=5 RISE=1 TARG V(sw)=21.6 RISE=1
+.meas TRAN TO_LOW TRIG V(ndrv)=5 RISE=1 TARG V(sw)=2.4 FALL=1
+.meas TRAN TO_LOW_POS TRIG V(ndrv)=5 RISE=1 TARG V(sw)=2.4 FALL=1
+.end

@@ -1,0 +1,7 @@
+# Hard functional truth table and datasheet's 8mA VOH/VOL at VCC=4.5V.
+Y_LL max 0 0.36
+Y_LH max 0 0.36
+Y_HL max 0 0.36
+Y_HH min 0 3.94
+VIH_2V min 0 4.4
+VIL_0V8 max 0 0.1

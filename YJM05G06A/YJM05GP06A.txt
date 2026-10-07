@@ -1,0 +1,13 @@
+* YJM05GP06A (Yangjie) v0.1: initial QSPICE VDMOS engineering fit.
+* Source: attached YJM05GP06A Rev.1.0, 23-Mar-2022, electrical table p.2.
+* VDS=-60V; |VGS(th)| 1.5/2/3V @250uA; RDS(on) typ/max
+* 40/55m @-10V,-5A and 50/70m @-4.5V,-4A.
+* Ciss/Coss/Crss typ 1050/380/20p @-30V,1MHz; Qg/Qgd typ 18.7/3nC.
+* No vendor SPICE model supplied; capacitance voltage dependence, charge,
+* switching, reverse recovery and temperature terms need QSPICE/sample fit.
+* Four terminals in QSPICE M: D G S B. Physical lead mapping is NOT
+* established by the supplied package drawing; check before PCB footprint.
+.model YJM05GP06A VDMOS pchan Vto=-2 Kp=18 Rd=16.5m Rs=16.5m Rg=12
++ lambda=0.01 Is=1n N=1.4 Rb=20m Eg=1.11 XTI=3
++ Cgs=1030p Cgdmin=20p Cgdmax=350p Cjo=360p Vj=0.8 M=0.5 Tnom=25
++ mfg="YANGJIE" Vds=-60 Ron=55m Qg=18.7n

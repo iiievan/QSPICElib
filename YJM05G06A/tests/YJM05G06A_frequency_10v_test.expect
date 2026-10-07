@@ -1,0 +1,11 @@
+# Model-only application bench: 9 corners. Rail reach is a functional
+# invariant for this ideal-driver fixture; transition time is diagnostic.
+ECHO_CORNER abs      0.01  1 2 3 4 5 6 7 8 9
+P_GATE      min      0     9 9 9 9 9 9 9 9 9
+N_GATE      min      0     9 9 9 9 9 9 9 9 9
+SW_HIGH     min      0     21.6 21.6 21.6 21.6 21.6 21.6 21.6 21.6 21.6
+SW_LOW      max      0     2.4 2.4 2.4 2.4 2.4 2.4 2.4 2.4 2.4
+TO_HIGH     warn_max 0     500n 500n 500n 500n 500n 500n 500n 500n 500n
+TO_HIGH_POS min      0     0 0 0 0 0 0 0 0 0
+TO_LOW      warn_max 0     500n 500n 500n 500n 500n 500n 500n 500n 500n
+TO_LOW_POS  min      0     0 0 0 0 0 0 0 0 0

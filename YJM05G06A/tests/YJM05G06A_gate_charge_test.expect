@@ -1,0 +1,5 @@
+# Typical only; times in us numerically equal nC at 1mA.
+N_QG  warn_rel 0.50 26u
+P_QG  warn_rel 0.50 18.7u
+N_QGD warn_rel 0.75 6.5u
+P_QGD warn_rel 0.75 3u

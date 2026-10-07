@@ -1,0 +1,17 @@
+# TJ=25C; guaranteed limits HARD; typical RDS(on) WARN.
+N_VTH min      0     1
+N_VTH_MAX max  0     2.5
+P_VTH min      0     1.5
+P_VTH_MAX max  0     3
+N_R10 warn_rel 0.30  35m
+N_R10_MAX max  0     44m
+N_R45 warn_rel 0.30  39m
+N_R45_MAX max  0     49m
+P_R10 warn_rel 0.30  40m
+P_R10_MAX max  0     55m
+P_R45 warn_rel 0.30  50m
+P_R45_MAX max  0     70m
+N_IDSS max     0     1u
+P_IDSS max     0     1u
+N_VSD max      0     1.2
+P_VSD max      0     1.2

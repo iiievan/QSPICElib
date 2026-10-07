@@ -1,0 +1,12 @@
+# Datasheet typical delays 5ns/5.5ns, max 6.9ns/7.9ns at CL15/50pF.
+# Typical is WARN; maximum at 25C is HARD. A and B should be symmetric.
+A15_PLH max      0 6.9n
+A15_PLH_TYP warn_rel 0.30 5n
+A15_PHL max      0 6.9n
+A15_PHL_TYP warn_rel 0.30 5n
+A50_PLH max      0 7.9n
+A50_PLH_TYP warn_rel 0.30 5.5n
+A50_PHL max      0 7.9n
+A50_PHL_TYP warn_rel 0.30 5.5n
+B15_PLH max      0 6.9n
+B15_PHL max      0 6.9n

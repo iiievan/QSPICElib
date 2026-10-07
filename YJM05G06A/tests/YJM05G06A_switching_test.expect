@@ -1,0 +1,10 @@
+# Datasheet switching times are typical, so use WARN bands.
+# N Rev.3.2 values; old Rev.2.0 in the attachments differs.
+N_TDON  warn_rel 0.75 10n
+N_TR    warn_rel 0.75 20n
+N_TDOFF warn_rel 0.75 29n
+N_TF    warn_rel 0.75 21n
+P_TDON  warn_rel 0.75 7.5n
+P_TR    warn_rel 0.75 40n
+P_TDOFF warn_rel 0.75 43n
+P_TF    warn_rel 0.75 55n

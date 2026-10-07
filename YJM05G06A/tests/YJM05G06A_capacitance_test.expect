@@ -1,0 +1,7 @@
+# Typical only. 1-ohm sensor voltage at 1MHz = 2*pi*1MHz*C*1ohm.
+N_CISS warn_rel 0.35 6.396813m
+N_COSS warn_rel 0.35 439.822972u
+N_CRSS warn_rel 0.35 389.557489u
+P_CISS warn_rel 0.35 6.597345m
+P_COSS warn_rel 0.35 2.387610m
+P_CRSS warn_rel 0.35 125.663706u

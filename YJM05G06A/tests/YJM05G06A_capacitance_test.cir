@@ -1,0 +1,30 @@
+* 1MHz capacitance at VGS=0, |VDS|=30V, TJ=25C.
+* 1V AC and 1-ohm current sensors: Vsensor = 2*pi*f*C [V].
+.temp 25
+.lib ../YJM05N06A.txt
+.lib ../YJM05GP06A.txt
+V_NCISS_D nciss_d 0 30
+V_NCISS_G nciss_g nciss_s DC 0 AC 1
+R_NCISS_S nciss_s 0 1
+M_NCISS nciss_d nciss_g 0 0 YJM05N06A
+V_PCISS_D pciss_d 0 -30
+V_PCISS_G pciss_g pciss_s DC 0 AC 1
+R_PCISS_S pciss_s 0 1
+M_PCISS pciss_d pciss_g 0 0 YJM05GP06A
+V_NCOSS_D ncoss_d ncoss_s DC 30 AC 1
+R_NCOSS_S ncoss_s 0 1
+R_NCOSS_G ncoss_g 0 1
+M_NCOSS ncoss_d ncoss_g 0 0 YJM05N06A
+V_PCOSS_D pcoss_d pcoss_s DC -30 AC 1
+R_PCOSS_S pcoss_s 0 1
+R_PCOSS_G pcoss_g 0 1
+M_PCOSS pcoss_d pcoss_g 0 0 YJM05GP06A
+.ac dec 10 100k 10Meg
+.save V(nciss_s) V(pciss_s) V(ncoss_s) V(pcoss_s) V(ncoss_g) V(pcoss_g)
+.meas AC N_CISS FIND abs(V(nciss_s)) AT=1Meg
+.meas AC P_CISS FIND abs(V(pciss_s)) AT=1Meg
+.meas AC N_COSS FIND abs(V(ncoss_s)) AT=1Meg
+.meas AC P_COSS FIND abs(V(pcoss_s)) AT=1Meg
+.meas AC N_CRSS FIND abs(V(ncoss_g)) AT=1Meg
+.meas AC P_CRSS FIND abs(V(pcoss_g)) AT=1Meg
+.end

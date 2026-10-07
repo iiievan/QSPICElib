@@ -1,0 +1,34 @@
+* UTC U74AHCT08G-UEA-R v0.1, approximate powered 2-input AND gates.
+* Datasheet QW-R502-415.D, pp.2-4; recommended VCC=4.5..5.5V.
+* Every input has HCT thresholds: guaranteed LOW <=0.8V, HIGH >=2.0V.
+* A single nominal 1.4-V transition is used; there is no guaranteed
+* Schmitt hysteresis, input clamp, supply current, temperature dependence,
+* ESD or output short-circuit/thermal behavior in this model.
+* Typical timing target: tPLH/tPHL=5ns @15pF, 5.5ns @50pF with 3ns edges.
+* Output resistance approximates 8mA VOH>=3.94V and VOL<=0.36V at 4.5V.
+* This is a first fit; QSPICE measurements and hardware samples are pending.
+
+* Unit gate order: A B Y VCC GND. Each cell is independently powered.
+.subckt U74AHCT08_G A B Y VCC GND params: VTH=1.4 TPD=4.4n ROH=68 ROL=42 CIN=4p COUT=3p TTOL=1n
+C_A A GND {CIN}
+C_B B GND {CIN}
+B_LOGIC logic GND V={if(V(A,GND)>VTH,if(V(B,GND)>VTH,V(VCC,GND),0),0)}
+R_DELAY logic delayed 1k
+C_DELAY delayed GND {1.4427*TPD/1k}
+S_UP VCC mid delayed GND U74AHCT08_UP TTOL={TTOL}
+S_DN mid GND GND delayed U74AHCT08_DN TTOL={TTOL}
+R_OUT mid Y 1m
+R_MID mid GND 100meg
+C_OUT Y GND {COUT}
+.model U74AHCT08_UP SW Ron={ROH} Roff=1g Vt=2.7 Vh=0.1
+.model U74AHCT08_DN SW Ron={ROL} Roff=1g Vt=-2.3 Vh=0.1
+.ends U74AHCT08_G
+
+* Complete 14-pin chip order, pin 1 through pin 14 from datasheet p.2.
+* XU 1A 1B 1Y 2A 2B 2Y GND 3Y 3A 3B 4Y 4A 4B VCC U74AHCT08
+.subckt U74AHCT08 P1 P2 P3 P4 P5 P6 P7 P8 P9 P10 P11 P12 P13 P14
+X1 P1 P2 P3 P14 P7 U74AHCT08_G
+X2 P4 P5 P6 P14 P7 U74AHCT08_G
+X3 P9 P10 P8 P14 P7 U74AHCT08_G
+X4 P12 P13 P11 P14 P7 U74AHCT08_G
+.ends U74AHCT08

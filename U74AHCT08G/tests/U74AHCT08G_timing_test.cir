@@ -1,0 +1,27 @@
+* UTC U74AHCT08G, VCC=5V, 3ns input transitions, CL=15pF and 50pF.
+* Each input toggles with the other held HIGH, to verify both A/B paths.
+.temp 25
+.lib ../U74AHCT08G.txt
+Vcc vcc 0 5
+Vain ain 0 PULSE(0 5 100n 3n 3n 200n 500n)
+Vbin bin 0 PULSE(0 5 100n 3n 3n 200n 500n)
+Vhigh high 0 5
+Xa15 ain high ya15 vcc 0 U74AHCT08_G
+Ca15 ya15 0 15p
+Xa50 ain high ya50 vcc 0 U74AHCT08_G
+Ca50 ya50 0 50p
+Xb15 high bin yb15 vcc 0 U74AHCT08_G
+Cb15 yb15 0 15p
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 400n 0 50p
+.meas TRAN A15_PLH TRIG V(ain)=2.5 RISE=1 TARG V(ya15)=2.5 RISE=1
+.meas TRAN A15_PLH_TYP TRIG V(ain)=2.5 RISE=1 TARG V(ya15)=2.5 RISE=1
+.meas TRAN A15_PHL TRIG V(ain)=2.5 FALL=1 TARG V(ya15)=2.5 FALL=1
+.meas TRAN A15_PHL_TYP TRIG V(ain)=2.5 FALL=1 TARG V(ya15)=2.5 FALL=1
+.meas TRAN A50_PLH TRIG V(ain)=2.5 RISE=1 TARG V(ya50)=2.5 RISE=1
+.meas TRAN A50_PLH_TYP TRIG V(ain)=2.5 RISE=1 TARG V(ya50)=2.5 RISE=1
+.meas TRAN A50_PHL TRIG V(ain)=2.5 FALL=1 TARG V(ya50)=2.5 FALL=1
+.meas TRAN A50_PHL_TYP TRIG V(ain)=2.5 FALL=1 TARG V(ya50)=2.5 FALL=1
+.meas TRAN B15_PLH TRIG V(bin)=2.5 RISE=1 TARG V(yb15)=2.5 RISE=1
+.meas TRAN B15_PHL TRIG V(bin)=2.5 FALL=1 TARG V(yb15)=2.5 FALL=1
+.end

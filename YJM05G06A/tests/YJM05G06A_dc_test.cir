@@ -1,0 +1,60 @@
+* Yangjie YJM05N06A + YJM05GP06A static datasheet points, TJ=25C.
+.temp 25
+.lib ../YJM05N06A.txt
+.lib ../YJM05GP06A.txt
+
+* VDS=VGS and |ID|=250uA, respective datasheet threshold condition.
+I_NTH 0 n_th 250u
+M_NTH n_th n_th 0 0 YJM05N06A
+I_PTH p_th 0 250u
+M_PTH p_th p_th 0 0 YJM05GP06A
+
+* Resistive points: N 10V/5A, 4.5V/4A; P -10V/-5A, -4.5V/-4A.
+V_NG10 ng10 0 10
+I_NR10 0 nr10 5
+M_NR10 nr10 ng10 0 0 YJM05N06A
+B_NR10 nr10_r 0 V={abs(V(nr10)/5)}
+V_NG45 ng45 0 4.5
+I_NR45 0 nr45 4
+M_NR45 nr45 ng45 0 0 YJM05N06A
+B_NR45 nr45_r 0 V={abs(V(nr45)/4)}
+V_PG10 pg10 0 -10
+I_PR10 pr10 0 5
+M_PR10 pr10 pg10 0 0 YJM05GP06A
+B_PR10 pr10_r 0 V={abs(V(pr10)/5)}
+V_PG45 pg45 0 -4.5
+I_PR45 pr45 0 4
+M_PR45 pr45 pg45 0 0 YJM05GP06A
+B_PR45 pr45_r 0 V={abs(V(pr45)/4)}
+
+* IDSS: |VDS|=60V, VGS=0; diode VSD at 5A, VGS=0.
+V_NLEAK nleak 0 60
+M_NLEAK nleak 0 0 0 YJM05N06A
+B_NLEAK nleak_abs 0 V={abs(I(V_NLEAK))}
+V_PLEAK pleak 0 -60
+M_PLEAK pleak 0 0 0 YJM05GP06A
+B_PLEAK pleak_abs 0 V={abs(I(V_PLEAK))}
+I_NDIO ndio 0 5
+M_NDIO ndio 0 0 0 YJM05N06A
+I_PDIO 0 pdio 5
+M_PDIO pdio 0 0 0 YJM05GP06A
+
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 20u 0 50n
+.meas TRAN N_VTH AVG V(n_th) FROM=15u TO=20u
+.meas TRAN N_VTH_MAX AVG V(n_th) FROM=15u TO=20u
+.meas TRAN P_VTH AVG V(0,p_th) FROM=15u TO=20u
+.meas TRAN P_VTH_MAX AVG V(0,p_th) FROM=15u TO=20u
+.meas TRAN N_R10 AVG V(nr10_r) FROM=15u TO=20u
+.meas TRAN N_R10_MAX AVG V(nr10_r) FROM=15u TO=20u
+.meas TRAN N_R45 AVG V(nr45_r) FROM=15u TO=20u
+.meas TRAN N_R45_MAX AVG V(nr45_r) FROM=15u TO=20u
+.meas TRAN P_R10 AVG V(pr10_r) FROM=15u TO=20u
+.meas TRAN P_R10_MAX AVG V(pr10_r) FROM=15u TO=20u
+.meas TRAN P_R45 AVG V(pr45_r) FROM=15u TO=20u
+.meas TRAN P_R45_MAX AVG V(pr45_r) FROM=15u TO=20u
+.meas TRAN N_IDSS AVG V(nleak_abs) FROM=15u TO=20u
+.meas TRAN P_IDSS AVG V(pleak_abs) FROM=15u TO=20u
+.meas TRAN N_VSD AVG V(0,ndio) FROM=15u TO=20u
+.meas TRAN P_VSD AVG V(pdio) FROM=15u TO=20u
+.end

@@ -1,0 +1,25 @@
+* UTC U74AHCT08G: complete quad pin map, truth table, 3.3V inputs at 4.5V VCC.
+* G1 low/low with 8mA sink, G2 low/high, G3 high/low,
+* G4 high/high with 8mA source. Additional 0.8/2.0V input thresholds.
+.temp 25
+.lib ../U74AHCT08G.txt
+Vcc vcc 0 4.5
+Vlow l 0 0
+Vhigh h 0 3.3
+Vlogic1 vlogic1 0 2
+Vlogic0 vlogic0 0 0.8
+Vfive five 0 4.5
+Xquad l l yll l h ylh 0 yhl h l yhh h h vcc U74AHCT08
+Xvih vlogic1 vlogic1 yvih vcc 0 U74AHCT08_G
+Xvil vlogic0 five yvil vcc 0 U74AHCT08_G
+Ihigh yhh 0 8m
+Ilow 0 yll 8m
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8 gmin=1e-12
+.tran 0 100n 0 0.1n
+.meas TRAN Y_LL AVG V(yll) FROM=80n TO=100n
+.meas TRAN Y_LH AVG V(ylh) FROM=80n TO=100n
+.meas TRAN Y_HL AVG V(yhl) FROM=80n TO=100n
+.meas TRAN Y_HH AVG V(yhh) FROM=80n TO=100n
+.meas TRAN VIH_2V AVG V(yvih) FROM=80n TO=100n
+.meas TRAN VIL_0V8 AVG V(yvil) FROM=80n TO=100n
+.end
