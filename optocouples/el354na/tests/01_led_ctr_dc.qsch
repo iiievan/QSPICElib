@@ -1,0 +1,241 @@
+ÿØÿÛ«schematic
+  «component (2300,-3300) 4 0
+    «symbol B2
+      «type: B»
+      «description: Behavioral Current Source»
+      «shorted pins: false»
+      «line (0,200) (0,150) 0 0 0x1000000 -1 -1»
+      «line (0,-150) (0,-200) 0 0 0x1000000 -1 -1»
+      «rect (-25,102) (25,98) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,75) (2,125) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-98) (25,-102) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-100,-150) (100,50) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «ellipse (-100,-50) (100,150) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,-100) 1 75 0 0x1000000 -1 -1 "Bled_neg"»
+      «text (250,100) 1 75 0 0x1000000 -1 -1 "I={I(Viled_pos)}"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+    »
+  »
+  «component (1400,-1800) 0 0
+    «symbol I
+      «type: I»
+      «description: Current Source»
+      «shorted pins: false»
+      «line (0,200) (0,150) 0 0 0x1000000 -1 -1»
+      «line (0,-150) (0,-200) 0 0 0x1000000 -1 -1»
+      «rect (-25,102) (25,98) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,75) (2,125) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-98) (25,-102) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-100,-150) (100,50) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «ellipse (-100,-50) (100,150) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (-700,250) 1 7 0 0x1000000 -1 -1 "Iled_pos"»
+      «text (-350,-200) 1 7 0 0x1000000 -1 -1 "1m"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+    »
+  »
+  «component (4500,-1600) 0 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (100,150) 1 7 0 0x1000000 -1 -1 "Vcp"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "5"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (4500,-3300) 0 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (100,150) 1 7 0 0x1000000 -1 -1 "Vcn"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "5"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (3400,-1600) 0 0
+    «symbol EL354NA
+      «type: X»
+      «description: Machine generated symbol for EL354NA»
+      «library file: ../EL354NA.txt»
+      «shorted pins: false»
+      «rect (-500,-400) (500,400) 0 0 0 0xff0000 0x4000000 -1 0 -1»
+      «text (-100,150) 1 6 0 0x1000000 -1 -1 "Xp"»
+      «text (0,0) 1 0 0 0x1000000 -1 -1 "EL354NA"»
+      «text (-50,-850) 1 0 0 0x1000000 -1 -1 "PARAMS:  CTR1M={GAIN} TAU=2µ  THERMAL={THERMAL_EN}"»
+      «pin (-500,300) (150,50) 1 13 0 0x0 -1 "A"»
+      «pin (-500,-300) (70,0) 1 7 0 0x0 -1 "K"»
+      «pin (500,300) (-150,-100) 1 14 0 0x0 -1 "C"»
+      «pin (500,-300) (-70,0) 1 11 0 0x0 -1 "E"»
+    »
+  »
+  «component (3400,-3300) 0 0
+    «symbol EL354NA
+      «type: X»
+      «description: Machine generated symbol for EL354NA»
+      «library file: ../EL354NA.txt»
+      «shorted pins: false»
+      «rect (-500,-400) (500,400) 0 0 0 0xff0000 0x4000000 -1 0 -1»
+      «text (-100,150) 1 6 0 0x1000000 -1 -1 "Xn"»
+      «text (0,0) 1 0 0 0x1000000 -1 -1 "EL354NA"»
+      «text (-50,-850) 1 0 0 0x1000000 -1 -1 "PARAMS:  CTR1M={GAIN} TAU=2µ  THERMAL={THERMAL_EN}"»
+      «pin (-500,300) (150,50) 1 13 0 0x0 -1 "A"»
+      «pin (-500,-300) (70,0) 1 7 0 0x0 -1 "K"»
+      «pin (500,300) (-150,-100) 1 14 0 0x0 -1 "C"»
+      «pin (500,-300) (-70,0) 1 11 0 0x0 -1 "E"»
+    »
+  »
+  «component (2000,-1300) 2 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (130,0) 1 110 0 0x1000000 -1 -1 "Viled_pos"»
+      «text (-130,0) 1 109 0 0x1000000 -1 -1 "0"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (6500,-1600) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (200,100) 1 7 0 0x1000000 -1 -1 "Bctr_pos"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "V={-I(Vcp)/max(I(Viled_pos),1p)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (6500,-2600) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (250,50) 1 7 0 0x1000000 -1 -1 "Bctr_neg"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "V={-I(Vcn)/max(I(Viled_pos),1p)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (6500,-3400) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (200,50) 1 7 0 0x1000000 -1 -1 "Bctr_sym"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "V={abs(V(ctr_pos)-V(ctr_neg))}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (6500,-4300) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (200,50) 1 7 0 0x1000000 -1 -1 "Bctr_fig3"»
+      «text (100,-150) 1 7 0 0x1000000 -1 -1 "V={V(ctr_pos)*0.5/GAIN}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «net (1400,-2200) 1 13 0 "GND"»
+  «net (2700,-2200) 1 13 0 "GND"»
+  «net (2300,-3600) 1 13 0 "led_neg"»
+  «net (4100,-2200) 1 13 0 "GND"»
+  «net (4500,-2200) 1 13 0 "GND"»
+  «net (4500,-1300) 1 14 0 "cp"»
+  «net (4100,-3900) 1 13 0 "GND"»
+  «net (4500,-3900) 1 13 0 "GND"»
+  «net (4500,-3000) 1 14 0 "cn"»
+  «net (2300,-2800) 1 14 0 "GND"»
+  «net (2700,-2800) 1 14 0 "GND"»
+  «net (2500,-1300) 1 14 0 "led_pos"»
+  «net (1400,-1300) 1 14 0 "led_pos_feed"»
+  «net (6500,-1400) 1 14 0 "ctr_pos"»
+  «net (6500,-2000) 1 13 0 "GND"»
+  «net (6500,-2400) 1 14 0 "ctr_neg"»
+  «net (6500,-3200) 1 14 0 "ctr_sym"»
+  «net (6500,-4100) 1 14 0 "ctr_fig3"»
+  «net (6500,-4500) 1 13 0 "GND"»
+  «net (6500,-3600) 1 13 0 "GND"»
+  «net (6500,-2800) 1 13 0 "GND"»
+  «wire (2900,-1900) (2700,-1900) "GND"»
+  «wire (2700,-1900) (2700,-2200) "GND"»
+  «wire (3900,-1900) (4100,-1900) "GND"»
+  «wire (4100,-1900) (4100,-2200) "GND"»
+  «wire (4500,-1400) (4500,-1300) "cp"»
+  «wire (4500,-1300) (3900,-1300) "cp"»
+  «wire (4500,-1800) (4500,-2200) "GND"»
+  «wire (3900,-3600) (4100,-3600) "GND"»
+  «wire (4100,-3600) (4100,-3900) "GND"»
+  «wire (4500,-3100) (4500,-3000) "cn"»
+  «wire (4500,-3000) (3900,-3000) "cn"»
+  «wire (4500,-3500) (4500,-3900) "GND"»
+  «wire (2900,-3600) (2300,-3600) "led_neg"»
+  «wire (2300,-3500) (2300,-3600) "led_neg"»
+  «wire (2300,-2800) (2300,-3100) "GND"»
+  «wire (2700,-2800) (2700,-3000) "GND"»
+  «wire (2700,-3000) (2900,-3000) "GND"»
+  «wire (1800,-1300) (1400,-1300) "led_pos_feed"»
+  «wire (1400,-1300) (1400,-1600) "led_pos_feed"»
+  «wire (2500,-1300) (2900,-1300) "led_pos"»
+  «wire (2200,-1300) (2500,-1300) "led_pos"»
+  «wire (1400,-2000) (1400,-2200) "GND"»
+  «wire (6500,-1800) (6500,-2000) "GND"»
+  «text (-50,-700) 1 7 0 0x1000000 -1 -1 "ï»¿.param TEST_TEMP=25 THERMAL_EN=0\n.temp 25"»
+  «text (850,-4450) 1 7 0 0x1000000 -1 -1 "ï»¿.options reltol=1e-4 abstol=1e-12 vntol=1e-7"»
+  «text (850,-4850) 1 7 0 0x1000000 -1 -1 "ï»¿.param GAIN=0.5\n.step param GAIN list 0.5 1 1.5"»
+  «text (6250,-8100) 1 7 0 0x1000000 -1 -1 "ï»¿.plot 100*V(ctr_pos) 100*V(ctr_neg) V(ctr_sym)"»
+  «text (850,-5250) 1 7 0 0x1000000 -1 -1 "ï»¿.dc Iled_pos 0.1m 30m 0.1m\n"»
+  «text (6250,-6400) 1 7 0 0x1000000 -1 -1 "ï»¿.meas DC CTR_POS FIND V(ctr_pos) AT=1m\n.meas DC CTR_NEG FIND V(ctr_neg) AT=1m\n.meas DC CTR_SYM MAX V(ctr_sym)\n.meas DC VF20_TYP FIND V(led_pos) AT=20m\n.meas DC VF20_MAX FIND V(led_pos) AT=20m\n.meas DC VF20_REV_MAX FIND V(led_neg) AT=20m\n.meas DC VF1_DIAGNOSTIC FIND V(led_pos) AT=1m\n.meas DC LED_SYM20 FIND abs(V(led_pos)-V(led_neg)) AT=20m\n.meas DC LED_SYM1 FIND abs(V(led_pos)-V(led_neg)) AT=1m\n.meas DC CTR_FIG3_0P5M FIND V(ctr_fig3) AT=0.5m\n.meas DC CTR_FIG3_1M FIND V(ctr_fig3) AT=1m\n.meas DC CTR_FIG3_2M FIND V(ctr_fig3) AT=2m\n.meas DC CTR_FIG3_5M FIND V(ctr_fig3) AT=5m\n.meas DC CTR_FIG3_10M FIND V(ctr_fig3) AT=10m\n.meas DC CTR_FIG3_20M FIND V(ctr_fig3) AT=20m\n.meas DC CTR_FIG3_30M FIND V(ctr_fig3) AT=30m"»
+  «text (6250,-8300) 1 7 0 0x1000000 -1 -1 "ï»¿.plot V(led_pos) V(led_neg) "»
+»
+

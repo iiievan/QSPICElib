@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "stage": "six_user_runs_reviewed_expression_fixes_pending_rerun",
+  "component": "EL354NA",
+  "old_assertion_family_count": 22,
+  "reference_temperature_C": 25,
+  "legacy_thermal_parameter": 0,
+  "benches": [
+    {
+      "stem": "01_led_ctr_dc",
+      "source_netlist": "tests/01_led_ctr_dc.cir",
+      "future_schematic": "tests/01_led_ctr_dc.qsch",
+      "original_check_families": 10,
+      "legacy_rules": [
+        {
+          "original_family": "EL354NA_led_test",
+          "original_metric": "VF20_TYP",
+          "new_metrics": [
+            "VF20_TYP"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "0.06",
+          "expected_spice": [
+            "1.2"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_led_test",
+          "original_metric": "VF20_MAX",
+          "new_metrics": [
+            "VF20_MAX"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "1.4"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_led_test",
+          "original_metric": "VF20_REV_MAX",
+          "new_metrics": [
+            "VF20_REV_MAX"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "1.4"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_led_test",
+          "original_metric": "VF1_DIAGNOSTIC",
+          "new_metrics": [
+            "VF1_DIAGNOSTIC"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "0.15",
+          "expected_spice": [
+            "1.05"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_led_test",
+          "original_metric": "LED_SYM20",
+          "new_metrics": [
+            "LED_SYM20"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "0.005"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_led_test",
+          "original_metric": "LED_SYM1",
+          "new_metrics": [
+            "LED_SYM1"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "0.005"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_ctr_test",
+          "original_metric": "CTR_POS",
+          "new_metrics": [
+            "CTR_POS"
+          ],
+          "mode": "abs",
+          "tolerance_spice": "0.01",
+          "expected_spice": [
+            "0.5",
+            "1",
+            "1.5"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_ctr_test",
+          "original_metric": "CTR_NEG",
+          "new_metrics": [
+            "CTR_NEG"
+          ],
+          "mode": "abs",
+          "tolerance_spice": "0.01",
+          "expected_spice": [
+            "0.5",
+            "1",
+            "1.5"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_ctr_test",
+          "original_metric": "CTR_SYM",
+          "new_metrics": [
+            "CTR_SYM"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "0.001"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_ctr_curve_test",
+          "original_metric": "CTR_FIG3",
+          "new_metrics": [
+            "CTR_FIG3_0P5M",
+            "CTR_FIG3_1M",
+            "CTR_FIG3_2M",
+            "CTR_FIG3_5M",
+            "CTR_FIG3_10M",
+            "CTR_FIG3_20M",
+            "CTR_FIG3_30M"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "0.14",
+          "expected_spice": [
+            "0.34",
+            "0.50",
+            "0.71",
+            "0.94",
+            "1.07",
+            "1.12",
+            "1.00"
+          ],
+          "applies_at_temperature_C": 25
+        }
+      ],
+      "review_status": "original_run_reviewed_expression_fix_pending_rerun"
+    },
+    {
+      "stem": "02_output_dc",
+      "source_netlist": "tests/02_output_dc.cir",
+      "future_schematic": "tests/02_output_dc.qsch",
+      "original_check_families": 4,
+      "legacy_rules": [
+        {
+          "original_family": "EL354NA_output_test",
+          "original_metric": "VCE_SAT",
+          "new_metrics": [
+            "VCE_SAT"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "0.2"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_output_test",
+          "original_metric": "VCE_SAT_TYP",
+          "new_metrics": [
+            "VCE_SAT_TYP"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "0.03",
+          "expected_spice": [
+            "0.1"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_output_test",
+          "original_metric": "IC_LOAD",
+          "new_metrics": [
+            "IC_LOAD"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "0.04m",
+          "expected_spice": [
+            "1m"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_output_test",
+          "original_metric": "ICEO_20V",
+          "new_metrics": [
+            "ICEO_20V"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "100n"
+          ],
+          "applies_at_temperature_C": 25
+        }
+      ],
+      "review_status": "original_run_reviewed_expression_fix_pending_rerun"
+    },
+    {
+      "stem": "03_input_capacitance_ac",
+      "source_netlist": "tests/03_input_capacitance_ac.cir",
+      "future_schematic": "tests/03_input_capacitance_ac.qsch",
+      "original_check_families": 2,
+      "legacy_rules": [
+        {
+          "original_family": "EL354NA_capacitance_test",
+          "original_metric": "INPUT_I_1KHZ",
+          "new_metrics": [
+            "INPUT_I_1KHZ"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "40n",
+          "expected_spice": [
+            "314n"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_capacitance_test",
+          "original_metric": "INPUT_I_MAX",
+          "new_metrics": [
+            "INPUT_I_MAX"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "1.571u"
+          ],
+          "applies_at_temperature_C": 25
+        }
+      ],
+      "review_status": "original_run_reviewed"
+    },
+    {
+      "stem": "04_switching_tran",
+      "source_netlist": "tests/04_switching_tran.cir",
+      "future_schematic": "tests/04_switching_tran.qsch",
+      "original_check_families": 3,
+      "legacy_rules": [
+        {
+          "original_family": "EL354NA_timing_test",
+          "original_metric": "T_RISE_IC",
+          "new_metrics": [
+            "T_RISE_IC"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "18u"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_timing_test",
+          "original_metric": "T_FALL_IC",
+          "new_metrics": [
+            "T_FALL_IC"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "18u"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_timing_test",
+          "original_metric": "VCE_ON",
+          "new_metrics": [
+            "VCE_ON"
+          ],
+          "mode": "warn_abs",
+          "tolerance_spice": "0.15",
+          "expected_spice": [
+            "2"
+          ],
+          "applies_at_temperature_C": 25
+        }
+      ],
+      "review_status": "original_run_reviewed_expression_fix_pending_rerun"
+    },
+    {
+      "stem": "05_ac_polarities_tran",
+      "source_netlist": "tests/05_ac_polarities_tran.cir",
+      "future_schematic": "tests/05_ac_polarities_tran.qsch",
+      "original_check_families": 3,
+      "legacy_rules": [
+        {
+          "original_family": "EL354NA_ac_input_test",
+          "original_metric": "V_POS",
+          "new_metrics": [
+            "V_POS"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "1"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_ac_input_test",
+          "original_metric": "V_ZERO",
+          "new_metrics": [
+            "V_ZERO"
+          ],
+          "mode": "min",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "3.2"
+          ],
+          "applies_at_temperature_C": 25
+        },
+        {
+          "original_family": "EL354NA_ac_input_test",
+          "original_metric": "V_NEG",
+          "new_metrics": [
+            "V_NEG"
+          ],
+          "mode": "max",
+          "tolerance_spice": "0",
+          "expected_spice": [
+            "1"
+          ],
+          "applies_at_temperature_C": 25
+        }
+      ],
+      "review_status": "original_run_reviewed"
+    },
+    {
+      "stem": "06_temperature_dc",
+      "source_netlist": "tests/06_temperature_dc.cir",
+      "future_schematic": "tests/06_temperature_dc.qsch",
+      "original_check_families": 0,
+      "status": "new_typical_curve_diagnostic",
+      "temperature_range_C": [
+        -35,
+        60
+      ],
+      "input_current_mA": [
+        0.5,
+        1,
+        5,
+        10,
+        25
+      ],
+      "reference_csv": "references/figure4_temperature_ratios.csv",
+      "review_status": "original_run_reviewed"
+    }
+  ],
+  "review_summary": {
+    "finite_measurement_values": 168,
+    "legacy_scalar_comparisons": 68,
+    "original_pass": 65,
+    "original_sign_warnings": 3,
+    "report": "REVIEW.md",
+    "model_changed": false,
+    "native_rerun_after_review": false
+  }
+}

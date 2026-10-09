@@ -1,0 +1,52 @@
+* EL354NA v0.2.1 CANDIDATE - optional Fig.4 CTR temperature correction.
+* Source: attached EL354N-G Series Rev.6 datasheet, pages 1-4.
+* Pins: LED 1, LED 2, collector 4, emitter 3. Example:
+* X1 led1 led2 collector emitter EL354NA params: CTR1M=0.5
+* CTR1M = IC/IF at IF=1mA and VCE=5V, at 25 C (dimensionless).
+* Rank A at 25 C: CTR1M=0.5 .. 1.5. Default 0.5 is its LOW corner,
+* not the unspecified typical CTR. Select corners explicitly in a system sim.
+* Normalized CTR(IF) is an approximate fit to p.4 Fig.3, VCE=5V, 25 C
+* over IF about 0.5 .. 30mA. Typical graphs are not production limits.
+* TAU=2u is an illustrative optical time constant, not a fitted typical:
+* datasheet only specifies tr/tf <= 18us at its particular test point.
+* THERMAL=0 (default): exact legacy output equations; preserves old suites.
+* THERMAL=1: approximate temperature correction read from Fig.4, VCE=5V.
+* Each IF curve is normalized to itself at 25 C. At 25 C the factor is 1.
+* Current interpolation uses clipped linear ramps, avoiding variable TABLE
+* ordinates. The temperature tables themselves contain only numeric knots.
+* Table knots: IF=0.5,1,5,10,25mA and T=-55..100 C. Piecewise linear.
+* Below/above those IF/T knots the correction clamps to the nearest edge;
+* this is numerical fallback, NOT validated extrapolation or a worst case.
+* The applied current is the filtered optical-drive current; no self-heating.
+* LED parameters are unchanged; their SPICE thermal law is NOT curve-fitted.
+* Leakage remains Rdark=1G and TAU remains user-set: no thermal data fitted.
+* Candidate not executed in QSPICE yet; typical curves are not hard limits.
+
+.SUBCKT EL354NA A K C E PARAMS: CTR1M=0.5 TAU=2u THERMAL=0
+.func EL354_F0P5(TC) {table(limit(TC,-55,100), -55, 1.730196, -35, 1.550516, -20, 1.441220, 0, 1.291550, 25, 1.000000, 40, 0.817897, 60, 0.656841, 85, 0.508568, 100, 0.455754)}
+.func EL354_F1(TC) {table(limit(TC,-55,100), -55, 1.441220, -35, 1.441220, -20, 1.389495, 0, 1.268162, 25, 1.000000, 40, 0.896151, 60, 0.760243, 85, 0.610540, 100, 0.499359)}
+.func EL354_F5(TC) {table(limit(TC,-55,100), -55, 0.981891, -35, 1.056354, -20, 1.095677, 0, 1.095677, 25, 1.000000, 40, 0.929510, 60, 0.817897, 85, 0.706653, 100, 0.610540)}
+.func EL354_F10(TC) {table(limit(TC,-55,100), -55, 0.912678, -35, 1.018442, -20, 1.056354, 0, 1.056354, 25, 1.000000, 40, 0.929510, 60, 0.848343, 85, 0.746476, 100, 0.681292)}
+.func EL354_F25(TC) {table(limit(TC,-55,100), -55, 0.964111, -35, 1.075836, -20, 1.115884, 0, 1.095677, 25, 1.000000, 40, 0.946652, 60, 0.879923, 85, 0.803086, 100, 0.706653)}
+.func EL354_FT(TC,IFM) {EL354_F0P5(TC)+(EL354_F1(TC)-EL354_F0P5(TC))*limit((IFM-0.5)/0.5,0,1)+(EL354_F5(TC)-EL354_F1(TC))*limit((IFM-1)/4,0,1)+(EL354_F10(TC)-EL354_F5(TC))*limit((IFM-5)/5,0,1)+(EL354_F25(TC)-EL354_F10(TC))*limit((IFM-10)/15,0,1)}
+
+* Two LED chips wired back-to-back, each sensed with a zero-volt source.
+Dforward A fwd D354_LED
+Vforward fwd K 0
+Dreverse K rev D354_LED
+Vreverse rev A 0
+.MODEL D354_LED D(IS=9.4e-12 N=2.09 RS=2 CJO=25p)
+
+* Current from E to drive charges R/C control node; V(drive,E)/1k = IF.
+Boptical E drive I=max(I(Vforward),0)+max(I(Vreverse),0)
+Roptical drive E 1k
+Coptical drive E {TAU/1k}
+
+* Smooth empirical fit to Everlight Fig.3, normalized to 1 at IF=1mA.
+* With a 1k control resistor the node voltage is IF in mA (numerically).
+* Shape(IF): 0.69 at 0.5mA; 1 at 1mA; 1.93 at 5mA; 2.16 at 20mA;
+* about 1.96 at 30mA. These are approximate graph readings at 25 C.
+* VCE factor is 1 at 5V and has an approximate 0.1V saturation knee.
+Bphoto C E I={CTR1M}*max(V(drive,E),0)/1k*(6.75*max(V(drive,E),0)/(max(V(drive,E),0)+5.75))**0.622*exp((1-max(V(drive,E),0))/72.7)*(5.11/4.91)*max(V(C,E)-0.09,0)/(max(V(C,E)-0.09,0)+0.2)*if(THERMAL>0.5,EL354_FT(temp,max(V(drive,E),0)),1)
+Rdark C E 1G
+.ENDS EL354NA
