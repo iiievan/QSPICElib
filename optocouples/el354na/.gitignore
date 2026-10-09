@@ -1,0 +1,26 @@
+# Local Python environment and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+# Private proxy credentials
+proxy_settings.cmd
+# Simulator scratch files (QSCH is the tracked source)
+*.qraw
+*.raw
+*.log
+*.tmp
+*.qsch.bak
+/tests/*.cir
+# Successful report.md and figures/*.png remain trackable
+/results/**/diagnostics/
+/results/**/cases/
+/results/**/inputs/
+/results/**/waveforms.csv
+/results/**/report.html
+/results/**/run_state.json
+/diagnostics_*.zip
+# OS/editor files
+Thumbs.db
+Desktop.ini
+.DS_Store

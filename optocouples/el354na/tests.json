@@ -1,0 +1,433 @@
+{
+  "suite_version": "1.0.0",
+  "component": "EL354NA",
+  "datasheet": "datasheets/EL354N(A)(TA)-VG.pdf",
+  "timeout_seconds": 300,
+  "export_intervals": 10000,
+  "benches": [
+    {
+      "id": "01_led_ctr_dc",
+      "name": "LED и CTR",
+      "schematic": "tests/01_led_ctr_dc.qsch",
+      "analysis": "dc",
+      "sweep": {
+        "parameter": "GAIN",
+        "values": [
+          "0.5",
+          "1",
+          "1.5"
+        ]
+      },
+      "probes": [
+        "V(led_pos)",
+        "V(led_neg)",
+        "V(ctr_pos)",
+        "V(ctr_neg)",
+        "V(ctr_sym)"
+      ],
+      "axis": {
+        "label": "IF, mA",
+        "scale": 1000,
+        "range": [
+          0.0001,
+          0.03
+        ],
+        "log": false
+      },
+      "datasheet": "Стр. 3: VF и CTR EL354NA; стр. 4: Fig. 1 и Fig. 3 при VCE=5 В.",
+      "rules": [
+        {
+          "metric": "VF20_TYP",
+          "mode": "warn_abs",
+          "expected": [
+            "1.2"
+          ],
+          "tolerance": "0.06",
+          "basis": "typical"
+        },
+        {
+          "metric": "VF20_MAX",
+          "mode": "max",
+          "expected": [
+            "1.4"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "VF20_REV_MAX",
+          "mode": "max",
+          "expected": [
+            "1.4"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "VF1_DIAGNOSTIC",
+          "mode": "warn_abs",
+          "expected": [
+            "1.05"
+          ],
+          "tolerance": "0.15",
+          "basis": "typical"
+        },
+        {
+          "metric": "LED_SYM20",
+          "mode": "max",
+          "expected": [
+            "0.005"
+          ],
+          "tolerance": "0",
+          "basis": "model"
+        },
+        {
+          "metric": "LED_SYM1",
+          "mode": "max",
+          "expected": [
+            "0.005"
+          ],
+          "tolerance": "0",
+          "basis": "model"
+        },
+        {
+          "metric": "CTR_POS",
+          "mode": "abs",
+          "expected": [
+            "0.5",
+            "1",
+            "1.5"
+          ],
+          "tolerance": "0.01",
+          "basis": "model"
+        },
+        {
+          "metric": "CTR_NEG",
+          "mode": "abs",
+          "expected": [
+            "0.5",
+            "1",
+            "1.5"
+          ],
+          "tolerance": "0.01",
+          "basis": "model"
+        },
+        {
+          "metric": "CTR_SYM",
+          "mode": "max",
+          "expected": [
+            "0.001"
+          ],
+          "tolerance": "0",
+          "basis": "model"
+        }
+      ]
+    },
+    {
+      "id": "02_output_dc",
+      "name": "Насыщение и темновой ток",
+      "schematic": "tests/02_output_dc.qsch",
+      "analysis": "dc",
+      "sweep": {
+        "parameter": "GAIN",
+        "values": [
+          "0.5",
+          "1",
+          "1.5"
+        ]
+      },
+      "probes": [
+        "V(csat_pos)",
+        "V(csat_neg)",
+        "-I(Rpos)",
+        "-I(Rneg)",
+        "V(darkmon)",
+        "-I(Vce_curve)"
+      ],
+      "axis": {
+        "label": "VCE, V",
+        "scale": 1,
+        "range": [
+          0,
+          10
+        ],
+        "log": false
+      },
+      "datasheet": "Стр. 3: VCE(sat), ICEO; стр. 4: Fig. 5 и Fig. 6 — форма IC(VCE).",
+      "rules": [
+        {
+          "metric": "VCE_SAT",
+          "mode": "max",
+          "expected": [
+            "0.2"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "VCE_SAT_TYP",
+          "mode": "warn_abs",
+          "expected": [
+            "0.1"
+          ],
+          "tolerance": "0.03",
+          "basis": "typical"
+        },
+        {
+          "metric": "IC_LOAD",
+          "mode": "warn_abs",
+          "expected": [
+            "1m"
+          ],
+          "tolerance": "0.04m",
+          "basis": "typical"
+        },
+        {
+          "metric": "ICEO_20V",
+          "mode": "max",
+          "expected": [
+            "100n"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "VCE_SAT_NEG",
+          "mode": "max",
+          "expected": "0.2",
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "IC_LOAD_NEG",
+          "mode": "warn_abs",
+          "expected": "1m",
+          "tolerance": "0.04m",
+          "basis": "typical"
+        }
+      ]
+    },
+    {
+      "id": "03_input_capacitance_ac",
+      "name": "Входная ёмкость",
+      "schematic": "tests/03_input_capacitance_ac.qsch",
+      "analysis": "ac",
+      "sweep": null,
+      "probes": [
+        "abs(I(Vac))"
+      ],
+      "axis": {
+        "label": "Frequency, Hz",
+        "scale": 1,
+        "range": [
+          100,
+          1000000.0
+        ],
+        "log": true
+      },
+      "datasheet": "Стр. 3: Input capacitance Cin, VAK=0 В, f=1 кГц.",
+      "rules": [
+        {
+          "metric": "INPUT_I_1KHZ",
+          "mode": "warn_abs",
+          "expected": [
+            "314n"
+          ],
+          "tolerance": "40n",
+          "basis": "typical"
+        },
+        {
+          "metric": "INPUT_I_MAX",
+          "mode": "max",
+          "expected": [
+            "1.571u"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "CIN_1KHZ_PF",
+          "mode": "max",
+          "expected": "250",
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "CIN_1KHZ_PF",
+          "mode": "warn_abs",
+          "expected": "50",
+          "tolerance": "5",
+          "basis": "typical"
+        }
+      ]
+    },
+    {
+      "id": "04_switching_tran",
+      "name": "Время переключения",
+      "schematic": "tests/04_switching_tran.qsch",
+      "analysis": "tran",
+      "sweep": null,
+      "probes": [
+        "V(out)",
+        "-I(Vload)",
+        "I(Viled)"
+      ],
+      "axis": {
+        "label": "Time, us",
+        "scale": 1000000.0,
+        "range": [
+          0,
+          9.5e-05
+        ],
+        "log": false
+      },
+      "datasheet": "Стр. 3: tr/tf; стр. 5: Fig. 10 — определения фронтов и условия VCE=2 В, IC=2 мА, RL=100 Ом.",
+      "rules": [
+        {
+          "metric": "T_RISE_IC",
+          "mode": "max",
+          "expected": [
+            "18u"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "T_FALL_IC",
+          "mode": "max",
+          "expected": [
+            "18u"
+          ],
+          "tolerance": "0",
+          "basis": "limit"
+        },
+        {
+          "metric": "VCE_ON",
+          "mode": "warn_abs",
+          "expected": [
+            "2"
+          ],
+          "tolerance": "0.15",
+          "basis": "typical"
+        }
+      ]
+    },
+    {
+      "id": "05_ac_polarities_tran",
+      "name": "Работа на обеих полуволнах",
+      "schematic": "tests/05_ac_polarities_tran.qsch",
+      "analysis": "tran",
+      "sweep": null,
+      "probes": [
+        "V(line)",
+        "V(out)",
+        "I(Viled)"
+      ],
+      "axis": {
+        "label": "Time, ms",
+        "scale": 1000,
+        "range": [
+          0,
+          0.022
+        ],
+        "log": false
+      },
+      "datasheet": "Стр. 1: AC input; стр. 3: CTR при IF=±1 мА. Пороги 1/3.2 В — критерии этой схемы, отдельной строки даташита для них нет.",
+      "rules": [
+        {
+          "metric": "V_POS",
+          "mode": "max",
+          "expected": [
+            "1"
+          ],
+          "tolerance": "0",
+          "basis": "circuit"
+        },
+        {
+          "metric": "V_ZERO",
+          "mode": "min",
+          "expected": [
+            "3.2"
+          ],
+          "tolerance": "0",
+          "basis": "circuit"
+        },
+        {
+          "metric": "V_NEG",
+          "mode": "max",
+          "expected": [
+            "1"
+          ],
+          "tolerance": "0",
+          "basis": "circuit"
+        }
+      ]
+    },
+    {
+      "id": "06_temperature_dc",
+      "name": "Температурные зависимости",
+      "schematic": "tests/06_temperature_dc.qsch",
+      "analysis": "dc",
+      "sweep": {
+        "parameter": "IF_TEST",
+        "values": [
+          "0.5m",
+          "1m",
+          "5m",
+          "10m",
+          "25m"
+        ]
+      },
+      "probes": [
+        "V(ctr_pos)",
+        "V(ctr_neg)",
+        "V(ctr_sym)",
+        "V(ic_norm)",
+        "V(led_pos)",
+        "V(idark20)",
+        "V(idark3)",
+        "V(actual_temp)"
+      ],
+      "axis": {
+        "label": "Temperature, °C",
+        "scale": 1,
+        "range": [
+          -35,
+          60
+        ],
+        "log": false
+      },
+      "datasheet": "Стр. 4: Fig. 4 — normalized IC(T), VCE=5 В; Fig. 1 — VF(T). ICEO≤100 нА на стр. 3 задан только при 25 °C.",
+      "rules": [
+        {
+          "metric": "ACTUAL_TEMP_MIN",
+          "mode": "abs",
+          "expected": "-35",
+          "tolerance": "0.001",
+          "basis": "model"
+        },
+        {
+          "metric": "ACTUAL_TEMP_MAX",
+          "mode": "abs",
+          "expected": "60",
+          "tolerance": "0.001",
+          "basis": "model"
+        },
+        {
+          "metric": "CTR_SYM",
+          "mode": "max",
+          "expected": "0.001",
+          "tolerance": "0",
+          "basis": "model"
+        },
+        {
+          "metric": "ICEO_20V_AT_25",
+          "mode": "max",
+          "expected": "100n",
+          "tolerance": "0",
+          "basis": "limit"
+        }
+      ]
+    }
+  ]
+}
