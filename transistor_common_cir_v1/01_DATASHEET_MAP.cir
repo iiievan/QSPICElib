@@ -1,0 +1,104 @@
+* SOURCE MAP -- supplied archive QSPICElib(1).7z, inspected 2026-10-31
+* ЭТО КОММЕНТАРИИ, НЕ ЗАПУСКАЕМЫЙ СТЕНД И НЕ ФАЙЛ ДЛЯ .include.
+* Условия ниже прочитаны из приложенных PDF, не подменены новой web-редакцией.
+* Перечень помогает выбрать параметры; сверяй также схему и определения в PDF.
+* Ни один высоковольтный профиль не включён вместо низковольтных defaults.
+*
+* ВАЖНО: имя папки и фактический прибор в трёх PDF НЕ совпадают
+* transistors/Si/STL3N80K5/datasheet/STL3N80K5.pdf:
+*   внутри STD3N80K5, DPAK, DS14537 Rev 1, December 2023.
+* transistors/Si/STL7LN80K5/datasheet/STL7LN80K5.pdf:
+*   внутри STF7LN80K5, TO-220FP, DS11431 Rev 3, April 2026.
+* transistors/GaN/INN900D350B/datasheet/INN900D350B.pdf:
+*   внутри INN900TK350B, TO-252, Rev 1.1, 2024/07/31.
+* Не переносить корпус, pinout и package parasitics на прибор из имени папки
+* без правильного PDF. Сами папки и исходные файлы не переименованы.
+*
+* Si: STD3N80K5, ФАКТИЧЕСКИЙ прибор PDF в папке STL3N80K5
+* FET-01 Rds: VGS_TEST=10, I_RON=1 A; typ 2.8 / max 3.5 Ohm.
+* FET-02 Vth: D=G, I_TH=100u; диапазон 3..5 V, typ 4 V.
+* FET-03: VDS_BIAS=100, VGS_BIAS=0, F_TEST=1Meg;
+*   Ciss/Coss/Crss typ 130/14/0.6 pF.
+* FET-04: VBUS=640, ID_LOAD=2.5, VGS_START=0, VGS_FINAL=10;
+*   Qg typ 9.5 nC. Это импульсный режим, а не continuous current rating.
+* FET-05 резистивный: VBUS=400, Id=1.25 A, R_LOAD примерно 320 Ohm,
+*   VGS_OFF=0, VGS_ON=10, R_GON=R_GOFF=4.7; уточнить фактический Id.
+*
+* Si: STF7LN80K5, ФАКТИЧЕСКИЙ прибор PDF в папке STL7LN80K5
+* FET-01 Rds: VGS_TEST=10, I_RON=2.5 A; typ 0.95 / max 1.15 Ohm.
+* FET-03: VDS_BIAS=100, VGS_BIAS=0, F_TEST=1Meg;
+*   Ciss/Coss/Crss typ 270/22/0.5 pF.
+* FET-04: VBUS=640, ID_LOAD=5, VGS_START=0, VGS_FINAL=10;
+*   Qg typ 12 nC; сверить ширину импульса и допустимый режим по PDF.
+*
+* GaN: GPI90005DF88 -- приложенная v1.1 Preliminary
+* FET-01 Rds: VGS_TEST=6, I_RON=1; typ 235 / max 320 mOhm при 25 C.
+* FET-02 Vth: D=G, I_TH=3.5m; typ 1.2 V, min/max 0.9/2.9 V.
+*   Idss: VBLOCK_SCAN=650, VGS_OFF=0. Обратный ход: I_REVERSE=0.1,
+*   VGS_REVERSE=0. Igss: VGATE_LEAK_SCAN=6.
+* FET-03: VDS_BIAS=500, VGS_BIAS=0, F_TEST=100k;
+*   обязательно F_MIN ниже 100k, например 10k; F_MAX=1Meg.
+*   Ciss/Coss/Crss typ 39/11.8/0.24 pF.
+* FET-04: VBUS=500, ID_LOAD=2.5, VGS_START=0, VGS_FINAL=6;
+*   Qg typ 1.6 nC. IG_TEST выбрать заметно выше утечки затвора.
+* Switching: Vds=600, Id=1.2, VGS_OFF=-3, VGS_ON=6,
+*   R_GON=22, R_GOFF=2. Схема/точки отсчёта должны соответствовать PDF;
+*   нельзя автоматически сравнить эти числа с любым resistive/DPT режимом.
+* В приложенной таблице поле tf пустое: не придумывать предел для отчёта.
+* Указанное Qrr=0 не означает отсутствия ёмкостного импульса коммутации.
+*
+* GaN: INN900TK350B -- ФАКТИЧЕСКИЙ прибор PDF в папке INN900D350B
+* В этом PDF TO-252: G=1, S=2, D=3; не переносить на DFN автоматически.
+* FET-01 Rds: VGS_TEST=6, I_RON=2.2; typ 265 / max 350 mOhm при 25 C.
+* FET-02 Vth: D=G, I_TH=7.4m; typ 1.7, min/max 1.2/2.5 V.
+*   Idss: VBLOCK_SCAN=720, VGS_OFF=0. Igss: VGATE_LEAK_SCAN=6.
+*   Обратная проводимость: I_REVERSE=2.2, VGS_REVERSE=0;
+*   VREVERSE_SCAN увеличить, например до 10, чтобы ток был достигнут.
+* FET-03: VDS_BIAS=400, VGS_BIAS=0, F_TEST=100k,
+*   F_MIN=10k, F_MAX=1Meg; Ciss/Coss/Crss typ 54/21/0.2 pF.
+* FET-04: VBUS=400, ID_LOAD=2.2, VGS_START=0, VGS_FINAL=6;
+*   Qg typ 1.5 nC. Отрицательный Vgs учитывать с ESD-ограничением из PDF.
+*
+* SiC: C3M0160120J -- Rev. 04, September 2025
+* FET-01 Rds: VGS_TEST=15, I_RON=8.5 A.
+* FET-02 Vth: D=G, I_TH=1m.
+* FET-03: VDS_BIAS=1000, VGS_BIAS=0, F_TEST=1Meg, AC_AMPL=25m.
+* FET-04: VBUS=800, ID_LOAD=8.5, VGS_START=-4, VGS_FINAL=15;
+*   Qg typ 24 nC, определение IEC и Fig.12 сверить отдельно.
+* FET-06: VBUS=800, L_LOAD=336u, target Id=8.5 A,
+*   VGS_OFF=-4, VGS_ON=15, VGS_FREEWHEEL=-4, KELVIN_RETURN=1.
+*   R_GON=R_GOFF=0 в табличном условии: для физической схемы с идеальными
+*   источниками вместо нуля использовать малое положительное значение и
+*   проверить чувствительность; внутренний Rg модели отдельно не удалять.
+*
+* SiC: C3M0350120J -- Rev. 04, September 2025
+* FET-01 Rds: VGS_TEST=15, I_RON=3.6; typ 350 / max 455 mOhm.
+* FET-02 Vth: D=G, I_TH=1m; typ 2.5, min/max 1.8/3.6 V.
+* FET-03: VDS_BIAS=1000, VGS_BIAS=0, F_TEST=1Meg, AC_AMPL=25m;
+*   Ciss/Coss/Crss typ 345/20/3.4 pF.
+* FET-04: VBUS=800, ID_LOAD=3.6, VGS_START=-4, VGS_FINAL=15.
+* FET-06: VBUS=800, L_LOAD=716u, target Id=3.6 A,
+*   VGS_OFF=-4, VGS_ON=15, VGS_FREEWHEEL=-4,
+*   R_GON=R_GOFF=2.5, KELVIN_RETURN=1.
+* У обоих C3M: Gate=pin1, Kelvin/driver source=pin2,
+*   Power source=pins3..7, Drain=TAB. Порядок vendor .subckt может отличаться.
+* TON1 в DPT подбирать по фактическому I_AT_FIRST_OFF, не только V*t/L.
+* Табличные времена индуктивного теста извлекать из DPT по Fig.27..29,
+* не подменять временем резистивного FET-05. Оконные энергии пока диагностика.
+*
+* BJT: FJP5027 -- supplied onsemi PDF
+* BJT-02: VCB_BIAS=10, F_TEST=1Meg, emitter open; Cob typ 60 pF.
+* BJT-03: VBUS=400, R_LOAD=200, IC_REFERENCE=2,
+*   IB_ON=0.4, IB_OFF=-0.8. Контролировать реальные Vbe и Ib, влияние
+*   R_BASE и compliance; это импульсные условия, не режим по умолчанию.
+* Табличные типовые tON=0.5 us, tstorage=3 us, tfall=0.3 us.
+* VCEO=800 V, VCBO=1100 V: разные условия базы; нельзя считать VCEO=1100 V.
+*
+* BJT: BUL216 -- supplied ST PDF, CIL test circuit on PDF page 4
+* BJT-04: L_LOAD=200u, VCLAMP=250, IB_ON=0.5,
+*   VBE_OFF=-5, R_B_OFF по RBB=0 (малое положительное значение в netlist),
+*   IC_REFERENCE=1.5. VCC и TON выбрать/сверить по режиму, чтобы при
+*   выключении действительно получить 1.5 A; VCLAMP не равно VCC.
+* При 25 C: storage typ/max 2.1/3.3 us, fall typ/max 450/720 ns.
+* Это выключение обратным НАПРЯЖЕНИЕМ через R, не заданным обратным током.
+* BJT-03 и BJT-04 поэтому сохранены как две отдельные топологии.

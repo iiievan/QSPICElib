@@ -1,0 +1,98 @@
+* FET-06: double pulse, inductive commutation and reverse path
+
+* DRAW: low DUT + high passive DUT; load inductor from BUS to SW, i.e.
+* parallel with the high device. This matches the C3M datasheet topology.
+* High DUT gate is held at VGS_FREEWHEEL relative to its own Kelvin source.
+* KELVIN_RETURN selects low DUT driver return: 0=ground, 1=Kelvin K.
+* p_gate includes both gate and K port powers, referenced to power source S.
+* Both devices currently use DUT_FET; a separate high-side adapter can be
+* introduced later when comparing a different commutating device.
+* POL mirrors the ENTIRE physical circuit for P-channel testing.
+* Q_COMM is recovered charge at the high DUT drain in a FIXED window.
+* It includes capacitive displacement/Qoss and is NOT pure minority Qrr.
+* A GaN model with Qrr=0 must still show its displacement-current pulse.
+* Window energies include everything in the defined window, including some
+* conduction; Python will add datasheet-defined event-based energy windows.
+* Check current at first turn-off; VBUS*TON/L is only an initial estimate.
+.include "00_device.cir"
+.temp 25
+.param VBUS=24
+.param L_LOAD=500u
+.param R_L=50m
+.param L_BUS=5n
+.param R_BUS=50m
+.param L_SOURCE=1n
+.param R_SOURCE=1m
+.param KELVIN_RETURN=0
+.param R_RETURN_ON=1u
+.param R_RETURN_OFF=1T
+.param R_GON=6.8
+.param R_GOFF=6.8
+.param VGS_OFF=0
+.param VGS_ON=4.5
+.param VGS_FREEWHEEL=0
+.param T_DELAY=1u
+.param TON1=5u
+.param TOFF_GAP=2u
+.param TON2=1u
+.param T_EDGE=2n
+.param EDGE_WINDOW=300n
+.param T_TAIL=3u
+.param T_MAX=0.5n
+.param T1_FALL={T_DELAY+T_EDGE+TON1}
+.param T2_RISE={T1_FALL+T_EDGE+TOFF_GAP}
+.param T2_FALL={T2_RISE+T_EDGE+TON2}
+.param T_STOP={T2_FALL+T_EDGE+T_TAIL}
+
+V_BUS rail 0 {POL*VBUS}
+R_BUS rail bus_l {R_BUS}
+L_BUS bus_l bus {L_BUS}
+R_L bus inductor_feed {R_L}
+L_LOAD inductor_feed sw {L_LOAD}
+V_ID sw d 0
+X_DUT d gate s k_dut DUT_FET
+V_IK k k_dut 0
+L_S s s_return {L_SOURCE}
+R_S s_return 0 {R_SOURCE}
+
+V_IHIGH bus d_high 0
+X_HIGH d_high gate_high sw k_high DUT_FET
+V_GHIGH gate_high k_high {POL*VGS_FREEWHEEL}
+
+V_CMD cmd 0 PWL(0 0 {T_DELAY} 0 {T_DELAY+T_EDGE} 1
++ {T1_FALL} 1 {T1_FALL+T_EDGE} 0
++ {T2_RISE} 0 {T2_RISE+T_EDGE} 1
++ {T2_FALL} 1 {T2_FALL+T_EDGE} 0)
+R_RET_K driver_return k R={if(KELVIN_RETURN,R_RETURN_ON,R_RETURN_OFF)}
+R_RET_0 driver_return 0 R={if(KELVIN_RETURN,R_RETURN_OFF,R_RETURN_ON)}
+B_DRV driver driver_return V={POL*(VGS_OFF+(VGS_ON-VGS_OFF)*V(cmd))}
+R_G driver g_feed R={if(V(cmd)>0.5,R_GON,R_GOFF)}
+V_IG g_feed gate 0
+
+B_VDS vds 0 V={POL*V(d,k_dut)}
+B_VDSP vds_power 0 V={POL*V(d,s)}
+B_VSK vs_minus_k 0 V={POL*V(s,k_dut)}
+B_VGS vgs 0 V={POL*V(gate,k_dut)}
+B_ID id 0 V={POL*I(V_ID)}
+B_IL iload 0 V={POL*I(L_LOAD)}
+B_IG ig 0 V={POL*I(V_IG)}
+B_IHF i_high_forward 0 V={-POL*I(V_IHIGH)}
+B_IHR i_high_reverse 0 V={POL*I(V_IHIGH)}
+B_VHF v_high 0 V={POL*V(d_high,k_high)}
+B_PD p_drain 0 V={V(d,s)*I(V_ID)}
+B_PG p_gate 0 V={V(gate,s)*I(V_IG)+V(k_dut,s)*I(V_IK)}
+* Charge integrator active only during the second turn-on window.
+B_QCOMM 0 q_comm_nC I={if(time<T2_RISE,0,if(time<T2_RISE+EDGE_WINDOW,max(POL*I(V_IHIGH),0),0))}
+C_QCOMM q_comm_nC 0 1n
+R_QCOMM q_comm_nC 0 1T
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.tran 0 {T_STOP} 0 {T_MAX}
+.save V(cmd) V(vds) V(vds_power) V(vs_minus_k) V(vgs) V(id) V(iload) V(ig) V(i_high_forward) V(i_high_reverse) V(v_high) V(p_drain) V(p_gate) V(q_comm_nC)
+.meas TRAN I_AT_FIRST_OFF FIND V(iload) AT={T1_FALL}
+.meas TRAN VDS_PEAK MAX V(vds)
+.meas TRAN ID_PEAK MAX V(id)
+.meas TRAN HIGH_REVERSE_PEAK MAX V(i_high_reverse) FROM={T2_RISE} TO={T2_RISE+EDGE_WINDOW}
+.meas TRAN Q_COMM_NC FIND V(q_comm_nC) AT={T_STOP}
+.meas TRAN E_ON_WINDOW INTEG V(p_drain) FROM={T2_RISE} TO={T2_RISE+EDGE_WINDOW}
+.meas TRAN E_OFF_WINDOW INTEG V(p_drain) FROM={T1_FALL} TO={T1_FALL+EDGE_WINDOW}
+.end

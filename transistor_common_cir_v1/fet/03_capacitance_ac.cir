@@ -1,0 +1,43 @@
+* FET-03: Ciss Coss Crss, exact zero-volt current probes
+
+* Two DUTs, one AC sweep at ONE drain bias per Python run.
+* Ciss: excite G; D/S/K AC-grounded. Coss: excite D; G/S/K AC-grounded.
+* Crss: current leaving G through V_CR_SENSE toward AC ground.
+* V_CR_SENSE is oriented G -> ground; its positive current is +j*w*Cgd.
+* DO NOT multiply AC currents by POL: differential capacitance is positive
+* for either physical channel polarity. Only DC biases change sign.
+* V(i_*) numerically represents A; no 1-ohm sensor loading approximation.
+* C[F] = imag(V(i_*))/(2*pi*f*AC_AMPL); conductance comes from real().
+* abs(I)/omega is not used: it would count conduction current as capacitance.
+* Keep F_TEST strictly inside the sweep. Plot linear Cartesian imaginary
+* current or export complex data; Python will make C(Vds), C(f), G(f).
+* This is small-signal differential C, NOT large-signal Co(er)/Eoss.
+.include "00_device.cir"
+.temp 25
+.param VDS_BIAS=25
+.param VGS_BIAS=0
+.param AC_AMPL=1
+.param F_MIN=100k
+.param F_MAX=10Meg
+.param F_TEST=1Meg
+
+V_CID ci_d 0 {POL*VDS_BIAS}
+V_CIG ci_exc 0 DC {POL*VGS_BIAS} AC {AC_AMPL}
+V_CI_SENSE ci_exc ci_g 0
+X_CISS ci_d ci_g 0 0 DUT_FET
+
+V_COD co_exc 0 DC {POL*VDS_BIAS} AC {AC_AMPL}
+V_CO_SENSE co_exc co_d 0
+V_CR_SENSE co_g 0 DC {POL*VGS_BIAS}
+X_COSS co_d co_g 0 0 DUT_FET
+
+B_CI i_ciss 0 V={I(V_CI_SENSE)}
+B_CO i_coss 0 V={I(V_CO_SENSE)}
+B_CR i_crss 0 V={I(V_CR_SENSE)}
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.ac dec 40 {F_MIN} {F_MAX}
+.save V(i_ciss) V(i_coss) V(i_crss)
+.meas AC CISS_I_IM FIND imag(V(i_ciss)) AT={F_TEST}
+.meas AC COSS_I_IM FIND imag(V(i_coss)) AT={F_TEST}
+.meas AC CRSS_I_IM FIND imag(V(i_crss)) AT={F_TEST}
+.end
