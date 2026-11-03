@@ -1,0 +1,341 @@
+ÿØÿÛ«schematic
+  «component (-7600,-700) 0 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (-550,250) 1 7 0 0x1000000 -1 -1 "V_BUS"»
+      «text (-1050,-150) 1 7 0 0x1000000 -1 -1 "{POL*VBUS}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-7100,-100) 2 0
+    «symbol R
+      «type: R»
+      «description: Resistor(USA Style Symbol)»
+      «shorted pins: false»
+      «line (0,200) (0,180) 0 0 0x1000000 -1 -1»
+      «line (0,-180) (0,-200) 0 0 0x1000000 -1 -1»
+      «zigzag (-80,180) (80,-180) 0 0 0 0x1000000 -1 -1»
+      «text (80,0) 1 110 0 0x1000000 -1 -1 "R_LOAD"»
+      «text (-80,0) 1 109 0 0x1000000 -1 -1 "{R_LOAD}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-6200,-100) 2 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (130,0) 1 110 0 0x1000000 -1 -1 "V_IC"»
+      «text (-130,0) 1 109 0 0x1000000 -1 -1 "0"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-5700,-1000) 0 0
+    «symbol DUT_BJT
+      «type: X»
+      «description: Machine generated symbol for DUT_BJT»
+      «library file: 00_device.cir»
+      «shorted pins: false»
+      «rect (-500,-400) (500,400) 0 0 0 0xff0000 0x4000000 -1 0 -1»
+      «text (100,400) 1 6 0 0x1000000 -1 -1 "X_DUT"»
+      «text (0,0) 1 0 0 0x1000000 -1 -1 "DUT_BJT"»
+      «pin (0,400) (0,0) 1 13 0 0x0 -1 "C"»
+      «pin (-500,0) (20,0) 1 7 0 0x0 -1 "B"»
+      «pin (0,-400) (0,0) 1 14 0 0x0 -1 "E"»
+      «pin (500,0) (-20,0) 1 11 0 0x0 -1 "K"»
+    »
+  »
+  «component (-9100,-400) 0 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (-463,200) 1 15 0 0x1000000 -1 -1 "V_CMD"»
+      «text (-4850,-200) 1 7 0 0x1000000 -1 -1 "PULSE(0 1 {T_DELAY} {T_EDGE} {T_EDGE} {TON} {TPER})"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-7600,-2700) 0 0
+    «symbol B2
+      «type: B»
+      «description: Behavioral Current Source»
+      «shorted pins: false»
+      «line (0,200) (0,150) 0 0 0x1000000 -1 -1»
+      «line (0,-150) (0,-200) 0 0 0x1000000 -1 -1»
+      «rect (-25,102) (25,98) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,75) (2,125) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-98) (25,-102) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-100,-150) (100,50) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «ellipse (-100,-50) (100,150) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (-750,200) 1 7 0 0x1000000 -1 -1 "B_IBSRC"»
+      «text (-3450,-100) 1 7 0 0x1000000 -1 -1 "I={POL*(IB_OFF+(IB_ON-IB_OFF)*V(cmd))}"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+    »
+  »
+  «component (-7600,-1900) 0 0
+    «symbol B2
+      «type: B»
+      «description: Behavioral Current Source»
+      «shorted pins: false»
+      «line (0,200) (0,150) 0 0 0x1000000 -1 -1»
+      «line (0,-150) (0,-200) 0 0 0x1000000 -1 -1»
+      «rect (-25,102) (25,98) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,75) (2,125) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-98) (25,-102) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-100,-150) (100,50) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «ellipse (-100,-50) (100,150) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (-750,150) 1 7 0 0x1000000 -1 -1 "B_LIMIT"»
+      «text (-7050,-50) 1 7 0 0x1000000 -1 -1 "I={POL*(max(POL*V(b_drive)-VBE_MAX,0)+min(POL*V(b_drive)-VBE_MIN,0))/R_COMPLIANCE}"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+    »
+  »
+  «component (-7200,-2300) 2 0
+    «symbol R
+      «type: R»
+      «description: Resistor(USA Style Symbol)»
+      «shorted pins: false»
+      «line (0,200) (0,180) 0 0 0x1000000 -1 -1»
+      «line (0,-180) (0,-200) 0 0 0x1000000 -1 -1»
+      «zigzag (-80,180) (80,-180) 0 0 0 0x1000000 -1 -1»
+      «text (80,0) 1 110 0 0x1000000 -1 -1 "R_B"»
+      «text (-80,0) 1 109 0 0x1000000 -1 -1 "{R_BASE}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-6300,-2300) 2 0
+    «symbol V
+      «type: V»
+      «description: Independent Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (256,0) 1 111 0 0x1000000 -1 -1 "V_IB"»
+      «text (-130,0) 1 109 0 0x1000000 -1 -1 "0"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,400) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,150) 1 7 0 0x1000000 -1 -1 "B_VCE"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={POL*V(collector)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-400) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (379,100) 1 15 0 0x1000000 -1 -1 "B_VBE"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={POL*V(base)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-1200) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,100) 1 7 0 0x1000000 -1 -1 "B_IC"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={POL*I(V_IC)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-2000) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,150) 1 7 0 0x1000000 -1 -1 "B_IB"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={POL*I(V_IB)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-2800) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,100) 1 7 0 0x1000000 -1 -1 "B_CF"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={V(ic)/IC_REFERENCE}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-3600) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,100) 1 7 0 0x1000000 -1 -1 "B_PC"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={V(collector)*I(V_IC)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-4400) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,100) 1 7 0 0x1000000 -1 -1 "B_PB"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={V(base)*I(V_IB)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «component (-4500,-5200) 0 0
+    «symbol B1
+      «type: B»
+      «description: Behavioral Voltage Source»
+      «shorted pins: false»
+      «line (0,-130) (0,-200) 0 0 0x1000000 -1 -1»
+      «line (0,200) (0,130) 0 0 0x1000000 -1 -1»
+      «rect (-25,77) (25,73) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-2,50) (2,100) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «rect (-25,-73) (25,-77) 0 0 0 0x1000000 0x3000000 -1 0 -1»
+      «ellipse (-130,130) (130,-130) 0 0 0 0x1000000 0x1000000 -1 -1»
+      «text (150,100) 1 7 0 0x1000000 -1 -1 "B_PT"»
+      «text (150,-150) 1 7 0 0x1000000 -1 -1 "V={V(p_collector)+V(p_base)}"»
+      «pin (0,200) (0,0) 1 0 0 0x0 -1 "+"»
+      «pin (0,-200) (0,0) 1 0 0 0x0 -1 "-"»
+    »
+  »
+  «net (-7600,-1000) 1 13 0 "GND"»
+  «net (-7600,-100) 1 14 0 "bus"»
+  «net (-6600,-100) 1 14 0 "c_feed"»
+  «net (-5700,-100) 1 14 0 "collector"»
+  «net (-5700,-1500) 1 13 0 "GND"»
+  «net (-5100,-1000) 1 7 0 "GND"»
+  «net (-6300,-1000) 1 11 0 "base"»
+  «net (-7600,-3000) 1 13 0 "GND"»
+  «net (-7600,-2300) 1 11 0 "b_drive"»
+  «net (-7600,-1600) 1 14 0 "GND"»
+  «net (-6700,-2300) 1 14 0 "b_feed"»
+  «net (-6000,-2300) 1 7 0 "base"»
+  «net (-9100,-900) 1 13 0 "GND"»
+  «net (-9100,-100) 1 14 0 "cmd"»
+  «net (-4500,200) 1 13 0 "GND"»
+  «net (-4500,600) 1 14 0 "vce"»
+  «net (-4500,-600) 1 13 0 "GND"»
+  «net (-4500,-200) 1 14 0 "vbe"»
+  «net (-4500,-1400) 1 13 0 "GND"»
+  «net (-4500,-1000) 1 14 0 "ic"»
+  «net (-4500,-2200) 1 13 0 "GND"»
+  «net (-4500,-1800) 1 14 0 "ib"»
+  «net (-4500,-3000) 1 13 0 "GND"»
+  «net (-4500,-2600) 1 14 0 "ic_ratio"»
+  «net (-4500,-3800) 1 13 0 "GND"»
+  «net (-4500,-3400) 1 14 0 "p_collector"»
+  «net (-4500,-4600) 1 13 0 "GND"»
+  «net (-4500,-4200) 1 14 0 "p_base"»
+  «net (-4500,-5400) 1 13 0 "GND"»
+  «net (-4500,-5000) 1 14 0 "p_total"»
+  «junction (-7600,-2300)»
+  «wire (-7600,-1000) (-7600,-900) "GND"»
+  «wire (-7600,-100) (-7600,-500) "bus"»
+  «wire (-7300,-100) (-7600,-100) "bus"»
+  «wire (-6600,-100) (-6900,-100) "c_feed"»
+  «wire (-6400,-100) (-6600,-100) "c_feed"»
+  «wire (-5700,-100) (-6000,-100) "collector"»
+  «wire (-5700,-100) (-5700,-600) "collector"»
+  «wire (-5100,-1000) (-5200,-1000) "GND"»
+  «wire (-5700,-1500) (-5700,-1400) "GND"»
+  «wire (-6300,-1000) (-6200,-1000) "base"»
+  «wire (-7600,-3000) (-7600,-2900) "GND"»
+  «wire (-7600,-2300) (-7600,-2100) "b_drive"»
+  «wire (-7600,-2500) (-7600,-2300) "b_drive"»
+  «wire (-7600,-1600) (-7600,-1700) "GND"»
+  «wire (-7400,-2300) (-7600,-2300) "b_drive"»
+  «wire (-6700,-2300) (-7000,-2300) "b_feed"»
+  «wire (-6500,-2300) (-6700,-2300) "b_feed"»
+  «wire (-6000,-2300) (-6100,-2300) "base"»
+  «wire (-9100,-900) (-9100,-600) "GND"»
+  «wire (-9100,-100) (-9100,-200) "cmd"»
+  «text (-9250,2550) 1 7 0 0x1000000 -1 -1 "ï»¿.temp 25\n.param VBUS=20\n.param R_LOAD=100\n.param IB_ON=10m\n.param IB_OFF=-20m\n.param R_BASE=1\n.param VBE_MAX=2\n.param VBE_MIN=-3\n.param R_COMPLIANCE=1m\n.param IC_REFERENCE=0.2\n.param FSW=100k\n.param DUTY=0.5\n.param T_DELAY=1u\n.param T_EDGE=5n\n.param N_CYCLES=4\n.param T_MAX=1n\n.param TPER={1/FSW}\n.param TON={DUTY*TPER-T_EDGE}\n.param T_STOP={T_DELAY+N_CYCLES*TPER}\n.param T_AVG0={T_DELAY+(N_CYCLES-1)*TPER}"»
+  «text (-11100,-3750) 1 7 0 0x1000000 -1 -1 "ï»¿.options reltol=1e-5 abstol=1e-12 vntol=1e-8\n.tran 0 {T_STOP} 0 {T_MAX}"»
+  «text (-11100,-4100) 1 7 0 0x1000000 -1 -1 "ï»¿.plot V(cmd) V(vce) V(vbe) V(ic) V(ib) V(ic_ratio) V(p_collector) V(p_base) V(p_total)"»
+  «text (-11100,-5350) 1 7 0 0x1000000 -1 -1 "ï»¿.meas TRAN T_DELAY_ON TRIG V(cmd)=0.1 RISE=1 TARG V(ic_ratio)=0.1 RISE=1\n.meas TRAN T_RISE_IC TRIG V(ic_ratio)=0.1 RISE=1 TARG V(ic_ratio)=0.9 RISE=1\n.meas TRAN T_STORAGE_CMD TRIG V(cmd)=0.9 FALL=1 TARG V(ic_ratio)=0.9 FALL=1\n.meas TRAN T_STORAGE_IB TRIG V(ib)=0 FALL=1 TARG V(ic_ratio)=0.9 FALL=1\n.meas TRAN T_FALL_IC TRIG V(ic_ratio)=0.9 FALL=1 TARG V(ic_ratio)=0.1 FALL=1\n.meas TRAN IC_PEAK MAX V(ic)\n.meas TRAN IB_FORWARD_PEAK MAX V(ib)\n.meas TRAN IB_REVERSE_PEAK MIN V(ib)\n.meas TRAN P_TOTAL_AVG AVG V(p_total) FROM={T_AVG0} TO={T_STOP}\n.meas TRAN P_COLLECTOR_AVG AVG V(p_collector) FROM={T_AVG0} TO={T_STOP}\n.meas TRAN P_BASE_AVG AVG V(p_base) FROM={T_AVG0} TO={T_STOP}"»
+»
+
