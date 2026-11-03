@@ -1,0 +1,85 @@
+* FET-05: resistive switching, pulse timing and periodic power, N/P common
+
+* One DUT. L/R is the external power-source lead impedance.
+* KELVIN_RETURN=0: driver return at ground, common source lead affects Vgs.
+* KELVIN_RETURN=1: driver return at K, separate from the external power lead.
+* Use a real four-pin vendor model to study internal Kelvin-source effects.
+* R_GON/R_GOFF are external resistances, separate from model internal Rg.
+* R selector follows COMMAND direction; both branches are not paralleled.
+* Driver is ideal voltage + specified resistance, not a PWM controller model.
+* V(p_drain)+V(p_gate) is signed total electrical port power, including K.
+* p_gate = V(G,S)*Ig + V(K,S)*Ik; no assumption Ik=-Ig is required. Average over
+* a settled whole period; do not clip negative reactive return power away.
+* Source-referenced normalized ratios let .meas use fixed 10/90 thresholds.
+* CMD and actual GATE delays are both recorded: select the one corresponding
+* to the datasheet figure. Always inspect actual waveform crossings.
+* For a single datasheet pulse: set TPER much longer than T_STOP, and set
+* T_STOP explicitly in the exported deck instead of the periodic expression.
+* No thermal/SOA/maximum-frequency certification is provided by this fixture.
+.include "00_device.cir"
+.temp 25
+.param VBUS=24
+.param R_LOAD=48
+.param VGS_OFF=0
+.param VGS_ON=4.5
+.param R_GON=6.8
+.param R_GOFF=6.8
+.param L_SOURCE=1n
+.param R_SOURCE=1m
+.param KELVIN_RETURN=0
+.param R_RETURN_ON=1u
+.param R_RETURN_OFF=1T
+.param FSW=100k
+.param DUTY=0.5
+.param T_DELAY=1u
+.param T_EDGE=2n
+.param N_CYCLES=4
+.param T_MAX=1n
+.param TPER={1/FSW}
+.param TON={DUTY*TPER-T_EDGE}
+.param T_STOP={T_DELAY+N_CYCLES*TPER}
+.param T_AVG0={T_DELAY+(N_CYCLES-1)*TPER}
+
+V_BUS bus 0 {POL*VBUS}
+R_LOAD bus d_feed {R_LOAD}
+V_ID d_feed d 0
+X_DUT d gate s k_dut DUT_FET
+V_IK k k_dut 0
+L_S s s_return {L_SOURCE}
+R_S s_return 0 {R_SOURCE}
+
+V_CMD cmd 0 PULSE(0 1 {T_DELAY} {T_EDGE} {T_EDGE} {TON} {TPER})
+R_RET_K driver_return k R={if(KELVIN_RETURN,R_RETURN_ON,R_RETURN_OFF)}
+R_RET_0 driver_return 0 R={if(KELVIN_RETURN,R_RETURN_OFF,R_RETURN_ON)}
+B_DRV driver driver_return V={POL*(VGS_OFF+(VGS_ON-VGS_OFF)*V(cmd))}
+R_G driver g_feed R={if(V(cmd)>0.5,R_GON,R_GOFF)}
+V_IG g_feed gate 0
+
+B_VDS vds 0 V={POL*V(d,k_dut)}
+B_VDSP vds_power 0 V={POL*V(d,s)}
+B_VSK vs_minus_k 0 V={POL*V(s,k_dut)}
+B_VGS vgs 0 V={POL*V(gate,k_dut)}
+B_VDRV vdriver 0 V={POL*V(driver,driver_return)}
+B_ID id 0 V={POL*I(V_ID)}
+B_IG ig 0 V={POL*I(V_IG)}
+B_DN vd_ratio 0 V={V(vds)/VBUS}
+B_GN vg_ratio 0 V={(V(vgs)-VGS_OFF)/(VGS_ON-VGS_OFF)}
+B_PD p_drain 0 V={V(d,s)*I(V_ID)}
+B_PG p_gate 0 V={V(gate,s)*I(V_IG)+V(k_dut,s)*I(V_IK)}
+B_PT p_total 0 V={V(p_drain)+V(p_gate)}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.tran 0 {T_STOP} 0 {T_MAX}
+.save V(cmd) V(vds) V(vds_power) V(vs_minus_k) V(vgs) V(vdriver) V(id) V(ig) V(vd_ratio) V(vg_ratio) V(p_drain) V(p_gate) V(p_total)
+.meas TRAN TDON_CMD TRIG V(cmd)=0.1 RISE=1 TARG V(vd_ratio)=0.9 FALL=1
+.meas TRAN TDON_GATE TRIG V(vg_ratio)=0.1 RISE=1 TARG V(vd_ratio)=0.9 FALL=1
+.meas TRAN TR_DRAIN TRIG V(vd_ratio)=0.9 FALL=1 TARG V(vd_ratio)=0.1 FALL=1
+.meas TRAN TDOFF_CMD TRIG V(cmd)=0.9 FALL=1 TARG V(vd_ratio)=0.1 RISE=1
+.meas TRAN TDOFF_GATE TRIG V(vg_ratio)=0.9 FALL=1 TARG V(vd_ratio)=0.1 RISE=1
+.meas TRAN TF_DRAIN TRIG V(vd_ratio)=0.1 RISE=1 TARG V(vd_ratio)=0.9 RISE=1
+.meas TRAN P_DRAIN_AVG AVG V(p_drain) FROM={T_AVG0} TO={T_STOP}
+.meas TRAN P_GATE_AVG AVG V(p_gate) FROM={T_AVG0} TO={T_STOP}
+.meas TRAN P_TOTAL_AVG AVG V(p_total) FROM={T_AVG0} TO={T_STOP}
+.meas TRAN VDS_PEAK MAX V(vds)
+.meas TRAN ID_PEAK MAX V(id)
+.meas TRAN ID_RMS RMS V(id) FROM={T_AVG0} TO={T_STOP}
+.end

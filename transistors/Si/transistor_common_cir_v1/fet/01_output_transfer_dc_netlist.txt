@@ -1,0 +1,40 @@
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\fet\01_output_transfer_dc.qsch
+
+.libpath "C:\PROGRA~1\QSPICE\EPC"
+
+V_SCAN scan 0 0
+E_OUT out_drive 0 scan 0 {POL*VDS_SWEEP}
+R_OUT out_drive out_feed {R_BALLAST}
+V_ID out_feed d_out 0
+V_GOUT g_out 0 {POL*VGS_TEST}
+X_OUT d_out g_out 0 0 DUT_FET
+V_DT d_transfer_feed 0 {POL*VDS_TRANSFER}
+V_IT d_transfer_feed d_transfer 0
+B_GT g_transfer 0 V={POL*(VGS_START+(VGS_STOP-VGS_START)*V(scan))}
+X_TRANSFER d_transfer g_transfer 0 0 DUT_FET
+B_VDO vds_out 0 V={POL*V(d_out)}
+B_IDO id_out 0 V={POL*I(V_ID)}
+B_RON rds_out 0 V={V(vds_out)/max(V(id_out),I_FLOOR)}
+B_VGT vgs_transfer 0 V={POL*V(g_transfer)}
+B_IDT id_transfer 0 V={POL*I(V_IT)}
+B_VDT vds_transfer_actual 0 V={POL*V(d_transfer)}
+.temp 25
+.param VGS_TEST=4.5
+.param VDS_SWEEP=2
+.param R_BALLAST=1
+.param I_RON=0.5
+.param VDS_TRANSFER=5
+.param VGS_START=0
+.param VGS_STOP=3.3
+.param TRANSFER_IREF=250u
+.param SCAN_STEP=1m
+.param I_FLOOR=1n
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.plot V(scan) V(vds_out) V(id_out) V(rds_out) V(vgs_transfer) V(id_transfer) V(vds_transfer_actual)
+.meas DC RDS_AT_ID FIND V(rds_out) WHEN V(id_out)={I_RON} CROSS=1
+.meas DC VDS_AT_ID FIND V(vds_out) WHEN V(id_out)={I_RON} CROSS=1
+.meas DC TRANSFER_VGS FIND V(vgs_transfer) WHEN V(id_transfer)={TRANSFER_IREF} CROSS=1
+.meas DC OUTPUT_ID_MAX MAX V(id_out)
+.lib 00_device.cir
+.end

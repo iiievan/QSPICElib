@@ -1,0 +1,30 @@
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\fet\03_capacitance_ac.qsch
+
+.libpath "C:\PROGRA~1\QSPICE\EPC"
+
+X_CISS ci_d ci_g 0 0 DUT_FET
+X_COSS co_d co_g 0 0 DUT_FET
+V_CID ci_d 0 {POL*VDS_BIAS}
+V_CIG ci_exc 0 DC {POL*VGS_BIAS} AC {AC_AMPL}
+V_CI_SENSE ci_exc ci_g 0
+V_COD co_exc 0 DC {POL*VDS_BIAS} AC {AC_AMPL}
+V_CO_SENSE co_exc co_d 0
+V_CR_SENSE co_g 0 DC {POL*VGS_BIAS}
+B_CI i_ciss 0 V={I(V_CI_SENSE)}
+B_CO i_coss 0 V={I(V_CO_SENSE)}
+B_CR i_crss 0 V={I(V_CR_SENSE)}
+.temp 25
+.param VDS_BIAS=25
+.param VGS_BIAS=0
+.param AC_AMPL=1
+.param F_MIN=100k
+.param F_MAX=10Meg
+.param F_TEST=1Meg
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.ac dec 40 {F_MIN} {F_MAX}
+.plot V(i_ciss) V(i_coss) V(i_crss)
+.meas AC CISS_I_IM FIND imag(V(i_ciss)) AT={F_TEST}
+.meas AC COSS_I_IM FIND imag(V(i_coss)) AT={F_TEST}
+.meas AC CRSS_I_IM FIND imag(V(i_crss)) AT={F_TEST}
+.lib 00_device.cir
+.end

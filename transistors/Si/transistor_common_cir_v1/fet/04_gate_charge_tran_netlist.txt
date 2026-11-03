@@ -1,0 +1,46 @@
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\fet\04_gate_charge_tran.qsch
+
+.libpath "C:\PROGRA~1\QSPICE\EPC"
+
+V_BUS bus 0 {POL*VBUS}
+I_LOAD bus d_feed {POL*ID_LOAD}
+B_DCLAMP d_feed bus I={POL*max(POL*V(d_feed,bus),0)/R_CLAMP}
+V_ID d_feed d 0
+X_DUT d gate 0 0 DUT_FET
+V_INIT init 0 {POL*VGS_START}
+V_HOLD hold 0 PWL(0 1 {T_DELAY} 1 {T_DELAY+T_EDGE} 0)
+.model S_HOLD•SW_HOLD SW(Ron=1m Roff=1T Vt=0.5 Vh=0)
+S_HOLD g_drive init hold 0 S_HOLD•SW_HOLD
+I_GATE 0 g_drive PULSE(0 {POL*IG_TEST} {T_DELAY} {T_EDGE} {T_EDGE} {CHARGE_TIME} {2*T_STOP})
+B_GCLAMP g_drive 0 I={POL*max(POL*V(g_drive)-VGS_FINAL,0)/R_CLAMP}
+V_IG g_drive gate 0
+B_Q 0 q_nC I={if(time<T_DELAY,0,POL*I(V_IG))}
+C_Q q_nC 0 1n
+R_Q q_nC 0 1T
+B_VGS vgs 0 V={POL*V(gate)}
+B_VDS vds 0 V={POL*V(d)}
+B_VR vds_ratio 0 V={V(vds)/VBUS}
+B_IG ig 0 V={POL*I(V_IG)}
+B_ID id 0 V={POL*I(V_ID)}
+.temp 25
+.param VBUS=50
+.param ID_LOAD=1.6
+.param IG_TEST=1m
+.param VGS_START=0
+.param VGS_FINAL=4.5
+.param T_DELAY=1u
+.param CHARGE_TIME=10u
+.param T_EDGE=1n
+.param T_MAX=1n
+.param R_CLAMP=1m
+.param T_STOP={T_DELAY+CHARGE_TIME}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.tran 0 {T_STOP} 0 {T_MAX}
+.plot V(q_nC) V(vgs) V(vds) V(vds_ratio) V(ig) V(id)
+.meas TRAN QG_NC FIND V(q_nC) WHEN V(vgs)={VGS_FINAL} RISE=1
+.meas TRAN Q_AT_VDS90_NC FIND V(q_nC) WHEN V(vds_ratio)=0.9 FALL=1
+.meas TRAN Q_AT_VDS10_NC FIND V(q_nC) WHEN V(vds_ratio)=0.1 FALL=1
+.meas TRAN VGS_END FIND V(vgs) AT={T_STOP}
+.meas TRAN VDS_START FIND V(vds) AT={0.9*T_DELAY}
+.lib 00_device.cir
+.end
