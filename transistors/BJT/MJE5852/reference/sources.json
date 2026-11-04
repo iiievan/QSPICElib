@@ -1,0 +1,28 @@
+{
+  "part": "MJE5852",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "PNP",
+  "bench_POL": -1,
+  "limits": {
+    "abs_VCEO_V": 400,
+    "abs_IC_continuous_A": 8
+  },
+  "package": "TO-220",
+  "manufacturer_of_reference_document": "onsemi",
+  "datasheet_revision": "December 2024, Rev. 8, MJE5850/D",
+  "datasheet_pages": 9,
+  "source_url": "https://www.onsemi.com/pdf/datasheet/mje5850-d.pdf",
+  "resolved_url": "https://www.onsemi.com/pdf/datasheet/mje5850-d.pdf",
+  "source_kind": "manufacturer_website",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "MJE5852_datasheet.pdf",
+  "sha256": "e2e2d20ed86646abe05da656462b3a57a72dae44249d1571ba287297d8a1724f",
+  "size_bytes": 361378,
+  "candidate_model_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}

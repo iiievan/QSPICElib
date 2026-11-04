@@ -1,0 +1,28 @@
+{
+  "part": "FMMT560",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "PNP",
+  "bench_POL": -1,
+  "limits": {
+    "abs_VCEO_V": 500,
+    "abs_IC_continuous_A": 0.15
+  },
+  "package": "SOT-23",
+  "manufacturer_of_reference_document": "Diodes Incorporated / Zetex",
+  "datasheet_revision": "January 2016, DS33102 Rev. 7-2",
+  "datasheet_pages": 7,
+  "source_url": "https://www.diodes.com/datasheet/download/FMMT560.pdf",
+  "resolved_url": "https://www.diodes.com/datasheet/download/FMMT560.pdf",
+  "source_kind": "manufacturer_website",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "FMMT560_datasheet.pdf",
+  "sha256": "35b27467e6f8fba83e9393c6f525e2bcddb4e794020d5b6abc9da45a9b47c3f4",
+  "size_bytes": 847472,
+  "candidate_model_source_url": "https://www.diodes.com/part/view/FMMT560",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}

@@ -1,7 +1,0 @@
-{
-  "IC_START": 0.1,
-  "IC_STOP": 3,
-  "BETA_FORCED": 5,
-  "IC_TEST": 1.5,
-  "SCAN_STEP": 0.0005
-}

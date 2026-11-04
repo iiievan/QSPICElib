@@ -1,2 +1,0 @@
-.meas tran cobo_cos integ v(proj) from=1e-05 to=2e-05:
-     -9.431e-13

@@ -1,0 +1,28 @@
+{
+  "part": "PBHV9050Z",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "PNP",
+  "bench_POL": -1,
+  "limits": {
+    "abs_VCEO_V": 500,
+    "abs_IC_continuous_A": 0.25
+  },
+  "package": "SOT-223 / SC-73",
+  "manufacturer_of_reference_document": "Nexperia",
+  "datasheet_revision": "9 October 2024, Product data sheet, 12 pages",
+  "datasheet_pages": 12,
+  "source_url": "https://assets.nexperia.com/documents/data-sheet/PBHV9050Z.pdf",
+  "resolved_url": "https://assets.nexperia.com/documents/data-sheet/PBHV9050Z.pdf",
+  "source_kind": "manufacturer_website",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "PBHV9050Z_datasheet.pdf",
+  "sha256": "ef7d2daf77f0711c92ccf18437799c46643d8b7b3325b554d55855b313976199",
+  "size_bytes": 273583,
+  "candidate_model_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}

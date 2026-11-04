@@ -1,0 +1,28 @@
+{
+  "part": "FMMT459",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "NPN",
+  "bench_POL": 1,
+  "limits": {
+    "abs_VCEO_V": 450,
+    "abs_IC_continuous_A": 0.15
+  },
+  "package": "SOT-23",
+  "manufacturer_of_reference_document": "Diodes Incorporated / Zetex",
+  "datasheet_revision": "March 2014, DS33089 Rev. 7-2",
+  "datasheet_pages": 7,
+  "source_url": "https://www.diodes.com/datasheet/download/FMMT459.pdf",
+  "resolved_url": "https://www.diodes.com/datasheet/download/FMMT459.pdf",
+  "source_kind": "manufacturer_website",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "FMMT459_datasheet.pdf",
+  "sha256": "c7febca774fc0b92e135012691205feff0223f1bac4dfeaf6fcaca9a873cc2cb",
+  "size_bytes": 301734,
+  "candidate_model_source_url": "https://www.diodes.com/spice/download/2524/FMMT459.spice.txt",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}

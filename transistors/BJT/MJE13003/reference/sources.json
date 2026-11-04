@@ -1,0 +1,28 @@
+{
+  "part": "MJE13003",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "NPN",
+  "bench_POL": 1,
+  "limits": {
+    "abs_VCEO_V": 400,
+    "abs_IC_continuous_A": 1.5
+  },
+  "package": "TO-225 (CASE 77), версия onsemi",
+  "manufacturer_of_reference_document": "onsemi",
+  "datasheet_revision": "January 2006, Rev. 2, MJE13003/D",
+  "datasheet_pages": 9,
+  "source_url": "https://www.onsemi.com/download/data-sheet/pdf/mje13003-d.pdf",
+  "resolved_url": "https://www.onsemi.com/download/data-sheet/pdf/mje13003-d.pdf",
+  "source_kind": "manufacturer_website",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "MJE13003_datasheet.pdf",
+  "sha256": "14334b87302f4f15c09d6e29b7bc9198032232d1036dbdd5aef3d4e1961f8a9f",
+  "size_bytes": 184047,
+  "candidate_model_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}

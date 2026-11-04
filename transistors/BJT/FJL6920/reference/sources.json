@@ -1,0 +1,28 @@
+{
+  "part": "FJL6920",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "NPN",
+  "bench_POL": 1,
+  "limits": {
+    "abs_VCEO_V": 800,
+    "abs_IC_continuous_A": 20
+  },
+  "package": "TO-264-3LD",
+  "manufacturer_of_reference_document": "onsemi / Fairchild",
+  "datasheet_revision": "January 2025, Rev. 2, FJL6920/D",
+  "datasheet_pages": 6,
+  "source_url": "https://www.onsemi.com/download/data-sheet/pdf/fjl6920-d.pdf",
+  "resolved_url": "https://www.onsemi.com/download/data-sheet/pdf/fjl6920-d.pdf",
+  "source_kind": "manufacturer_website",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "FJL6920_datasheet.pdf",
+  "sha256": "02d4c00274b4aa9e69f4c1e72e650b38e39fc8f4197d831795bb6a0cdcc40c91",
+  "size_bytes": 293929,
+  "candidate_model_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}

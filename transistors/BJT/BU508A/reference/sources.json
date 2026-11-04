@@ -1,0 +1,28 @@
+{
+  "part": "BU508A",
+  "status": "DOCUMENTED_NOT_SIMULATED",
+  "model_imported": false,
+  "qspice_validated": false,
+  "automated_profile_created": false,
+  "polarity": "NPN",
+  "bench_POL": 1,
+  "limits": {
+    "abs_VCEO_V": 700,
+    "abs_IC_continuous_A": 8
+  },
+  "package": "TO-218 (SOT-93), версия ST",
+  "manufacturer_of_reference_document": "STMicroelectronics",
+  "datasheet_revision": "June 1998, BU208A / BU508A / BU508AFI, 8 pages",
+  "datasheet_pages": 8,
+  "source_url": "https://cdn.promelec.ru/upload/datasheet/4/3/BU208A-BU508A.pdf",
+  "resolved_url": "https://cdn.promelec.ru/upload/datasheet/4/3/BU208A-BU508A.pdf",
+  "source_kind": "manufacturer_document_mirror",
+  "retrieved_utc": "2026-11-04T20:49:59.080600+00:00",
+  "datasheet_file": "BU508A_datasheet.pdf",
+  "sha256": "59d932dde04250866f4b7e38769cdd1a7991fb43dc51b34b83afab5381b29cf5",
+  "size_bytes": 77416,
+  "candidate_model_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "ltwiki_source_url": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "thermal_model_status": "NOT_EXTRACTED",
+  "native_qspice_runs": 0
+}
