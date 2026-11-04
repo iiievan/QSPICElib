@@ -1,0 +1,25 @@
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\bjt\02_junction_capacitance_ac.qsch
+V_CO co_drive 0 DC {POL*VCB_BIAS} AC {AC_AMPL}
+V_CO_SENSE co_drive c_out 0
+R_EOPEN e_open 0 1T
+X_CO c_out 0 e_open e_open DUT_BJT
+V_CI ci_drive 0 {POL*VEB_BIAS} AC {AC_AMPL}
+V_CI_SENSE ci_drive e_in 0
+R_COPEN 0 c_open 1T
+X_CI c_open 0 e_in e_in DUT_BJT
+B_CO i_cobo 0 V={I(V_CO_SENSE)}
+B_CI i_cibo 0 V={I(V_CI_SENSE)}
+.temp 25
+.param VCB_BIAS=10
+.param VEB_BIAS=1
+.param AC_AMPL=1
+.param F_MIN=100k
+.param F_MAX=10Meg
+.param F_TEST=1Meg
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.ac dec 40 {F_MIN} {F_MAX}
+.plot V(i_cobo) V(i_cibo)
+.meas AC COBO_I_IM FIND imag(V(i_cobo)) AT={F_TEST}
+.meas AC CIBO_I_IM FIND imag(V(i_cibo)) AT={F_TEST}
+.lib 00_device.cir
+.end

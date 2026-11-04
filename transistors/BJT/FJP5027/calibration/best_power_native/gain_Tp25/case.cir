@@ -1,0 +1,80 @@
+* FJP5027 / gain_Tp25 / frozen model
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\bjt\01_output_gummel_leakage_dc.qsch
+V_SCAN scan 0 0
+V_CG cg_feed 0 {POL*VCE_GUMMEL}
+V_ICG cg_feed c_gummel 0
+B_VBE_DRIVE bg_drive 0 V={POL*(VBE_START+(VBE_STOP-VBE_START)*V(scan))}
+V_IBG bg_drive b_gummel 0
+X_GUMMEL c_gummel b_gummel 0 0 DUT_BJT
+B_ICG ic_gummel 0 V={POL*I(V_ICG)}
+B_IBG ib_gummel 0 V={POL*I(V_IBG)}
+B_VBG vbe 0 V={POL*V(b_gummel)}
+.temp 25
+.param VCE_SWEEP=10
+.param R_COLLECTOR=1
+.param IB_TEST=100u
+.param IC_SAT_REF=5m
+.param VCE_GUMMEL=5
+.param VBE_START=0.4
+.param VBE_STOP=2.2
+.param VBLOCK_SCAN=20
+.param IB_FLOOR=1p
+.param SCAN_STEP=0.001
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.param POL=1
+* Independent MEXTRAM 504 starting/fitted candidate. Not vendor SPICE.
+* Domain of this extraction: isothermal DC at 25 C. Read the native report.
+* Charge/transit/avalanche/thermal parameters are NOT extracted here.
+* Self-heating is disabled by RTH=0; no transient thermal impedance is claimed.
+.model FJP5027_MEXTRAM_DC25_CANDIDATE_V3 NPN(
++ LEVEL=504 TREF=25 IS=2.56212315717401e-14 BF=35.167556219634 VEF=618.404813872095
++ VER=42.0423371846927 IK=1 IBF=4.8783379259058e-12 MLF=1.50881604259697 BRI=6.35493387280118
++ IBR=9.19790477411798e-11 RE=0.001 RBC=0.0168490495318386 RBV=0.03 RCC=0.00103037374248808
++ RCV=0.260772065945659 SCRCV=6.65428944373425 IHC=3.80485836330227 AXI=0.334508317760624 CJE=2e-09
++ CJC=1.4446e-10 PE=0.33 PC=0.33 VDE=0.75 VDC=0.75
++ TAUE=5e-09 TAUB=5e-09 VGB=1.11 VGC=1.11 VGJ=1.11
++ EXAVL=0 RTH=0)
+
+.subckt DUT_BJT C B E K
+Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+R_K K E 1u
+.ends DUT_BJT
+B_HFE_CALC hfe_calc 0 V={if(V(ib_gummel)>1e-10,V(ic_gummel)/max(V(ib_gummel),1e-12),0)}
+.meas DC G00 FIND V(hfe_calc) WHEN V(ic_gummel)=0.0199863492165197 CROSS=1
+.meas DC G01 FIND V(hfe_calc) WHEN V(ic_gummel)=0.037546732798518 CROSS=1
+.meas DC G02 FIND V(hfe_calc) WHEN V(ic_gummel)=0.0535311202626845 CROSS=1
+.meas DC G03 FIND V(hfe_calc) WHEN V(ic_gummel)=0.0717373777113132 CROSS=1
+.meas DC G04 FIND V(hfe_calc) WHEN V(ic_gummel)=0.0868711218444345 CROSS=1
+.meas DC G05 FIND V(hfe_calc) WHEN V(ic_gummel)=0.104606784476239 CROSS=1
+.meas DC G06 FIND V(hfe_calc) WHEN V(ic_gummel)=0.123158593858578 CROSS=1
+.meas DC G07 FIND V(hfe_calc) WHEN V(ic_gummel)=0.21383219838782 CROSS=1
+.meas DC G08 FIND V(hfe_calc) WHEN V(ic_gummel)=0.248936279034972 CROSS=1
+.meas DC G09 FIND V(hfe_calc) WHEN V(ic_gummel)=0.29308422340832 CROSS=1
+.meas DC G10 FIND V(hfe_calc) WHEN V(ic_gummel)=0.35491338120616 CROSS=1
+.meas DC G11 FIND V(hfe_calc) WHEN V(ic_gummel)=0.417855979495119 CROSS=1
+.meas DC G12 FIND V(hfe_calc) WHEN V(ic_gummel)=0.486453927389232 CROSS=1
+.meas DC G13 FIND V(hfe_calc) WHEN V(ic_gummel)=0.544429118505894 CROSS=1
+.meas DC G14 FIND V(hfe_calc) WHEN V(ic_gummel)=0.616212853385724 CROSS=1
+.meas DC G15 FIND V(hfe_calc) WHEN V(ic_gummel)=0.737854803404911 CROSS=1
+.meas DC G16 FIND V(hfe_calc) WHEN V(ic_gummel)=0.883507911982784 CROSS=1
+.meas DC G17 FIND V(hfe_calc) WHEN V(ic_gummel)=0.994385911285288 CROSS=1
+.meas DC G18 FIND V(hfe_calc) WHEN V(ic_gummel)=1.1318526194698 CROSS=1
+.meas DC G19 FIND V(hfe_calc) WHEN V(ic_gummel)=1.43376811859414 CROSS=1
+.meas DC G20 FIND V(hfe_calc) WHEN V(ic_gummel)=1.72648958733374 CROSS=1
+.meas DC G21 FIND V(hfe_calc) WHEN V(ic_gummel)=2.02126531082788 CROSS=1
+.meas DC G22 FIND V(hfe_calc) WHEN V(ic_gummel)=2.28777522281831 CROSS=1
+.meas DC G23 FIND V(hfe_calc) WHEN V(ic_gummel)=2.8655805083589 CROSS=1
+.meas DC G24 FIND V(hfe_calc) WHEN V(ic_gummel)=3.1533892351991 CROSS=1
+.meas DC G25 FIND V(hfe_calc) WHEN V(ic_gummel)=3.65045638043875 CROSS=1
+.meas DC G26 FIND V(hfe_calc) WHEN V(ic_gummel)=3.90559374416135 CROSS=1
+.meas DC G27 FIND V(hfe_calc) WHEN V(ic_gummel)=4.20215296893456 CROSS=1
+.meas DC G28 FIND V(hfe_calc) WHEN V(ic_gummel)=4.42055169984271 CROSS=1
+.meas DC G29 FIND V(hfe_calc) WHEN V(ic_gummel)=4.97532683558784 CROSS=1
+.meas DC CHECK_HFE_02 FIND V(hfe_calc) WHEN V(ic_gummel)=0.2 CROSS=1
+.meas DC CHECK_HFE_1 FIND V(hfe_calc) WHEN V(ic_gummel)=1 CROSS=1
+.meas DC CHECK_GAIN_IC_MIN MIN V(ic_gummel)
+.meas DC CHECK_GAIN_IC_MAX MAX V(ic_gummel)
+.meas DC CHECK_GAIN_SCAN_END FIND V(scan) AT=1
+.meas DC CHECK_GAIN_VBE_END FIND V(vbe) AT=1
+.end

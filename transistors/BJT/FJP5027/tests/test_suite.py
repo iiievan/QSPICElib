@@ -47,7 +47,7 @@ class Decks(unittest.TestCase):
             name=b.BENCH['dc' if c['kind'] in ('output','gain') else c['kind']]
             source=(b.COMMON/'bjt'/(name+'.cir')).read_text()
             deck,expected=b.compile_deck(source,c,self.cfg,self.model)
-            self.assertIn('.model FJP5027_CANDIDATE_V1',deck)
+            self.assertIn('.model '+self.cfg['model_name'],deck)
             self.assertNotIn('BENCH_NPN_DEMO',deck)
             self.assertNotRegex(deck,r'(?im)^\s*\.step\b')
             self.assertNotRegex(deck,r'(?im)^\s*\.lib\b')

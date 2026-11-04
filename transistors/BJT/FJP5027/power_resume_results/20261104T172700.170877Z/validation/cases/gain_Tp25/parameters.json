@@ -1,0 +1,6 @@
+{
+  "VCE_GUMMEL": 5,
+  "VBE_START": 0.4,
+  "VBE_STOP": 1.6,
+  "SCAN_STEP": 0.00025
+}

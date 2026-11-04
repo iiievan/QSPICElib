@@ -101,14 +101,18 @@ def logs_have_unknown_parameter(folder):
     return bool(re.search(r'(?im)^.*(?:unknown|unrecognized|unsupported|ignored|ignoring).*\b(?:parameter|nkf?|model parameter)\b',text))
 
 class NativeFit:
-    def __init__(self,root,run,cfg,tools,prepare=False,max_evals=100):
-      self.root=Path(root);self.run=Path(run);self.cfg=dict(cfg,model_name=NAME);self.tools=tools;self.prepare=prepare
-      self.cases=fitting_cases(root,cfg);self.sources={};cache={}
+    def __init__(self,root,run,cfg,tools,prepare=False,max_evals=100,renderer=None,model_name=NAME,case_factory=fitting_cases):
+      self.root=Path(root);self.run=Path(run);self.cfg=dict(cfg,model_name=model_name);self.tools=tools;self.prepare=prepare
+      self.renderer=renderer or render_card;self.case_factory=case_factory
+      self.cases=self.case_factory(root,cfg);self.sources={};cache={}
       for c in self.cases:
         source,meta=core.get_source(root,cfg,c,tools,run,cache,prepare,False)
         self.sources[c['id']]=source;c['source']=meta
       self.nk_keyword=None;self.max_evals=max_evals;self.evaluations=0;self.best=None;self.cache={}
       self.nres=sum(len(c['fit_targets']) for c in self.cases);self.started=time.monotonic()
+      self.native_counts={'engine_runs_started':0,'qpost_runs_completed':0}
+    def read_case_measurements(self,text,names,case,folder):
+      return parse_measurements(text,names)
     def run_cases(self,p,folder,cases=None,nk_keyword=None):
       folder=Path(folder);results={};cases=cases or self.cases
       for case in cases:
@@ -116,16 +120,18 @@ class NativeFit:
         if f.exists():shutil.rmtree(f)
         f.mkdir(parents=True)
         try:
-          deck,_=core.compile_deck(self.sources[case['id']],case,self.cfg,render_card(p,nk_keyword))
+          deck,_=core.compile_deck(self.sources[case['id']],case,self.cfg,self.renderer(p,nk_keyword))
           deck,names=attach_measures(deck,case);(f/'case.cir').write_text(deck,encoding='utf-8')
           if self.prepare:continue
+          self.native_counts['engine_runs_started']+=1
           command([self.tools['engine'],f/'case.cir'],f,f/'simulator.stdout.log',f/'simulator.stderr.log',self.cfg['timeout_seconds'])
           if logs_have_unknown_parameter(f):raise SuiteError('Unknown/ignored model parameter; see simulator logs')
           raw=f/'case.qraw'
           if not raw.is_file() or not raw.stat().st_size:raise SuiteError('No QRAW produced')
           result=f/'measurements.txt'
           command([self.tools['QPOST'],f/'case.cir','-r',raw,'-o',result],f,f/'qpost.stdout.log',f/'qpost.stderr.log',self.cfg['timeout_seconds'])
-          results[case['id']]=parse_measurements(read_text(result),names)
+          self.native_counts['qpost_runs_completed']+=1
+          results[case['id']]=self.read_case_measurements(read_text(result),names,case,f)
         finally:
           core.cleanup_large_files(f)
       return results
@@ -148,9 +154,12 @@ class NativeFit:
       if key in self.cache and not force:return self.cache[key]
       if self.evaluations>=self.max_evals and not force:raise BudgetStop()
       self.evaluations+=1;number=self.evaluations
-      work=self.run/'work';work.mkdir(exist_ok=True)
+      work=self.run/'work'
+      # A failed candidate may not reach later cases. Never retain their old data.
+      if work.exists():shutil.rmtree(work)
+      work.mkdir()
       # Each candidate has the same physical benches and reference targets.
-      cases=fitting_cases(self.root,self.cfg,True) if fine else self.cases
+      cases=self.case_factory(self.root,self.cfg,True) if fine else self.cases
       row={'evaluation':number,'label':label,'params':p,'fine_scan':fine,'elapsed_s':time.monotonic()-self.started}
       try:
         measured=self.run_cases(p,work,cases,self.nk_keyword)
@@ -162,15 +171,17 @@ class NativeFit:
           dest=self.run/'best_native'
           if dest.exists():shutil.rmtree(dest)
           shutil.copytree(work,dest)
-          (self.run/'best_native_model.txt').write_text(render_card(p,self.nk_keyword),encoding='utf-8')
+          (self.run/'best_native_model.txt').write_text(self.renderer(p,self.nk_keyword),encoding='utf-8')
           core.dump(self.run/'best_native.json',row)
         print(f'[{number}/{self.max_evals}] {label}: cost={cost:.7g}; table guards={guard_ok}; best={self.best["cost"] if self.best else None}',flush=True)
       except Exception as exc:
         row.update(status='REJECTED',error=f'{type(exc).__name__}: {exc}');result={'params':dict(p),'cost':1e3,'residual':np.full(self.nres,50.),'row':row}
+        if hasattr(exc,'details'):row['failure_details']=exc.details
         # Preserve the first failure, rather than discarding every diagnostic.
         dest=self.run/'first_rejected'
         if not dest.exists():shutil.copytree(work,dest)
         print(f'[{number}/{self.max_evals}] REJECTED: {exc}',flush=True)
+      row['duration_s']=time.monotonic()-self.started-row['elapsed_s']
       with (self.run/'history.jsonl').open('a',encoding='utf-8') as f:f.write(json.dumps(row,ensure_ascii=False,allow_nan=False)+'\n')
       self.cache[key]=result;return result
 

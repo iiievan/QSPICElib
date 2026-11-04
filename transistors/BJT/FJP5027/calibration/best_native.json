@@ -1,0 +1,91 @@
+{
+  "evaluation": 146,
+  "label": "mex_is",
+  "params": {
+    "LEVEL": 504.0,
+    "TREF": 25.0,
+    "IS": 2.5621231571740116e-14,
+    "BF": 35.167556219634,
+    "VEF": 618.4048138720947,
+    "VER": 42.04233718469271,
+    "IK": 1.0000000000000004,
+    "IBF": 4.8783379259057995e-12,
+    "MLF": 1.5088160425969683,
+    "BRI": 6.354933872801175,
+    "IBR": 9.197904774117981e-11,
+    "RE": 0.001,
+    "RBC": 0.016849049531838647,
+    "RBV": 0.03,
+    "RCC": 0.001030373742488083,
+    "RCV": 0.2607720659456593,
+    "SCRCV": 6.654289443734251,
+    "IHC": 3.8048583633022672,
+    "AXI": 0.3345083177606244,
+    "CJE": 2e-09,
+    "CJC": 1.4446e-10,
+    "PE": 0.33,
+    "PC": 0.33,
+    "VDE": 0.75,
+    "VDC": 0.75,
+    "TAUE": 5e-09,
+    "TAUB": 5e-09,
+    "VGB": 1.11,
+    "VGC": 1.11,
+    "VGJ": 1.11,
+    "EXAVL": 0.0,
+    "RTH": 0.0
+  },
+  "fine_scan": false,
+  "elapsed_s": 881.6183206000132,
+  "cost": 0.1654871724218501,
+  "curve_samples": [
+    {
+      "case": "output_Tp25_IB50mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.13728757992381246
+    },
+    {
+      "case": "output_Tp25_IB150mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.13480747476577704
+    },
+    {
+      "case": "output_Tp25_IB250mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.18081595631073225
+    },
+    {
+      "case": "output_Tp25_IB350mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.18921705259880092
+    },
+    {
+      "case": "gain_Tp25",
+      "kind": "gain",
+      "p95_relative_sampled": 0.12132943939492649
+    },
+    {
+      "case": "saturation_Tp25",
+      "kind": "vcesat",
+      "p95_relative_sampled": 0.17057110074825144
+    },
+    {
+      "case": "saturation_Tp25",
+      "kind": "vbesat",
+      "p95_relative_sampled": 0.08585159266684234
+    }
+  ],
+  "guard_values": {
+    "CHECK_HFE_02": 22.1901,
+    "CHECK_HFE_1": 14.4187,
+    "CHECK_GAIN_IC_MIN": 1.46913e-07,
+    "CHECK_GAIN_IC_MAX": 21.0048,
+    "CHECK_GAIN_SCAN_END": 1.0,
+    "CHECK_GAIN_VBE_END": 2.2,
+    "CHECK_VCE_15": 0.271376,
+    "CHECK_VBE_15": 0.87119,
+    "CHECK_IB_15": 0.3
+  },
+  "table_guards_pass": true,
+  "status": "EVALUATED"
+}

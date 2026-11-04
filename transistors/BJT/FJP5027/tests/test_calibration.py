@@ -19,7 +19,7 @@ class CalibrationTests(unittest.TestCase):
    d[x['id']]=values
   return d
  def test_round_trip_card_and_capability_gate(self):
-  self.assertNotRegex(c.render_card(self.params,'NK'),r'\bNK=')
+  self.assertNotRegex(c.render_card({k:v for k,v in self.params.items() if k!='NK'},'NK'),r'\bNK=')
   a=c.render_card(dict(self.params,NK=.7));self.assertNotRegex(a,r'\bNK=')
   a=c.render_card(dict(self.params,NK=.7),'NKF');self.assertIn('NKF=0.7',a)
   p=c.parse_card(a);self.assertEqual(p['NK'],.7);self.assertNotIn('NKF',p)

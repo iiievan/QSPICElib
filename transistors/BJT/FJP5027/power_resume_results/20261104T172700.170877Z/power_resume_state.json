@@ -1,0 +1,66 @@
+{
+  "result": "MEXTRAM_HELD_PREVIOUS_MODEL_RETAINED",
+  "applied": false,
+  "saved_cost": 0.1654871724218501,
+  "original_hashes": {
+    "FJP5027.txt": "37b96a1d3c2640ffe2334674d3de69113da89ed626bbafa1ae03bbd415ac8545",
+    "profile.json": "f09341e84d4e3a3d24803c7bd74211bf1e0e7356fd8ddc97e84cb1ae6fe3f9bc",
+    "reference/curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813"
+  },
+  "tool_hashes": {
+    "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+    "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+    "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+  },
+  "script_sha256": "1658ce21979a1e3d040cef8a9b7cc6b3678ebc575ff71182fed2d5fc2a0c3445",
+  "baseline_cost": 0.30299242569271884,
+  "fine_cost": 0.1653430780408372,
+  "cap_attempts": [
+    {
+      "engine": "64",
+      "status": "FAILED",
+      "tool_hashes": {
+        "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+        "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+        "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+      },
+      "gp_control_pF": 60.0002994610429,
+      "candidate_checks": [],
+      "error": "SuiteError: QSPICE64.exe: exit 3221225477; see D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\power_resume_results\\20261104T172700.170877Z\\cap_checks\\engine64\\mex_0\\simulator.stderr.log"
+    },
+    {
+      "engine": "80",
+      "status": "FAILED",
+      "tool_hashes": {
+        "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+        "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+        "engine": "e6d8ede1373d06e9be31944986e461507055815119cfc48ba6b6b9bf03c40323"
+      },
+      "gp_control_pF": 60.0002994610429,
+      "candidate_checks": [],
+      "error": "SuiteError: QSPICE80.exe: exit 3221225477; see D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\power_resume_results\\20261104T172700.170877Z\\cap_checks\\engine80\\mex_0\\simulator.stderr.log"
+    }
+  ],
+  "cap_pass": false,
+  "fine_dc_pass": true,
+  "validation_summary": {
+    "PASS": 5,
+    "FAIL": 14,
+    "INVALID": 0
+  },
+  "protected_regressions": [
+    [
+      "vbesat",
+      "T+75",
+      75
+    ],
+    [
+      "vbesat",
+      "T+125",
+      125
+    ]
+  ],
+  "all_dc_cases_simulated": true,
+  "dc_table_limits_pass": true,
+  "evaluations_this_resume": 2
+}

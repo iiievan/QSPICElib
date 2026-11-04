@@ -1,0 +1,42 @@
+* FJP5027 / saturation_Tm25 / frozen model
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\bjt\05_forced_beta_saturation_dc.qsch
+V_SCAN scan 0 0
+B_IC_FORCE 0 c_feed I={POL*(IC_START+(IC_STOP-IC_START)*V(scan))}
+V_IC c_feed collector 0
+B_IB_FORCE 0 b_feed I={POL*(IC_START+(IC_STOP-IC_START)*V(scan))/BETA_FORCED}
+V_IB b_feed base 0
+X_DUT collector base 0 0 DUT_BJT
+B_IC ic 0 V={POL*I(V_IC)}
+B_IB ib 0 V={POL*I(V_IB)}
+B_VCE vce 0 V={POL*V(collector)}
+B_VBE vbe 0 V={POL*V(base)}
+.temp -25
+.param IC_START=0.1
+.param IC_STOP=3
+.param BETA_FORCED=5
+.param IC_TEST=1.5
+.param SCAN_STEP=0.0005
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.param POL=1
+* Independent MEXTRAM 504 starting/fitted candidate. Not vendor SPICE.
+* Domain of this extraction: isothermal DC at 25 C. Read the native report.
+* Charge/transit/avalanche/thermal parameters are NOT extracted here.
+* Self-heating is disabled by RTH=0; no transient thermal impedance is claimed.
+.model FJP5027_MEXTRAM_DC25_CANDIDATE_V3 NPN(
++ LEVEL=504 TREF=25 IS=2.56212315717401e-14 BF=35.167556219634 VEF=618.404813872095
++ VER=42.0423371846927 IK=1 IBF=4.8783379259058e-12 MLF=1.50881604259697 BRI=6.35493387280118
++ IBR=9.19790477411798e-11 RE=0.001 RBC=0.0168490495318386 RBV=0.03 RCC=0.00103037374248808
++ RCV=0.260772065945659 SCRCV=6.65428944373425 IHC=3.80485836330227 AXI=0.334508317760624 CJE=2e-09
++ CJC=1.4446e-10 PE=0.33 PC=0.33 VDE=0.75 VDC=0.75
++ TAUE=5e-09 TAUB=5e-09 VGB=1.11 VGC=1.11 VGJ=1.11
++ EXAVL=0 RTH=0)
+
+.subckt DUT_BJT C B E K
+Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+R_K K E 1u
+.ends DUT_BJT
+.meas DC VCESAT_1P5 FIND V(vce) WHEN V(ic)=1.5 CROSS=1
+.meas DC VBESAT_1P5 FIND V(vbe) WHEN V(ic)=1.5 CROSS=1
+.meas DC IB_AT_1P5 FIND V(ib) WHEN V(ic)=1.5 CROSS=1
+.end

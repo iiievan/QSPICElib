@@ -1,0 +1,64 @@
+* FJP5027 / output_Tp25_IB350mA / frozen model
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\bjt\01_output_gummel_leakage_dc.qsch
+V_SCAN scan 0 0
+E_COUT cout_drive 0 scan 0 {POL*VCE_SWEEP}
+R_COUT cout_drive cout_feed {R_COLLECTOR}
+V_ICOUT cout_feed c_out 0
+I_BOUT 0 b_out {POL*IB_TEST}
+X_OUT c_out b_out 0 0 DUT_BJT
+B_VCO vce_out 0 V={POL*V(c_out)}
+B_ICO ic_out 0 V={POL*I(V_ICOUT)}
+.temp 25
+.param VCE_SWEEP=8
+.param R_COLLECTOR=0.001
+.param IB_TEST=0.35
+.param IC_SAT_REF=5m
+.param VCE_GUMMEL=5
+.param VBE_START=0
+.param VBE_STOP=0.9
+.param VBLOCK_SCAN=20
+.param IB_FLOOR=1p
+.param SCAN_STEP=0.001
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.param POL=1
+* Independent MEXTRAM 504 starting/fitted candidate. Not vendor SPICE.
+* Domain of this extraction: isothermal DC at 25 C. Read the native report.
+* Charge/transit/avalanche/thermal parameters are NOT extracted here.
+* Self-heating is disabled by RTH=0; no transient thermal impedance is claimed.
+.model FJP5027_MEXTRAM_DC25_CANDIDATE_V3 NPN(
++ LEVEL=504 TREF=25 IS=9.099742026145e-15 BF=29.2994281568239 VEF=225.050485033423
++ VER=20 IK=1 IBF=8.70612284722577e-11 MLF=1.27482683608092 BRI=8
++ IBR=1e-12 RE=0.001 RBC=0.00520762794126213 RBV=0.03 RCC=0.02
++ RCV=0.3 SCRCV=20 IHC=4 AXI=0.1 CJE=2e-09
++ CJC=1.4446e-10 PE=0.33 PC=0.33 VDE=0.75 VDC=0.75
++ TAUE=5e-09 TAUB=5e-09 VGB=1.11 VGC=1.11 VGJ=1.11
++ EXAVL=0 RTH=0)
+
+.subckt DUT_BJT C B E K
+Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+R_K K E 1u
+.ends DUT_BJT
+.meas DC O00 FIND V(ic_out) WHEN V(vce_out)=0.052202416607192 CROSS=1
+.meas DC O01 FIND V(ic_out) WHEN V(vce_out)=0.137030995106036 CROSS=1
+.meas DC O02 FIND V(ic_out) WHEN V(vce_out)=0.221859573604881 CROSS=1
+.meas DC O03 FIND V(ic_out) WHEN V(vce_out)=0.300163132137031 CROSS=1
+.meas DC O04 FIND V(ic_out) WHEN V(vce_out)=0.39151673060257 CROSS=1
+.meas DC O05 FIND V(ic_out) WHEN V(vce_out)=0.548123847666871 CROSS=1
+.meas DC O06 FIND V(ic_out) WHEN V(vce_out)=0.646003295832059 CROSS=1
+.meas DC O07 FIND V(ic_out) WHEN V(vce_out)=0.756932783930635 CROSS=1
+.meas DC O08 FIND V(ic_out) WHEN V(vce_out)=0.887438991395205 CROSS=1
+.meas DC O09 FIND V(ic_out) WHEN V(vce_out)=1.1223488372587 CROSS=1
+.meas DC O10 FIND V(ic_out) WHEN V(vce_out)=1.33115860325542 CROSS=1
+.meas DC O11 FIND V(ic_out) WHEN V(vce_out)=1.52691666985284 CROSS=1
+.meas DC O12 FIND V(ic_out) WHEN V(vce_out)=1.82055501434841 CROSS=1
+.meas DC O13 FIND V(ic_out) WHEN V(vce_out)=2.08809161951128 CROSS=1
+.meas DC O14 FIND V(ic_out) WHEN V(vce_out)=2.32952731507443 CROSS=1
+.meas DC O15 FIND V(ic_out) WHEN V(vce_out)=2.6753666490365 CROSS=1
+.meas DC O16 FIND V(ic_out) WHEN V(vce_out)=3.04730855206422 CROSS=1
+.meas DC O17 FIND V(ic_out) WHEN V(vce_out)=3.42577464532567 CROSS=1
+.meas DC O18 FIND V(ic_out) WHEN V(vce_out)=3.9216969061183 CROSS=1
+.meas DC O19 FIND V(ic_out) WHEN V(vce_out)=4.29363797941306 CROSS=1
+.meas DC O20 FIND V(ic_out) WHEN V(vce_out)=4.79608443043944 CROSS=1
+.meas DC O21 FIND V(ic_out) WHEN V(vce_out)=5.38336028969761 CROSS=1
+.end
