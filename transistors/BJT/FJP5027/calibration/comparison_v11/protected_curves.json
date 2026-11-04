@@ -1,0 +1,62 @@
+[
+  {
+    "kind": "gain",
+    "curve": "T+25",
+    "temperature_C": 25,
+    "tolerance": 0.15
+  },
+  {
+    "kind": "gain",
+    "curve": "T+75",
+    "temperature_C": 75,
+    "tolerance": 0.15
+  },
+  {
+    "kind": "gain",
+    "curve": "T-25",
+    "temperature_C": -25,
+    "tolerance": 0.15
+  },
+  {
+    "kind": "output",
+    "curve": "IB100mA",
+    "temperature_C": 25,
+    "tolerance": 0.1
+  },
+  {
+    "kind": "vbesat",
+    "curve": "T+125",
+    "temperature_C": 125,
+    "tolerance": 0.1
+  },
+  {
+    "kind": "vbesat",
+    "curve": "T+25",
+    "temperature_C": 25,
+    "tolerance": 0.1
+  },
+  {
+    "kind": "vbesat",
+    "curve": "T+75",
+    "temperature_C": 75,
+    "tolerance": 0.1
+  },
+  {
+    "kind": "vbesat",
+    "curve": "T-25",
+    "temperature_C": -25,
+    "tolerance": 0.1
+  },
+  {
+    "kind": "vcesat",
+    "curve": "T+25",
+    "temperature_C": 25,
+    "tolerance": 0.2
+  },
+  {
+    "kind": "vcesat",
+    "curve": "T+75",
+    "temperature_C": 75,
+    "tolerance": 0.2
+  }
+]

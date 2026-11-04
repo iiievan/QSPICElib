@@ -1,6 +1,8 @@
-# FJP5027: QSPICE + Python, пакет 9
+# FJP5027: QSPICE + Python, пакет 11
 
-**Следующий запуск v9:** `calibrate_refine.cmd` — уточнение с реального результата 10 PASS и Cobo через проверенный по сходимости TRAN. См. [REFINEMENT.md](REFINEMENT.md). Новые нативные результаты ещё требуются.
+**Завершённый этап v9:** `calibrate_refine.cmd` — уточнение с реального результата 10 PASS и Cobo через проверенный по сходимости TRAN. См. [REFINEMENT.md](REFINEMENT.md). Нативный результат: 11 PASS, 8 FAIL и две потери прежних PASS. См. COMPARISON.md.
+
+**Следующий запуск v11:** `compare_candidates.cmd` — сравнить четыре готовых карточки без повторения оптимизации. [Условия и отчёты](COMPARISON.md).
 
 **История v8:** `calibrate_temperature.cmd` — многотемпературный подбор и локализация AC-сбоя. См. [TEMPERATURE_CALIBRATION.md](TEMPERATURE_CALIBRATION.md). Эта стадия сохраняет исследовательский кандидат отдельно и не заменяет GP.
 

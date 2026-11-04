@@ -1,0 +1,48 @@
+{
+  "original_hashes": {
+    "FJP5027.txt": "37b96a1d3c2640ffe2334674d3de69113da89ed626bbafa1ae03bbd415ac8545",
+    "profile.json": "f09341e84d4e3a3d24803c7bd74211bf1e0e7356fd8ddc97e84cb1ae6fe3f9bc",
+    "reference/curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813"
+  },
+  "candidates": [
+    {
+      "id": "mex_v8",
+      "file": "mex_v8.txt",
+      "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+      "family": "MEXTRAM504",
+      "sha256": "c160c0b60b51941b492da8f52c806e81256a98f3389999ecef10fdd57d5594c4",
+      "source": "Native v8 checkpoint, 10 full-curve PASS"
+    },
+    {
+      "id": "mex_guarded_eval21",
+      "file": "mex_guarded_eval21.txt",
+      "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+      "family": "MEXTRAM504",
+      "sha256": "0b453dcc163db611bf1f9221e8109a320adc73be4d6a72e73e4fc0b9227e4bf8",
+      "source": "Native v9 evaluation 21; 11 sampled PASS, 0 sampled protected losses; full curves pending"
+    },
+    {
+      "id": "mex_v9_final",
+      "file": "mex_v9_final.txt",
+      "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+      "family": "MEXTRAM504",
+      "sha256": "cb063a7a87649f84875190db52976ea0d419dd8a8e3070777da9a13dd8052056",
+      "source": "Native v9 final, 11 full-curve PASS and 2 protected losses"
+    },
+    {
+      "id": "ltwiki_gp",
+      "file": "ltwiki_gp.txt",
+      "model_name": "KSC5027",
+      "family": "GUMMEL_POON",
+      "sha256": "b34648f80a43be77ec0d1c194e3ece7d4cf10cd41f6ff71b37d67b21876f2709",
+      "source": "User supplied LTwiki KSC5027; no native comparison yet"
+    }
+  ],
+  "ltwiki_source": "https://ltwiki.org/index.php?title=Standard.bjt",
+  "removed_informational_parameters": [
+    "Vceo",
+    "Icrating",
+    "mfg"
+  ],
+  "implicit_TNOM_preserved": true
+}

@@ -1,2 +1,0 @@
-.meas ac cobo_source_im find imag(i(v_test)) at=1meg:
-     (-0.000376993,         0)      1e+06

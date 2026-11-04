@@ -1,6 +1,0 @@
-.meas dc vcesat_1p5 find v(vce) when v(ic)=1.5 cross=1:
-       0.157942   0.482759
-.meas dc vbesat_1p5 find v(vbe) when v(ic)=1.5 cross=1:
-       0.919691   0.482759
-.meas dc ib_at_1p5 find v(ib) when v(ic)=1.5 cross=1:
-            0.3   0.482759

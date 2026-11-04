@@ -1,2 +1,0 @@
-.meas dc output_id_max max v(ic_out):
-        1.29636 (at V_SCAN=1)
