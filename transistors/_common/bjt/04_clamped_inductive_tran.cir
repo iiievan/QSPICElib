@@ -1,0 +1,59 @@
+* Reviewed CIR snapshot for prepare-only mode
+
+.libpath "C:\PROGRA~1\QSPICE\EPC"
+
+V_CC supply 0 {POL*VCC}
+R_L supply l_feed {R_L}
+L_LOAD l_feed clamp_node {L_LOAD}
+V_IC clamp_node collector 0
+X_DUT collector base 0 0 DUT_BJT
+V_CLAMP clamp_rail 0 {POL*VCLAMP}
+B_CLAMP clamp_node clamp_rail I={POL*max(POL*V(clamp_node,clamp_rail),0)/R_CLAMP}
+V_CMD cmd 0 PWL(0 0 {T_DELAY} 0 {T_DELAY+T_EDGE} 1 {T_OFF} 1 {T_OFF+T_EDGE} 0)
+V_NEG b_negative 0 {POL*VBE_OFF}
+.model S_OFF•SW_OFF SW(Ron=1m Roff=1T Vt=0.5 Vh=0)
+S_OFF b_drive b_pull off_command 0 S_OFF•SW_OFF
+R_B_OFF b_pull b_negative {R_B_OFF}
+R_B_ON b_drive b_feed {R_B_ON}
+V_IB b_feed base 0
+B_VCE vce 0 V={POL*V(collector)}
+B_VBE vbe 0 V={POL*V(base)}
+B_IC ic 0 V={POL*I(V_IC)}
+B_IB ib 0 V={POL*I(V_IB)}
+B_IL iload 0 V={POL*I(L_LOAD)}
+B_CF ic_ratio 0 V={V(ic)/IC_REFERENCE}
+B_PC p_collector 0 V={V(collector)*I(V_IC)}
+B_PB p_base 0 V={V(base)*I(V_IB)}
+B_IBSRC 0 b_drive I={POL*IB_ON*V(cmd)}
+B_OFF off_command 0 V={1-V(cmd)}
+.temp 25
+.param VCC=12
+.param VCLAMP=40
+.param L_LOAD=1m
+.param R_L=0.1
+.param IB_ON=10m
+.param R_B_ON=0.1
+.param VBE_OFF=-2
+.param R_B_OFF=1
+.param R_CLAMP=10m
+.param IC_REFERENCE=0.29
+.param T_DELAY=1u
+.param TON=25u
+.param T_EDGE=5n
+.param T_TAIL=15u
+.param ENERGY_WINDOW=5u
+.param T_MAX=2n
+.param T_OFF={T_DELAY+T_EDGE+TON}
+.param T_STOP={T_OFF+T_EDGE+T_TAIL}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.tran 0 {T_STOP} 0 {T_MAX}
+.plot V(cmd) V(vce) V(vbe) V(ic) V(ib) V(iload) V(ic_ratio) V(p_collector) V(p_base)
+.meas TRAN IC_AT_COMMAND_OFF FIND V(ic) AT={T_OFF}
+.meas TRAN T_STORAGE_CMD TRIG V(cmd)=0.9 FALL=1 TARG V(ic_ratio)=0.9 FALL=1
+.meas TRAN T_STORAGE_IB TRIG V(ib)=0 FALL=1 TARG V(ic_ratio)=0.9 FALL=1
+.meas TRAN T_FALL_IC TRIG V(ic_ratio)=0.9 FALL=1 TARG V(ic_ratio)=0.1 FALL=1
+.meas TRAN VCE_PEAK MAX V(vce)
+.meas TRAN IB_REVERSE_PEAK MIN V(ib)
+.meas TRAN E_OFF_WINDOW INTEG V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}
+.lib 00_device.cir
+.end

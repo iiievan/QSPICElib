@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+results/
+FJP5027_diagnostics.zip
+proxy_settings.cmd

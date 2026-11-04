@@ -1,0 +1,57 @@
+* Reviewed CIR snapshot for prepare-only mode
+
+.libpath "C:\PROGRA~1\QSPICE\EPC"
+
+V_BUS bus 0 {POL*VBUS}
+R_LOAD bus c_feed {R_LOAD}
+V_IC c_feed collector 0
+X_DUT collector base 0 0 DUT_BJT
+V_CMD cmd 0 PULSE(0 1 {T_DELAY} {T_EDGE} {T_EDGE} {TON} {TPER})
+B_IBSRC 0 b_drive I={POL*(IB_OFF+(IB_ON-IB_OFF)*V(cmd))}
+B_LIMIT b_drive 0 I={POL*(max(POL*V(b_drive)-VBE_MAX,0)+min(POL*V(b_drive)-VBE_MIN,0))/R_COMPLIANCE}
+R_B b_drive b_feed {R_BASE}
+V_IB b_feed base 0
+B_VCE vce 0 V={POL*V(collector)}
+B_VBE vbe 0 V={POL*V(base)}
+B_IC ic 0 V={POL*I(V_IC)}
+B_IB ib 0 V={POL*I(V_IB)}
+B_CF ic_ratio 0 V={V(ic)/IC_REFERENCE}
+B_PC p_collector 0 V={V(collector)*I(V_IC)}
+B_PB p_base 0 V={V(base)*I(V_IB)}
+B_PT p_total 0 V={V(p_collector)+V(p_base)}
+.temp 25
+.param VBUS=20
+.param R_LOAD=100
+.param IB_ON=10m
+.param IB_OFF=-20m
+.param R_BASE=1
+.param VBE_MAX=2
+.param VBE_MIN=-3
+.param R_COMPLIANCE=1m
+.param IC_REFERENCE=0.2
+.param FSW=100k
+.param DUTY=0.5
+.param T_DELAY=1u
+.param T_EDGE=5n
+.param N_CYCLES=4
+.param T_MAX=1n
+.param TPER={1/FSW}
+.param TON={DUTY*TPER-T_EDGE}
+.param T_STOP={T_DELAY+N_CYCLES*TPER}
+.param T_AVG0={T_DELAY+(N_CYCLES-1)*TPER}
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.tran 0 {T_STOP} 0 {T_MAX}
+.plot V(cmd) V(vce) V(vbe) V(ic) V(ib) V(ic_ratio) V(p_collector) V(p_base) V(p_total)
+.meas TRAN T_DELAY_ON TRIG V(cmd)=0.1 RISE=1 TARG V(ic_ratio)=0.1 RISE=1
+.meas TRAN T_RISE_IC TRIG V(ic_ratio)=0.1 RISE=1 TARG V(ic_ratio)=0.9 RISE=1
+.meas TRAN T_STORAGE_CMD TRIG V(cmd)=0.9 FALL=1 TARG V(ic_ratio)=0.9 FALL=1
+.meas TRAN T_STORAGE_IB TRIG V(ib)=0 FALL=1 TARG V(ic_ratio)=0.9 FALL=1
+.meas TRAN T_FALL_IC TRIG V(ic_ratio)=0.9 FALL=1 TARG V(ic_ratio)=0.1 FALL=1
+.meas TRAN IC_PEAK MAX V(ic)
+.meas TRAN IB_FORWARD_PEAK MAX V(ib)
+.meas TRAN IB_REVERSE_PEAK MIN V(ib)
+.meas TRAN P_TOTAL_AVG AVG V(p_total) FROM={T_AVG0} TO={T_STOP}
+.meas TRAN P_COLLECTOR_AVG AVG V(p_collector) FROM={T_AVG0} TO={T_STOP}
+.meas TRAN P_BASE_AVG AVG V(p_base) FROM={T_AVG0} TO={T_STOP}
+.lib 00_device.cir
+.end

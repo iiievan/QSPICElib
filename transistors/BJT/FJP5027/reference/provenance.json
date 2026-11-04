@@ -1,0 +1,28 @@
+{
+  "source": "User-supplied Fairchild FJP5027 Rev.A, December 2003",
+  "pdf_sha256": "b1488f766fcb8f25a83d24dadc9658cd8edda4b450ebdcac5c35435996df8ba3",
+  "pdf_page_1based": 2,
+  "method": "Vector polyline coordinates; linear/log axis calibration; no OCR, smoothing or model fitting",
+  "figure_mapping": {
+    "1": "output",
+    "2": "gain",
+    "3": "vcesat (axis, despite caption typo)",
+    "4": "vbesat (axis, despite caption typo)"
+  },
+  "temperatures_C": [
+    -25,
+    25,
+    75,
+    125
+  ],
+  "figure1_temperature": "25 C assumed from default conditions; not printed inside figure",
+  "uncertainty_note": "Line width, axis rounding and typical-device spread remain. Not measured unit data.",
+  "calibration_note": "Figure 2 temperature assignment is made at low Ic; curves cross at high Ic.",
+  "holdout_note": "These same curves are potential calibration targets, not independent validation data.",
+  "curve_counts": {
+    "output": 7,
+    "gain": 4,
+    "vcesat": 4,
+    "vbesat": 4
+  }
+}

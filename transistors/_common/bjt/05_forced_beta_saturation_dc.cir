@@ -1,0 +1,25 @@
+* Common BJT saturation bench: force collector/base currents independently.
+* C B E K adapter; POL=+1 NPN / -1 PNP. Currents and voltages normalized.
+V_SCAN scan 0 0
+B_IC_FORCE 0 c_feed I={POL*(IC_START+(IC_STOP-IC_START)*V(scan))}
+V_IC c_feed collector 0
+B_IB_FORCE 0 b_feed I={POL*(IC_START+(IC_STOP-IC_START)*V(scan))/BETA_FORCED}
+V_IB b_feed base 0
+X_DUT collector base 0 0 DUT_BJT
+B_IC ic 0 V={POL*I(V_IC)}
+B_IB ib 0 V={POL*I(V_IB)}
+B_VCE vce 0 V={POL*V(collector)}
+B_VBE vbe 0 V={POL*V(base)}
+.temp 25
+.param IC_START=0.1
+.param IC_STOP=3
+.param BETA_FORCED=5
+.param IC_TEST=1.5
+.param SCAN_STEP=0.001
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.plot V(ic) V(ib) V(vce) V(vbe)
+.meas DC VCESAT_1P5 FIND V(vce) WHEN V(ic)={IC_TEST} CROSS=1
+.meas DC VBESAT_1P5 FIND V(vbe) WHEN V(ic)={IC_TEST} CROSS=1
+.lib 00_device.cir
+.end

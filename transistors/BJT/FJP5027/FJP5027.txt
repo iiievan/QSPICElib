@@ -1,0 +1,15 @@
+* FJP5027_CANDIDATE_V1: independently constructed STARTING model, not vendor SPICE.
+* User-supplied Fairchild Rev.A December 2003 is the reference.
+* NOT YET CALIBRATED OR VALIDATED IN QSPICE. Compare every curve in the report.
+* DC seed: BF/IKF/VAF approximate mid-current gain and its high-current rolloff.
+* CJC chosen to give approximately 60 pF at VCB=10V, f=1MHz, 25 C.
+* TF is an initial estimate from fT=15MHz; TR/CJE/RB and dynamic accuracy UNVALIDATED.
+* XTB/temperature and high-injection/saturation behavior are calibration targets.
+* No avalanche, secondary breakdown, SOA, self-heating or thermal memory model.
+* Voltage rating is documentation, NOT an implemented breakdown mechanism.
+.model FJP5027_CANDIDATE_V1 NPN(
++ IS=10f NF=1 BF=30 IKF=0.8 VAF=50 ISE=1p NE=1.5
++ BR=2 NR=1 IKR=0.02 VAR=20 ISC=1p NC=1.5
++ RB=2 RBM=0.3 IRB=0.01 RC=0.2 RE=0.02
++ CJE=2n VJE=0.75 MJE=0.33 CJC=144.46p VJC=0.75 MJC=0.33
++ TF=10n TR=300n XTB=1.1 EG=1.11 XTI=3 TNOM=25)

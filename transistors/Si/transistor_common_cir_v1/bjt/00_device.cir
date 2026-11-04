@@ -6,7 +6,7 @@
 * API: C B E K; K is a Kelvin/driver return, joined to E for 3-pin parts.
 * SELECT NPN: POL=1 and Q_CORE ... BENCH_NPN_DEMO.
 * SELECT PNP: POL=-1 and Q_CORE ... BENCH_PNP_DEMO.
-.param POL=1
+.param POL=-1
 .model BENCH_NPN_DEMO NPN(Is=10f Bf=80 Vaf=60 Ikf=0.3 Br=3
 + Cje=30p Vje=0.75 Mje=0.33 Cjc=10p Vjc=0.75 Mjc=0.33
 + Tf=2n Tr=200n Rb=10 Rc=0.5 Re=0.05 Tnom=25)
@@ -14,7 +14,7 @@
 + Cje=30p Vje=0.75 Mje=0.33 Cjc=10p Vjc=0.75 Mjc=0.33
 + Tf=2n Tr=200n Rb=10 Rc=0.5 Re=0.05 Tnom=25)
 .subckt DUT_BJT C B E K
-Q_CORE C B E BENCH_NPN_DEMO
-;Q_CORE C B E BENCH_PNP_DEMO
+;Q_CORE C B E BENCH_NPN_DEMO
+Q_CORE C B E BENCH_PNP_DEMO
 R_K K E 1u
 .ends DUT_BJT

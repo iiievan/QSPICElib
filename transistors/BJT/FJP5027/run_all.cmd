@@ -1,16 +1,11 @@
 @echo off
-setlocal EnableExtensions DisableDelayedExpansion
+setlocal
 cd /d "%~dp0"
-set "PYTHONPATH="
-if not exist ".venv\Scripts\python.exe" goto missing
-".venv\Scripts\python.exe" run_suite.py --open-report %*
-set "SUITE_EXIT=%ERRORLEVEL%"
-echo.
-echo Suite exit code: %SUITE_EXIT%
-goto finish
-:missing
-echo Project .venv was not found. Run setup.cmd first.
-set "SUITE_EXIT=2"
-:finish
-pause
-exit /b %SUITE_EXIT%
+if not exist ".venv\Scripts\python.exe" (
+  echo Run setup.cmd first.
+  exit /b 2
+)
+".venv\Scripts\python.exe" run_suite.py %*
+set "RESULT=%errorlevel%"
+echo Exit 0: criteria met or prepare-only. Exit 1: inspect report. Exit 2: startup error.
+exit /b %RESULT%
