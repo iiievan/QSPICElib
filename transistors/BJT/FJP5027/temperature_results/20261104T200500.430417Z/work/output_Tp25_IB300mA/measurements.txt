@@ -1,0 +1,520 @@
+.meas dc o00 find v(ic_out) when v(vce_out)=0.052202416607192 cross=1:
+       0.547791 0.00659378
+.meas dc o01 find v(ic_out) when v(vce_out)=0.0587274365738858 cross=1:
+       0.632987 0.00742005
+.meas dc o02 find v(ic_out) when v(vce_out)=0.0652524565405797 cross=1:
+       0.713748 0.00824578
+.meas dc o03 find v(ic_out) when v(vce_out)=0.0717783062402296 cross=1:
+       0.789678   0.009071
+.meas dc o04 find v(ic_out) when v(vce_out)=0.0783033262069235 cross=1:
+         0.8607  0.0098955
+.meas dc o05 find v(ic_out) when v(vce_out)=0.0848283461736173 cross=1:
+       0.926759  0.0107194
+.meas dc o06 find v(ic_out) when v(vce_out)=0.0913541958732673 cross=1:
+       0.987788  0.0115427
+.meas dc o07 find v(ic_out) when v(vce_out)=0.0978792158399611 cross=1:
+        1.04388  0.0123654
+.meas dc o08 find v(ic_out) when v(vce_out)=0.104404235806655 cross=1:
+        1.09523  0.0131874
+.meas dc o09 find v(ic_out) when v(vce_out)=0.110930085506305 cross=1:
+        1.14201   0.014009
+.meas dc o10 find v(ic_out) when v(vce_out)=0.117455105472999 cross=1:
+        1.18437  0.0148299
+.meas dc o11 find v(ic_out) when v(vce_out)=0.123980125439693 cross=1:
+        1.22266  0.0156503
+.meas dc o12 find v(ic_out) when v(vce_out)=0.130505975139343 cross=1:
+        1.25718  0.0164704
+.meas dc o13 find v(ic_out) when v(vce_out)=0.137030995106036 cross=1:
+        1.28816  0.0172899
+.meas dc o14 find v(ic_out) when v(vce_out)=0.14355601507273 cross=1:
+        1.31593   0.018109
+.meas dc o15 find v(ic_out) when v(vce_out)=0.15008186477238 cross=1:
+        1.34085  0.0189278
+.meas dc o16 find v(ic_out) when v(vce_out)=0.156606884739074 cross=1:
+        1.36321  0.0197463
+.meas dc o17 find v(ic_out) when v(vce_out)=0.163131904705768 cross=1:
+        1.38325  0.0205644
+.meas dc o18 find v(ic_out) when v(vce_out)=0.169657754405418 cross=1:
+        1.40133  0.0213824
+.meas dc o19 find v(ic_out) when v(vce_out)=0.176182774372112 cross=1:
+         1.4177  0.0222001
+.meas dc o20 find v(ic_out) when v(vce_out)=0.182707794338806 cross=1:
+        1.43259  0.0230175
+.meas dc o21 find v(ic_out) when v(vce_out)=0.189233644038456 cross=1:
+        1.44621   0.023835
+.meas dc o22 find v(ic_out) when v(vce_out)=0.195758664005149 cross=1:
+        1.45877  0.0246522
+.meas dc o23 find v(ic_out) when v(vce_out)=0.202283683971843 cross=1:
+        1.47043  0.0254693
+.meas dc o24 find v(ic_out) when v(vce_out)=0.208809533671493 cross=1:
+        1.48133  0.0262864
+.meas dc o25 find v(ic_out) when v(vce_out)=0.215334553638187 cross=1:
+        1.49159  0.0271033
+.meas dc o26 find v(ic_out) when v(vce_out)=0.221859573604881 cross=1:
+        1.50131  0.0279201
+.meas dc o27 find v(ic_out) when v(vce_out)=0.228384593571575 cross=1:
+        1.51057  0.0287369
+.meas dc o28 find v(ic_out) when v(vce_out)=0.234910443271225 cross=1:
+        1.51943  0.0295537
+.meas dc o29 find v(ic_out) when v(vce_out)=0.241435463237919 cross=1:
+        1.52795  0.0303704
+.meas dc o30 find v(ic_out) when v(vce_out)=0.247960483204612 cross=1:
+        1.53617  0.0311871
+.meas dc o31 find v(ic_out) when v(vce_out)=0.254486332904262 cross=1:
+        1.54414  0.0320038
+.meas dc o32 find v(ic_out) when v(vce_out)=0.261011352870956 cross=1:
+        1.55187  0.0328204
+.meas dc o33 find v(ic_out) when v(vce_out)=0.26753637283765 cross=1:
+        1.55939   0.033637
+.meas dc o34 find v(ic_out) when v(vce_out)=0.2740622225373 cross=1:
+        1.56672  0.0344536
+.meas dc o35 find v(ic_out) when v(vce_out)=0.280587242503994 cross=1:
+        1.57389  0.0352701
+.meas dc o36 find v(ic_out) when v(vce_out)=0.287112262470688 cross=1:
+        1.58088  0.0360866
+.meas dc o37 find v(ic_out) when v(vce_out)=0.293638112170338 cross=1:
+        1.58773  0.0369032
+.meas dc o38 find v(ic_out) when v(vce_out)=0.306688152103725 cross=1:
+        1.60102  0.0385361
+.meas dc o39 find v(ic_out) when v(vce_out)=0.313214001803375 cross=1:
+        1.60747  0.0393527
+.meas dc o40 find v(ic_out) when v(vce_out)=0.319739021770069 cross=1:
+        1.61379  0.0401691
+.meas dc o41 find v(ic_out) when v(vce_out)=0.326264041736763 cross=1:
+        1.62001  0.0409855
+.meas dc o42 find v(ic_out) when v(vce_out)=0.332789891436413 cross=1:
+         1.6261   0.041802
+.meas dc o43 find v(ic_out) when v(vce_out)=0.339314911403107 cross=1:
+        1.63209  0.0426184
+.meas dc o44 find v(ic_out) when v(vce_out)=0.345839931369801 cross=1:
+        1.63798  0.0434347
+.meas dc o45 find v(ic_out) when v(vce_out)=0.352365781069451 cross=1:
+        1.64377  0.0442512
+.meas dc o46 find v(ic_out) when v(vce_out)=0.358890801036144 cross=1:
+        1.64945  0.0450675
+.meas dc o47 find v(ic_out) when v(vce_out)=0.365415821002838 cross=1:
+        1.65504  0.0458839
+.meas dc o48 find v(ic_out) when v(vce_out)=0.371941670702488 cross=1:
+        1.66054  0.0467003
+.meas dc o49 find v(ic_out) when v(vce_out)=0.39151673060257 cross=1:
+        1.67649  0.0491492
+.meas dc o50 find v(ic_out) when v(vce_out)=0.39804258030222 cross=1:
+        1.68163  0.0499655
+.meas dc o51 find v(ic_out) when v(vce_out)=0.404567600268914 cross=1:
+        1.68669  0.0507818
+.meas dc o52 find v(ic_out) when v(vce_out)=0.411092620235607 cross=1:
+        1.69168   0.051598
+.meas dc o53 find v(ic_out) when v(vce_out)=0.417618469935257 cross=1:
+        1.69658  0.0524144
+.meas dc o54 find v(ic_out) when v(vce_out)=0.424143489901951 cross=1:
+        1.70141  0.0532306
+.meas dc o55 find v(ic_out) when v(vce_out)=0.430668509868645 cross=1:
+        1.70616  0.0540468
+.meas dc o56 find v(ic_out) when v(vce_out)=0.437194359568295 cross=1:
+        1.71084  0.0548631
+.meas dc o57 find v(ic_out) when v(vce_out)=0.443719379534989 cross=1:
+        1.71545  0.0556794
+.meas dc o58 find v(ic_out) when v(vce_out)=0.450244399501683 cross=1:
+        1.71998  0.0564955
+.meas dc o59 find v(ic_out) when v(vce_out)=0.456770249201333 cross=1:
+        1.72445  0.0573118
+.meas dc o60 find v(ic_out) when v(vce_out)=0.463295269168027 cross=1:
+        1.72886   0.058128
+.meas dc o61 find v(ic_out) when v(vce_out)=0.46982028913472 cross=1:
+        1.73319  0.0589442
+.meas dc o62 find v(ic_out) when v(vce_out)=0.47634613883437 cross=1:
+        1.73747  0.0597605
+.meas dc o63 find v(ic_out) when v(vce_out)=0.482871158801064 cross=1:
+        1.74168  0.0605766
+.meas dc o64 find v(ic_out) when v(vce_out)=0.495922028467408 cross=1:
+        1.74992   0.062209
+.meas dc o65 find v(ic_out) when v(vce_out)=0.502447048434102 cross=1:
+        1.75396  0.0630251
+.meas dc o66 find v(ic_out) when v(vce_out)=0.515497918100446 cross=1:
+        1.76185  0.0646575
+.meas dc o67 find v(ic_out) when v(vce_out)=0.52202293806714 cross=1:
+        1.76572  0.0654736
+.meas dc o68 find v(ic_out) when v(vce_out)=0.528547958033833 cross=1:
+        1.76953  0.0662897
+.meas dc o69 find v(ic_out) when v(vce_out)=0.535073807733483 cross=1:
+        1.77329  0.0671059
+.meas dc o70 find v(ic_out) when v(vce_out)=0.541598827700177 cross=1:
+        1.77701   0.067922
+.meas dc o71 find v(ic_out) when v(vce_out)=0.548123847666871 cross=1:
+        1.78067  0.0687381
+.meas dc o72 find v(ic_out) when v(vce_out)=0.554648867633565 cross=1:
+        1.78428  0.0695541
+.meas dc o73 find v(ic_out) when v(vce_out)=0.561174717333215 cross=1:
+        1.78784  0.0703703
+.meas dc o74 find v(ic_out) when v(vce_out)=0.567699737299909 cross=1:
+        1.79136  0.0711864
+.meas dc o75 find v(ic_out) when v(vce_out)=0.574224757266602 cross=1:
+        1.79483  0.0720024
+.meas dc o76 find v(ic_out) when v(vce_out)=0.580750606966252 cross=1:
+        1.79826  0.0728186
+.meas dc o77 find v(ic_out) when v(vce_out)=0.587275626932946 cross=1:
+        1.80164  0.0736347
+.meas dc o78 find v(ic_out) when v(vce_out)=0.59380064689964 cross=1:
+        1.80498  0.0744507
+.meas dc o79 find v(ic_out) when v(vce_out)=0.60032649659929 cross=1:
+        1.80828  0.0752668
+.meas dc o80 find v(ic_out) when v(vce_out)=0.606851516565984 cross=1:
+        1.81154  0.0760829
+.meas dc o81 find v(ic_out) when v(vce_out)=0.613376536532678 cross=1:
+        1.81476  0.0768989
+.meas dc o82 find v(ic_out) when v(vce_out)=0.619902386232328 cross=1:
+        1.81794   0.077715
+.meas dc o83 find v(ic_out) when v(vce_out)=0.626427406199022 cross=1:
+        1.82108  0.0785311
+.meas dc o84 find v(ic_out) when v(vce_out)=0.632952426165715 cross=1:
+        1.82418  0.0793471
+.meas dc o85 find v(ic_out) when v(vce_out)=0.639478275865365 cross=1:
+        1.82724  0.0801632
+.meas dc o86 find v(ic_out) when v(vce_out)=0.646003295832059 cross=1:
+        1.83027  0.0809792
+.meas dc o87 find v(ic_out) when v(vce_out)=0.652528315798753 cross=1:
+        1.83327  0.0817952
+.meas dc o88 find v(ic_out) when v(vce_out)=0.659054165498403 cross=1:
+        1.83622  0.0826113
+.meas dc o89 find v(ic_out) when v(vce_out)=0.665579185465097 cross=1:
+        1.83915  0.0834273
+.meas dc o90 find v(ic_out) when v(vce_out)=0.678630055131441 cross=1:
+         1.8449  0.0850594
+.meas dc o91 find v(ic_out) when v(vce_out)=0.685155075098135 cross=1:
+        1.84772  0.0858753
+.meas dc o92 find v(ic_out) when v(vce_out)=0.691680095064828 cross=1:
+        1.85051  0.0866913
+.meas dc o93 find v(ic_out) when v(vce_out)=0.698205944764478 cross=1:
+        1.85328  0.0875074
+.meas dc o94 find v(ic_out) when v(vce_out)=0.711255984697866 cross=1:
+        1.85871  0.0891393
+.meas dc o95 find v(ic_out) when v(vce_out)=0.71778100466456 cross=1:
+        1.86139  0.0899553
+.meas dc o96 find v(ic_out) when v(vce_out)=0.72430685436421 cross=1:
+        1.86403  0.0907714
+.meas dc o97 find v(ic_out) when v(vce_out)=0.730831874330904 cross=1:
+        1.86665  0.0915873
+.meas dc o98 find v(ic_out) when v(vce_out)=0.737356894297598 cross=1:
+        1.86924  0.0924033
+.meas dc o99 find v(ic_out) when v(vce_out)=0.743882743997248 cross=1:
+         1.8718  0.0932193
+.meas dc o100 find v(ic_out) when v(vce_out)=0.756932783930635 cross=1:
+        1.87684  0.0948512
+.meas dc o101 find v(ic_out) when v(vce_out)=0.763458633630285 cross=1:
+        1.87933  0.0956672
+.meas dc o102 find v(ic_out) when v(vce_out)=0.776508673563673 cross=1:
+        1.88422  0.0972991
+.meas dc o103 find v(ic_out) when v(vce_out)=0.783034523263323 cross=1:
+        1.88663  0.0981151
+.meas dc o104 find v(ic_out) when v(vce_out)=0.80261041289636 cross=1:
+        1.89371   0.100563
+.meas dc o105 find v(ic_out) when v(vce_out)=0.828711322496092 cross=1:
+        1.90284   0.103827
+.meas dc o106 find v(ic_out) when v(vce_out)=0.84828721212913 cross=1:
+        1.90947   0.106275
+.meas dc o107 find v(ic_out) when v(vce_out)=0.854812232095823 cross=1:
+        1.91164    0.10709
+.meas dc o108 find v(ic_out) when v(vce_out)=0.874388121728861 cross=1:
+        1.91803   0.109538
+.meas dc o109 find v(ic_out) when v(vce_out)=0.880913141695555 cross=1:
+        1.92012   0.110354
+.meas dc o110 find v(ic_out) when v(vce_out)=0.907014881028243 cross=1:
+         1.9283   0.113618
+.meas dc o111 find v(ic_out) when v(vce_out)=0.92659077066128 cross=1:
+        1.93425   0.116066
+.meas dc o112 find v(ic_out) when v(vce_out)=0.933115790627974 cross=1:
+        1.93621   0.116881
+.meas dc o113 find v(ic_out) when v(vce_out)=0.952691680261012 cross=1:
+        1.94196   0.119329
+.meas dc o114 find v(ic_out) when v(vce_out)=0.972267569894049 cross=1:
+        1.94758   0.121777
+.meas dc o115 find v(ic_out) when v(vce_out)=0.978792589860743 cross=1:
+        1.94942   0.122593
+.meas dc o116 find v(ic_out) when v(vce_out)=0.991843459527087 cross=1:
+        1.95307   0.124225
+.meas dc o117 find v(ic_out) when v(vce_out)=0.998368479493781 cross=1:
+        1.95487    0.12504
+.meas dc o118 find v(ic_out) when v(vce_out)=1.01794436912682 cross=1:
+        1.96018   0.127488
+.meas dc o119 find v(ic_out) when v(vce_out)=1.03752025875986 cross=1:
+        1.96538   0.129936
+.meas dc o120 find v(ic_out) when v(vce_out)=1.04404527872655 cross=1:
+        1.96709   0.130752
+.meas dc o121 find v(ic_out) when v(vce_out)=1.05709614839289 cross=1:
+        1.97046   0.132383
+.meas dc o122 find v(ic_out) when v(vce_out)=1.06362116835959 cross=1:
+        1.97213   0.133199
+.meas dc o123 find v(ic_out) when v(vce_out)=1.08319705799263 cross=1:
+        1.97707   0.135647
+.meas dc o124 find v(ic_out) when v(vce_out)=1.10929879732531 cross=1:
+        1.98348    0.13891
+.meas dc o125 find v(ic_out) when v(vce_out)=1.12887468695835 cross=1:
+        1.98818   0.141358
+.meas dc o126 find v(ic_out) when v(vce_out)=1.15497559655808 cross=1:
+         1.9943   0.144621
+.meas dc o127 find v(ic_out) when v(vce_out)=1.16150061652478 cross=1:
+        1.99581   0.145437
+.meas dc o128 find v(ic_out) when v(vce_out)=1.18107650615781 cross=1:
+        2.00026   0.147885
+.meas dc o129 find v(ic_out) when v(vce_out)=1.20065239579085 cross=1:
+        2.00463   0.150332
+.meas dc o130 find v(ic_out) when v(vce_out)=1.22022828542389 cross=1:
+        2.00892    0.15278
+.meas dc o131 find v(ic_out) when v(vce_out)=1.22675330539058 cross=1:
+        2.01033   0.153595
+.meas dc o132 find v(ic_out) when v(vce_out)=1.25285504472327 cross=1:
+        2.01589   0.156859
+.meas dc o133 find v(ic_out) when v(vce_out)=1.27243093435631 cross=1:
+        2.01997   0.159306
+.meas dc o134 find v(ic_out) when v(vce_out)=1.278955954323 cross=1:
+        2.02132   0.160122
+.meas dc o135 find v(ic_out) when v(vce_out)=1.30505686392273 cross=1:
+        2.02662   0.163385
+.meas dc o136 find v(ic_out) when v(vce_out)=1.33115860325542 cross=1:
+         2.0318   0.166649
+.meas dc o137 find v(ic_out) when v(vce_out)=1.33768362322211 cross=1:
+        2.03308   0.167465
+.meas dc o138 find v(ic_out) when v(vce_out)=1.36378453282185 cross=1:
+        2.03812   0.170728
+.meas dc o139 find v(ic_out) when v(vce_out)=1.37030955278854 cross=1:
+        2.03936   0.171544
+.meas dc o140 find v(ic_out) when v(vce_out)=1.39641129212123 cross=1:
+        2.04427   0.174807
+.meas dc o141 find v(ic_out) when v(vce_out)=1.40293631208792 cross=1:
+        2.04548   0.175623
+.meas dc o142 find v(ic_out) when v(vce_out)=1.4355630713873 cross=1:
+        2.05144   0.179702
+.meas dc o143 find v(ic_out) when v(vce_out)=1.46166398098703 cross=1:
+        2.05609   0.182965
+.meas dc o144 find v(ic_out) when v(vce_out)=1.48776489058677 cross=1:
+        2.06066   0.186228
+.meas dc o145 find v(ic_out) when v(vce_out)=1.49429074028642 cross=1:
+        2.06178   0.187044
+.meas dc o146 find v(ic_out) when v(vce_out)=1.52691666985284 cross=1:
+        2.06734   0.191123
+.meas dc o147 find v(ic_out) when v(vce_out)=1.55301757945257 cross=1:
+        2.07169   0.194386
+.meas dc o148 find v(ic_out) when v(vce_out)=1.55954342915222 cross=1:
+        2.07276   0.195202
+.meas dc o149 find v(ic_out) when v(vce_out)=1.59216935871865 cross=1:
+        2.07807   0.199281
+.meas dc o150 find v(ic_out) when v(vce_out)=1.5986952084183 cross=1:
+        2.07911   0.200097
+.meas dc o151 find v(ic_out) when v(vce_out)=1.63132113798472 cross=1:
+        2.08427   0.204176
+.meas dc o152 find v(ic_out) when v(vce_out)=1.66394789728411 cross=1:
+        2.08932   0.208255
+.meas dc o153 find v(ic_out) when v(vce_out)=1.70309967655018 cross=1:
+        2.09524   0.213149
+.meas dc o154 find v(ic_out) when v(vce_out)=1.74225145581626 cross=1:
+        2.10101   0.218044
+.meas dc o155 find v(ic_out) when v(vce_out)=1.74877647578295 cross=1:
+        2.10196    0.21886
+.meas dc o156 find v(ic_out) when v(vce_out)=1.78792825504902 cross=1:
+        2.10758   0.223754
+.meas dc o157 find v(ic_out) when v(vce_out)=1.79445327501572 cross=1:
+         2.1085    0.22457
+.meas dc o158 find v(ic_out) when v(vce_out)=1.85318094391483 cross=1:
+        2.11665   0.231912
+.meas dc o159 find v(ic_out) when v(vce_out)=1.8988577431476 cross=1:
+         2.1228   0.237623
+.meas dc o160 find v(ic_out) when v(vce_out)=1.90538359284725 cross=1:
+        2.12366   0.238438
+.meas dc o161 find v(ic_out) when v(vce_out)=1.94453537211333 cross=1:
+        2.12879   0.243333
+.meas dc o162 find v(ic_out) when v(vce_out)=1.9902121713461 cross=1:
+        2.13464   0.249043
+.meas dc o163 find v(ic_out) when v(vce_out)=2.04241399054556 cross=1:
+        2.14116   0.255569
+.meas dc o164 find v(ic_out) when v(vce_out)=2.04893984024521 cross=1:
+        2.14196   0.256385
+.meas dc o165 find v(ic_out) when v(vce_out)=2.08156576981163 cross=1:
+        2.14593   0.260464
+.meas dc o166 find v(ic_out) when v(vce_out)=2.08809161951128 cross=1:
+        2.14672    0.26128
+.meas dc o167 find v(ic_out) when v(vce_out)=2.12071754907771 cross=1:
+        2.15061   0.265359
+.meas dc o168 find v(ic_out) when v(vce_out)=2.12724339877736 cross=1:
+        2.15138   0.266174
+.meas dc o169 find v(ic_out) when v(vce_out)=2.1468192884104 cross=1:
+        2.15368   0.268622
+.meas dc o170 find v(ic_out) when v(vce_out)=2.15334430837709 cross=1:
+        2.15445   0.269437
+.meas dc o171 find v(ic_out) when v(vce_out)=2.17944521797682 cross=1:
+        2.15747     0.2727
+.meas dc o172 find v(ic_out) when v(vce_out)=2.20554612757655 cross=1:
+        2.16046   0.275963
+.meas dc o173 find v(ic_out) when v(vce_out)=2.2120719772762 cross=1:
+         2.1612   0.276779
+.meas dc o174 find v(ic_out) when v(vce_out)=2.24469790684263 cross=1:
+        2.16487   0.280858
+.meas dc o175 find v(ic_out) when v(vce_out)=2.25122375654228 cross=1:
+         2.1656   0.281674
+.meas dc o176 find v(ic_out) when v(vce_out)=2.29037553580835 cross=1:
+        2.16992   0.286568
+.meas dc o177 find v(ic_out) when v(vce_out)=2.29690055577505 cross=1:
+        2.17063   0.287384
+.meas dc o178 find v(ic_out) when v(vce_out)=2.36215324464085 cross=1:
+        2.17766   0.295541
+.meas dc o179 find v(ic_out) when v(vce_out)=2.36867826460755 cross=1:
+        2.17835   0.296357
+.meas dc o180 find v(ic_out) when v(vce_out)=2.43393178320631 cross=1:
+        2.18515   0.304515
+.meas dc o181 find v(ic_out) when v(vce_out)=2.49265945210542 cross=1:
+        2.19113   0.311856
+.meas dc o182 find v(ic_out) when v(vce_out)=2.49918447207212 cross=1:
+        2.19178   0.312672
+.meas dc o183 find v(ic_out) when v(vce_out)=2.55791214097123 cross=1:
+         2.1976   0.320014
+.meas dc o184 find v(ic_out) when v(vce_out)=2.56443716093792 cross=1:
+        2.19823   0.320829
+.meas dc o185 find v(ic_out) when v(vce_out)=2.61011396017069 cross=1:
+        2.20265    0.32654
+.meas dc o186 find v(ic_out) when v(vce_out)=2.64926573943677 cross=1:
+        2.20638   0.331434
+.meas dc o187 find v(ic_out) when v(vce_out)=2.68841751870284 cross=1:
+        2.21005   0.336328
+.meas dc o188 find v(ic_out) when v(vce_out)=2.69494253866954 cross=1:
+        2.21066   0.337144
+.meas dc o189 find v(ic_out) when v(vce_out)=2.74714518760196 cross=1:
+        2.21546    0.34367
+.meas dc o190 find v(ic_out) when v(vce_out)=2.75367020756865 cross=1:
+        2.21606   0.344486
+.meas dc o191 find v(ic_out) when v(vce_out)=2.80587285650107 cross=1:
+        2.22076   0.351012
+.meas dc o192 find v(ic_out) when v(vce_out)=2.87112554536688 cross=1:
+        2.22651   0.359169
+.meas dc o193 find v(ic_out) when v(vce_out)=2.87765056533357 cross=1:
+        2.22708   0.359985
+.meas dc o194 find v(ic_out) when v(vce_out)=2.92985321426599 cross=1:
+        2.23158   0.366511
+.meas dc o195 find v(ic_out) when v(vce_out)=2.93637823423268 cross=1:
+        2.23214   0.367326
+.meas dc o196 find v(ic_out) when v(vce_out)=2.96900499353207 cross=1:
+         2.2349   0.371405
+.meas dc o197 find v(ic_out) when v(vce_out)=2.97553001349876 cross=1:
+        2.23545   0.372221
+.meas dc o198 find v(ic_out) when v(vce_out)=3.00815677279814 cross=1:
+        2.23818   0.376299
+.meas dc o199 find v(ic_out) when v(vce_out)=3.01468179276483 cross=1:
+        2.23872   0.377115
+.meas dc o200 find v(ic_out) when v(vce_out)=3.0603585919976 cross=1:
+        2.24249   0.382825
+.meas dc o201 find v(ic_out) when v(vce_out)=3.11256124093002 cross=1:
+        2.24672   0.389351
+.meas dc o202 find v(ic_out) when v(vce_out)=3.11908626089672 cross=1:
+        2.24725   0.390167
+.meas dc o203 find v(ic_out) when v(vce_out)=3.18433894976252 cross=1:
+        2.25243   0.398324
+.meas dc o204 find v(ic_out) when v(vce_out)=3.19086479946217 cross=1:
+        2.25294    0.39914
+.meas dc o205 find v(ic_out) when v(vce_out)=3.26264250829467 cross=1:
+        2.25851   0.408113
+.meas dc o206 find v(ic_out) when v(vce_out)=3.32137017719379 cross=1:
+        2.26297   0.415454
+.meas dc o207 find v(ic_out) when v(vce_out)=3.32789519716048 cross=1:
+        2.26346    0.41627
+.meas dc o208 find v(ic_out) when v(vce_out)=3.39314871575924 cross=1:
+        2.26832   0.424427
+.meas dc o209 find v(ic_out) when v(vce_out)=3.39967373572594 cross=1:
+         2.2688   0.425243
+.meas dc o210 find v(ic_out) when v(vce_out)=3.45187638465836 cross=1:
+        2.27261   0.431769
+.meas dc o211 find v(ic_out) when v(vce_out)=3.45840140462505 cross=1:
+        2.27309   0.432584
+.meas dc o212 find v(ic_out) when v(vce_out)=3.49755318389113 cross=1:
+         2.2759   0.437479
+.meas dc o213 find v(ic_out) when v(vce_out)=3.50407820385782 cross=1:
+        2.27637   0.438294
+.meas dc o214 find v(ic_out) when v(vce_out)=3.54975500309059 cross=1:
+         2.2796   0.444004
+.meas dc o215 find v(ic_out) when v(vce_out)=3.59543263205631 cross=1:
+         2.2828   0.449714
+.meas dc o216 find v(ic_out) when v(vce_out)=3.63458441132239 cross=1:
+        2.28551   0.454609
+.meas dc o217 find v(ic_out) when v(vce_out)=3.64110943128908 cross=1:
+        2.28596   0.455424
+.meas dc o218 find v(ic_out) when v(vce_out)=3.69331125048855 cross=1:
+        2.28951    0.46195
+.meas dc o219 find v(ic_out) when v(vce_out)=3.6998371001882 cross=1:
+        2.28995   0.462766
+.meas dc o220 find v(ic_out) when v(vce_out)=3.765089789054 cross=1:
+        2.29432   0.470923
+.meas dc o221 find v(ic_out) when v(vce_out)=3.7716148090207 cross=1:
+        2.29475   0.471739
+.meas dc o222 find v(ic_out) when v(vce_out)=3.8368674978865 cross=1:
+        2.29903   0.479896
+.meas dc o223 find v(ic_out) when v(vce_out)=3.84339334758615 cross=1:
+        2.29946   0.480712
+.meas dc o224 find v(ic_out) when v(vce_out)=3.91517105641865 cross=1:
+        2.30407   0.489684
+.meas dc o225 find v(ic_out) when v(vce_out)=3.9216969061183 cross=1:
+        2.30449     0.4905
+.meas dc o226 find v(ic_out) when v(vce_out)=3.9934746149508 cross=1:
+        2.30901   0.499473
+.meas dc o227 find v(ic_out) when v(vce_out)=3.9999996349175 cross=1:
+        2.30942   0.500289
+.meas dc o228 find v(ic_out) when v(vce_out)=4.05872730381661 cross=1:
+        2.31305    0.50763
+.meas dc o229 find v(ic_out) when v(vce_out)=4.13050584238207 cross=1:
+        2.31741   0.516603
+.meas dc o230 find v(ic_out) when v(vce_out)=4.13703086234876 cross=1:
+         2.3178   0.517419
+.meas dc o231 find v(ic_out) when v(vce_out)=4.20228355121457 cross=1:
+         2.3217   0.525576
+.meas dc o232 find v(ic_out) when v(vce_out)=4.20880940091422 cross=1:
+        2.32208   0.526391
+.meas dc o233 find v(ic_out) when v(vce_out)=4.26753706981333 cross=1:
+        2.32553   0.533733
+.meas dc o234 find v(ic_out) when v(vce_out)=4.33931477864583 cross=1:
+        2.32967   0.542706
+.meas dc o235 find v(ic_out) when v(vce_out)=4.41109331721129 cross=1:
+        2.33373   0.551678
+.meas dc o236 find v(ic_out) when v(vce_out)=4.4763460060771 cross=1:
+        2.33737   0.559835
+.meas dc o237 find v(ic_out) when v(vce_out)=4.48287102604379 cross=1:
+        2.33773   0.560651
+.meas dc o238 find v(ic_out) when v(vce_out)=4.56117458457594 cross=1:
+        2.34202    0.57044
+.meas dc o239 find v(ic_out) when v(vce_out)=4.57422545424228 cross=1:
+        2.34272   0.572071
+.meas dc o240 find v(ic_out) when v(vce_out)=4.63947814310809 cross=1:
+        2.34622   0.580228
+.meas dc o241 find v(ic_out) when v(vce_out)=4.64600316307479 cross=1:
+        2.34657   0.581044
+.meas dc o242 find v(ic_out) when v(vce_out)=4.7047308319739 cross=1:
+        2.34967   0.588385
+.meas dc o243 find v(ic_out) when v(vce_out)=4.77650937053936 cross=1:
+         2.3534   0.597358
+.meas dc o244 find v(ic_out) when v(vce_out)=4.78303439050605 cross=1:
+        2.35374   0.598174
+.meas dc o245 find v(ic_out) when v(vce_out)=4.84828707937186 cross=1:
+        2.35707   0.606331
+.meas dc o246 find v(ic_out) when v(vce_out)=4.85481209933855 cross=1:
+         2.3574   0.607146
+.meas dc o247 find v(ic_out) when v(vce_out)=4.90701474827097 cross=1:
+        2.36003   0.613672
+.meas dc o248 find v(ic_out) when v(vce_out)=4.91353976823766 cross=1:
+        2.36036   0.614488
+.meas dc o249 find v(ic_out) when v(vce_out)=4.97879245710347 cross=1:
+        2.36359   0.622645
+.meas dc o250 find v(ic_out) when v(vce_out)=5.05057099566893 cross=1:
+         2.3671   0.631617
+.meas dc o251 find v(ic_out) when v(vce_out)=5.11582368453473 cross=1:
+        2.37024   0.639774
+.meas dc o252 find v(ic_out) when v(vce_out)=5.19412724306688 cross=1:
+        2.37395   0.649563
+.meas dc o253 find v(ic_out) when v(vce_out)=5.20065226303358 cross=1:
+        2.37426   0.650378
+.meas dc o254 find v(ic_out) when v(vce_out)=5.27243080159903 cross=1:
+         2.3776   0.659351
+.meas dc o255 find v(ic_out) when v(vce_out)=5.33768349046484 cross=1:
+        2.38059   0.667508
+.meas dc o256 find v(ic_out) when v(vce_out)=5.34420851043153 cross=1:
+        2.38089   0.668324
+.meas dc o257 find v(ic_out) when v(vce_out)=5.4094620290303 cross=1:
+        2.38384   0.676481
+.meas dc o258 find v(ic_out) when v(vce_out)=5.4747147178961 cross=1:
+        2.38675   0.684638
+.meas dc o259 find v(ic_out) when v(vce_out)=5.51386649716218 cross=1:
+        2.38847   0.689532

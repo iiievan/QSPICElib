@@ -1,0 +1,199 @@
+{
+  "evaluation": 150,
+  "label": "best_multitemperature_fine",
+  "params": {
+    "AQBO": 0.297244498617917,
+    "AE": 0.0,
+    "AB": 1.6940032306225081,
+    "AEPI": 0.2965437369597777,
+    "AEX": 0.62,
+    "AC": 2.0,
+    "DAIS": 0.0,
+    "DVGBF": 0.05199880619913362,
+    "DVGBR": 0.01678563735431167,
+    "LEVEL": 504.0,
+    "TREF": 25.0,
+    "IS": 3.6320498430253196e-14,
+    "BF": 35.17103162965833,
+    "VEF": 616.0599613361478,
+    "VER": 42.04233718469271,
+    "IK": 1.0000000000000004,
+    "IBF": 4.8783379259057995e-12,
+    "MLF": 1.5088160425969683,
+    "BRI": 5.895661751493488,
+    "IBR": 9.197904774117981e-11,
+    "RE": 0.001,
+    "RBC": 0.016340198872024512,
+    "RBV": 0.03,
+    "RCC": 0.001030373742488083,
+    "RCV": 0.23327452445275515,
+    "SCRCV": 4.47264914309014,
+    "IHC": 3.061096985218815,
+    "AXI": 0.3345083177606244,
+    "CJE": 2e-09,
+    "CJC": 1.4446e-10,
+    "PE": 0.33,
+    "PC": 0.33,
+    "VDE": 0.75,
+    "VDC": 0.75,
+    "TAUE": 5e-09,
+    "TAUB": 5e-09,
+    "VGB": 1.2497098747588131,
+    "VGC": 1.11,
+    "VGJ": 1.0069114590952475,
+    "EXAVL": 0.0,
+    "RTH": 0.0
+  },
+  "fine_scan": true,
+  "elapsed_s": 1988.0149652999826,
+  "cost": 0.19309204643169883,
+  "curve_samples": [
+    {
+      "case": "output_Tp25_IB50mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.12190995967602387,
+      "curve": "IB50mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "output_Tp25_IB100mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.0751676583398083,
+      "curve": "IB100mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "output_Tp25_IB150mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.12925281847612718,
+      "curve": "IB150mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "output_Tp25_IB200mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.15959952803757393,
+      "curve": "IB200mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "output_Tp25_IB250mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.18277871979818866,
+      "curve": "IB250mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "output_Tp25_IB300mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.20686766059643516,
+      "curve": "IB300mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "output_Tp25_IB350mA",
+      "kind": "output",
+      "p95_relative_sampled": 0.19505609731095858,
+      "curve": "IB350mA",
+      "temperature_C": 25
+    },
+    {
+      "case": "gain_Tm25",
+      "kind": "gain",
+      "p95_relative_sampled": 0.13061402763773328,
+      "curve": "T-25",
+      "temperature_C": -25
+    },
+    {
+      "case": "saturation_Tm25",
+      "kind": "vcesat",
+      "p95_relative_sampled": 0.22740057412088427,
+      "curve": "T-25",
+      "temperature_C": -25
+    },
+    {
+      "case": "saturation_Tm25",
+      "kind": "vbesat",
+      "p95_relative_sampled": 0.06809443708219216,
+      "curve": "T-25",
+      "temperature_C": -25
+    },
+    {
+      "case": "gain_Tp25",
+      "kind": "gain",
+      "p95_relative_sampled": 0.12534968925119977,
+      "curve": "T+25",
+      "temperature_C": 25
+    },
+    {
+      "case": "saturation_Tp25",
+      "kind": "vcesat",
+      "p95_relative_sampled": 0.1901871865807653,
+      "curve": "T+25",
+      "temperature_C": 25
+    },
+    {
+      "case": "saturation_Tp25",
+      "kind": "vbesat",
+      "p95_relative_sampled": 0.07280871049896914,
+      "curve": "T+25",
+      "temperature_C": 25
+    },
+    {
+      "case": "gain_Tp75",
+      "kind": "gain",
+      "p95_relative_sampled": 0.11709682135141622,
+      "curve": "T+75",
+      "temperature_C": 75
+    },
+    {
+      "case": "saturation_Tp75",
+      "kind": "vcesat",
+      "p95_relative_sampled": 0.13823114225928543,
+      "curve": "T+75",
+      "temperature_C": 75
+    },
+    {
+      "case": "saturation_Tp75",
+      "kind": "vbesat",
+      "p95_relative_sampled": 0.07101781080875992,
+      "curve": "T+75",
+      "temperature_C": 75
+    },
+    {
+      "case": "gain_Tp125",
+      "kind": "gain",
+      "p95_relative_sampled": 0.16200725616007178,
+      "curve": "T+125",
+      "temperature_C": 125
+    },
+    {
+      "case": "saturation_Tp125",
+      "kind": "vcesat",
+      "p95_relative_sampled": 0.19825664372503274,
+      "curve": "T+125",
+      "temperature_C": 125
+    },
+    {
+      "case": "saturation_Tp125",
+      "kind": "vbesat",
+      "p95_relative_sampled": 0.07286214133931548,
+      "curve": "T+125",
+      "temperature_C": 125
+    }
+  ],
+  "guard_values": {
+    "CHECK_GAIN_IC_MIN": 0.00150298,
+    "CHECK_GAIN_IC_MAX": 16.0031,
+    "CHECK_GAIN_SCAN_END": 1.0,
+    "CHECK_GAIN_VBE_END": 2.2,
+    "CHECK_HFE_02": 23.2409,
+    "CHECK_HFE_1": 14.7056,
+    "CHECK_VCE_15": 0.279059,
+    "CHECK_VBE_15": 0.862467,
+    "CHECK_IB_15": 0.3
+  },
+  "table_guards_pass": true,
+  "status": "EVALUATED",
+  "duration_s": 13.756982899969444
+}

@@ -1,0 +1,2 @@
+.meas tran cobo_cos integ v(proj) from=10u to=20u:
+     -2.81757e-12

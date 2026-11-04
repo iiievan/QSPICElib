@@ -1,0 +1,13 @@
+{
+  "type": "GAIN_COVERAGE",
+  "case": "gain_Tm25",
+  "ic_min_A": 2.10093e-10,
+  "ic_max_A": 28.8294,
+  "vbe_end_V": 2.2,
+  "required_ic_max_A": 4.97532683558784,
+  "measured_target_count": 106,
+  "target_count": 106,
+  "missing_target_names": [],
+  "missing_guard_names": [],
+  "coverage_complete": true
+}

@@ -1,0 +1,22 @@
+* MEXTRAM crash diagnostic ONLY; no thermal parameter extraction
+V_TEST c 0 DC 10 AC 1
+R_EOPEN e 0 1T
+Q_TEST c 0 e FJP5027_DC25_CANDIDATE_V2
+* DC calibration candidate; not a vendor model. See extraction provenance.
+* Fit domain: DC at 25 C. Full-temperature and dynamic acceptance remain separate.
+* TF/TR/CJE/CJC are retained unless explicitly changed in a later charge extraction.
+* No avalanche, secondary breakdown, SOA failure or self-heating is implemented.
+.model FJP5027_DC25_CANDIDATE_V2 NPN(
++ IS=1.4908513064334e-13 NF=1 BF=19.8835210290589 IKF=2.62950900106785 VAF=14.0085477252184
++ ISE=1e-12 NE=1.5 BR=8.06723462981205 NR=1 IKR=99.9888393913173
++ VAR=7.19150042273564 ISC=1e-12 NC=1.5 RB=0.138721898753965 RBM=0.138721898753965
++ IRB=0.01 RC=0.0876422087685555 RE=0.000399005844279684 CJE=2e-09 VJE=0.75
++ MJE=0.33 CJC=1.4446e-10 VJC=0.75 MJC=0.33 TF=1e-08
++ TR=3e-07 XTB=1.1 EG=1.11 XTI=3 TNOM=25
++ NK=0.668756459260162)
+
+.temp 25
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.ac dec 40 100k 10Meg
+.meas AC COBO_SOURCE_IM FIND imag(I(V_TEST)) AT=1Meg
+.end

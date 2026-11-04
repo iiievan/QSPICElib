@@ -1,0 +1,1036 @@
+{
+  "result": "MULTITEMPERATURE_RESEARCH_CANDIDATE_SAVED",
+  "max_evals": 150,
+  "original_hashes": {
+    "FJP5027.txt": "37b96a1d3c2640ffe2334674d3de69113da89ed626bbafa1ae03bbd415ac8545",
+    "profile.json": "f09341e84d4e3a3d24803c7bd74211bf1e0e7356fd8ddc97e84cb1ae6fe3f9bc",
+    "reference/curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813"
+  },
+  "protected_curves": [
+    {
+      "kind": "gain",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "output",
+      "curve": "IB100mA",
+      "temperature_C": 25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+125",
+      "temperature_C": 125,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T-25",
+      "temperature_C": -25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vcesat",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.2
+    }
+  ],
+  "applied": false,
+  "ac_diagnostics": {
+    "purpose": "LOCALIZE_CRASH_ONLY_NO_MODEL_ACCEPTANCE",
+    "cases": [
+      {
+        "id": "gp_ac",
+        "family": "gp",
+        "analysis": "ac",
+        "topology": "3pin",
+        "engine": "64",
+        "status": "COMPLETED_DIAGNOSTIC_ONLY",
+        "deck_sha256": "e3a559a189b461aa70f78d739adf0745b7d7c47596d2ff362f41eb6b5c89e760",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "measured_capacitance_pF": 60.0002994610429
+      },
+      {
+        "id": "gp_tran",
+        "family": "gp",
+        "analysis": "tran",
+        "topology": "3pin",
+        "engine": "64",
+        "status": "COMPLETED_DIAGNOSTIC_ONLY",
+        "deck_sha256": "a9ef5c295939308dee333d038f2929a8d65d566644a86b33e09ca7faa9c6e5b1",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "apparent_transient_capacitance_pF": 60.00141354564454
+      },
+      {
+        "id": "mex_op",
+        "family": "mex",
+        "analysis": "op",
+        "topology": "3pin",
+        "engine": "64",
+        "status": "COMPLETED_DIAGNOSTIC_ONLY",
+        "deck_sha256": "892d269dd42d99007d0c3baa12eeb9848ba2f161f26fa5d3859b1b3a91307044",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+      },
+      {
+        "id": "mex_dc",
+        "family": "mex",
+        "analysis": "dc",
+        "topology": "3pin",
+        "engine": "64",
+        "status": "COMPLETED_DIAGNOSTIC_ONLY",
+        "deck_sha256": "fe17ebbfd2c27d18e916298ff42e1586dcd3af67f50413df3c6df40edaf5b3b6",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+      },
+      {
+        "id": "mex_ac3",
+        "family": "mex",
+        "analysis": "ac",
+        "topology": "3pin",
+        "engine": "64",
+        "status": "FAILED",
+        "deck_sha256": "d5eaea7dce168ecd70e6b4edd6f926ca9523d2f5bce8e54a521e4895580e2c6f",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "error": "SuiteError: QSPICE64.exe: exit 3221225477; see D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\temperature_results\\20261104T181617.071338Z\\ac_diagnostics\\mex_ac3\\simulator.stderr.log"
+      },
+      {
+        "id": "mex_tran3",
+        "family": "mex",
+        "analysis": "tran",
+        "topology": "3pin",
+        "engine": "64",
+        "status": "COMPLETED_DIAGNOSTIC_ONLY",
+        "deck_sha256": "9cedd068d754f287886efd0607f695d1ba9330fbc0d4995eb8afb57e020533e2",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "apparent_transient_capacitance_pF": 89.68603860148632
+      },
+      {
+        "id": "mex_ac4",
+        "family": "mex",
+        "analysis": "ac",
+        "topology": "4pin",
+        "engine": "64",
+        "status": "FAILED",
+        "deck_sha256": "736d2d13a8e55980e35dde9d5dbdec7af1d1311f6a2df03e0ae8726f1edb39a7",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "error": "SuiteError: QSPICE64.exe: exit 3221225477; see D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\temperature_results\\20261104T181617.071338Z\\ac_diagnostics\\mex_ac4\\simulator.stderr.log"
+      },
+      {
+        "id": "mex_ac5_clamped",
+        "family": "mex",
+        "analysis": "ac",
+        "topology": "5pin_clamped",
+        "engine": "64",
+        "status": "FAILED",
+        "deck_sha256": "277540fd1549ba9182265ccd18a1a5203810dfdb2e07713bc41b8f175470bcf8",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "error": "SuiteError: Unknown/ignored diagnostic model parameter"
+      },
+      {
+        "id": "mex_tran5_clamped",
+        "family": "mex",
+        "analysis": "tran",
+        "topology": "5pin_clamped",
+        "engine": "64",
+        "status": "FAILED",
+        "deck_sha256": "3a70d96abde5ae126c747770322529367965cc43f3d42a0892469170f7afe330",
+        "engine_sha256": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7",
+        "error": "SuiteError: Unknown/ignored diagnostic model parameter"
+      },
+      {
+        "id": "mex_ac3_other",
+        "family": "mex",
+        "analysis": "ac",
+        "topology": "3pin",
+        "engine": "80",
+        "status": "FAILED",
+        "deck_sha256": "d5eaea7dce168ecd70e6b4edd6f926ca9523d2f5bce8e54a521e4895580e2c6f",
+        "engine_sha256": "e6d8ede1373d06e9be31944986e461507055815119cfc48ba6b6b9bf03c40323",
+        "error": "SuiteError: QSPICE80.exe: exit 3221225477; see D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\temperature_results\\20261104T181617.071338Z\\ac_diagnostics\\mex_ac3_other\\simulator.stderr.log"
+      },
+      {
+        "id": "mex_ac4_other",
+        "family": "mex",
+        "analysis": "ac",
+        "topology": "4pin",
+        "engine": "80",
+        "status": "FAILED",
+        "deck_sha256": "736d2d13a8e55980e35dde9d5dbdec7af1d1311f6a2df03e0ae8726f1edb39a7",
+        "engine_sha256": "e6d8ede1373d06e9be31944986e461507055815119cfc48ba6b6b9bf03c40323",
+        "error": "SuiteError: QSPICE80.exe: exit 3221225477; see D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\temperature_results\\20261104T181617.071338Z\\ac_diagnostics\\mex_ac4_other\\simulator.stderr.log"
+      },
+      {
+        "id": "mex_ac5_clamped_other",
+        "family": "mex",
+        "analysis": "ac",
+        "topology": "5pin_clamped",
+        "engine": "80",
+        "status": "FAILED",
+        "deck_sha256": "277540fd1549ba9182265ccd18a1a5203810dfdb2e07713bc41b8f175470bcf8",
+        "engine_sha256": "e6d8ede1373d06e9be31944986e461507055815119cfc48ba6b6b9bf03c40323",
+        "error": "SuiteError: Unknown/ignored diagnostic model parameter"
+      }
+    ],
+    "thermal_variant": "RTH=1 CTH=1n are diagnostic placeholders; external DT=0 clamps temperature; these are not extracted device thermal values"
+  },
+  "tool_hashes": {
+    "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+    "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+    "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+  },
+  "starting": {
+    "evaluation": 1,
+    "label": "saved_mex_all_temperatures",
+    "params": {
+      "LEVEL": 504.0,
+      "TREF": 25.0,
+      "IS": 2.5621231571740116e-14,
+      "BF": 35.167556219634,
+      "VEF": 618.4048138720947,
+      "VER": 42.04233718469271,
+      "IK": 1.0000000000000004,
+      "IBF": 4.8783379259057995e-12,
+      "MLF": 1.5088160425969683,
+      "BRI": 6.354933872801175,
+      "IBR": 9.197904774117981e-11,
+      "RE": 0.001,
+      "RBC": 0.016849049531838647,
+      "RBV": 0.03,
+      "RCC": 0.001030373742488083,
+      "RCV": 0.2607720659456593,
+      "SCRCV": 6.654289443734251,
+      "IHC": 3.8048583633022672,
+      "AXI": 0.3345083177606244,
+      "CJE": 2e-09,
+      "CJC": 1.4446e-10,
+      "PE": 0.33,
+      "PC": 0.33,
+      "VDE": 0.75,
+      "VDC": 0.75,
+      "TAUE": 5e-09,
+      "TAUB": 5e-09,
+      "VGB": 1.11,
+      "VGC": 1.11,
+      "VGJ": 1.11,
+      "EXAVL": 0.0,
+      "RTH": 0.0
+    },
+    "fine_scan": false,
+    "elapsed_s": 5.806939099973533,
+    "cost": 1.7481848184046638,
+    "curve_samples": [
+      {
+        "case": "output_Tp25_IB50mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.13728757992381246,
+        "curve": "IB50mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB100mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.08641804739057687,
+        "curve": "IB100mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB150mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.13480747476577704,
+        "curve": "IB150mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB200mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.1609309037027557,
+        "curve": "IB200mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB250mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.18081595631073225,
+        "curve": "IB250mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB300mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.20283902914851235,
+        "curve": "IB300mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB350mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.18921705259880092,
+        "curve": "IB350mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tm25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.22116537361294591,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.27362958088574024,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.05146820614814381,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "gain_Tp25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.12132943939492649,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.17057110074825144,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.08585159266684234,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tp75",
+        "kind": "gain",
+        "p95_relative_sampled": 0.2356942470163845,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.27613871600842327,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.12302050222428074,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "gain_Tp125",
+        "kind": "gain",
+        "p95_relative_sampled": 0.3275314847703044,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.5910260346782753,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.17645997393652216,
+        "curve": "T+125",
+        "temperature_C": 125
+      }
+    ],
+    "guard_values": {
+      "CHECK_GAIN_IC_MIN": 0.000331162,
+      "CHECK_GAIN_IC_MAX": 16.2453,
+      "CHECK_GAIN_SCAN_END": 1.0,
+      "CHECK_GAIN_VBE_END": 2.2,
+      "CHECK_HFE_02": 22.1901,
+      "CHECK_HFE_1": 14.4187,
+      "CHECK_VCE_15": 0.271376,
+      "CHECK_VBE_15": 0.87119,
+      "CHECK_IB_15": 0.3
+    },
+    "table_guards_pass": true,
+    "status": "EVALUATED",
+    "duration_s": 15.52994600002421
+  },
+  "explicit_defaults": {
+    "evaluation": 2,
+    "label": "explicit_temperature_defaults",
+    "params": {
+      "AQBO": 0.3,
+      "AE": 0.0,
+      "AB": 1.0,
+      "AEPI": 2.5,
+      "AEX": 0.62,
+      "AC": 2.0,
+      "DAIS": 0.0,
+      "DVGBF": 0.05,
+      "DVGBR": 0.045,
+      "LEVEL": 504.0,
+      "TREF": 25.0,
+      "IS": 2.5621231571740116e-14,
+      "BF": 35.167556219634,
+      "VEF": 618.4048138720947,
+      "VER": 42.04233718469271,
+      "IK": 1.0000000000000004,
+      "IBF": 4.8783379259057995e-12,
+      "MLF": 1.5088160425969683,
+      "BRI": 6.354933872801175,
+      "IBR": 9.197904774117981e-11,
+      "RE": 0.001,
+      "RBC": 0.016849049531838647,
+      "RBV": 0.03,
+      "RCC": 0.001030373742488083,
+      "RCV": 0.2607720659456593,
+      "SCRCV": 6.654289443734251,
+      "IHC": 3.8048583633022672,
+      "AXI": 0.3345083177606244,
+      "CJE": 2e-09,
+      "CJC": 1.4446e-10,
+      "PE": 0.33,
+      "PC": 0.33,
+      "VDE": 0.75,
+      "VDC": 0.75,
+      "TAUE": 5e-09,
+      "TAUB": 5e-09,
+      "VGB": 1.11,
+      "VGC": 1.11,
+      "VGJ": 1.11,
+      "EXAVL": 0.0,
+      "RTH": 0.0
+    },
+    "fine_scan": false,
+    "elapsed_s": 21.347274300002027,
+    "cost": 1.7481848184046638,
+    "curve_samples": [
+      {
+        "case": "output_Tp25_IB50mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.13728757992381246,
+        "curve": "IB50mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB100mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.08641804739057687,
+        "curve": "IB100mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB150mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.13480747476577704,
+        "curve": "IB150mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB200mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.1609309037027557,
+        "curve": "IB200mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB250mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.18081595631073225,
+        "curve": "IB250mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB300mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.20283902914851235,
+        "curve": "IB300mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB350mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.18921705259880092,
+        "curve": "IB350mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tm25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.22116537361294591,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.27362958088574024,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.05146820614814381,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "gain_Tp25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.12132943939492649,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.17057110074825144,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.08585159266684234,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tp75",
+        "kind": "gain",
+        "p95_relative_sampled": 0.2356942470163845,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.27613871600842327,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.12302050222428074,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "gain_Tp125",
+        "kind": "gain",
+        "p95_relative_sampled": 0.3275314847703044,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.5910260346782753,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.17645997393652216,
+        "curve": "T+125",
+        "temperature_C": 125
+      }
+    ],
+    "guard_values": {
+      "CHECK_GAIN_IC_MIN": 0.000331162,
+      "CHECK_GAIN_IC_MAX": 16.2453,
+      "CHECK_GAIN_SCAN_END": 1.0,
+      "CHECK_GAIN_VBE_END": 2.2,
+      "CHECK_HFE_02": 22.1901,
+      "CHECK_HFE_1": 14.4187,
+      "CHECK_VCE_15": 0.271376,
+      "CHECK_VBE_15": 0.87119,
+      "CHECK_IB_15": 0.3
+    },
+    "table_guards_pass": true,
+    "status": "EVALUATED",
+    "duration_s": 15.40637489996152
+  },
+  "temperature_seed": {
+    "evaluation": 3,
+    "label": "estimated_temperature_seed",
+    "params": {
+      "AQBO": 0.3,
+      "AE": 0.0,
+      "AB": 1.0,
+      "AEPI": 3.0,
+      "AEX": 0.62,
+      "AC": 2.0,
+      "DAIS": 0.0,
+      "DVGBF": 0.08,
+      "DVGBR": 0.045,
+      "LEVEL": 504.0,
+      "TREF": 25.0,
+      "IS": 1.0248492628696047e-13,
+      "BF": 35.167556219634,
+      "VEF": 618.4048138720947,
+      "VER": 42.04233718469271,
+      "IK": 1.0000000000000004,
+      "IBF": 4.8783379259057995e-12,
+      "MLF": 1.5088160425969683,
+      "BRI": 6.354933872801175,
+      "IBR": 9.197904774117981e-11,
+      "RE": 0.001,
+      "RBC": 0.016849049531838647,
+      "RBV": 0.03,
+      "RCC": 0.001030373742488083,
+      "RCV": 0.2607720659456593,
+      "SCRCV": 6.654289443734251,
+      "IHC": 3.8048583633022672,
+      "AXI": 0.3345083177606244,
+      "CJE": 2e-09,
+      "CJC": 1.4446e-10,
+      "PE": 0.33,
+      "PC": 0.33,
+      "VDE": 0.75,
+      "VDC": 0.75,
+      "TAUE": 5e-09,
+      "TAUB": 5e-09,
+      "VGB": 1.24,
+      "VGC": 1.17,
+      "VGJ": 1.17,
+      "EXAVL": 0.0,
+      "RTH": 0.0
+    },
+    "fine_scan": false,
+    "elapsed_s": 36.764048799988814,
+    "cost": 13.702963035993863,
+    "curve_samples": [
+      {
+        "case": "output_Tp25_IB50mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.11691275292004802,
+        "curve": "IB50mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB100mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.22220899629906718,
+        "curve": "IB100mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB150mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.286022199776396,
+        "curve": "IB150mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB200mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.32476925896337766,
+        "curve": "IB200mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB250mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.354618345468459,
+        "curve": "IB250mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB300mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.3811669885256127,
+        "curve": "IB300mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB350mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.37803348091492955,
+        "curve": "IB350mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tm25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.3871314557348163,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 3.915679740029998,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.04050799860841953,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "gain_Tp25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.3926649798516127,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 1.492105761894601,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.04152205037967671,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tp75",
+        "kind": "gain",
+        "p95_relative_sampled": 0.49002101894064437,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vcesat",
+        "p95_relative_sampled": 1.8140696887051373,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.05080804828484972,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "gain_Tp125",
+        "kind": "gain",
+        "p95_relative_sampled": 0.6326506784402884,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vcesat",
+        "p95_relative_sampled": 2.9530486199423476,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.07223308239926467,
+        "curve": "T+125",
+        "temperature_C": 125
+      }
+    ],
+    "guard_values": {
+      "CHECK_GAIN_IC_MIN": 0.00469192,
+      "CHECK_GAIN_IC_MAX": 8.55084,
+      "CHECK_GAIN_SCAN_END": 1.0,
+      "CHECK_GAIN_VBE_END": 2.2,
+      "CHECK_HFE_02": 25.3749,
+      "CHECK_HFE_1": 14.4186,
+      "CHECK_VCE_15": 0.555907,
+      "CHECK_VBE_15": 0.836729,
+      "CHECK_IB_15": 0.3
+    },
+    "table_guards_pass": true,
+    "status": "EVALUATED",
+    "duration_s": 13.063472000008915
+  },
+  "blocks": [
+    {
+      "keys": [
+        "VGB",
+        "DVGBF",
+        "AEPI",
+        "VGJ",
+        "DVGBR",
+        "AB"
+      ],
+      "evaluations": 48,
+      "reason": "Allocated evaluation budget reached; best measured point retained"
+    },
+    {
+      "keys": [
+        "IS",
+        "BF",
+        "VEF",
+        "RCV",
+        "SCRCV",
+        "IHC",
+        "BRI",
+        "RBC"
+      ],
+      "evaluations": 49,
+      "reason": "Allocated evaluation budget reached; best measured point retained"
+    },
+    {
+      "keys": [
+        "VGB",
+        "DVGBF",
+        "AEPI",
+        "AQBO",
+        "IS",
+        "BF",
+        "RCV",
+        "IHC",
+        "BRI"
+      ],
+      "evaluations": 49,
+      "reason": "Allocated evaluation budget reached; best measured point retained"
+    }
+  ],
+  "best_fine": {
+    "evaluation": 150,
+    "label": "best_multitemperature_fine",
+    "params": {
+      "AQBO": 0.297244498617917,
+      "AE": 0.0,
+      "AB": 1.6940032306225081,
+      "AEPI": 0.2965437369597777,
+      "AEX": 0.62,
+      "AC": 2.0,
+      "DAIS": 0.0,
+      "DVGBF": 0.05199880619913362,
+      "DVGBR": 0.01678563735431167,
+      "LEVEL": 504.0,
+      "TREF": 25.0,
+      "IS": 3.6320498430253196e-14,
+      "BF": 35.17103162965833,
+      "VEF": 616.0599613361478,
+      "VER": 42.04233718469271,
+      "IK": 1.0000000000000004,
+      "IBF": 4.8783379259057995e-12,
+      "MLF": 1.5088160425969683,
+      "BRI": 5.895661751493488,
+      "IBR": 9.197904774117981e-11,
+      "RE": 0.001,
+      "RBC": 0.016340198872024512,
+      "RBV": 0.03,
+      "RCC": 0.001030373742488083,
+      "RCV": 0.23327452445275515,
+      "SCRCV": 4.47264914309014,
+      "IHC": 3.061096985218815,
+      "AXI": 0.3345083177606244,
+      "CJE": 2e-09,
+      "CJC": 1.4446e-10,
+      "PE": 0.33,
+      "PC": 0.33,
+      "VDE": 0.75,
+      "VDC": 0.75,
+      "TAUE": 5e-09,
+      "TAUB": 5e-09,
+      "VGB": 1.2497098747588131,
+      "VGC": 1.11,
+      "VGJ": 1.0069114590952475,
+      "EXAVL": 0.0,
+      "RTH": 0.0
+    },
+    "fine_scan": true,
+    "elapsed_s": 1988.0149652999826,
+    "cost": 0.19309204643169883,
+    "curve_samples": [
+      {
+        "case": "output_Tp25_IB50mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.12190995967602387,
+        "curve": "IB50mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB100mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.0751676583398083,
+        "curve": "IB100mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB150mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.12925281847612718,
+        "curve": "IB150mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB200mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.15959952803757393,
+        "curve": "IB200mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB250mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.18277871979818866,
+        "curve": "IB250mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB300mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.20686766059643516,
+        "curve": "IB300mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "output_Tp25_IB350mA",
+        "kind": "output",
+        "p95_relative_sampled": 0.19505609731095858,
+        "curve": "IB350mA",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tm25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.13061402763773328,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.22740057412088427,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "saturation_Tm25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.06809443708219216,
+        "curve": "T-25",
+        "temperature_C": -25
+      },
+      {
+        "case": "gain_Tp25",
+        "kind": "gain",
+        "p95_relative_sampled": 0.12534968925119977,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.1901871865807653,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "saturation_Tp25",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.07280871049896914,
+        "curve": "T+25",
+        "temperature_C": 25
+      },
+      {
+        "case": "gain_Tp75",
+        "kind": "gain",
+        "p95_relative_sampled": 0.11709682135141622,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.13823114225928543,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "saturation_Tp75",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.07101781080875992,
+        "curve": "T+75",
+        "temperature_C": 75
+      },
+      {
+        "case": "gain_Tp125",
+        "kind": "gain",
+        "p95_relative_sampled": 0.16200725616007178,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vcesat",
+        "p95_relative_sampled": 0.19825664372503274,
+        "curve": "T+125",
+        "temperature_C": 125
+      },
+      {
+        "case": "saturation_Tp125",
+        "kind": "vbesat",
+        "p95_relative_sampled": 0.07286214133931548,
+        "curve": "T+125",
+        "temperature_C": 125
+      }
+    ],
+    "guard_values": {
+      "CHECK_GAIN_IC_MIN": 0.00150298,
+      "CHECK_GAIN_IC_MAX": 16.0031,
+      "CHECK_GAIN_SCAN_END": 1.0,
+      "CHECK_GAIN_VBE_END": 2.2,
+      "CHECK_HFE_02": 23.2409,
+      "CHECK_HFE_1": 14.7056,
+      "CHECK_VCE_15": 0.279059,
+      "CHECK_VBE_15": 0.862467,
+      "CHECK_IB_15": 0.3
+    },
+    "table_guards_pass": true,
+    "status": "EVALUATED",
+    "duration_s": 13.756982899969444
+  },
+  "protected_regressions": [],
+  "validation_summary": {
+    "PASS": 10,
+    "FAIL": 9,
+    "INVALID": 0
+  },
+  "evaluations": 150,
+  "native_counts": {
+    "engine_runs_started": 2250,
+    "qpost_runs_completed": 2250
+  }
+}

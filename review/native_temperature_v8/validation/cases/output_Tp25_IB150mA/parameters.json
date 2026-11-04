@@ -1,0 +1,6 @@
+{
+  "VCE_SWEEP": 8,
+  "R_COLLECTOR": 0.001,
+  "IB_TEST": 0.15,
+  "SCAN_STEP": 0.0005
+}

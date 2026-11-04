@@ -1,0 +1,45 @@
+* FJP5027 / output_Tp25_IB200mA / frozen model
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\bjt\01_output_gummel_leakage_dc.qsch
+V_SCAN scan 0 0
+E_COUT cout_drive 0 scan 0 {POL*VCE_SWEEP}
+R_COUT cout_drive cout_feed {R_COLLECTOR}
+V_ICOUT cout_feed c_out 0
+I_BOUT 0 b_out {POL*IB_TEST}
+X_OUT c_out b_out 0 0 DUT_BJT
+B_VCO vce_out 0 V={POL*V(c_out)}
+B_ICO ic_out 0 V={POL*I(V_ICOUT)}
+.temp 25
+.param VCE_SWEEP=8
+.param R_COLLECTOR=0.001
+.param IB_TEST=0.2
+.param IC_SAT_REF=5m
+.param VCE_GUMMEL=5
+.param VBE_START=0
+.param VBE_STOP=0.9
+.param VBLOCK_SCAN=20
+.param IB_FLOOR=1p
+.param SCAN_STEP=0.0005
+.options reltol=1e-5 abstol=1e-13 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.param POL=1
+* Independent MEXTRAM 504 starting/fitted candidate. Not vendor SPICE.
+* Fit domain: isothermal DC at -25/25/75/125 C. Read the temperature report.
+* Charge/transit/avalanche/thermal parameters are NOT extracted here.
+* Self-heating is disabled by RTH=0; no transient thermal impedance is claimed.
+.model FJP5027_MEXTRAM_DC25_CANDIDATE_V3 NPN(
++ AQBO=0.30919565803498 AE=0 AB=1.58335072317239 AEPI=0.238165357427909 AEX=0.62
++ AC=2 DAIS=0 DVGBF=0.0432789381710334 DVGBR=0.0215938761594345 LEVEL=504
++ TREF=25 IS=3.63204984302532e-14 BF=40.9619289016096 VEF=663.162781836839 VER=42.0423371846927
++ IK=0.962576579339957 IBF=3.27024409031111e-12 MLF=1.44266093324571 BRI=5.8940327923761 IBR=9.19939309011252e-11
++ RE=0.001 RBC=0.016336904900516 RBV=0.029999112518231 RCC=0.00103037374248808 RCV=0.204827722056095
++ SCRCV=4.42838000655518 IHC=2.06114708469111 AXI=0.347586723902527 CJE=2e-09 CJC=9.66455197629649e-11
++ PE=0.33 PC=0.33 VDE=0.75 VDC=0.75 TAUE=5e-09
++ TAUB=5e-09 VGB=1.23820435541847 VGC=1.11 VGJ=1.00307174903623 EXAVL=0
++ RTH=0)
+
+.subckt DUT_BJT C B E K
+Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+R_K K E 1u
+.ends DUT_BJT
+.meas DC OUTPUT_ID_MAX MAX V(ic_out)
+.end

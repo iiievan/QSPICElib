@@ -1,0 +1,1 @@
+.model BUL216 NPN(Is=483.4f Xti=3 Eg=1.11 Vaf=100 Bf=26.34 Ise=24.16p Ne=1.657 Ikf=.8275 Xtb=1.5 Br=3.693 Isc=10.02f Nr=1.004 Ikr=5.462 Rc=1.352 Cjc=172.9p Mjc=.4333 Vjc=.75 Fc=.5 Cje=1.109n Mje=.3333 Vje=.75 Tr=562.9n Tf=34.33n Itf=8.708 Xtf=25.21 Vtf=10 Rb=.1)

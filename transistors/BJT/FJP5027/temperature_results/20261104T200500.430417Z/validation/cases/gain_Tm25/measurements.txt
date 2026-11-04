@@ -1,0 +1,4 @@
+.meas dc hfe_0p2 find v(hfe_calc) when v(ic_gummel)=0.2 cross=1:
+          15.72   0.373556
+.meas dc hfe_1 find v(hfe_calc) when v(ic_gummel)=1 cross=1:
+        12.5306   0.413629

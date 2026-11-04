@@ -1,0 +1,272 @@
+.meas dc g00 find v(hfe_calc) when v(ic_gummel)=0.0199863492165197 cross=1:
+        27.5428  0.0514885
+.meas dc g01 find v(hfe_calc) when v(ic_gummel)=0.0236637315056127 cross=1:
+         27.707  0.0548082
+.meas dc g02 find v(hfe_calc) when v(ic_gummel)=0.0289803040898309 cross=1:
+        27.8594  0.0588149
+.meas dc g03 find v(hfe_calc) when v(ic_gummel)=0.0296402929278981 cross=1:
+         27.873   0.059262
+.meas dc g04 find v(hfe_calc) when v(ic_gummel)=0.0347010385198804 cross=1:
+        27.9484  0.0624013
+.meas dc g05 find v(hfe_calc) when v(ic_gummel)=0.035491309664775 cross=1:
+        27.9561  0.0628514
+.meas dc g06 find v(hfe_calc) when v(ic_gummel)=0.0408551415867856 cross=1:
+        27.9863  0.0656755
+.meas dc g07 find v(hfe_calc) when v(ic_gummel)=0.0420215224697269 cross=1:
+        27.9884  0.0662429
+.meas dc g08 find v(hfe_calc) when v(ic_gummel)=0.0467656016494092 cross=1:
+        27.9834  0.0684052
+.meas dc g09 find v(hfe_calc) when v(ic_gummel)=0.0481007213338495 cross=1:
+        27.9786  0.0689766
+.meas dc g10 find v(hfe_calc) when v(ic_gummel)=0.0520452703541809 cross=1:
+         27.957  0.0705807
+.meas dc g11 find v(hfe_calc) when v(ic_gummel)=0.0535311202626845 cross=1:
+        27.9463  0.0711555
+.meas dc g12 find v(hfe_calc) when v(ic_gummel)=0.0575958409085723 cross=1:
+        27.9107  0.0726549
+.meas dc g13 find v(hfe_calc) when v(ic_gummel)=0.0592401550674152 cross=1:
+         27.894  0.0732337
+.meas dc g14 find v(hfe_calc) when v(ic_gummel)=0.0637383736771979 cross=1:
+        27.8424  0.0747433
+.meas dc g15 find v(hfe_calc) when v(ic_gummel)=0.0651900258032171 cross=1:
+         27.824  0.0752093
+.meas dc g16 find v(hfe_calc) when v(ic_gummel)=0.0685781506545839 cross=1:
+        27.7784  0.0762609
+.meas dc g17 find v(hfe_calc) when v(ic_gummel)=0.0701400295111165 cross=1:
+        27.7562  0.0767295
+.meas dc g18 find v(hfe_calc) when v(ic_gummel)=0.0754658964957415 cross=1:
+        27.6752  0.0782585
+.meas dc g19 find v(hfe_calc) when v(ic_gummel)=0.0771845344088407 cross=1:
+        27.6476  0.0787307
+.meas dc g20 find v(hfe_calc) when v(ic_gummel)=0.0830454230618027 cross=1:
+        27.5486  0.0802718
+.meas dc g21 find v(hfe_calc) when v(ic_gummel)=0.0849366748617656 cross=1:
+        27.5153  0.0807481
+.meas dc g22 find v(hfe_calc) when v(ic_gummel)=0.0908730611787526 cross=1:
+        27.4068  0.0821823
+.meas dc g23 find v(hfe_calc) when v(ic_gummel)=0.0929427103531432 cross=1:
+        27.3678  0.0826625
+.meas dc g24 find v(hfe_calc) when v(ic_gummel)=0.102277399586297 cross=1:
+        27.1855  0.0847154
+.meas dc g25 find v(hfe_calc) when v(ic_gummel)=0.104606784476239 cross=1:
+        27.1386  0.0852013
+.meas dc g26 find v(hfe_calc) when v(ic_gummel)=0.138614684628951 cross=1:
+        26.4155  0.0913806
+.meas dc g27 find v(hfe_calc) when v(ic_gummel)=0.142572020522714 cross=1:
+        26.3285  0.0920105
+.meas dc g28 find v(hfe_calc) when v(ic_gummel)=0.149981924106749 cross=1:
+        26.1648  0.0931496
+.meas dc g29 find v(hfe_calc) when v(ic_gummel)=0.153397787525176 cross=1:
+        26.0891  0.0936584
+.meas dc g30 find v(hfe_calc) when v(ic_gummel)=0.157777168917718 cross=1:
+        25.9918  0.0942968
+.meas dc g31 find v(hfe_calc) when v(ic_gummel)=0.161370339302155 cross=1:
+         25.912  0.0948092
+.meas dc g32 find v(hfe_calc) when v(ic_gummel)=0.165977330528362 cross=1:
+        25.8095  0.0954521
+.meas dc g33 find v(hfe_calc) when v(ic_gummel)=0.170715847586703 cross=1:
+        25.7041  0.0960974
+.meas dc g34 find v(hfe_calc) when v(ic_gummel)=0.174603929581852 cross=1:
+        25.6176  0.0966157
+.meas dc g35 find v(hfe_calc) when v(ic_gummel)=0.179588471866322 cross=1:
+        25.5069  0.0972662
+.meas dc g36 find v(hfe_calc) when v(ic_gummel)=0.20099197048667 cross=1:
+        25.0335  0.0998957
+.meas dc g37 find v(hfe_calc) when v(ic_gummel)=0.206729830900975 cross=1:
+        24.9075   0.100561
+.meas dc g38 find v(hfe_calc) when v(ic_gummel)=0.21383219838782 cross=1:
+        24.7522   0.101362
+.meas dc g39 find v(hfe_calc) when v(ic_gummel)=0.219936932790149 cross=1:
+        24.6193   0.102034
+.meas dc g40 find v(hfe_calc) when v(ic_gummel)=0.227493040749011 cross=1:
+        24.4558   0.102844
+.meas dc g41 find v(hfe_calc) when v(ic_gummel)=0.233987781029575 cross=1:
+         24.316   0.103523
+.meas dc g42 find v(hfe_calc) when v(ic_gummel)=0.242026617036264 cross=1:
+        24.1442   0.104342
+.meas dc g43 find v(hfe_calc) when v(ic_gummel)=0.248936279034972 cross=1:
+        23.9976   0.105029
+.meas dc g44 find v(hfe_calc) when v(ic_gummel)=0.257488682559943 cross=1:
+        23.8175   0.105857
+.meas dc g45 find v(hfe_calc) when v(ic_gummel)=0.264839394706379 cross=1:
+        23.6639   0.106551
+.meas dc g46 find v(hfe_calc) when v(ic_gummel)=0.283349525477248 cross=1:
+        23.2826   0.108233
+.meas dc g47 find v(hfe_calc) when v(ic_gummel)=0.29308422340832 cross=1:
+        23.0852   0.109081
+.meas dc g48 find v(hfe_calc) when v(ic_gummel)=0.303153364616294 cross=1:
+        22.8834   0.109936
+.meas dc g49 find v(hfe_calc) when v(ic_gummel)=0.31180814527191 cross=1:
+        22.7117   0.110652
+.meas dc g50 find v(hfe_calc) when v(ic_gummel)=0.322520561682552 cross=1:
+        22.5017   0.111518
+.meas dc g51 find v(hfe_calc) when v(ic_gummel)=0.345062139304177 cross=1:
+        22.0686   0.113267
+.meas dc g52 find v(hfe_calc) when v(ic_gummel)=0.35491338120616 cross=1:
+         21.883   0.114003
+.meas dc g53 find v(hfe_calc) when v(ic_gummel)=0.367106712223455 cross=1:
+        21.6565   0.114893
+.meas dc g54 find v(hfe_calc) when v(ic_gummel)=0.379718954809516 cross=1:
+        21.4257   0.115789
+.meas dc g55 find v(hfe_calc) when v(ic_gummel)=0.390559620453507 cross=1:
+        21.2302   0.116541
+.meas dc g56 find v(hfe_calc) when v(ic_gummel)=0.417855979495119 cross=1:
+        20.7497   0.118365
+.meas dc g57 find v(hfe_calc) when v(ic_gummel)=0.429785426007267 cross=1:
+        20.5448   0.119134
+.meas dc g58 find v(hfe_calc) when v(ic_gummel)=0.444551045573106 cross=1:
+        20.2953   0.120063
+.meas dc g59 find v(hfe_calc) when v(ic_gummel)=0.470296517121807 cross=1:
+        19.8712   0.121628
+.meas dc g60 find v(hfe_calc) when v(ic_gummel)=0.486453927389232 cross=1:
+        19.6119   0.122578
+.meas dc g61 find v(hfe_calc) when v(ic_gummel)=0.514625401339204 cross=1:
+         19.172   0.124179
+.meas dc g62 find v(hfe_calc) when v(ic_gummel)=0.529317535711642 cross=1:
+        18.9485   0.124989
+.meas dc g63 find v(hfe_calc) when v(ic_gummel)=0.544429118505894 cross=1:
+        18.7228   0.125804
+.meas dc g64 find v(hfe_calc) when v(ic_gummel)=0.556828582780719 cross=1:
+        18.5406    0.12646
+.meas dc g65 find v(hfe_calc) when v(ic_gummel)=0.572724763483635 cross=1:
+         18.311   0.127287
+.meas dc g66 find v(hfe_calc) when v(ic_gummel)=0.585768665807617 cross=1:
+        18.1258   0.127952
+.meas dc g67 find v(hfe_calc) when v(ic_gummel)=0.602491882203102 cross=1:
+        17.8925    0.12879
+.meas dc g68 find v(hfe_calc) when v(ic_gummel)=0.616212853385724 cross=1:
+        17.7045   0.129465
+.meas dc g69 find v(hfe_calc) when v(ic_gummel)=0.644601189771678 cross=1:
+        17.3249   0.130828
+.meas dc g70 find v(hfe_calc) when v(ic_gummel)=0.663004026615941 cross=1:
+        17.0853   0.131688
+.meas dc g71 find v(hfe_calc) when v(ic_gummel)=0.725497002135711 cross=1:
+        16.3078   0.134492
+.meas dc g72 find v(hfe_calc) when v(ic_gummel)=0.754658489551615 cross=1:
+         15.963   0.135743
+.meas dc g73 find v(hfe_calc) when v(ic_gummel)=0.789424883891165 cross=1:
+        15.5657   0.137191
+.meas dc g74 find v(hfe_calc) when v(ic_gummel)=0.807403011734328 cross=1:
+         15.366   0.137924
+.meas dc g75 find v(hfe_calc) when v(ic_gummel)=0.82579175043159 cross=1:
+        15.1655   0.138662
+.meas dc g76 find v(hfe_calc) when v(ic_gummel)=0.945257966222373 cross=1:
+        13.9501    0.14321
+.meas dc g77 find v(hfe_calc) when v(ic_gummel)=0.966784990399454 cross=1:
+        13.7458    0.14399
+.meas dc g78 find v(hfe_calc) when v(ic_gummel)=0.994385911285288 cross=1:
+          13.49   0.144974
+.meas dc g79 find v(hfe_calc) when v(ic_gummel)=1.0170332168082 cross=1:
+         13.285   0.145769
+.meas dc g80 find v(hfe_calc) when v(ic_gummel)=1.04606868346743 cross=1:
+        13.0285   0.146772
+.meas dc g81 find v(hfe_calc) when v(ic_gummel)=1.06989154097783 cross=1:
+         12.823   0.147583
+.meas dc g82 find v(hfe_calc) when v(ic_gummel)=1.10043606956712 cross=1:
+        12.5659   0.148607
+.meas dc g83 find v(hfe_calc) when v(ic_gummel)=1.16416608618126 cross=1:
+        12.0514   0.150691
+.meas dc g84 find v(hfe_calc) when v(ic_gummel)=1.19740036158739 cross=1:
+        11.7941   0.151753
+.meas dc g85 find v(hfe_calc) when v(ic_gummel)=1.26674591199974 cross=1:
+          11.28   0.153916
+.meas dc g86 find v(hfe_calc) when v(ic_gummel)=1.30291047190371 cross=1:
+        11.0234   0.155019
+.meas dc g87 find v(hfe_calc) when v(ic_gummel)=1.34767299569425 cross=1:
+        10.7161   0.156363
+.meas dc g88 find v(hfe_calc) when v(ic_gummel)=1.38614795765944 cross=1:
+        10.4605   0.157501
+.meas dc g89 find v(hfe_calc) when v(ic_gummel)=1.43376811859414 cross=1:
+        10.1547   0.158887
+.meas dc g90 find v(hfe_calc) when v(ic_gummel)=1.47470102591369 cross=1:
+        9.90071   0.160062
+.meas dc g91 find v(hfe_calc) when v(ic_gummel)=1.52536555059123 cross=1:
+        9.59707   0.161495
+.meas dc g92 find v(hfe_calc) when v(ic_gummel)=1.56891348969034 cross=1:
+         9.3452    0.16271
+.meas dc g93 find v(hfe_calc) when v(ic_gummel)=1.67856784792713 cross=1:
+        8.74562    0.16571
+.meas dc g94 find v(hfe_calc) when v(ic_gummel)=1.72648958733374 cross=1:
+        8.49815   0.166997
+.meas dc g95 find v(hfe_calc) when v(ic_gummel)=1.84715723978598 cross=1:
+        7.91108   0.170184
+.meas dc g96 find v(hfe_calc) when v(ic_gummel)=1.89988934833491 cross=1:
+        7.66964   0.171555
+.meas dc g97 find v(hfe_calc) when v(ic_gummel)=1.96516155543443 cross=1:
+        7.38266   0.173237
+.meas dc g98 find v(hfe_calc) when v(ic_gummel)=2.02126531082788 cross=1:
+        7.14605    0.17467
+.meas dc g99 find v(hfe_calc) when v(ic_gummel)=2.09070748549298 cross=1:
+        6.86531   0.176432
+.meas dc g100 find v(hfe_calc) when v(ic_gummel)=2.1503954745242 cross=1:
+        6.63425   0.177935
+.meas dc g101 find v(hfe_calc) when v(ic_gummel)=2.22427401849416 cross=1:
+        6.36069   0.179785
+.meas dc g102 find v(hfe_calc) when v(ic_gummel)=2.42026464568908 cross=1:
+        5.69639   0.184651
+.meas dc g103 find v(hfe_calc) when v(ic_gummel)=2.50341475931413 cross=1:
+        5.43924   0.186703
+.meas dc g104 find v(hfe_calc) when v(ic_gummel)=2.64839607046464 cross=1:
+        5.02264   0.190278
+.meas dc g105 find v(hfe_calc) when v(ic_gummel)=2.70871373413302 cross=1:
+        4.86042   0.191765
+.meas dc g106 find v(hfe_calc) when v(ic_gummel)=2.78604130732479 cross=1:
+         4.6614   0.193675
+.meas dc g107 find v(hfe_calc) when v(ic_gummel)=2.8655805083589 cross=1:
+        4.46667   0.195645
+.meas dc g108 find v(hfe_calc) when v(ic_gummel)=2.93084458394241 cross=1:
+         4.3141   0.197265
+.meas dc g109 find v(hfe_calc) when v(ic_gummel)=3.01451780011082 cross=1:
+        4.12763   0.199351
+.meas dc g110 find v(hfe_calc) when v(ic_gummel)=3.08316953316583 cross=1:
+        3.98197   0.201069
+.meas dc g111 find v(hfe_calc) when v(ic_gummel)=3.22520820269623 cross=1:
+        3.70051   0.204647
+.meas dc g112 find v(hfe_calc) when v(ic_gummel)=3.29865813640377 cross=1:
+         3.5649   0.206511
+.meas dc g113 find v(hfe_calc) when v(ic_gummel)=3.3737856274341 cross=1:
+        3.43283   0.208429
+.meas dc g114 find v(hfe_calc) when v(ic_gummel)=3.43124831589581 cross=1:
+        3.33613   0.209903
+.meas dc g115 find v(hfe_calc) when v(ic_gummel)=3.50939557045075 cross=1:
+        3.21037   0.211919
+.meas dc g116 find v(hfe_calc) when v(ic_gummel)=3.56916798240068 cross=1:
+        3.11846   0.213471
+.meas dc g117 find v(hfe_calc) when v(ic_gummel)=3.65045638043875 cross=1:
+        2.99915   0.215594
+.meas dc g118 find v(hfe_calc) when v(ic_gummel)=3.84018175374555 cross=1:
+        2.74431   0.220616
+.meas dc g119 find v(hfe_calc) when v(ic_gummel)=3.90559374416135 cross=1:
+        2.66355    0.22237
+.meas dc g120 find v(hfe_calc) when v(ic_gummel)=3.97211424705099 cross=1:
+        2.58489   0.224166
+.meas dc g121 find v(hfe_calc) when v(ic_gummel)=4.01709525175124 cross=1:
+         2.5336   0.225388
+.meas dc g122 find v(hfe_calc) when v(ic_gummel)=4.08551486060112 cross=1:
+         2.4584   0.227258
+.meas dc g123 find v(hfe_calc) when v(ic_gummel)=4.15510574875234 cross=1:
+        2.38527   0.229174
+.meas dc g124 find v(hfe_calc) when v(ic_gummel)=4.24973289299021 cross=1:
+        2.29093   0.231805
+.meas dc g125 find v(hfe_calc) when v(ic_gummel)=4.2978577059601 cross=1:
+        2.24511   0.233153
+.meas dc g126 find v(hfe_calc) when v(ic_gummel)=4.37105929185878 cross=1:
+        2.17804   0.235219
+.meas dc g127 find v(hfe_calc) when v(ic_gummel)=4.42055169984271 cross=1:
+        2.13444   0.236626
+.meas dc g128 find v(hfe_calc) when v(ic_gummel)=4.44551402000469 cross=1:
+        2.11295   0.237339
+.meas dc g129 find v(hfe_calc) when v(ic_gummel)=4.54675483595955 cross=1:
+        2.02919   0.240252
+.meas dc g130 find v(hfe_calc) when v(ic_gummel)=4.5724232634678 cross=1:
+        2.00878   0.240996
+.meas dc g131 find v(hfe_calc) when v(ic_gummel)=4.97532683558784 cross=1:
+        1.72715   0.252986
+.meas dc check_gain_ic_min min v(ic_gummel):
+     0.00138177 (at V_SCAN=0)
+.meas dc check_gain_ic_max max v(ic_gummel):
+        18.1602 (at V_SCAN=1)
+.meas dc check_gain_scan_end find v(scan) at=1:
+              1          1
+.meas dc check_gain_vbe_end find v(vbe) at=1:
+            2.2          1

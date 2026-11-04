@@ -1,0 +1,44 @@
+* FJP5027 / saturation_Tm25 / frozen model
+* D:\2.github\QSPICElib\transistors\Si\transistor_common_cir_v1\bjt\05_forced_beta_saturation_dc.qsch
+V_SCAN scan 0 0
+B_IC_FORCE 0 c_feed I={POL*(IC_START+(IC_STOP-IC_START)*V(scan))}
+V_IC c_feed collector 0
+B_IB_FORCE 0 b_feed I={POL*(IC_START+(IC_STOP-IC_START)*V(scan))/BETA_FORCED}
+V_IB b_feed base 0
+X_DUT collector base 0 0 DUT_BJT
+B_IC ic 0 V={POL*I(V_IC)}
+B_IB ib 0 V={POL*I(V_IB)}
+B_VCE vce 0 V={POL*V(collector)}
+B_VBE vbe 0 V={POL*V(base)}
+.temp -25
+.param IC_START=0.1
+.param IC_STOP=3
+.param BETA_FORCED=5
+.param IC_TEST=1.5
+.param SCAN_STEP=0.0005
+.options reltol=1e-5 abstol=1e-12 vntol=1e-8
+.dc V_SCAN 0 1 {SCAN_STEP}
+.param POL=1
+* Independent MEXTRAM 504 starting/fitted candidate. Not vendor SPICE.
+* Fit domain: isothermal DC at -25/25/75/125 C. Read the temperature report.
+* Charge/transit/avalanche/thermal parameters are NOT extracted here.
+* Self-heating is disabled by RTH=0; no transient thermal impedance is claimed.
+.model FJP5027_MEXTRAM_DC25_CANDIDATE_V3 NPN(
++ AQBO=0.30919565803498 AE=0 AB=1.58335072317239 AEPI=0.238165357427909 AEX=0.62
++ AC=2 DAIS=0 DVGBF=0.0432789381710334 DVGBR=0.0215938761594345 LEVEL=504
++ TREF=25 IS=3.63204984302532e-14 BF=40.9619289016096 VEF=663.162781836839 VER=42.0423371846927
++ IK=0.962576579339957 IBF=3.27024409031111e-12 MLF=1.44266093324571 BRI=5.8940327923761 IBR=9.19939309011252e-11
++ RE=0.001 RBC=0.016336904900516 RBV=0.029999112518231 RCC=0.00103037374248808 RCV=0.204827722056095
++ SCRCV=4.42838000655518 IHC=2.06114708469111 AXI=0.347586723902527 CJE=2e-09 CJC=9.66455197629649e-11
++ PE=0.33 PC=0.33 VDE=0.75 VDC=0.75 TAUE=5e-09
++ TAUB=5e-09 VGB=1.23820435541847 VGC=1.11 VGJ=1.00307174903623 EXAVL=0
++ RTH=0)
+
+.subckt DUT_BJT C B E K
+Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+R_K K E 1u
+.ends DUT_BJT
+.meas DC VCESAT_1P5 FIND V(vce) WHEN V(ic)=1.5 CROSS=1
+.meas DC VBESAT_1P5 FIND V(vbe) WHEN V(ic)=1.5 CROSS=1
+.meas DC IB_AT_1P5 FIND V(ib) WHEN V(ic)=1.5 CROSS=1
+.end

@@ -82,13 +82,13 @@ def cap_trials(run,current,p,cfg,args,state):
             print(f'Cobo engine {engine}: {exc}',flush=True)
     return dict(p),False
 
-def stage_validation(root,run,cfg,p,args):
+def stage_validation(root,run,cfg,p,args,model_renderer=power.render):
     stage=run/'candidate_workspace';stage.mkdir()
     shutil.copytree(root/'reference',stage/'reference')
     newcfg=dict(cfg,model_name=power.NAME,model_status='MEXTRAM_CANDIDATE_VALIDATION_ONLY',
       schematic_dir=str((root/cfg['schematic_dir']).resolve()))
     core.dump(stage/'profile.json',newcfg)
-    (stage/'FJP5027.txt').write_text(power.render(p),encoding='utf-8')
+    (stage/'FJP5027.txt').write_text(model_renderer(p),encoding='utf-8')
     before=set((stage/'results').glob('*'))
     a=['--only','output','gain','saturation','--engine',args.engine]
     if args.qspice_dir:a+=['--qspice-dir',args.qspice_dir]

@@ -1,0 +1,195 @@
+{
+  "status": "TRAN_COBO_CALIBRATED_AND_CONVERGED",
+  "method": "NATIVE_TRAN_SMALL_SIGNAL_ADMITTANCE",
+  "native_ac_status": "NOT_RUN_PREVIOUS_BUILD_CRASHED",
+  "corrections": [
+    {
+      "CJC_F": 9.664551976296493e-11,
+      "Cobo_F": 6.00396107319866e-11
+    }
+  ],
+  "tool_hashes": {
+    "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+    "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+    "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+  },
+  "gp": {
+    "rows": [
+      {
+        "id": "step_5ns",
+        "amp": 0.001,
+        "step": 5e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 5.999982199621362e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "step_2p5ns",
+        "amp": 0.001,
+        "step": 2.5e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.00001403060998e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "step_1p25ns",
+        "amp": 0.001,
+        "step": 1.25e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.00001403060998e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "half_amplitude",
+        "amp": 0.0005,
+        "step": 1.25e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.000026763005428e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "late_window",
+        "amp": 0.001,
+        "step": 1.25e-09,
+        "start": 3e-05,
+        "stop": 4e-05,
+        "Cobo_F": 6.000014030609979e-11,
+        "status": "MEASURED"
+      }
+    ],
+    "checks": {
+      "pass": true,
+      "relative_checks": {
+        "step_5_to_2p5": 5.305152363965782e-06,
+        "step_2p5_to_1p25": 0.0,
+        "amplitude": 2.1220609456307216e-06,
+        "settling": 2.220446049250313e-16,
+        "GP_vs_previous_AC": 7.957707437666883e-06
+      },
+      "Cobo_F": 6.000026763005428e-11
+    }
+  },
+  "initial": {
+    "rows": [
+      {
+        "id": "step_5ns",
+        "amp": 0.001,
+        "step": 5e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 8.968381043228302e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "step_2p5ns",
+        "amp": 0.001,
+        "step": 2.5e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 8.96841287421692e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "step_1p25ns",
+        "amp": 0.001,
+        "step": 1.25e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 8.96841287421692e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "half_amplitude",
+        "amp": 0.0005,
+        "step": 1.25e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 8.968444705205538e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "late_window",
+        "amp": 0.001,
+        "step": 1.25e-09,
+        "start": 3e-05,
+        "stop": 4e-05,
+        "Cobo_F": 8.968412874216919e-11,
+        "status": "MEASURED"
+      }
+    ],
+    "checks": {
+      "pass": true,
+      "relative_checks": {
+        "step_5_to_2p5": 3.5492331881270545e-06,
+        "step_2p5_to_1p25": 0.0,
+        "amplitude": 3.549233188016032e-06,
+        "settling": 1.1102230246251565e-16
+      },
+      "Cobo_F": 8.968444705205538e-11
+    }
+  },
+  "final": {
+    "rows": [
+      {
+        "id": "step_5ns",
+        "amp": 0.001,
+        "step": 5e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.003929242210042e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "step_2p5ns",
+        "amp": 0.001,
+        "step": 2.5e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.003929242210042e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "step_1p25ns",
+        "amp": 0.001,
+        "step": 1.25e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.00396107319866e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "half_amplitude",
+        "amp": 0.0005,
+        "step": 1.25e-09,
+        "start": 1e-05,
+        "stop": 2e-05,
+        "Cobo_F": 6.00396107319866e-11,
+        "status": "MEASURED"
+      },
+      {
+        "id": "late_window",
+        "amp": 0.001,
+        "step": 1.25e-09,
+        "start": 3e-05,
+        "stop": 4e-05,
+        "Cobo_F": 6.003961073198659e-11,
+        "status": "MEASURED"
+      }
+    ],
+    "checks": {
+      "pass": true,
+      "relative_checks": {
+        "step_5_to_2p5": 0.0,
+        "step_2p5_to_1p25": 5.3016647226789004e-06,
+        "amplitude": 0.0,
+        "settling": 2.220446049250313e-16
+      },
+      "Cobo_F": 6.00396107319866e-11
+    }
+  },
+  "CJC_F": 9.664551976296493e-11
+}

@@ -1,0 +1,360 @@
+.meas dc c00 find v(vce) when v(ic)=0.113185197126693 cross=1:
+      0.0356364 0.00454662
+.meas dc c01 find v(vce) when v(ic)=0.172973225806127 cross=1:
+      0.0396199  0.0251632
+.meas dc c02 find v(vce) when v(ic)=0.177577843623775 cross=1:
+      0.0399208   0.026751
+.meas dc c03 find v(vce) when v(ic)=0.186456977011985 cross=1:
+      0.0404986  0.0298128
+.meas dc c04 find v(vce) when v(ic)=0.191420537786047 cross=1:
+      0.0408201  0.0315243
+.meas dc c05 find v(vce) when v(ic)=0.196516324358389 cross=1:
+      0.0411491  0.0332815
+.meas dc c06 find v(vce) when v(ic)=0.201747669061492 cross=1:
+      0.0414857  0.0350854
+.meas dc c07 find v(vce) when v(ic)=0.207118274294181 cross=1:
+      0.0418301  0.0369373
+.meas dc c08 find v(vce) when v(ic)=0.212631847228553 cross=1:
+      0.0421825  0.0388386
+.meas dc c09 find v(vce) when v(ic)=0.219113097395638 cross=1:
+      0.0425952  0.0410735
+.meas dc c10 find v(vce) when v(ic)=0.224945977413029 cross=1:
+      0.0429652  0.0430848
+.meas dc c11 find v(vce) when v(ic)=0.230934131075407 cross=1:
+      0.0433438  0.0451497
+.meas dc c12 find v(vce) when v(ic)=0.237973254777368 cross=1:
+      0.0437871   0.047577
+.meas dc c13 find v(vce) when v(ic)=0.244308199876327 cross=1:
+      0.0441847  0.0497614
+.meas dc c14 find v(vce) when v(ic)=0.251754979753881 cross=1:
+      0.0446504  0.0523293
+.meas dc c15 find v(vce) when v(ic)=0.258456799992556 cross=1:
+      0.0450681  0.0546403
+.meas dc c16 find v(vce) when v(ic)=0.266334717496802 cross=1:
+      0.0455573  0.0573568
+.meas dc c17 find v(vce) when v(ic)=0.273424786790651 cross=1:
+      0.0459962  0.0598017
+.meas dc c18 find v(vce) when v(ic)=0.281758937465018 cross=1:
+      0.0465103  0.0626755
+.meas dc c19 find v(vce) when v(ic)=0.289259475295001 cross=1:
+      0.0469716  0.0652619
+.meas dc c20 find v(vce) when v(ic)=0.307162112705715 cross=1:
+      0.0480676  0.0714352
+.meas dc c21 find v(vce) when v(ic)=0.315338893421226 cross=1:
+      0.0485661  0.0742548
+.meas dc c22 find v(vce) when v(ic)=0.324950611078971 cross=1:
+      0.0491506  0.0775692
+.meas dc c23 find v(vce) when v(ic)=0.334855459434478 cross=1:
+      0.0497513  0.0809846
+.meas dc c24 find v(vce) when v(ic)=0.343769448334569 cross=1:
+      0.0502908  0.0840584
+.meas dc c25 find v(vce) when v(ic)=0.365045603200751 cross=1:
+      0.0515748   0.091395
+.meas dc c26 find v(vce) when v(ic)=0.374763444894218 cross=1:
+      0.0521598   0.094746
+.meas dc c27 find v(vce) when v(ic)=0.386186458343926 cross=1:
+      0.0528466   0.098685
+.meas dc c28 find v(vce) when v(ic)=0.396466899370204 cross=1:
+       0.053464    0.10223
+.meas dc c29 find v(vce) when v(ic)=0.408551642042947 cross=1:
+      0.0541892   0.106397
+.meas dc c30 find v(vce) when v(ic)=0.419427453380876 cross=1:
+      0.0548415   0.110147
+.meas dc c31 find v(vce) when v(ic)=0.430592783252293 cross=1:
+       0.055511   0.113998
+.meas dc c32 find v(vce) when v(ic)=0.443717720014 cross=1:
+      0.0562979   0.118523
+.meas dc c33 find v(vce) when v(ic)=0.455529666689914 cross=1:
+      0.0570063   0.122596
+.meas dc c34 find v(vce) when v(ic)=0.467656052203813 cross=1:
+      0.0577339   0.126778
+.meas dc c35 find v(vce) when v(ic)=0.481910717748936 cross=1:
+      0.0585899   0.131693
+.meas dc c36 find v(vce) when v(ic)=0.49473937760147 cross=1:
+      0.0593611   0.136117
+.meas dc c37 find v(vce) when v(ic)=0.507909541611416 cross=1:
+      0.0601539   0.140658
+.meas dc c38 find v(vce) when v(ic)=0.521430549607961 cross=1:
+      0.0609692   0.145321
+.meas dc c39 find v(vce) when v(ic)=0.535311243502645 cross=1:
+      0.0618077   0.150107
+.meas dc c40 find v(vce) when v(ic)=0.547502785356389 cross=1:
+      0.0625458   0.154311
+.meas dc c41 find v(vce) when v(ic)=0.562077532800192 cross=1:
+      0.0634304   0.159337
+.meas dc c42 find v(vce) when v(ic)=0.577040265965223 cross=1:
+      0.0643411   0.164497
+.meas dc c43 find v(vce) when v(ic)=0.592401595909312 cross=1:
+      0.0652792   0.169794
+.meas dc c44 find v(vce) when v(ic)=0.605893352225687 cross=1:
+      0.0661061   0.174446
+.meas dc c45 find v(vce) when v(ic)=0.622022480373994 cross=1:
+      0.0670984   0.180008
+.meas dc c46 find v(vce) when v(ic)=0.636188842832271 cross=1:
+      0.0679737   0.184893
+.meas dc c47 find v(vce) when v(ic)=0.650677839651252 cross=1:
+      0.0688729   0.189889
+.meas dc c48 find v(vce) when v(ic)=0.667999149120067 cross=1:
+      0.0699534   0.195862
+.meas dc c49 find v(vce) when v(ic)=0.68321261546065 cross=1:
+      0.0709079   0.201108
+.meas dc c50 find v(vce) when v(ic)=0.73096364914091 cross=1:
+      0.0739408   0.217574
+.meas dc c51 find v(vce) when v(ic)=0.747610754979333 cross=1:
+      0.0750129   0.223314
+.meas dc c52 find v(vce) when v(ic)=0.764637350105567 cross=1:
+      0.0761184   0.229185
+.meas dc c53 find v(vce) when v(ic)=0.779122148193527 cross=1:
+      0.0770663    0.23418
+.meas dc c54 find v(vce) when v(ic)=0.815014781951604 cross=1:
+      0.0794475   0.246557
+.meas dc c55 find v(vce) when v(ic)=0.830453501373331 cross=1:
+      0.0804872   0.251881
+.meas dc c56 find v(vce) when v(ic)=0.849366813474408 cross=1:
+      0.0817746   0.258402
+.meas dc c57 find v(vce) when v(ic)=0.932921462533671 cross=1:
+      0.0876712   0.287214
+.meas dc c58 find v(vce) when v(ic)=0.95059412659443 cross=1:
+      0.0889687   0.293308
+.meas dc c59 find v(vce) when v(ic)=1.00564580384812 cross=1:
+      0.0931456   0.312292
+.meas dc c60 find v(vce) when v(ic)=1.02085710365615 cross=1:
+      0.0943396   0.317537
+.meas dc c61 find v(vce) when v(ic)=1.0401955639355 cross=1:
+      0.0958854   0.324205
+.meas dc c62 find v(vce) when v(ic)=1.05592946002641 cross=1:
+      0.0971673   0.329631
+.meas dc c63 find v(vce) when v(ic)=1.07593179498216 cross=1:
+      0.0988307   0.336528
+.meas dc c64 find v(vce) when v(ic)=1.09220675504769 cross=1:
+       0.100214    0.34214
+.meas dc c65 find v(vce) when v(ic)=1.10872736731477 cross=1:
+       0.101647   0.347837
+.meas dc c66 find v(vce) when v(ic)=1.12973038534408 cross=1:
+       0.103514   0.355079
+.meas dc c67 find v(vce) when v(ic)=1.14681857636319 cross=1:
+       0.105073   0.360972
+.meas dc c68 find v(vce) when v(ic)=1.16416524168385 cross=1:
+       0.106695   0.366954
+.meas dc c69 find v(vce) when v(ic)=1.18621843914339 cross=1:
+       0.108819   0.374558
+.meas dc c70 find v(vce) when v(ic)=1.24086520293 cross=1:
+       0.114423   0.393402
+.meas dc c71 find v(vce) when v(ic)=1.26437075170342 cross=1:
+       0.117007   0.401507
+.meas dc c72 find v(vce) when v(ic)=1.30291014856492 cross=1:
+        0.12151   0.414797
+.meas dc c73 find v(vce) when v(ic)=1.32261783969923 cross=1:
+        0.12396   0.421592
+.meas dc c74 find v(vce) when v(ic)=1.3476726612469 cross=1:
+        0.12724   0.430232
+.meas dc c75 find v(vce) when v(ic)=1.38875052821862 cross=1:
+       0.133082   0.444397
+.meas dc c76 find v(vce) when v(ic)=1.41505812487606 cross=1:
+       0.137184   0.453468
+.meas dc c77 find v(vce) when v(ic)=1.43646215530201 cross=1:
+       0.140768   0.460849
+.meas dc c78 find v(vce) when v(ic)=1.4636735703312 cross=1:
+       0.145697   0.470232
+.meas dc c79 find v(vce) when v(ic)=1.57186071310945 cross=1:
+       0.171024   0.507538
+.meas dc c80 find v(vce) when v(ic)=1.60163626694863 cross=1:
+       0.180158   0.517806
+.meas dc c81 find v(vce) when v(ic)=1.63197663409641 cross=1:
+       0.190636   0.528268
+.meas dc c82 find v(vce) when v(ic)=1.66289174964222 cross=1:
+       0.202549   0.538928
+.meas dc c83 find v(vce) when v(ic)=1.72648915887678 cross=1:
+       0.230656   0.560858
+.meas dc c84 find v(vce) when v(ic)=1.75919381933058 cross=1:
+       0.246728   0.572136
+.meas dc c85 find v(vce) when v(ic)=1.83334289732563 cross=1:
+       0.286622   0.597704
+.meas dc c86 find v(vce) when v(ic)=1.86807256582808 cross=1:
+       0.306911    0.60968
+.meas dc c87 find v(vce) when v(ic)=1.9034592224163 cross=1:
+        0.32869   0.621882
+.meas dc c88 find v(vce) when v(ic)=1.93951712947716 cross=1:
+       0.352112   0.634316
+.meas dc c89 find v(vce) when v(ic)=2.021265773853 cross=1:
+       0.410363   0.662505
+.meas dc c90 find v(vce) when v(ic)=2.09856922227002 cross=1:
+       0.473099   0.689162
+.meas dc c91 find v(vce) when v(ic)=2.13832316765863 cross=1:
+        0.50873    0.70287
+.meas dc c92 find v(vce) when v(ic)=2.17883018621594 cross=1:
+       0.547682   0.716838
+.meas dc c93 find v(vce) when v(ic)=2.22010348414562 cross=1:
+       0.590374    0.73107
+.meas dc c94 find v(vce) when v(ic)=2.26215969641119 cross=1:
+       0.637285   0.745572
+.meas dc c95 find v(vce) when v(ic)=2.29637690213521 cross=1:
+       0.678206   0.757371
+.meas dc c96 find v(vce) when v(ic)=2.33987798896636 cross=1:
+         0.7341   0.772372
+.meas dc c97 find v(vce) when v(ic)=2.37527075396194 cross=1:
+       0.783015   0.784576
+.meas dc c98 find v(vce) when v(ic)=2.42026635517162 cross=1:
+       0.850016   0.800092
+.meas dc c99 find v(vce) when v(ic)=2.49403751803092 cross=1:
+       0.972619    0.82553
+.meas dc c100 find v(vce) when v(ic)=2.57005849650213 cross=1:
+        1.11733   0.851744
+.meas dc c101 find v(vce) when v(ic)=2.59915986465071 cross=1:
+        1.17808   0.861779
+.meas dc c102 find v(vce) when v(ic)=2.63847450187082 cross=1:
+        1.26514   0.875336
+.meas dc c103 find v(vce) when v(ic)=2.66835056030844 cross=1:
+        1.33526   0.885638
+.meas dc c104 find v(vce) when v(ic)=2.99759288528353 cross=1:
+        2.35574    0.99917
+.meas dc b00 find v(vbe) when v(ic)=0.113610849137292 cross=1:
+       0.848957  0.0046934
+.meas dc b01 find v(vbe) when v(ic)=0.123853800176158 cross=1:
+       0.851382 0.00822545
+.meas dc b02 find v(vbe) when v(ic)=0.125727260614108 cross=1:
+       0.851806 0.00887147
+.meas dc b03 find v(vbe) when v(ic)=0.138095411772289 cross=1:
+       0.854477  0.0131363
+.meas dc b04 find v(vbe) when v(ic)=0.141240490477186 cross=1:
+       0.855122  0.0142209
+.meas dc b05 find v(vbe) when v(ic)=0.15397462754824 cross=1:
+       0.857614  0.0186119
+.meas dc b06 find v(vbe) when v(ic)=0.157481350298702 cross=1:
+       0.858268  0.0198212
+.meas dc b07 find v(vbe) when v(ic)=0.169121553193 cross=1:
+       0.860353   0.023835
+.meas dc b08 find v(vbe) when v(ic)=0.172973242316194 cross=1:
+       0.861015  0.0251632
+.meas dc b09 find v(vbe) when v(ic)=0.191420556056886 cross=1:
+       0.864019  0.0315243
+.meas dc b10 find v(vbe) when v(ic)=0.196516249329506 cross=1:
+       0.864804  0.0332815
+.meas dc b11 find v(vbe) when v(ic)=0.213431485128099 cross=1:
+       0.867289  0.0391143
+.meas dc b12 find v(vbe) when v(ic)=0.219113118309696 cross=1:
+       0.868085  0.0410735
+.meas dc b13 find v(vbe) when v(ic)=0.230934153117767 cross=1:
+       0.869686  0.0451497
+.meas dc b14 find v(vbe) when v(ic)=0.23797316392045 cross=1:
+       0.870605   0.047577
+.meas dc b15 find v(vbe) when v(ic)=0.258456824661919 cross=1:
+        0.87315  0.0546403
+.meas dc b16 find v(vbe) when v(ic)=0.266334742918101 cross=1:
+       0.874083  0.0573568
+.meas dc b17 find v(vbe) when v(ic)=0.290347284305097 cross=1:
+       0.876783   0.065637
+.meas dc b18 find v(vbe) when v(ic)=0.298076447430699 cross=1:
+        0.87761  0.0683022
+.meas dc b19 find v(vbe) when v(ic)=0.316524476360155 cross=1:
+       0.879512  0.0746636
+.meas dc b20 find v(vbe) when v(ic)=0.324950797175671 cross=1:
+       0.880348  0.0775692
+.meas dc b21 find v(vbe) when v(ic)=0.35424778008519 cross=1:
+       0.883114  0.0876716
+.meas dc b22 find v(vbe) when v(ic)=0.365045812259544 cross=1:
+       0.884084  0.0913951
+.meas dc b23 find v(vbe) when v(ic)=0.39646693721245 cross=1:
+       0.886766    0.10223
+.meas dc b24 find v(vbe) when v(ic)=0.408551486060112 cross=1:
+       0.887748   0.106397
+.meas dc b25 find v(vbe) when v(ic)=0.432212099987991 cross=1:
+       0.889598   0.114556
+.meas dc b26 find v(vbe) when v(ic)=0.443717762366275 cross=1:
+       0.890465   0.118523
+.meas dc b27 find v(vbe) when v(ic)=0.481910533757998 cross=1:
+       0.893206   0.131693
+.meas dc b28 find v(vbe) when v(ic)=0.494739660934884 cross=1:
+       0.894083   0.136117
+.meas dc b29 find v(vbe) when v(ic)=0.535311294597401 cross=1:
+       0.896728   0.150107
+.meas dc b30 find v(vbe) when v(ic)=0.549561499584931 cross=1:
+       0.897614   0.155021
+.meas dc b31 find v(vbe) when v(ic)=0.577040321042959 cross=1:
+       0.899265   0.164497
+.meas dc b32 find v(vbe) when v(ic)=0.592401369733547 cross=1:
+       0.900156   0.169794
+.meas dc b33 find v(vbe) when v(ic)=0.640982463868544 cross=1:
+       0.902843   0.186546
+.meas dc b34 find v(vbe) when v(ic)=0.655580633868929 cross=1:
+       0.903613    0.19158
+.meas dc b35 find v(vbe) when v(ic)=0.690948856238474 cross=1:
+       0.905415   0.203775
+.meas dc b36 find v(vbe) when v(ic)=0.709342196593272 cross=1:
+       0.906319   0.210118
+.meas dc b37 find v(vbe) when v(ic)=0.747610826337799 cross=1:
+        0.90813   0.223314
+.meas dc b38 find v(vbe) when v(ic)=0.767512531446081 cross=1:
+       0.909037   0.230177
+.meas dc b39 find v(vbe) when v(ic)=0.808919419449159 cross=1:
+       0.910855   0.244455
+.meas dc b40 find v(vbe) when v(ic)=0.830453976967625 cross=1:
+       0.911766   0.251881
+.meas dc b41 find v(vbe) when v(ic)=0.875256522082062 cross=1:
+        0.91359    0.26733
+.meas dc b42 find v(vbe) when v(ic)=0.898556207671028 cross=1:
+       0.914503   0.275364
+.meas dc b43 find v(vbe) when v(ic)=0.950593763662669 cross=1:
+       0.916461   0.293308
+.meas dc b44 find v(vbe) when v(ic)=0.979569363855002 cross=1:
+       0.917506     0.3033
+.meas dc b45 find v(vbe) when v(ic)=1.00564589983569 cross=1:
+        0.91842   0.312292
+.meas dc b46 find v(vbe) when v(ic)=1.03629858700669 cross=1:
+       0.919465   0.322862
+.meas dc b47 find v(vbe) when v(ic)=1.10043642668677 cross=1:
+       0.921553   0.344978
+.meas dc b48 find v(vbe) when v(ic)=1.13397838568477 cross=1:
+       0.922595   0.356544
+.meas dc b49 find v(vbe) when v(ic)=1.17293655374255 cross=1:
+       0.923765   0.369978
+.meas dc b50 find v(vbe) when v(ic)=1.24553109124564 cross=1:
+       0.925838   0.395011
+.meas dc b51 find v(vbe) when v(ic)=1.28832168601049 cross=1:
+       0.926998   0.409766
+.meas dc b52 find v(vbe) when v(ic)=1.3275917670061 cross=1:
+       0.928025   0.423308
+.meas dc b53 find v(vbe) when v(ic)=1.36805755633759 cross=1:
+       0.929045   0.437261
+.meas dc b54 find v(vbe) when v(ic)=1.41505758461443 cross=1:
+       0.930185   0.453468
+.meas dc b55 find v(vbe) when v(ic)=1.45819077608723 cross=1:
+        0.93119   0.468342
+.meas dc b56 find v(vbe) when v(ic)=1.50828735820225 cross=1:
+       0.932308   0.485616
+.meas dc b57 find v(vbe) when v(ic)=1.55426085698795 cross=1:
+        0.93329   0.501469
+.meas dc b58 find v(vbe) when v(ic)=1.60163718419333 cross=1:
+       0.934261   0.517806
+.meas dc b59 find v(vbe) when v(ic)=1.65045604138405 cross=1:
+       0.935219    0.53464
+.meas dc b60 find v(vbe) when v(ic)=1.70715795443982 cross=1:
+       0.936289   0.554192
+.meas dc b61 find v(vbe) when v(ic)=1.75919482680727 cross=1:
+       0.937239   0.572136
+.meas dc b62 find v(vbe) when v(ic)=1.81281613497127 cross=1:
+       0.938191   0.590626
+.meas dc b63 find v(vbe) when v(ic)=1.86107403983665 cross=1:
+       0.939029   0.607267
+.meas dc b64 find v(vbe) when v(ic)=1.91780068721272 cross=1:
+       0.939993   0.626828
+.meas dc b65 find v(vbe) when v(ic)=1.96885332367644 cross=1:
+       0.940843   0.644432
+.meas dc b66 find v(vbe) when v(ic)=2.02886708446989 cross=1:
+       0.941821   0.665127
+.meas dc b67 find v(vbe) when v(ic)=2.08287635372675 cross=1:
+       0.942683    0.68375
+.meas dc b68 find v(vbe) when v(ic)=2.19524641202472 cross=1:
+       0.944426   0.722499
+.meas dc b69 find v(vbe) when v(ic)=2.2452424448679 cross=1:
+       0.945181   0.739739
+.meas dc b70 find v(vbe) when v(ic)=2.29637712132137 cross=1:
+       0.945942   0.757371
+.meas dc b71 find v(vbe) when v(ic)=2.34867637362809 cross=1:
+       0.946707   0.775406
+.meas dc b72 find v(vbe) when v(ic)=2.44767182580605 cross=1:
+       0.948123   0.809542
+.meas dc b73 find v(vbe) when v(ic)=2.49403656582071 cross=1:
+       0.948773    0.82553
+.meas dc b74 find v(vbe) when v(ic)=2.99759174081857 cross=1:
+       0.955361    0.99917

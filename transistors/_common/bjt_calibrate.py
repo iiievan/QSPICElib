@@ -113,6 +113,8 @@ class NativeFit:
       self.native_counts={'engine_runs_started':0,'qpost_runs_completed':0}
     def read_case_measurements(self,text,names,case,folder):
       return parse_measurements(text,names)
+    def measure_objective(self,cases,measurements):
+      return objective_values(cases,measurements)
     def run_cases(self,p,folder,cases=None,nk_keyword=None):
       folder=Path(folder);results={};cases=cases or self.cases
       for case in cases:
@@ -163,7 +165,7 @@ class NativeFit:
       row={'evaluation':number,'label':label,'params':p,'fine_scan':fine,'elapsed_s':time.monotonic()-self.started}
       try:
         measured=self.run_cases(p,work,cases,self.nk_keyword)
-        residual,detail,guards,guard_ok=objective_values(cases,measured)
+        residual,detail,guards,guard_ok=self.measure_objective(cases,measured)
         cost=float(np.linalg.norm(residual));row.update(cost=cost,curve_samples=detail,guard_values=guards,table_guards_pass=guard_ok,status='EVALUATED')
         result={'params':dict(p),'cost':cost,'residual':residual,'row':row}
         if guard_ok and (self.best is None or cost<self.best['cost']):

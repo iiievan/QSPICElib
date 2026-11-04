@@ -1,0 +1,8 @@
+{
+  "original_hashes": {
+    "FJP5027.txt": "37b96a1d3c2640ffe2334674d3de69113da89ed626bbafa1ae03bbd415ac8545",
+    "profile.json": "f09341e84d4e3a3d24803c7bd74211bf1e0e7356fd8ddc97e84cb1ae6fe3f9bc",
+    "reference/curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813"
+  },
+  "source": "Native temperature_results v8; best_fine evaluation 150"
+}
