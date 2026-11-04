@@ -38,7 +38,7 @@ def plan(cfg,only=None):
     for ib in cfg['output_base_currents_A']:
         add('output',25,{'VCE_SWEEP':8,'R_COLLECTOR':.001,'IB_TEST':ib,'SCAN_STEP':.0005},f'_IB{round(ib*1000)}mA')
     for t in cfg['temperatures_C']:
-        add('gain',t,{'VCE_GUMMEL':5,'VBE_START':0,'VBE_STOP':1.6,'SCAN_STEP':.00025})
+        add('gain',t,{'VCE_GUMMEL':5,'VBE_START':.4,'VBE_STOP':1.6,'SCAN_STEP':.00025})
         add('saturation',t,{'IC_START':.1,'IC_STOP':3,'BETA_FORCED':5,'IC_TEST':1.5,'SCAN_STEP':.0005})
         for kind in ('resistive','inductive'):
             steps=cfg['transient_maxsteps_s'] if t==25 else [cfg['transient_maxsteps_s'][-1]]
@@ -77,7 +77,8 @@ def measures(case):
       '.meas DC HFE_1 FIND V(hfe_calc) WHEN V(ic_gummel)=1 CROSS=1']
     if k=='saturation':return [
       '.meas DC VCESAT_1P5 FIND V(vce) WHEN V(ic)=1.5 CROSS=1',
-      '.meas DC VBESAT_1P5 FIND V(vbe) WHEN V(ic)=1.5 CROSS=1']
+      '.meas DC VBESAT_1P5 FIND V(vbe) WHEN V(ic)=1.5 CROSS=1',
+      '.meas DC IB_AT_1P5 FIND V(ib) WHEN V(ic)=1.5 CROSS=1']
     if k=='cap':return [
       '.meas AC COBO_I_IM FIND imag(V(i_cobo)) AT={F_TEST}',
       '.meas AC CIBO_I_IM FIND imag(V(i_cibo)) AT={F_TEST}']
@@ -98,9 +99,43 @@ def measures(case):
       '.meas TRAN IC_AT_COMMAND_OFF FIND V(ic) AT={T_OFF}',
       '.meas TRAN E_OFF_WINDOW INTEG V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}']
 
+def select_dc_branch(source,case):
+    """Retain only the electrically independent branch being measured.
+
+    Ground and the sweep command are shared controls, not electrical links
+    between the three independent DUT fixtures on schematic 01.
+    """
+    if case['kind'] not in ('gain','output'):return source
+    rows=source.splitlines(); components={}
+    for i,line in enumerate(rows):
+        s=line.strip()
+        if not s or s[0] in '*;.+':continue
+        t=s.split()
+        if len(t)<3:raise SuiteError('Unrecognized component line: '+s)
+        name=t[0].upper()
+        nodes=t[1:-1] if name.startswith('X') else t[1:3]
+        components[i]=(name,{n.lower() for n in nodes if n.lower() not in ('0','scan')},t)
+    target='X_GUMMEL' if case['kind']=='gain' else 'X_OUT'
+    match=[i for i,(name,_,_) in components.items() if name==target]
+    if len(match)!=1:raise SuiteError('Independent branch DUT not found: '+target)
+    selected=set(match);nodes=set(components[match[0]][1]);changed=True
+    while changed:
+        changed=False
+        for i,(name,ports,tokens) in components.items():
+            if i in selected or not nodes.intersection(ports):continue
+            if name.startswith('X') and name!=target:
+                raise SuiteError('DUT branches are electrically coupled; cannot isolate safely')
+            selected.add(i);nodes.update(ports);changed=True
+    monitors={'ic_gummel','ib_gummel','vbe'} if case['kind']=='gain' else {'vce_out','ic_out'}
+    for i,(name,ports,tokens) in components.items():
+        if name=='V_SCAN' or (name.startswith('B') and tokens[1].lower() in monitors):selected.add(i)
+    case.setdefault('netlist_notes',[]).append('Only '+target+' branch retained; other independent DUT branches and unused hFE monitor omitted')
+    return '\n'.join(line for i,line in enumerate(rows) if i not in components or i in selected)
+
 def compile_deck(source,case,cfg,model):
     """Strict top-level parameter edits; never edit/patch the user QSCH."""
     source=source.replace('Âµ','u').replace('µ','u').replace('μ','u')
+    source=select_dc_branch(source,case)
     params=dict(case['parameters']); found={k:0 for k in params}
     lines=[]; depth=0; temps=0; analyses=[]; adapters=0
     for line in source.splitlines():
@@ -121,6 +156,14 @@ def compile_deck(source,case,cfg,model):
                     found[key]+=n
             m=re.match(r'^\s*\.(dc|ac|tran)\b',line,re.I)
             if m:analyses.append(m[1].lower())
+        if case['kind']=='saturation' and re.match(r'^\s*V_IB\s+',line,re.I):
+            t=line.split()
+            if len(t)!=4 or t[3]!='0':raise SuiteError('V_IB must be a zero-volt current probe')
+            if [n.lower() for n in t[1:3]]==['base','b_feed']:
+                line='V_IB b_feed base 0'
+                case.setdefault('netlist_notes',[]).append('Reversed zero-volt V_IB probe normalized in generated CIR; correct its orientation in QSCH too')
+            elif [n.lower() for n in t[1:3]]!=['b_feed','base']:
+                raise SuiteError('Unexpected V_IB nodes in saturation fixture')
         lines.append(line)
         if re.match(r'^\s*\.ends\b',line,re.I):depth-=1
     if depth or temps!=1 or adapters!=1 or analyses!=[case['analysis']] or any(n!=1 for n in found.values()):
@@ -191,6 +234,8 @@ def operating_checks(case):
             if abs(m['IC_AT_COMMAND_OFF']/p['IC_REFERENCE']-1)>.1:raise SuiteError('Inductive current target not reached')
             if not p['VCLAMP']*.99<=m['VCE_PEAK']<=p['VCLAMP']*1.02:raise SuiteError('Clamp regime invalid')
     if k=='cap' and m['COBO_I_IM']<=0:raise SuiteError('Capacitance current sign is invalid')
+    if k=='saturation' and abs(m['IB_AT_1P5']/(1.5/p['BETA_FORCED'])-1)>.001:
+        raise SuiteError('Forced base current sign or IC/IB ratio is invalid')
 
 def postprocess(folder,case,tools,cfg,expected):
     raw=folder/'case.qraw'; deck=folder/'case.cir'
@@ -210,6 +255,7 @@ def postprocess(folder,case,tools,cfg,expected):
     command([tools['QUX'],'-Export',raw,','.join(case['probes']),str(intervals),'CSV','-stdout'],folder,csvpath,folder/'export.stderr.log',cfg['timeout_seconds'])
     a=load_csv(csvpath,case);case['waveform_points']=len(a);case['export_intervals']=intervals
     case['status']='SIMULATED'
+    return a
 
 def reference(root):
     out={}
@@ -237,20 +283,76 @@ def metric_curve(rx,ry,mx,my,cfg,kind):
     return {'status':'PASS' if coverage>=cfg['minimum_reference_coverage'] and p95<=cfg['curve_tolerance_p95_relative'][kind] else 'FAIL',
       'coverage':coverage,'rms_relative':rms,'p95_relative':p95,'max_relative':float(np.max(err)),'points':int(np.sum(inside))}
 
+def curve_metrics_from_array(root,case,a,cfg):
+    refs=reference(root);out=[]
+    if case['kind']=='output':
+        cid=f'IB{round(case["parameters"]["IB_TEST"]*1000)}mA';groups=[('output',cid,a[:,1],a[:,2])]
+    elif case['kind']=='gain':groups=[('gain',f'T{case["temperature_C"]:+d}',a[:,1],a[:,3])]
+    elif case['kind']=='saturation':groups=[('vcesat',f'T{case["temperature_C"]:+d}',a[:,1],a[:,3]),('vbesat',f'T{case["temperature_C"]:+d}',a[:,1],a[:,4])]
+    else:return []
+    for kind,cid,mx,my in groups:
+        r=refs[(kind,case['temperature_C'],cid)]
+        row=metric_curve(r[:,0],r[:,1],mx,my,cfg,kind)
+        row.update({'kind':kind,'curve':cid,'case':case['id'],'temperature_C':case['temperature_C']});out.append(row)
+    return out
+
+def capture_case(root,folder,case,cfg,a):
+    """Grade full CSV first, then retain bounded exact points for later plots."""
+    case['curve_metrics']=curve_metrics_from_array(root,case,a,cfg)
+    csvpath=folder/'waveforms.csv'
+    if csvpath.is_file():case['grading_csv_sha256']=sha256(csvpath)
+    edge=np.empty((0,a.shape[1]))
+    if case['analysis']=='tran':
+        p=case['parameters'];t_off=p['T_DELAY']+(p['DUTY']/p['FSW'] if case['kind']=='resistive' else p['T_EDGE']+p['TON'])
+        window=max(5*(case['measurements']['T_STORAGE_CMD']+case['measurements']['T_FALL_IC']),50e-9)
+        edge=a[(a[:,0]>=t_off-window*.15)&(a[:,0]<=t_off+window)]
+        case['edge_export_points']=len(edge)
+        if len(edge)>6000:
+            edge=edge[overview_indices(edge,bins=256)];case['edge_display_reduced']=True
+    overview=a[overview_indices(a,bins=256 if case['analysis']=='tran' else 512)]
+    path=folder/'plot_data.npz';np.savez_compressed(path,overview=overview,edge=edge)
+    case['plot_data_sha256']=sha256(path);case['plot_data_points']=len(overview)+len(edge)
+    case['grading_basis']='Full CSV before cleanup; compact data are for rendering only'
+
+def load_plot_data(folder,case,edge=False):
+    compact=folder/'plot_data.npz'
+    if compact.is_file():
+        if case.get('plot_data_sha256') and sha256(compact)!=case['plot_data_sha256']:
+            raise SuiteError('Compact plot data changed after simulation')
+        with np.load(compact,allow_pickle=False) as d:a=d['edge' if edge else 'overview'].copy()
+        if a.ndim!=2 or a.shape[1]!=len(case['probes'])+1 or not np.all(np.isfinite(a)):
+            raise SuiteError('Invalid compact plot data')
+        if len(a)>1 and np.any(np.diff(a[:,0])<=0):raise SuiteError('Compact time axis is not monotonic')
+        return a
+    return load_csv(folder/'waveforms.csv',case)
+
+def cleanup_large_files(folder,keep_raw=False,keep_waveforms=False):
+    """Delete only temporary waveform files in this generated case directory."""
+    removed=[];retained=[];size=0
+    paths=list(Path(folder).glob('*.qraw'))+[Path(folder)/'waveforms.csv']
+    for path in paths:
+        if not path.is_file():continue
+        if (path.suffix.lower()=='.qraw' and keep_raw) or (path.name=='waveforms.csv' and keep_waveforms):
+            retained.append(path.name);continue
+        size+=path.stat().st_size;removed.append(path.name);path.unlink()
+    return {'removed':removed,'removed_bytes':size,'retained':retained}
+
 def evaluate_curves(root,run,data):
-    refs=reference(root); cfg=data['config'];out=[]
+    cfg=data['config'];out=[];previous=data.get('curve_comparison',[])
     for case in data['cases']:
         if case['status']!='SIMULATED' or case['kind'] not in ('output','gain','saturation'):continue
         try:
-            a=load_csv(run/'cases'/case['id']/'waveforms.csv',case)
-            if case['kind']=='output':
-                cid=f'IB{round(case["parameters"]["IB_TEST"]*1000)}mA'; groups=[('output',cid,a[:,1],a[:,2])]
-            elif case['kind']=='gain':groups=[('gain',f'T{case["temperature_C"]:+d}',a[:,1],a[:,3])]
-            else:groups=[('vcesat',f'T{case["temperature_C"]:+d}',a[:,1],a[:,3]),('vbesat',f'T{case["temperature_C"]:+d}',a[:,1],a[:,4])]
-            for kind,cid,mx,my in groups:
-                r=refs[(kind,case['temperature_C'],cid)]
-                row=metric_curve(r[:,0],r[:,1],mx,my,cfg,kind)
-                row.update({'kind':kind,'curve':cid,'case':case['id'],'temperature_C':case['temperature_C']});out.append(row)
+            if case.get('curve_metrics'):
+                out.extend(case['curve_metrics']);continue
+            path=run/'cases'/case['id']/'waveforms.csv'
+            if path.is_file():
+                a=load_csv(path,case);case['curve_metrics']=curve_metrics_from_array(root,case,a,cfg)
+                out.extend(case['curve_metrics']);continue
+            old=[r for r in previous if r.get('case')==case['id']]
+            if old:
+                out.extend(old);case['curve_metrics']=old
+                case['legacy_data_note']='Full CSV manually deleted in v1; original metrics and existing figures retained'
+            else:raise SuiteError('No full CSV or saved curve metrics; cannot grade compact plot samples')
         except Exception as exc:
             out.append({'kind':case['kind'],'case':case['id'],'status':'INVALID','error':str(exc)})
     data['curve_comparison']=out
@@ -309,7 +411,7 @@ def make_plots(root,run,data):
     curves_loaded={}
     for c in data['cases']:
         if c['status']=='SIMULATED' and c['kind'] in ('output','gain','saturation'):
-            try:curves_loaded[c['id']]=load_csv(run/'cases'/c['id']/'waveforms.csv',c)
+            try:curves_loaded[c['id']]=load_plot_data(run/'cases'/c['id'],c)
             except Exception:pass
     for ax,kind in zip(axes.flat,kinds):
         for (rk,t,cid),a in refs.items():
@@ -335,19 +437,24 @@ def make_plots(root,run,data):
     mode='QSPICE vs digitized typical reference' if curves_loaded else 'REFERENCE CURVES - no static QSPICE data'
     if data['mode'].startswith('prepare'):mode='REFERENCE ONLY - QSPICE NOT RUN'
     fig.suptitle(data['config']['component']+' | '+mode,fontsize=14)
-    fig.tight_layout(rect=(0,0,1,.96));fig.savefig(folder/'datasheet_comparison.png');plt.close(fig)
+    fig.tight_layout(rect=(0,0,1,.96))
+    if curves_loaded or not (folder/'datasheet_comparison.png').is_file():fig.savefig(folder/'datasheet_comparison.png')
+    plt.close(fig)
     # Separate axes keep volts, amperes and watts from hiding one another.
     for kind in ('resistive','inductive'):
         cc=[c for c in data['cases'] if c['kind']==kind and c['temperature_C']==25 and c['status']=='SIMULATED']
         if not cc:continue
-        c=min(cc,key=lambda c:c['parameters']['T_MAX']);a=load_csv(run/'cases'/c['id']/'waveforms.csv',c);p=c['parameters']
+        c=min(cc,key=lambda c:c['parameters']['T_MAX']);p=c['parameters']
+        try:a=load_plot_data(run/'cases'/c['id'],c)
+        except (OSError,SuiteError):continue  # retain v1 figures after user removed CSV
         t_off=p['T_DELAY']+(p['DUTY']/p['FSW'] if kind=='resistive' else p['T_EDGE']+p['TON'])
         for zoom in (False,True):
             fig,axs=plt.subplots(3,1,figsize=(10,7),sharex=True)
             window=max(5*(c['measurements']['T_STORAGE_CMD']+c['measurements']['T_FALL_IC']),50e-9)
             if zoom:
-                chosen=(a[:,0]>=t_off-window*.15)&(a[:,0]<=t_off+window)
-                plotted=a[chosen]
+                edge=load_plot_data(run/'cases'/c['id'],c,edge=True)
+                chosen=(edge[:,0]>=t_off-window*.15)&(edge[:,0]<=t_off+window)
+                plotted=edge[chosen]
             else:plotted=a[overview_indices(a)]
             x=(plotted[:,0]-t_off)*1e6 if zoom else plotted[:,0]*1e6
             axs[0].plot(x,plotted[:,2],label='VCE [V]');axs[0].plot(x,plotted[:,3],label='VBE [V]')
@@ -394,7 +501,7 @@ def write_report(root,run,data):
       '', '![Кривые даташита и модели](figures/datasheet_comparison.png)',
       '', 'Сплошные линии: оцифрованный векторный PDF Fairchild Rev.A, December 2003. Пунктир: только реальные результаты QSPICE, если расчёт выполнен.',
       'Кривые не сглаживаются и не подменяются эталоном. На рисунках указаны физические величины и единицы, а не напряжения служебных B-мониторов.',
-      'Для общего вида переходных процессов выбираются исходные точки с сохранением min/max каждой величины в каждом интервале; увеличенный фронт строится по всем доступным точкам CSV этого окна.',
+      'Метрики рассчитаны по полному CSV до очистки. Компактные NPZ служат только для рисунков: сохраняются исходные точки с min/max каждой величины и отдельное окно выключения; новые значения не интерполируются при уплотнении.',
       '', '## Сравнение типовых кривых','',
       'Критерий проекта: P95 относительной ошибки не выше допуска и покрытие не менее 95%. Это пользовательские критерии, не гарантия производителя. При калибровке на этих же кривых результат является качеством подгонки, не независимой проверкой.',
       '', '| График | Кривая | T, C | Покрытие | RMS | P95 | Max | Допуск P95 | Статус |',
@@ -407,7 +514,7 @@ def write_report(root,run,data):
     lines+=['','## Табличные точки','', '| Проверка | Значение SI / указанные единицы | Min | Max | Статус | Основание |', '|---|---:|---:|---:|---|---|']
     for r in data.get('limits',[]):lines.append('| '+' | '.join(fmt(r.get(k)) for k in ['name','value','min','max','status','basis'])+' |')
     if not data.get('limits'):lines+=['| Измерений пока нет | - | - | - | NOT_RUN | - |']
-    lines+=['','## Сходимость динамики','', 'Сравниваются два самых мелких успешно рассчитанных шага при 25 C. Измерения QPOST выполнены по полному QRAW, не по прореженному CSV.',
+    lines+=['','## Сходимость динамики','', 'Сравниваются два самых мелких успешно рассчитанных шага при 25 C. Измерения QPOST выполнены по полному исходному QRAW до очистки временных файлов.',
       '', '| Стенд | Метрика | Шаг грубее, с | Шаг мельче, с | Значение грубее | Значение мельче | Изменение | Статус |','|---|---|---:|---:|---:|---:|---:|---|']
     for r in data.get('convergence',[]):lines.append('| '+' | '.join(fmt(r[k]) for k in ['kind','metric','coarse_step_s','fine_step_s','coarse','fine'])+f' | {r["relative_change"]*100:.4g}% | {r["status"]} |')
     for kind in ('resistive','inductive'):
@@ -435,14 +542,15 @@ def write_report(root,run,data):
       '- Энергия E_OFF_WINDOW: знаковый интеграл коллекторного порта за окно, не энергия всего дросселя и не автоматически истинное тепло кристалла.',
       '', '## Случаи и диагностика','', '| Случай | Статус | Источник | Ошибка / замечание |','|---|---|---|---|']
     for c in cases:
-        note=c.get('error','')
+        note='; '.join(filter(None,[c.get('error',''),c.get('legacy_data_note',''),c.get('reprocess_note','')]+c.get('netlist_notes',[])))
         if c.get('plot_resolution_limited'):note+=' CSV ограничен по числу точек; субнаносекундный фронт оценивайте по QPOST/QRAW.'
         lines.append(f'| {c["id"]} | {c["status"]} | {fmt(c.get("source",{}).get("origin","-"))} | {fmt(note)} |')
     lines+=['','## Все измерения QPOST','', '| Случай | Метрика | Значение SI |','|---|---|---:|']
     for c in sim:
         for key,value in c['measurements'].items():lines.append(f'| {c["id"]} | {key} | {value:.9g} |')
     lines+=['','## Воспроизводимость','',f'UTC: {data["created_utc"]}. Python: {data["python"]}.',
-      '', 'Исходные QSCH не изменяются. На каждый случай создаётся отдельный CIR без .step; модель и адаптер заморожены в CIR. Сохранены параметры, хеши исходников, stdout/stderr, QRAW, QPOST и CSV.',
+      '', 'Исходные QSCH не изменяются. На каждый случай создаётся отдельный CIR без .step; модель и адаптер заморожены в CIR. Сохранены параметры, хеши, журналы, QPOST, метрики и компактные данные рисунков. В версии 2 QRAW и полный waveforms.csv удаляются после обработки каждого случая по умолчанию; --keep-raw и --keep-waveforms включают их сохранение.',
+      f'Освобождено этим запуском: {data.get("cleanup_removed_bytes",0)/2**20:.3f} MiB. Старые рисунки и метрики версии 1 сохраняются при пересборке, даже если пользователь уже удалил CSV/QRAW; утраченные исходные точки не восстанавливаются.',
       '', '| Файл | SHA-256 |','|---|---|']
     for key,value in data['hashes'].items():lines.append(f'| {fmt(key)} | `{value}` |')
     (run/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
@@ -459,27 +567,42 @@ def main(root,argv=None):
     ap.add_argument('--qspice-dir');ap.add_argument('--engine',choices=['64','80'],default='64')
     ap.add_argument('--only',nargs='+',choices=list(PROBES))
     ap.add_argument('--cir-only',action='store_true',help='Explicitly use CIR snapshots instead of QSCH')
+    ap.add_argument('--keep-raw',action='store_true',help='Keep QRAW for debugging; default is delete after processing')
+    ap.add_argument('--keep-waveforms',action='store_true',help='Keep full CSV; default is compact NPZ plus saved metrics')
+    ap.add_argument('--compact-run',type=Path,help='Compact and clean a previous run without simulation')
     ap.add_argument('--report',type=Path,help='Rebuild an existing result from saved data without simulation')
     ap.add_argument('--reprocess',type=Path,help='Repeat QPOST/export on saved QRAW without resimulation')
     args=ap.parse_args(argv);root=Path(root).resolve()
     try:
-        if args.report and args.reprocess:raise SuiteError('Choose --report OR --reprocess')
-        if args.report or args.reprocess:
-            run=(args.report or args.reprocess).resolve();data=json.loads(read_text(run/'run_state.json'))
-            if args.reprocess:
-                tools=find_tools(args.qspice_dir,args.engine)
+        if sum(bool(x) for x in (args.report,args.reprocess,args.compact_run))>1:raise SuiteError('Choose one existing-run operation')
+        if args.report or args.reprocess or args.compact_run:
+            run=(args.report or args.reprocess or args.compact_run).resolve();data=json.loads(read_text(run/'run_state.json'))
+            if args.reprocess or args.compact_run:
+                tools=find_tools(args.qspice_dir,args.engine) if args.reprocess else None
                 for c in data['cases']:
+                    folder=run/'cases'/c['id']
                     try:
-                        folder=run/'cases'/c['id'];expected=re.findall(r'(?im)^\s*\.meas\s+(?:DC|AC|TRAN)\s+(\w+)',read_text(folder/'case.cir'))
-                        postprocess(folder,c,tools,data['config'],expected)
+                        if args.reprocess:
+                            if not (folder/'case.qraw').is_file():
+                                c['reprocess_note']='QRAW not retained; saved results kept. Use --report or run again with --keep-raw.'
+                                continue
+                            expected=re.findall(r'(?im)^\s*\.meas\s+(?:DC|AC|TRAN)\s+(\w+)',read_text(folder/'case.cir'))
+                            a=postprocess(folder,c,tools,data['config'],expected)
+                            capture_case(root,folder,c,data['config'],a);c.pop('error',None)
+                        elif c['status']=='SIMULATED' and (folder/'waveforms.csv').is_file():
+                            a=load_csv(folder/'waveforms.csv',c);capture_case(root,folder,c,data['config'],a)
                     except Exception as exc:c.update(status='INVALID',error=str(exc))
+                    finally:
+                        c['cleanup']=cleanup_large_files(folder,args.keep_raw,args.keep_waveforms)
+                data['cleanup_removed_bytes']=sum(c.get('cleanup',{}).get('removed_bytes',0) for c in data['cases'])
             finish(root,run,data);print(run/'report.md');return 0 if data['result'] in ('NOT_RUN','MATCHES_TESTED_CRITERIA') else 1
         cfg=json.loads(read_text(root/'profile.json'));validate_profile(root,cfg)
         cases=plan(cfg,args.only);tools=None if args.prepare else find_tools(args.qspice_dir,args.engine)
         stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ');run=root/'results'/stamp;run.mkdir(parents=True)
         data={'created_utc':datetime.now(timezone.utc).isoformat(),'python':sys.version.split()[0],
           'mode':'prepare: NO QSPICE SIMULATION' if args.prepare else 'QSPICE',
-          'config':cfg,'cases':cases,'hashes':{},'reference_sha256':sha256(root/'reference/curves.csv')}
+          'config':cfg,'cases':cases,'hashes':{},'reference_sha256':sha256(root/'reference/curves.csv'),
+          'format_version':2,'retention':{'qraw':args.keep_raw,'full_csv':args.keep_waveforms}}
         model=read_text(root/cfg['model_file']);model_digest=sha256(root/cfg['model_file'])
         for p in [root/'profile.json',root/cfg['model_file'],root/'reference/curves.csv',root/'reference/FJP5027_RevA_2003.pdf',Path(__file__),COMMON/'qspice_io.py']:
             data['hashes'][str(p)]=sha256(p)
@@ -496,9 +619,13 @@ def main(root,argv=None):
                 (folder/'case.cir').write_text(deck,encoding='utf-8');dump(folder/'parameters.json',c['parameters'])
                 if not args.prepare:
                     command([tools['engine'],folder/'case.cir'],folder,folder/'simulator.stdout.log',folder/'simulator.stderr.log',cfg['timeout_seconds'])
-                    postprocess(folder,c,tools,cfg,expected)
+                    a=postprocess(folder,c,tools,cfg,expected)
+                    capture_case(root,folder,c,cfg,a)
             except Exception as exc:c.update(status='INVALID',error=f'{type(exc).__name__}: {exc}');print('  INVALID:',exc,flush=True)
+            finally:
+                if not args.prepare:c['cleanup']=cleanup_large_files(folder,args.keep_raw,args.keep_waveforms)
             dump(run/'run_state.json',data)
+        data['cleanup_removed_bytes']=sum(c.get('cleanup',{}).get('removed_bytes',0) for c in cases)
         finish(root,run,data);print('Report:',run/'report.md');print('Result:',data['result'])
         return 0 if data['result'] in ('NOT_RUN','MATCHES_TESTED_CRITERIA') else 1
     except Exception as exc:print('ERROR:',exc,file=sys.stderr);return 2

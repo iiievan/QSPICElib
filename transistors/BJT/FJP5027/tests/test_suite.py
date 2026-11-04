@@ -1,6 +1,6 @@
 """Regression checks for scientific validity and bench generation, no simulator mocks."""
 from pathlib import Path
-import copy,importlib.util,json,sys,tempfile,unittest
+import copy,importlib.util,json,sys,tempfile,unittest,shutil,subprocess,zipfile
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT.parents[1]/'_common'))
@@ -74,5 +74,77 @@ class Decks(unittest.TestCase):
         self.assertEqual({k[0] for k in ref},{'output','gain','vcesat','vbesat'})
         for a in ref.values():self.assertTrue(np.all(np.diff(a[:,0])>0))
     def test_pdf_provenance_matches(self):b.validate_profile(ROOT,self.cfg)
+    def test_reversed_zero_volt_base_probe_is_corrected_and_recorded(self):
+        c=b.plan(self.cfg,['saturation'])[0]
+        source=(b.COMMON/'bjt/05_forced_beta_saturation_dc.cir').read_text().replace('V_IB b_feed base 0','V_IB base b_feed 0')
+        deck,_=b.compile_deck(source,c,self.cfg,self.model)
+        self.assertIn('V_IB b_feed base 0',deck)
+        self.assertTrue(any('Reversed' in n for n in c['netlist_notes']))
+        self.assertIn('IB_AT_1P5',deck)
+    def test_gain_branch_has_no_unused_dut_or_unmasked_hfe_monitor(self):
+        c=b.plan(self.cfg,['gain'])[0]
+        source=(b.COMMON/'bjt/01_output_gummel_leakage_dc.cir').read_text()
+        deck,_=b.compile_deck(source,c,self.cfg,self.model)
+        self.assertIn('X_GUMMEL',deck)
+        self.assertNotIn('X_OUT ',deck);self.assertNotIn('X_ICEO ',deck)
+        self.assertNotRegex(deck,r'(?im)^B_HFE\s')
+        self.assertIn('B_HFE_CALC',deck)
+
+class Retention(unittest.TestCase):
+    def test_transient_edge_retained_as_original_samples_after_cleanup(self):
+        cfg=json.loads((ROOT/'profile.json').read_text());c=b.plan(cfg,['resistive'])[0]
+        p=c['parameters'];t_off=p['T_DELAY']+p['DUTY']/p['FSW']
+        c['measurements']={'T_STORAGE_CMD':40e-9,'T_FALL_IC':24e-9}
+        t=np.linspace(0,b.stop_time(c),200001);a=np.column_stack((t,*[np.sin(t*(i+1)) for i in range(len(c['probes']))]))
+        with tempfile.TemporaryDirectory() as d:
+            folder=Path(d);b.capture_case(ROOT,folder,c,cfg,a)
+            edge=b.load_plot_data(folder,c,edge=True)
+            self.assertGreater(len(edge),2)
+            indices=np.searchsorted(t,edge[:,0]);np.testing.assert_array_equal(edge,a[indices])
+    def test_cleanup_keeps_measurements_logs_and_compact_data(self):
+        with tempfile.TemporaryDirectory() as d:
+            folder=Path(d)
+            for name in ['case.qraw','waveforms.csv','measurements.txt','case.cir','simulator.stderr.log','plot_data.npz']:(folder/name).write_bytes(b'data')
+            removed=b.cleanup_large_files(folder)
+            self.assertEqual(set(removed['removed']),{'case.qraw','waveforms.csv'})
+            self.assertEqual(removed['removed_bytes'],8)
+            for name in ['measurements.txt','case.cir','simulator.stderr.log','plot_data.npz']:self.assertTrue((folder/name).is_file())
+    def test_keep_flags_are_explicit(self):
+        with tempfile.TemporaryDirectory() as d:
+            folder=Path(d);(folder/'case.qraw').write_bytes(b'x');(folder/'waveforms.csv').write_bytes(b'x')
+            self.assertEqual(b.cleanup_large_files(folder,True,True)['removed_bytes'],0)
+    def test_full_curve_metrics_survive_deletion_without_regrading_reduced_samples(self):
+        cfg=json.loads((ROOT/'profile.json').read_text());c=b.plan(cfg,['output'])[0]
+        x=np.linspace(0,8,12001);a=np.column_stack((x/8,x,.9*(1-np.exp(-x/.1))))
+        c['status']='SIMULATED'
+        with tempfile.TemporaryDirectory() as d:
+            run=Path(d);folder=run/'cases'/c['id'];folder.mkdir(parents=True)
+            (folder/'case.qraw').write_bytes(b'dummy raw for cleanup test')
+            (folder/'waveforms.csv').write_text('fixture',encoding='utf-8')
+            b.capture_case(ROOT,folder,c,cfg,a);saved=copy.deepcopy(c['curve_metrics'])
+            b.cleanup_large_files(folder)
+            self.assertLess(len(b.load_plot_data(folder,c)),len(a))
+            data={'config':cfg,'cases':[c]};b.evaluate_curves(ROOT,run,data)
+            self.assertEqual(data['curve_comparison'],saved)
+    def test_legacy_metrics_survive_missing_waveforms(self):
+        cfg=json.loads((ROOT/'profile.json').read_text());c=b.plan(cfg,['gain'])[0];c['status']='SIMULATED'
+        prior=[{'case':c['id'],'kind':'gain','status':'FAIL','p95_relative':.4}]
+        with tempfile.TemporaryDirectory() as d:
+            data={'config':cfg,'cases':[c],'curve_comparison':prior};b.evaluate_curves(ROOT,Path(d),data)
+            self.assertEqual(data['curve_comparison'],prior)
+    def test_collector_excludes_large_files_and_ignores_prepare_run(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);shutil.copy2(ROOT/'collect_diagnostics.py',root/'collect_diagnostics.py')
+            run=root/'results/20260101/cases/c';run.mkdir(parents=True)
+            (run.parents[1]/'run_state.json').write_text('{"mode":"QSPICE"}')
+            prep=root/'results/20990101';prep.mkdir();(prep/'run_state.json').write_text('{"mode":"prepare: NO QSPICE SIMULATION"}')
+            for name in ['case.qraw','waveforms.csv','measurements.txt','plot_data.npz']:(run/name).write_bytes(b'fixture')
+            for name in ['FJP5027.txt','profile.json','reference/provenance.json','reference/curves.csv']:
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text('fixture')
+            subprocess.run([sys.executable,str(root/'collect_diagnostics.py')],check=True,capture_output=True)
+            with zipfile.ZipFile(root/'FJP5027_diagnostics.zip') as z:
+                self.assertTrue(any(n.endswith('plot_data.npz') for n in z.namelist()))
+                self.assertFalse(any(n.endswith(('.qraw','waveforms.csv')) for n in z.namelist()))
+                self.assertFalse(any('20990101' in n for n in z.namelist()))
 
 if __name__=='__main__':unittest.main()
