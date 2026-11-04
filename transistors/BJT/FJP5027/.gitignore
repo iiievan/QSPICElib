@@ -3,3 +3,9 @@ __pycache__/
 results/
 FJP5027_diagnostics.zip
 proxy_settings.cmd
+
+extra_results/
+FJP5027_extra_diagnostics.zip
+
+calibration_results/
+FJP5027_calibration_diagnostics.zip

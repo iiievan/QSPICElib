@@ -1,0 +1,261 @@
+{
+  "original_run": "/workspace/scratch/a3fceb8f5f7c/fjp5027_review_full_v2/results/20261104T121959.027057Z",
+  "original_state_sha256": "59f87d864b72be638727e1be82f76199b495c5fae0c8509fee420a6f689ee182",
+  "config": {
+    "component": "FJP5027",
+    "model_file": "FJP5027.txt",
+    "model_name": "FJP5027_CANDIDATE_V1",
+    "model_status": "STARTING_CANDIDATE_NOT_CALIBRATED",
+    "model_provenance": "Independently constructed from parameter estimates; not a vendor model",
+    "schematic_dir": "../../Si/transistor_common_cir_v1/bjt",
+    "temperatures_C": [
+      -25,
+      25,
+      75,
+      125
+    ],
+    "output_base_currents_A": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35
+    ],
+    "curve_tolerance_p95_relative": {
+      "output": 0.1,
+      "gain": 0.15,
+      "vcesat": 0.2,
+      "vbesat": 0.1
+    },
+    "minimum_reference_coverage": 0.95,
+    "tolerance_basis": "Project comparison criteria, not manufacturer accuracy guarantees",
+    "convergence_relative": 0.02,
+    "transient_maxsteps_s": [
+      2e-09,
+      1e-09,
+      5e-10
+    ],
+    "timeout_seconds": 600,
+    "max_export_intervals": 500000,
+    "thermal": {
+      "Tj_max_C": 150,
+      "Pc_at_Tc25_W": 50,
+      "Rth_JC_K_per_W": 2.5,
+      "basis": "Derived from Fig.8: (150-25)/50. Not a supplied transient thermal impedance.",
+      "Cth": null,
+      "self_heating_supported": false
+    },
+    "suite_version": "2.0"
+  },
+  "cases": [
+    {
+      "id": "resistive_Tp25_s2",
+      "kind": "resistive",
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 400,
+        "R_LOAD": 200,
+        "IB_ON": 0.4,
+        "IB_OFF": -0.8,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 2,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "status": "SIMULATED",
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "measurements": {
+        "T_STORAGE_CMD": 4.19266e-08,
+        "T_STORAGE_IB": 4.076e-08,
+        "T_FALL_IC": 2.40748e-08,
+        "VCE_PEAK": 401.09,
+        "IB_REVERSE_PEAK": -0.8,
+        "TON_IB": 9.62218e-08,
+        "IC_ON": 1.99716,
+        "IB_ON_ACTUAL": 0.4,
+        "P_COLLECTOR_AVG": 0.643299,
+        "P_BASE_AVG": 0.226866,
+        "P_TOTAL_AVG": 0.870165
+      },
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "b36c611c2b3f834e6eb02513b7c097d136bc87659efc45785380b1efba59717f",
+      "edge_export_points": 469,
+      "plot_data_sha256": "bb6af639a9f549226f17623aa7a0a2ba2785c9a68f8afeb8867667e2fa26e289",
+      "plot_data_points": 1664,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 277733162,
+        "retained": []
+      }
+    },
+    {
+      "id": "inductive_Tp25_s2",
+      "kind": "inductive",
+      "temperature_C": 25,
+      "parameters": {
+        "VCC": 20,
+        "VCLAMP": 400,
+        "L_LOAD": 0.002,
+        "R_L": 0.1,
+        "IB_ON": 0.3,
+        "R_B_ON": 0.1,
+        "VBE_OFF": -2,
+        "R_B_OFF": 1,
+        "R_CLAMP": 0.01,
+        "IC_REFERENCE": 1.5,
+        "T_DELAY": 5e-06,
+        "TON": 0.00015,
+        "T_EDGE": 5e-09,
+        "T_TAIL": 2e-05,
+        "ENERGY_WINDOW": 5e-06,
+        "T_MAX": 5e-10
+      },
+      "status": "SIMULATED",
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(iload)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\04_clamped_inductive_tran.qsch",
+        "sha256": "15ff187a079162e4e0a8f58813c9124fb204f18193519c37a6cf6a0ad8e4b112",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "measurements": {
+        "T_STORAGE_CMD": 4.03964e-08,
+        "T_STORAGE_IB": 3.80679e-08,
+        "T_FALL_IC": 6.99014e-11,
+        "VCE_PEAK": 400.015,
+        "IB_REVERSE_PEAK": -1.72885,
+        "IC_AT_COMMAND_OFF": 1.47598,
+        "E_OFF_WINDOW": 2.40719e-06
+      },
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 3.5002e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "d4c129dd96ff881ad145711422aac457ca3d269e9fd4ce741f08556804643eda",
+      "edge_export_points": 665,
+      "plot_data_sha256": "42fe062bf6390a5858758438089617d585602fe9d36feb580b3cf28af0ea4133",
+      "plot_data_points": 1614,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 193138762,
+        "retained": []
+      }
+    }
+  ],
+  "convergence": [
+    {
+      "kind": "resistive",
+      "metric": "T_STORAGE_IB",
+      "coarse": 4.07457e-08,
+      "fine": 4.076e-08,
+      "relative_change": 0.00035083415112869545,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "PASS"
+    },
+    {
+      "kind": "resistive",
+      "metric": "T_FALL_IC",
+      "coarse": 2.40767e-08,
+      "fine": 2.40748e-08,
+      "relative_change": 7.892069716052341e-05,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "PASS"
+    },
+    {
+      "kind": "resistive",
+      "metric": "TON_IB",
+      "coarse": 9.62144e-08,
+      "fine": 9.62218e-08,
+      "relative_change": 7.69056492396016e-05,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "PASS"
+    },
+    {
+      "kind": "resistive",
+      "metric": "P_TOTAL_AVG",
+      "coarse": 0.870151,
+      "fine": 0.870165,
+      "relative_change": 1.6088902679329195e-05,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "PASS"
+    },
+    {
+      "kind": "inductive",
+      "metric": "T_STORAGE_IB",
+      "coarse": 3.8119e-08,
+      "fine": 3.80679e-08,
+      "relative_change": 0.001342338295519245,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "PASS"
+    },
+    {
+      "kind": "inductive",
+      "metric": "T_FALL_IC",
+      "coarse": 1.85603e-09,
+      "fine": 6.99014e-11,
+      "relative_change": 25.552114836040477,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "FAIL"
+    },
+    {
+      "kind": "inductive",
+      "metric": "E_OFF_WINDOW",
+      "coarse": 2.41285e-06,
+      "fine": 2.40719e-06,
+      "relative_change": 0.002351289262584158,
+      "coarse_step_s": 1e-09,
+      "fine_step_s": 5e-10,
+      "status": "PASS"
+    }
+  ]
+}

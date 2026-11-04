@@ -1,0 +1,22 @@
+.meas tran t_storage_cmd trig v(cmd)=0.9 fall=1 targ v(ic_ratio)=0.9 fall=1:
+     4.19266e-08
+.meas tran t_storage_ib trig v(ib)=0 fall=1 targ v(ic_ratio)=0.9 fall=1:
+      4.076e-08
+.meas tran t_fall_ic trig v(ic_ratio)=0.9 fall=1 targ v(ic_ratio)=0.1 fall=1:
+     2.40748e-08
+.meas tran vce_peak max v(vce):
+         401.09 (at Time=0.000205013)
+.meas tran ib_reverse_peak min v(ib):
+           -0.8 (at Time=0.000305017)
+.meas tran ton_ib trig v(ib)={0.1*ib_on} rise=1 targ v(ic_ratio)=0.9 rise=1:
+     9.62218e-08
+.meas tran ic_on find v(ic) at={t_delay+t_edge+0.8*ton}:
+        1.99716 8.5001e-05
+.meas tran ib_on_actual find v(ib) at={t_delay+t_edge+0.8*ton}:
+            0.4 8.5001e-05
+.meas tran p_collector_avg avg v(p_collector) from={t_avg0} to={t_stop}:
+       0.643299
+.meas tran p_base_avg avg v(p_base) from={t_avg0} to={t_stop}:
+       0.226866
+.meas tran p_total_avg avg v(p_total) from={t_avg0} to={t_stop}:
+       0.870165

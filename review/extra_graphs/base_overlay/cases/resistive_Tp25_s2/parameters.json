@@ -1,0 +1,16 @@
+{
+  "VBUS": 400,
+  "R_LOAD": 200,
+  "IB_ON": 0.4,
+  "IB_OFF": -0.8,
+  "R_BASE": 1,
+  "VBE_MAX": 3,
+  "VBE_MIN": -5,
+  "IC_REFERENCE": 2,
+  "FSW": 5000,
+  "DUTY": 0.5,
+  "T_DELAY": 5e-06,
+  "T_EDGE": 5e-09,
+  "N_CYCLES": 2,
+  "T_MAX": 5e-10
+}

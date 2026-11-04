@@ -1,0 +1,18 @@
+{
+  "VCC": 20,
+  "VCLAMP": 400,
+  "L_LOAD": 0.002,
+  "R_L": 0.1,
+  "IB_ON": 0.3,
+  "R_B_ON": 0.1,
+  "VBE_OFF": -2,
+  "R_B_OFF": 1,
+  "R_CLAMP": 0.01,
+  "IC_REFERENCE": 1.5,
+  "T_DELAY": 5e-06,
+  "TON": 0.00015,
+  "T_EDGE": 5e-09,
+  "T_TAIL": 2e-05,
+  "ENERGY_WINDOW": 5e-06,
+  "T_MAX": 5e-10
+}

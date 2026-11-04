@@ -1,0 +1,1616 @@
+{
+  "format_version": 1,
+  "mode": "QSPICE",
+  "config": {
+    "component": "FJP5027",
+    "model_file": "FJP5027.txt",
+    "model_name": "FJP5027_CANDIDATE_V1",
+    "model_status": "STARTING_CANDIDATE_NOT_CALIBRATED",
+    "model_provenance": "Independently constructed from parameter estimates; not a vendor model",
+    "schematic_dir": "../../Si/transistor_common_cir_v1/bjt",
+    "temperatures_C": [
+      -25,
+      25,
+      75,
+      125
+    ],
+    "output_base_currents_A": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35
+    ],
+    "curve_tolerance_p95_relative": {
+      "output": 0.1,
+      "gain": 0.15,
+      "vcesat": 0.2,
+      "vbesat": 0.1
+    },
+    "minimum_reference_coverage": 0.95,
+    "tolerance_basis": "Project comparison criteria, not manufacturer accuracy guarantees",
+    "convergence_relative": 0.02,
+    "transient_maxsteps_s": [
+      2e-09,
+      1e-09,
+      5e-10
+    ],
+    "timeout_seconds": 600,
+    "max_export_intervals": 500000,
+    "thermal": {
+      "Tj_max_C": 150,
+      "Pc_at_Tc25_W": 50,
+      "Rth_JC_K_per_W": 2.5,
+      "basis": "Derived from Fig.8: (150-25)/50. Not a supplied transient thermal impedance.",
+      "Cth": null,
+      "self_heating_supported": false
+    },
+    "suite_version": "2.0"
+  },
+  "cases": [
+    {
+      "id": "fig7_load00_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 0,
+      "nominal_current_A": 0.35,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 357.14285714285717,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.35,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.349537,
+        "VCE_ON": 0.165427,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.369
+      },
+      "measured_current_reference_A": 0.349537,
+      "current_fraction_of_nominal": 0.9986771428571429,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.349537,
+        "VCE_ON": 0.165427,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.369,
+        "T_STORAGE_CMD": 3.37932e-08,
+        "T_STORAGE_IB": 3.38803e-08,
+        "T_FALL_IC": 2.61487e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": false,
+      "plot_sample_interval_s": 8.716219269946691e-10,
+      "waveform_points": 464652,
+      "export_intervals": 464651,
+      "curve_metrics": [],
+      "grading_csv_sha256": "b6d03954ae7d9a6a60c60fbc49c02754a5339ece10b93f0d4ee552c0b6d0e329",
+      "edge_export_points": 395,
+      "plot_data_sha256": "bce9c39e1c02bc5dac2ce30bf3af3503d9bf9a4288f5e6e3dcddb3303516d073",
+      "plot_data_points": 997,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 171128139,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load00_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 0,
+      "nominal_current_A": 0.35,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 357.14285714285717,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.35,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.349537,
+        "VCE_ON": 0.165427,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.369
+      },
+      "measured_current_reference_A": 0.349537,
+      "current_fraction_of_nominal": 0.9986771428571429,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.349537,
+        "VCE_ON": 0.165427,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.369,
+        "T_STORAGE_CMD": 3.38149e-08,
+        "T_STORAGE_IB": 3.39021e-08,
+        "T_FALL_IC": 2.61416e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": false,
+      "plot_sample_interval_s": 8.713856322494445e-10,
+      "waveform_points": 464778,
+      "export_intervals": 464777,
+      "curve_metrics": [],
+      "grading_csv_sha256": "5f5b2f394c2259c04fcd906e43a1e3379c5f56117a82c54a32adca0ad0924d26",
+      "edge_export_points": 395,
+      "plot_data_sha256": "9f8da2e36ba335697e3d91d29b59e2dc9c124f34cb2f8b098cdd4f3a7376ec5e",
+      "plot_data_points": 1252,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278346480,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load01_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 1,
+      "nominal_current_A": 0.4351994003270416,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 287.2246604799216,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.4351994003270416,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.434511,
+        "VCE_ON": 0.197731,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.301
+      },
+      "measured_current_reference_A": 0.434511,
+      "current_fraction_of_nominal": 0.9984181955983297,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.434511,
+        "VCE_ON": 0.197731,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.301,
+        "T_STORAGE_CMD": 2.47841e-08,
+        "T_STORAGE_IB": 2.48713e-08,
+        "T_FALL_IC": 2.19325e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "36845db1f17467d1fa2bbc3e5162eb076e3e0180a52762e86f0977e975a48351",
+      "edge_export_points": 332,
+      "plot_data_sha256": "1ee5e70ae9c5c20ed4dbd0e58052bf6674c052978b90a7d52c1efc8e49eebdeb",
+      "plot_data_points": 1085,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 172730180,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load01_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 1,
+      "nominal_current_A": 0.4351994003270416,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 287.2246604799216,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.4351994003270416,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.434511,
+        "VCE_ON": 0.197731,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.301
+      },
+      "measured_current_reference_A": 0.434511,
+      "current_fraction_of_nominal": 0.9984181955983297,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.434511,
+        "VCE_ON": 0.197731,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.301,
+        "T_STORAGE_CMD": 2.48078e-08,
+        "T_STORAGE_IB": 2.4895e-08,
+        "T_FALL_IC": 2.19362e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "8805005e1e56d092d013d6f8693534b6e642b8e4637bc89668e989107c7fb439",
+      "edge_export_points": 332,
+      "plot_data_sha256": "768e204c170ad02b4f2b0283bf89da838915c024d4da22808010c70f5c663b19",
+      "plot_data_points": 1529,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 279680152,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load02_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 2,
+      "nominal_current_A": 0.5411386229857618,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 230.99441564585746,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.5411386229857618,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.540083,
+        "VCE_ON": 0.243741,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.245
+      },
+      "measured_current_reference_A": 0.540083,
+      "current_fraction_of_nominal": 0.9980492558820929,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.540083,
+        "VCE_ON": 0.243741,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.245,
+        "T_STORAGE_CMD": 1.73421e-08,
+        "T_STORAGE_IB": 1.74292e-08,
+        "T_FALL_IC": 1.86855e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "5edc2311f67f219166c6fa03cf4ec3217b951dc6d927b94d09ee0857deb19606",
+      "edge_export_points": 256,
+      "plot_data_sha256": "0d7a01aabda61fd6dcbafc15bf3ea0f1a41bbf2dc2baed88bb0235de7df3cf96",
+      "plot_data_points": 1368,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 172615122,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load02_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 2,
+      "nominal_current_A": 0.5411386229857618,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 230.99441564585746,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.5411386229857618,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.540083,
+        "VCE_ON": 0.243741,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.245
+      },
+      "measured_current_reference_A": 0.540083,
+      "current_fraction_of_nominal": 0.9980492558820929,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.540083,
+        "VCE_ON": 0.243741,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.245,
+        "T_STORAGE_CMD": 1.73629e-08,
+        "T_STORAGE_IB": 1.745e-08,
+        "T_FALL_IC": 1.86776e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "3253acd2a0da8666a9ff55c8868069ddeb76f3644be3168057ca546f2901ec82",
+      "edge_export_points": 256,
+      "plot_data_sha256": "9bc1db14aa6df91554e6aa7f814db7fad3bd2937703fbd12811c121bd0d88fce",
+      "plot_data_points": 834,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 279032786,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load03_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 3,
+      "nominal_current_A": 0.6728662977634416,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 185.77241929859002,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.6728662977634416,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.664687,
+        "VCE_ON": 1.51956,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.199
+      },
+      "measured_current_reference_A": 0.664687,
+      "current_fraction_of_nominal": 0.9878440965305753,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.664687,
+        "VCE_ON": 1.51956,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.199,
+        "T_STORAGE_CMD": 8.92248e-09,
+        "T_STORAGE_IB": 9.00963e-09,
+        "T_FALL_IC": 1.98197e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "6911b87160cc39c1dc8212e80ef3267ea4e8e25c465aa2aa3b397db3e2726034",
+      "edge_export_points": 204,
+      "plot_data_sha256": "a796002a97cb4aebab4d1195b04fa1abe23f44e05a54cf78b54bee2bbcf57430",
+      "plot_data_points": 643,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 172003273,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load03_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 3,
+      "nominal_current_A": 0.6728662977634416,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 185.77241929859002,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.6728662977634416,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.664687,
+        "VCE_ON": 1.51956,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.199
+      },
+      "measured_current_reference_A": 0.664687,
+      "current_fraction_of_nominal": 0.9878440965305753,
+      "regime_note": "VCE_ON_AT_MOST_5V",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.664687,
+        "VCE_ON": 1.51956,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.199,
+        "T_STORAGE_CMD": 8.91812e-09,
+        "T_STORAGE_IB": 9.00528e-09,
+        "T_FALL_IC": 1.98196e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "55ef04a2f9033f3b4a131e4bc2d8924abe982e19e159a6f9270475515eaf00c0",
+      "edge_export_points": 204,
+      "plot_data_sha256": "652e81e18821d453f5f5e53cce3ae2463ee2dc078d9f5823d927121b1d20554f",
+      "plot_data_points": 915,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278998039,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load04_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 4,
+      "nominal_current_A": 0.8366600265340756,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 149.4035761667992,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.8366600265340756,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.773325,
+        "VCE_ON": 9.46254,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.162
+      },
+      "measured_current_reference_A": 0.773325,
+      "current_fraction_of_nominal": 0.92430016431352,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.773325,
+        "VCE_ON": 9.46254,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.162,
+        "T_STORAGE_CMD": 7.83923e-09,
+        "T_STORAGE_IB": 7.92638e-09,
+        "T_FALL_IC": 1.97405e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "cb0dafa4eca5aaba501e37aedbef9812b7495bd3e3bb4c5f18c99f2c77094c11",
+      "edge_export_points": 195,
+      "plot_data_sha256": "8c5d7fe38f992a825cf8ad94f6b53c31cb36b9d85ad40ccb2f6cd066a900a109",
+      "plot_data_points": 722,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 172046455,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load04_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 4,
+      "nominal_current_A": 0.8366600265340756,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 149.4035761667992,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 0.8366600265340756,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.773325,
+        "VCE_ON": 9.46254,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.162
+      },
+      "measured_current_reference_A": 0.773325,
+      "current_fraction_of_nominal": 0.92430016431352,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.773325,
+        "VCE_ON": 9.46254,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.162,
+        "T_STORAGE_CMD": 7.84981e-09,
+        "T_STORAGE_IB": 7.93697e-09,
+        "T_FALL_IC": 1.97228e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "582a8f55649b14cebe0fc952354c1f72d026fd1cb269746c023f7687c3ddb5c2",
+      "edge_export_points": 195,
+      "plot_data_sha256": "5c943c5523a43fb5974dfdcea8c0808ca846328b5f60ac291b5dc0bd5bbd6883",
+      "plot_data_points": 878,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278972287,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load05_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 5,
+      "nominal_current_A": 1.040325548072104,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 120.154696029186,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 1.040325548072104,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.890358,
+        "VCE_ON": 18.0193,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.131
+      },
+      "measured_current_reference_A": 0.890358,
+      "current_fraction_of_nominal": 0.8558455587772319,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.890358,
+        "VCE_ON": 18.0193,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.131,
+        "T_STORAGE_CMD": 7.31825e-09,
+        "T_STORAGE_IB": 7.40541e-09,
+        "T_FALL_IC": 2.02801e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "fbc6dd347badf5c43a801ec1bef785a29d6c460cc3620b7dc2a5baa21ade1655",
+      "edge_export_points": 195,
+      "plot_data_sha256": "f647e02e2a583d73e499619fad319e38be72e3cbac8e08341d300c5ea3816a96",
+      "plot_data_points": 495,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 171775821,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load05_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 5,
+      "nominal_current_A": 1.040325548072104,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 120.154696029186,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 1.040325548072104,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 0.890358,
+        "VCE_ON": 18.0193,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.131
+      },
+      "measured_current_reference_A": 0.890358,
+      "current_fraction_of_nominal": 0.8558455587772319,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 0.890358,
+        "VCE_ON": 18.0193,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.131,
+        "T_STORAGE_CMD": 7.33179e-09,
+        "T_STORAGE_IB": 7.41895e-09,
+        "T_FALL_IC": 2.02618e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "9c16588c464869862f58106b8e80dc570a1bdcb0bd1c7a445518d7369163183e",
+      "edge_export_points": 195,
+      "plot_data_sha256": "0e534830b88a4602775b8507917b2408844ba5111a3c7a3dff00ad1c846f6b4a",
+      "plot_data_points": 592,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278945241,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load06_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 6,
+      "nominal_current_A": 1.2935687276168015,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 96.63189696174318,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 1.2935687276168015,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 1.01374,
+        "VCE_ON": 27.0404,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.106
+      },
+      "measured_current_reference_A": 1.01374,
+      "current_fraction_of_nominal": 0.7836769538079803,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 1.01374,
+        "VCE_ON": 27.0404,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.106,
+        "T_STORAGE_CMD": 6.96946e-09,
+        "T_STORAGE_IB": 7.05662e-09,
+        "T_FALL_IC": 2.13286e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "f5cef11b4d0ffd15a48858f9781e94a52709a700ba2b98ccfc4bda728badd4d3",
+      "edge_export_points": 201,
+      "plot_data_sha256": "146a2ce232437453922324061d0792de24890ef91dad3631f70916058e868e30",
+      "plot_data_points": 1054,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 171701959,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load06_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 6,
+      "nominal_current_A": 1.2935687276168015,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 96.63189696174318,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 1.2935687276168015,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 1.01374,
+        "VCE_ON": 27.0404,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.106
+      },
+      "measured_current_reference_A": 1.01374,
+      "current_fraction_of_nominal": 0.7836769538079803,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 1.01374,
+        "VCE_ON": 27.0404,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.106,
+        "T_STORAGE_CMD": 6.98746e-09,
+        "T_STORAGE_IB": 7.07461e-09,
+        "T_FALL_IC": 2.13104e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "d80d10789932eab095a2c0ecc2068a10387ef3d48eda1ce29e3bff210b085d48",
+      "edge_export_points": 201,
+      "plot_data_sha256": "ec2ad11fa5c67f4817a9c17a82d91fbe59bdca0e9086932f7eac4808201a144a",
+      "plot_data_points": 824,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278372929,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load07_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 7,
+      "nominal_current_A": 1.608458098687561,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 77.71417862982885,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 1.608458098687561,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 1.14089,
+        "VCE_ON": 36.3367,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.086
+      },
+      "measured_current_reference_A": 1.14089,
+      "current_fraction_of_nominal": 0.7093066340558835,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 1.14089,
+        "VCE_ON": 36.3367,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.086,
+        "T_STORAGE_CMD": 6.71512e-09,
+        "T_STORAGE_IB": 6.80228e-09,
+        "T_FALL_IC": 2.262e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "a59085b5eced9d25f270cd67bf1b971d6686d96a6a77780771201fa19616a3b8",
+      "edge_export_points": 208,
+      "plot_data_sha256": "d93602676a3a8a4fd84c3fa02151be435ed32b09a3c1e122f186c5abc07e8d2e",
+      "plot_data_points": 1131,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 171508472,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load07_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 7,
+      "nominal_current_A": 1.608458098687561,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 77.71417862982885,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 1.608458098687561,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 1.14089,
+        "VCE_ON": 36.3367,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.086
+      },
+      "measured_current_reference_A": 1.14089,
+      "current_fraction_of_nominal": 0.7093066340558835,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 1.14089,
+        "VCE_ON": 36.3367,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.086,
+        "T_STORAGE_CMD": 6.73347e-09,
+        "T_STORAGE_IB": 6.82063e-09,
+        "T_FALL_IC": 2.26024e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "256d82e4aa825c6624304d39a17454fd6cb141e74bc96cff1b95c861b55c7be6",
+      "edge_export_points": 208,
+      "plot_data_sha256": "a0000cd413a7d30bcbf7173216beb38b8f122f12dab4e32363391ceae71a84f5",
+      "plot_data_points": 788,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278752361,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load08_s0",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 8,
+      "nominal_current_A": 2.0,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 62.5,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 2.0,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 1e-09
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 1.26888,
+        "VCE_ON": 45.6949,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.069
+      },
+      "measured_current_reference_A": 1.26888,
+      "current_fraction_of_nominal": 0.63444,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 1.26888,
+        "VCE_ON": 45.6949,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.069,
+        "T_STORAGE_CMD": 6.52743e-09,
+        "T_STORAGE_IB": 6.61459e-09,
+        "T_FALL_IC": 2.40006e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "cafb507c6381212f5f367ae6250d5e1fff6e277f4098548025221a3fce25ac90",
+      "edge_export_points": 217,
+      "plot_data_sha256": "199deb5b48f5bc0cc88621a43019098f37ed58fe601faaaf38407f2e90009f00",
+      "plot_data_points": 1293,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 171527894,
+        "retained": []
+      }
+    },
+    {
+      "id": "fig7_load08_s1",
+      "kind": "resistive",
+      "study": "figure7",
+      "load_index": 8,
+      "nominal_current_A": 2.0,
+      "temperature_C": 25,
+      "parameters": {
+        "VBUS": 125,
+        "R_LOAD": 62.5,
+        "IB_ON": 0.045,
+        "IB_OFF": -0.5,
+        "R_BASE": 1,
+        "VBE_MAX": 3,
+        "VBE_MIN": -5,
+        "IC_REFERENCE": 2.0,
+        "FSW": 5000,
+        "DUTY": 0.5,
+        "T_DELAY": 5e-06,
+        "T_EDGE": 5e-09,
+        "N_CYCLES": 2,
+        "T_MAX": 5e-10
+      },
+      "analysis": "tran",
+      "probes": [
+        "V(cmd)",
+        "V(vce)",
+        "V(vbe)",
+        "V(ic)",
+        "V(ib)",
+        "V(p_collector)",
+        "V(p_base)"
+      ],
+      "status": "SIMULATED",
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\03_resistive_switching_tran.qsch",
+        "sha256": "d3c4a7b9e5375c3ad2f3ef22906902bfd77b63edd02ec375fc77487c28456dfd",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "pilot_measurements": {
+        "IC_ON": 1.26888,
+        "VCE_ON": 45.6949,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.069
+      },
+      "measured_current_reference_A": 1.26888,
+      "current_fraction_of_nominal": 0.63444,
+      "regime_note": "VCE_ON_HIGH",
+      "regime_basis": "5 V is a project diagnostic flag, not a specified Fig.7 acceptance limit",
+      "measurements": {
+        "IC_ON": 1.26888,
+        "VCE_ON": 45.6949,
+        "IB_ON_ACTUAL": 0.045,
+        "IB_REVERSE_PEAK": -0.5,
+        "VCE_PEAK": 125.069,
+        "T_STORAGE_CMD": 6.54757e-09,
+        "T_STORAGE_IB": 6.63473e-09,
+        "T_FALL_IC": 2.399e-08
+      },
+      "timing_basis": "90/10 percent of measured IC_ON; ts from actual IB=0 and separately cmd=0.9",
+      "plot_resolution_limited": true,
+      "plot_sample_interval_s": 8.100000000000001e-10,
+      "waveform_points": 500001,
+      "export_intervals": 500000,
+      "curve_metrics": [],
+      "grading_csv_sha256": "750cc5cdfaa7cadfaf57e0bbb33c0c0b6aaa4006dcf9d74d0d4fadd263acc16e",
+      "edge_export_points": 217,
+      "plot_data_sha256": "cf30e1ec4e54a99e0e8be884c239ea484cf1b9d10c0280c653b444bfca12dd4b",
+      "plot_data_points": 525,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 278808487,
+        "retained": []
+      }
+    }
+  ],
+  "reference_sha256": "5b8a82f273b0f634477dc3680e448175b126bf9cdecd3407504da2ae57a0cb50",
+  "model_sha256": "62ca5b086eb7328beb9bd046e8d53a007f4dc5183fd58e807ad05da4600dc2ca",
+  "base_overlay": {
+    "path": "base_overlay",
+    "model": "FJP5027_CANDIDATE_V1",
+    "cases": 2,
+    "original_run": "20261104T121959.027057Z",
+    "snapshot_sha256": "25526e66d0eb559977899f930dbbe9d984b26c827694486b4758e373a4ea350c"
+  },
+  "hashes": {
+    "bjt_extra.py": "2b09d0c041ac6144a4c5b935154e5685f3ea05e46b00b0d4ca832625d593a5e0",
+    "bjt_suite.py": "bb609dc9fcf571e2bde951a1bcbb93932772525693b7de63373f7eda696dc9c2",
+    "qspice_io.py": "a2c57ccb5698e0fe6d48900db609c981459a01a5e102e38e3e37ed2dff3244b8"
+  },
+  "tool_hashes": {
+    "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+    "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+    "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+  },
+  "cleanup_removed_bytes": 4056946077,
+  "convergence": [
+    {
+      "load_index": 0,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.0006430280130139695,
+        "T_FALL_IC": 0.00027159775989215657
+      },
+      "coarse_case": "fig7_load00_s0",
+      "fine_case": "fig7_load00_s1"
+    },
+    {
+      "load_index": 1,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.000951998393251567,
+        "T_FALL_IC": 0.00016867096397727227
+      },
+      "coarse_case": "fig7_load01_s0",
+      "fine_case": "fig7_load01_s1"
+    },
+    {
+      "load_index": 2,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.0011919770773638832,
+        "T_FALL_IC": 0.0004229665481646655
+      },
+      "coarse_case": "fig7_load02_s0",
+      "fine_case": "fig7_load02_s1"
+    },
+    {
+      "load_index": 3,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.00048304994403286744,
+        "T_FALL_IC": 5.045510504691815e-06
+      },
+      "coarse_case": "fig7_load03_s0",
+      "fine_case": "fig7_load03_s1"
+    },
+    {
+      "load_index": 4,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.0013342623192478856,
+        "T_FALL_IC": 0.0008974384975764536
+      },
+      "coarse_case": "fig7_load04_s0",
+      "fine_case": "fig7_load04_s1"
+    },
+    {
+      "load_index": 5,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.0018250561063223145,
+        "T_FALL_IC": 0.0009031774077327897
+      },
+      "coarse_case": "fig7_load05_s0",
+      "fine_case": "fig7_load05_s1"
+    },
+    {
+      "load_index": 6,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.002542896357537709,
+        "T_FALL_IC": 0.0008540430963286212
+      },
+      "coarse_case": "fig7_load06_s0",
+      "fine_case": "fig7_load06_s1"
+    },
+    {
+      "load_index": 7,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.002690367312110411,
+        "T_FALL_IC": 0.0007786783704384835
+      },
+      "coarse_case": "fig7_load07_s0",
+      "fine_case": "fig7_load07_s1"
+    },
+    {
+      "load_index": 8,
+      "status": "PASS",
+      "changes": {
+        "IC_ON": 0.0,
+        "T_STORAGE_IB": 0.00303554176281481,
+        "T_FALL_IC": 0.0004418507711546799
+      },
+      "coarse_case": "fig7_load08_s0",
+      "fine_case": "fig7_load08_s1"
+    }
+  ],
+  "result": "SWEEP_COMPLETE_REFERENCE_ASSIGNMENT_UNRESOLVED"
+}

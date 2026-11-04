@@ -1,9 +1,9 @@
 {
   "component": "FJP5027",
   "model_file": "FJP5027.txt",
-  "model_name": "FJP5027_CANDIDATE_V1",
-  "model_status": "STARTING_CANDIDATE_NOT_CALIBRATED",
-  "model_provenance": "Independently constructed from parameter estimates; not a vendor model",
+  "model_name": "FJP5027_DC25_CANDIDATE_V2",
+  "model_status": "PARTIAL_NATIVE_DC25_FIT_TEMPERATURE_AND_DYNAMICS_UNVALIDATED",
+  "model_provenance": "Native QSPICE fitting to selected user-supplied Fairchild Rev.A curves; see calibration_results",
   "schematic_dir": "../../Si/transistor_common_cir_v1/bjt",
   "temperatures_C": [
     -25,
