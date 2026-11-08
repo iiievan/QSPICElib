@@ -1,0 +1,14 @@
+* BJT adapter for bench 06. Set this file as DUT_BJT Library File in QSCH.
+* Keep beside the schematic and CIR. Pin order: C B E K.
+* Leave exactly one Q_CORE line active. Both supplied devices are NPN.
+* Set POL=-1 only when selecting a PNP model.
+.param POL=1
+
+.lib "../../BJT/FJP5027/FJP5027_MEXTRAM_v13.txt"
+.lib "../../BJT/FJP5027/FJP5027_KSC5027.txt"
+
+.subckt DUT_BJT C B E K
+;Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+Q_CORE C B E KSC5027
+R_K K E 1u
+.ends DUT_BJT
