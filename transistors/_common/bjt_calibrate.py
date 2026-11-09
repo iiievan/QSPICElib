@@ -115,6 +115,8 @@ class NativeFit:
       return parse_measurements(text,names)
     def measure_objective(self,cases,measurements):
       return objective_values(cases,measurements)
+    def should_replace_best(self,result):
+      return result['row']['table_guards_pass'] and (self.best is None or result['cost']<self.best['cost'])
     def run_cases(self,p,folder,cases=None,nk_keyword=None):
       folder=Path(folder);results={};cases=cases or self.cases
       for case in cases:
@@ -168,7 +170,7 @@ class NativeFit:
         residual,detail,guards,guard_ok=self.measure_objective(cases,measured)
         cost=float(np.linalg.norm(residual));row.update(cost=cost,curve_samples=detail,guard_values=guards,table_guards_pass=guard_ok,status='EVALUATED')
         result={'params':dict(p),'cost':cost,'residual':residual,'row':row}
-        if guard_ok and (self.best is None or cost<self.best['cost']):
+        if self.should_replace_best(result):
           self.best=result
           dest=self.run/'best_native'
           if dest.exists():shutil.rmtree(dest)

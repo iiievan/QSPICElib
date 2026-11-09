@@ -1,0 +1,75 @@
+{
+  "original_hashes": {
+    "FJP5027.txt": "37b96a1d3c2640ffe2334674d3de69113da89ed626bbafa1ae03bbd415ac8545",
+    "profile.json": "f09341e84d4e3a3d24803c7bd74211bf1e0e7356fd8ddc97e84cb1ae6fe3f9bc",
+    "reference/curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813"
+  },
+  "selected_candidate": "native_v12_accepted_10_pass",
+  "selected_model_sha256": "2d46d93265d49c06fa20b40c9bcb903553995bb76dcb7c334521973661d56e95",
+  "baseline_sha256": "b4f4462a7302b71a41c2f0d64cbe64c479bc720013aaf1037a1113354d5deaab",
+  "protected_curves": [
+    {
+      "kind": "gain",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "gain",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "gain",
+      "curve": "T-25",
+      "temperature_C": -25,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "output",
+      "curve": "IB100mA",
+      "temperature_C": 25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+125",
+      "temperature_C": 125,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T-25",
+      "temperature_C": -25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vcesat",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.2
+    },
+    {
+      "kind": "vcesat",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.2
+    }
+  ],
+  "seed_model_sha256": "5b11a25e23c498dd6913489d324c6bb6348349427b768f35c343c9775a8d2163",
+  "seed_row_sha256": "dffd3bd1a93469976ebb87998463e07512adef7397b0934be832b87c95e0b1ac",
+  "source": "Native diagnostics(8), v12 final and native evaluation 19"
+}

@@ -1,0 +1,47 @@
+* Five BZV55 Zener models supplied by the user.
+* Electrical numeric parameters are preserved; provenance is not verified.
+* All SUBCKT ports use K A (cathode first, anode second).
+* All native MODEL D cards use standard A K element order.
+* Internal D elements of SUBCKTs are wired A K to match those interfaces.
+* Reverse / forward DC smoke tests use ngspice, not a QSPICE runtime.
+
+.SUBCKT BZV55-C5V1 K A
+RLEAK K A 5.0E+009
+DCORE A K BZV55-C5V1_MOD
+.MODEL BZV55-C5V1_MOD D (
++ IS=1.0E-015 N=1.0 BV=5.02 IBV=0.005
++ RS=15.0 CJO=1.8E-010 VJ=0.7 M=0.33
++ FC=0.5 XTI=3
++)
+.ENDS BZV55-C5V1
+
+.SUBCKT BZV55-C3V3 K A
+RLEAK K A 1.0E+012
+DCORE A K BZV55-C3V3_MOD
+.MODEL BZV55-C3V3_MOD D (
++ IS=1.0E-011 N=1.25 RS=1.5 BV=3.25
++ IBV=0.005 CJO=4.5E-010 VJ=0.65 M=0.33
++ FC=0.5 TT=0 EG=1.1 XTI=3
++)
+.ENDS BZV55-C3V3
+
+.MODEL BZV55C3V0 D (
++ Is=1.1f Rs=0.8 Cjo=150p M=0.333
++ Vj=0.75 Isr=100p N=1.5 Nr=2
++ Bv=2.94 Ibv=5m Nbv=1.2
++)
+
+.MODEL BZV55-C2V4 D (
++ IS=1.0E-11 N=1.25 RS=1.5 CJO=4.5E-10
++ VJ=0.75 M=0.33 BV=2.4 IBV=0.005
++)
+
+.SUBCKT BZV55-C5V6 K A
+RLEAK K A 5.0E+010
+DCORE A K DBZV55C5V6
+.MODEL DBZV55C5V6 D (
++ IS=3.6E-012 N=1.35 BV=5.35 IBV=5.0E-003
++ RS=1.8 CJO=1.25E-010 VJ=0.65 M=0.33
++ FC=0.5 TT=0 EG=1.1 XTI=3
++)
+.ENDS BZV55-C5V6

@@ -1,0 +1,13 @@
+* BAS316 diode model for QSPICE.
+* Prepared from the model supplied by the user; electrical values unchanged.
+* Original catalog / display metadata: Iave=200m Vpk=75 mfg=NXP type=silicon
+* The NXP label is supplied metadata; provenance was not independently verified.
+* Standard diode node order: anode, cathode.
+* No TNOM supplied: simulator nominal-temperature setting applies.
+* No self-heating network is included.
+* IBV=10 is preserved verbatim (10 A in the breakdown model).
+.MODEL BAS316 D (
++ IS=6.0289n N=2.1283 RS=1m IKF=37.638m
++ CJO=593.63f M=.1 VJ=.68774 ISR=2.0646n
++ NR=4.995 BV=113.6 IBV=10 TT=4.5n
++)

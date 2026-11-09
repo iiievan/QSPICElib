@@ -1,0 +1,4 @@
+* QTLP690C LED model supplied by the user.
+* Original model statement and all parameters are preserved verbatim.
+* Node order: anode, cathode.
+.model QTLP690C D(Is=1e-22 Rs=6 N=1.5 Cjo=50p Iave=160m Vpk=5 mfg=Fairchild type=LED)

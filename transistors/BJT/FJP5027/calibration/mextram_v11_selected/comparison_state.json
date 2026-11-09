@@ -1,0 +1,262 @@
+{
+  "result": "DC_CONTINUATION_CANDIDATE_IDENTIFIED",
+  "applied": false,
+  "mode": "QSPICE",
+  "protected_curves": [
+    {
+      "kind": "gain",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "gain",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "gain",
+      "curve": "T-25",
+      "temperature_C": -25,
+      "tolerance": 0.15
+    },
+    {
+      "kind": "output",
+      "curve": "IB100mA",
+      "temperature_C": 25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+125",
+      "temperature_C": 125,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vbesat",
+      "curve": "T-25",
+      "temperature_C": -25,
+      "tolerance": 0.1
+    },
+    {
+      "kind": "vcesat",
+      "curve": "T+25",
+      "temperature_C": 25,
+      "tolerance": 0.2
+    },
+    {
+      "kind": "vcesat",
+      "curve": "T+75",
+      "temperature_C": 75,
+      "tolerance": 0.2
+    }
+  ],
+  "candidates": [
+    {
+      "id": "mex_v8",
+      "file": "mex_v8.txt",
+      "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+      "family": "MEXTRAM504",
+      "sha256": "c160c0b60b51941b492da8f52c806e81256a98f3389999ecef10fdd57d5594c4",
+      "source": "Native v8 checkpoint, 10 full-curve PASS",
+      "cap_status": "TRAN_COBO_CALIBRATED_AND_CONVERGED",
+      "Cobo_F": 6.00396107319866e-11,
+      "tested_model_sha256": "b838d87838d0e6cb71b2a838833ea84f95d502f3fcc074cf42b66dbbb0b20edd",
+      "assessment": {
+        "complete_native_dc": true,
+        "table_limits_pass": true,
+        "base_current_sign_and_value_pass": true,
+        "summary": {
+          "PASS": 10,
+          "FAIL": 9,
+          "INVALID": 0
+        },
+        "protected_regressions": [],
+        "invalid_metrics": [],
+        "eligible_dc": true,
+        "worst_normalized_p95": 2.0642038008808874
+      }
+    },
+    {
+      "id": "mex_guarded_eval21",
+      "file": "mex_guarded_eval21.txt",
+      "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+      "family": "MEXTRAM504",
+      "sha256": "0b453dcc163db611bf1f9221e8109a320adc73be4d6a72e73e4fc0b9227e4bf8",
+      "source": "Native v9 evaluation 21; 11 sampled PASS, 0 sampled protected losses; full curves pending",
+      "cap_status": "TRAN_COBO_CALIBRATED_AND_CONVERGED",
+      "Cobo_F": 6.003986537989554e-11,
+      "tested_model_sha256": "681d17ad8d28aefe9e6dab864c76142b2768a3b69efc5b4648def4486c9124e3",
+      "assessment": {
+        "complete_native_dc": true,
+        "table_limits_pass": true,
+        "base_current_sign_and_value_pass": true,
+        "summary": {
+          "PASS": 10,
+          "FAIL": 9,
+          "INVALID": 0
+        },
+        "protected_regressions": [
+          {
+            "kind": "vcesat",
+            "curve": "T+75",
+            "temperature_C": 75,
+            "tolerance": 0.2
+          }
+        ],
+        "invalid_metrics": [],
+        "eligible_dc": false,
+        "worst_normalized_p95": 1.6490547410082728
+      }
+    },
+    {
+      "id": "mex_v9_final",
+      "file": "mex_v9_final.txt",
+      "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+      "family": "MEXTRAM504",
+      "sha256": "cb063a7a87649f84875190db52976ea0d419dd8a8e3070777da9a13dd8052056",
+      "source": "Native v9 final, 11 full-curve PASS and 2 protected losses",
+      "cap_status": "TRAN_COBO_CALIBRATED_AND_CONVERGED",
+      "Cobo_F": 6.00396107319866e-11,
+      "tested_model_sha256": "142f9e371a51698dde43723a63f522e5ad67e06ee3f4713d312785f2ce4d0f1c",
+      "assessment": {
+        "complete_native_dc": true,
+        "table_limits_pass": true,
+        "base_current_sign_and_value_pass": true,
+        "summary": {
+          "PASS": 11,
+          "FAIL": 8,
+          "INVALID": 0
+        },
+        "protected_regressions": [
+          {
+            "kind": "gain",
+            "curve": "T-25",
+            "temperature_C": -25,
+            "tolerance": 0.15
+          },
+          {
+            "kind": "vcesat",
+            "curve": "T+25",
+            "temperature_C": 25,
+            "tolerance": 0.2
+          }
+        ],
+        "invalid_metrics": [],
+        "eligible_dc": false,
+        "worst_normalized_p95": 1.4651461275028
+      }
+    },
+    {
+      "id": "ltwiki_gp",
+      "file": "ltwiki_gp.txt",
+      "model_name": "KSC5027",
+      "family": "GUMMEL_POON",
+      "sha256": "b34648f80a43be77ec0d1c194e3ece7d4cf10cd41f6ff71b37d67b21876f2709",
+      "source": "User supplied LTwiki KSC5027; no native comparison yet",
+      "Cobo_F": 6.075377079262854e-11,
+      "cap_status": "TRAN_MEASURED_WITHIN_2PCT_OF_TYPICAL",
+      "tested_model_sha256": "5fe5a3edfbd653b53c6c80c974b65b8f727613a5fc0f9208b993c2f2c4ae229b",
+      "assessment": {
+        "complete_native_dc": true,
+        "table_limits_pass": true,
+        "base_current_sign_and_value_pass": true,
+        "summary": {
+          "PASS": 0,
+          "FAIL": 19,
+          "INVALID": 0
+        },
+        "protected_regressions": [
+          {
+            "kind": "gain",
+            "curve": "T+25",
+            "temperature_C": 25,
+            "tolerance": 0.15
+          },
+          {
+            "kind": "gain",
+            "curve": "T+75",
+            "temperature_C": 75,
+            "tolerance": 0.15
+          },
+          {
+            "kind": "gain",
+            "curve": "T-25",
+            "temperature_C": -25,
+            "tolerance": 0.15
+          },
+          {
+            "kind": "output",
+            "curve": "IB100mA",
+            "temperature_C": 25,
+            "tolerance": 0.1
+          },
+          {
+            "kind": "vbesat",
+            "curve": "T+125",
+            "temperature_C": 125,
+            "tolerance": 0.1
+          },
+          {
+            "kind": "vbesat",
+            "curve": "T+25",
+            "temperature_C": 25,
+            "tolerance": 0.1
+          },
+          {
+            "kind": "vbesat",
+            "curve": "T+75",
+            "temperature_C": 75,
+            "tolerance": 0.1
+          },
+          {
+            "kind": "vbesat",
+            "curve": "T-25",
+            "temperature_C": -25,
+            "tolerance": 0.1
+          },
+          {
+            "kind": "vcesat",
+            "curve": "T+25",
+            "temperature_C": 25,
+            "tolerance": 0.2
+          },
+          {
+            "kind": "vcesat",
+            "curve": "T+75",
+            "temperature_C": 75,
+            "tolerance": 0.2
+          }
+        ],
+        "invalid_metrics": [],
+        "eligible_dc": false,
+        "worst_normalized_p95": 22.73714977244301
+      }
+    }
+  ],
+  "original_hashes": {
+    "FJP5027.txt": "37b96a1d3c2640ffe2334674d3de69113da89ed626bbafa1ae03bbd415ac8545",
+    "profile.json": "f09341e84d4e3a3d24803c7bd74211bf1e0e7356fd8ddc97e84cb1ae6fe3f9bc",
+    "reference/curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813"
+  },
+  "tool_hashes": {
+    "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+    "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+    "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+  },
+  "script_sha256": "db91398e00e6edbfee4c5c86adf1977f669dde784b6085b60b4d902af19eee03",
+  "recommended_dc_candidate": "mex_v8"
+}

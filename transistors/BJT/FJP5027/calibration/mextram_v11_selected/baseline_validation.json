@@ -1,0 +1,1255 @@
+{
+  "created_utc": "2026-11-04T22:11:12.024407+00:00",
+  "python": "3.14.0",
+  "mode": "QSPICE",
+  "config": {
+    "component": "FJP5027",
+    "model_file": "FJP5027.txt",
+    "model_name": "FJP5027_MEXTRAM_DC25_CANDIDATE_V3",
+    "model_status": "COMPARISON_ONLY_NOT_INSTALLED",
+    "model_provenance": "Native QSPICE fitting to selected user-supplied Fairchild Rev.A curves; see calibration_results",
+    "schematic_dir": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt",
+    "temperatures_C": [
+      -25,
+      25,
+      75,
+      125
+    ],
+    "output_base_currents_A": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35
+    ],
+    "curve_tolerance_p95_relative": {
+      "output": 0.1,
+      "gain": 0.15,
+      "vcesat": 0.2,
+      "vbesat": 0.1
+    },
+    "minimum_reference_coverage": 0.95,
+    "tolerance_basis": "Project comparison criteria, not manufacturer accuracy guarantees",
+    "convergence_relative": 0.02,
+    "transient_maxsteps_s": [
+      2e-09,
+      1e-09,
+      5e-10
+    ],
+    "timeout_seconds": 600,
+    "max_export_intervals": 500000,
+    "thermal": {
+      "Tj_max_C": 150,
+      "Pc_at_Tc25_W": 50,
+      "Rth_JC_K_per_W": 2.5,
+      "basis": "Derived from Fig.8: (150-25)/50. Not a supplied transient thermal impedance.",
+      "Cth": null,
+      "self_heating_supported": false
+    },
+    "suite_version": "2.0"
+  },
+  "cases": [
+    {
+      "id": "output_Tp25_IB50mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.05,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 0.819669
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.06346731724881785,
+          "p95_relative": 0.11657469265863891,
+          "max_relative": 0.2792577312713128,
+          "points": 166,
+          "kind": "output",
+          "curve": "IB50mA",
+          "case": "output_Tp25_IB50mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "9a89fd5eb2da980fa261467a468461dd6f09af45ddfbc181031a4fae5739ab1c",
+      "plot_data_sha256": "1c757db04430c1f54e13de671deee817e8f5a26585a431bd0d9903f9e59556ed",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 990313,
+        "retained": []
+      }
+    },
+    {
+      "id": "output_Tp25_IB100mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.1,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 1.29636
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "PASS",
+          "coverage": 1.0,
+          "rms_relative": 0.04977861996613814,
+          "p95_relative": 0.0750429607439632,
+          "max_relative": 0.289150225970955,
+          "points": 204,
+          "kind": "output",
+          "curve": "IB100mA",
+          "case": "output_Tp25_IB100mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "eeacf300b6a640a7d7e924caa026c1ee4a63ab9857e7c0d13eadf7f8717a3cc6",
+      "plot_data_sha256": "d2cf246e145bb9d73127a001df7980387740c75455f2471f23a41737f8379eca",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 978766,
+        "retained": []
+      }
+    },
+    {
+      "id": "output_Tp25_IB150mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.15,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 1.65903
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.06841273863630531,
+          "p95_relative": 0.1301609179340955,
+          "max_relative": 0.3501053888307927,
+          "points": 222,
+          "kind": "output",
+          "curve": "IB150mA",
+          "case": "output_Tp25_IB150mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "fd70ca8713b703aa47d44adbb1175eb71ed93f46aaf19c81176b41db4532c8e8",
+      "plot_data_sha256": "878c345195be7a2ab3c40b2f1fe2f62c1724a0549f9826b2d72f712ead79154f",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 978574,
+        "retained": []
+      }
+    },
+    {
+      "id": "output_Tp25_IB200mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.2,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 1.95751
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.0800332620370089,
+          "p95_relative": 0.15840524433491127,
+          "max_relative": 0.33666184952991685,
+          "points": 231,
+          "kind": "output",
+          "curve": "IB200mA",
+          "case": "output_Tp25_IB200mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "93b2bd1dd901513a399e18b010908ca5d99073252d751813545cfed641552cd7",
+      "plot_data_sha256": "7d09793bd941bab046bcc34a5c832ee692d5abdcc89eda684fa7c058c5bd4028",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 978487,
+        "retained": []
+      }
+    },
+    {
+      "id": "output_Tp25_IB250mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.25,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 2.21295
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.09336999654897138,
+          "p95_relative": 0.18083271578300822,
+          "max_relative": 0.3772448773937165,
+          "points": 228,
+          "kind": "output",
+          "curve": "IB250mA",
+          "case": "output_Tp25_IB250mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "ff6394f29b918b5ab75b9bf21f32b5fd625b5aad703b4f2e05b5e6fcccb1584f",
+      "plot_data_sha256": "cb07b82d75d46da437587a06df433c176573154d9673db881ef7fa41606cd7e0",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 978466,
+        "retained": []
+      }
+    },
+    {
+      "id": "output_Tp25_IB300mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.3,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 2.43694
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.10812682865986022,
+          "p95_relative": 0.20642038008808875,
+          "max_relative": 0.4484563298178057,
+          "points": 260,
+          "kind": "output",
+          "curve": "IB300mA",
+          "case": "output_Tp25_IB300mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "39978e85b224a741f5c767429094109e93b6feb15e7618d9a09b3bbe98d5ca35",
+      "plot_data_sha256": "a0e3e3137388889e137c24b31cebcb5b060fafcc6cd66ca8ded2db66f0e825c0",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 978404,
+        "retained": []
+      }
+    },
+    {
+      "id": "output_Tp25_IB350mA",
+      "kind": "output",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_SWEEP": 8,
+        "R_COLLECTOR": 0.001,
+        "IB_TEST": 0.35,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(vce_out)",
+        "V(ic_out)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_OUT branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "OUTPUT_ID_MAX": 2.63673
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.10327190358540767,
+          "p95_relative": 0.19468643139289624,
+          "max_relative": 0.3729014907681164,
+          "points": 270,
+          "kind": "output",
+          "curve": "IB350mA",
+          "case": "output_Tp25_IB350mA",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "54ac71ee1d53768c317db49bce3368a2446dc390453edeb78567388b2c646095",
+      "plot_data_sha256": "bc3391711e2417f073be0037569cdbc032b0fd75b7329528e4da7512b0220a1c",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 978518,
+        "retained": []
+      }
+    },
+    {
+      "id": "gain_Tm25",
+      "kind": "gain",
+      "temperature_C": -25,
+      "parameters": {
+        "VCE_GUMMEL": 5,
+        "VBE_START": 0.4,
+        "VBE_STOP": 1.6,
+        "SCAN_STEP": 0.00025
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic_gummel)",
+        "V(ib_gummel)",
+        "V(hfe_calc)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_GUMMEL branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "HFE_0P2": 17.8012,
+        "HFE_1": 13.2384
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "PASS",
+          "coverage": 1.0,
+          "rms_relative": 0.07005330657786851,
+          "p95_relative": 0.1283021252805786,
+          "max_relative": 0.16439284939308726,
+          "points": 106,
+          "kind": "gain",
+          "curve": "T-25",
+          "case": "gain_Tm25",
+          "temperature_C": -25
+        }
+      ],
+      "grading_csv_sha256": "e14138e210f1ee24f2d0efbc879e2e7d6348b20d48a7bca1ab485e2a122ae84c",
+      "plot_data_sha256": "6a26fcf7afc86717a403fa1fb85243a927a0eaa008843ff3f27dd382fbd29ab5",
+      "plot_data_points": 1002,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 2063389,
+        "retained": []
+      }
+    },
+    {
+      "id": "saturation_Tm25",
+      "kind": "saturation",
+      "temperature_C": -25,
+      "parameters": {
+        "IC_START": 0.1,
+        "IC_STOP": 3,
+        "BETA_FORCED": 5,
+        "IC_TEST": 1.5,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic)",
+        "V(ib)",
+        "V(vce)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\05_forced_beta_saturation_dc.qsch",
+        "sha256": "e37fbc502bf4d064aca7749202f0f90ed3275ea3d025de33e07911bef72274af",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "measurements": {
+        "VCESAT_1P5": 0.170421,
+        "VBESAT_1P5": 0.93301,
+        "IB_AT_1P5": 0.3
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.12415698917484295,
+          "p95_relative": 0.21938532890721787,
+          "max_relative": 0.2773700333283563,
+          "points": 106,
+          "kind": "vcesat",
+          "curve": "T-25",
+          "case": "saturation_Tm25",
+          "temperature_C": -25
+        },
+        {
+          "status": "PASS",
+          "coverage": 0.9868421052631579,
+          "rms_relative": 0.04730432338703347,
+          "p95_relative": 0.06705086840011557,
+          "max_relative": 0.0705415462239417,
+          "points": 75,
+          "kind": "vbesat",
+          "curve": "T-25",
+          "case": "saturation_Tm25",
+          "temperature_C": -25
+        }
+      ],
+      "grading_csv_sha256": "3399f28cf96f22d051e62c153a0744e3968aa1d8d86492d2021afd6cebe5ed9d",
+      "plot_data_sha256": "1e32e0706ea071df90ee4cf1344e5d9c086fd33dc706a6333a056a178b4681c1",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1549109,
+        "retained": []
+      }
+    },
+    {
+      "id": "gain_Tp25",
+      "kind": "gain",
+      "temperature_C": 25,
+      "parameters": {
+        "VCE_GUMMEL": 5,
+        "VBE_START": 0.4,
+        "VBE_STOP": 1.6,
+        "SCAN_STEP": 0.00025
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic_gummel)",
+        "V(ib_gummel)",
+        "V(hfe_calc)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_GUMMEL branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "HFE_0P2": 23.2409,
+        "HFE_1": 14.7056
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "PASS",
+          "coverage": 1.0,
+          "rms_relative": 0.07209071712565224,
+          "p95_relative": 0.12179321626268019,
+          "max_relative": 0.12899451531811532,
+          "points": 133,
+          "kind": "gain",
+          "curve": "T+25",
+          "case": "gain_Tp25",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "4ce66fc6f63b3b91c228688f1f699c22bc4661dbfca73877ac6f1364af4e2cae",
+      "plot_data_sha256": "8b79761ed436a962d01165b24807fc2c672a2380d2fa25f247a2a158ae4702bc",
+      "plot_data_points": 1002,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1935197,
+        "retained": []
+      }
+    },
+    {
+      "id": "saturation_Tp25",
+      "kind": "saturation",
+      "temperature_C": 25,
+      "parameters": {
+        "IC_START": 0.1,
+        "IC_STOP": 3,
+        "BETA_FORCED": 5,
+        "IC_TEST": 1.5,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic)",
+        "V(ib)",
+        "V(vce)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\05_forced_beta_saturation_dc.qsch",
+        "sha256": "e37fbc502bf4d064aca7749202f0f90ed3275ea3d025de33e07911bef72274af",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "measurements": {
+        "VCESAT_1P5": 0.279059,
+        "VBESAT_1P5": 0.862467,
+        "IB_AT_1P5": 0.3
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "PASS",
+          "coverage": 1.0,
+          "rms_relative": 0.08106016202576623,
+          "p95_relative": 0.1720483261742063,
+          "max_relative": 0.4133537040517832,
+          "points": 111,
+          "kind": "vcesat",
+          "curve": "T+25",
+          "case": "saturation_Tp25",
+          "temperature_C": 25
+        },
+        {
+          "status": "PASS",
+          "coverage": 0.989010989010989,
+          "rms_relative": 0.05015021959900785,
+          "p95_relative": 0.07207203656372597,
+          "max_relative": 0.0753857698163541,
+          "points": 90,
+          "kind": "vbesat",
+          "curve": "T+25",
+          "case": "saturation_Tp25",
+          "temperature_C": 25
+        }
+      ],
+      "grading_csv_sha256": "92d586c30d02fa2f0be1791c9b02e694abb80419e78322ecc0ee7ba952432175",
+      "plot_data_sha256": "f9e52c78be4747f336f3931f1db457916d6165bb5c781e72583a4aab8d83dce0",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1545547,
+        "retained": []
+      }
+    },
+    {
+      "id": "gain_Tp75",
+      "kind": "gain",
+      "temperature_C": 75,
+      "parameters": {
+        "VCE_GUMMEL": 5,
+        "VBE_START": 0.4,
+        "VBE_STOP": 1.6,
+        "SCAN_STEP": 0.00025
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic_gummel)",
+        "V(ib_gummel)",
+        "V(hfe_calc)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_GUMMEL branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "HFE_0P2": 24.5803,
+        "HFE_1": 14.0524
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "PASS",
+          "coverage": 1.0,
+          "rms_relative": 0.06783039975057555,
+          "p95_relative": 0.11723278157563051,
+          "max_relative": 0.1937536711205622,
+          "points": 140,
+          "kind": "gain",
+          "curve": "T+75",
+          "case": "gain_Tp75",
+          "temperature_C": 75
+        }
+      ],
+      "grading_csv_sha256": "97d61a89d7737efe90f4dcfdf259df1a511d6300f2e485b095a3f5c3b283c69d",
+      "plot_data_sha256": "2986bec4f240d590909113628bcbdc049f0c500d93f4d419c16ca98d5aead9d5",
+      "plot_data_points": 1002,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1928703,
+        "retained": []
+      }
+    },
+    {
+      "id": "saturation_Tp75",
+      "kind": "saturation",
+      "temperature_C": 75,
+      "parameters": {
+        "IC_START": 0.1,
+        "IC_STOP": 3,
+        "BETA_FORCED": 5,
+        "IC_TEST": 1.5,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic)",
+        "V(ib)",
+        "V(vce)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\05_forced_beta_saturation_dc.qsch",
+        "sha256": "e37fbc502bf4d064aca7749202f0f90ed3275ea3d025de33e07911bef72274af",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "measurements": {
+        "VCESAT_1P5": 0.414959,
+        "VBESAT_1P5": 0.787951,
+        "IB_AT_1P5": 0.3
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "PASS",
+          "coverage": 1.0,
+          "rms_relative": 0.09310514786857525,
+          "p95_relative": 0.14124433514322152,
+          "max_relative": 0.19358741075363142,
+          "points": 113,
+          "kind": "vcesat",
+          "curve": "T+75",
+          "case": "saturation_Tp75",
+          "temperature_C": 75
+        },
+        {
+          "status": "PASS",
+          "coverage": 0.9902912621359223,
+          "rms_relative": 0.04930567748922833,
+          "p95_relative": 0.07031270309415164,
+          "max_relative": 0.0750735947867755,
+          "points": 102,
+          "kind": "vbesat",
+          "curve": "T+75",
+          "case": "saturation_Tp75",
+          "temperature_C": 75
+        }
+      ],
+      "grading_csv_sha256": "a5ed70f0d3a8c5c95634376f76bda56f00173549731c0af656c3cb38410f22d8",
+      "plot_data_sha256": "7cbf4e52214b313e5fa2c51bd4a96a3d914eb05e3953f4871b8fc16f9beb5e28",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1542856,
+        "retained": []
+      }
+    },
+    {
+      "id": "gain_Tp125",
+      "kind": "gain",
+      "temperature_C": 125,
+      "parameters": {
+        "VCE_GUMMEL": 5,
+        "VBE_START": 0.4,
+        "VBE_STOP": 1.6,
+        "SCAN_STEP": 0.00025
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic_gummel)",
+        "V(ib_gummel)",
+        "V(hfe_calc)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch",
+        "sha256": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "netlist_notes": [
+        "Only X_GUMMEL branch retained; other independent DUT branches and unused hFE monitor omitted"
+      ],
+      "measurements": {
+        "HFE_0P2": 23.9511,
+        "HFE_1": 12.7012
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.09734108673348915,
+          "p95_relative": 0.1621648676785547,
+          "max_relative": 0.23020684282534112,
+          "points": 132,
+          "kind": "gain",
+          "curve": "T+125",
+          "case": "gain_Tp125",
+          "temperature_C": 125
+        }
+      ],
+      "grading_csv_sha256": "ad11b7bb7dbbc5ed507af2b6750f852555d0024762a763bd9ef2be4338d00645",
+      "plot_data_sha256": "13532616ea6969ea41dc0c09e3f09ef4251b8eb0d35a6e2ffa2d0ad3c70733c4",
+      "plot_data_points": 1002,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1922406,
+        "retained": []
+      }
+    },
+    {
+      "id": "saturation_Tp125",
+      "kind": "saturation",
+      "temperature_C": 125,
+      "parameters": {
+        "IC_START": 0.1,
+        "IC_STOP": 3,
+        "BETA_FORCED": 5,
+        "IC_TEST": 1.5,
+        "SCAN_STEP": 0.0005
+      },
+      "status": "SIMULATED",
+      "analysis": "dc",
+      "probes": [
+        "V(ic)",
+        "V(ib)",
+        "V(vce)",
+        "V(vbe)"
+      ],
+      "source": {
+        "path": "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\05_forced_beta_saturation_dc.qsch",
+        "sha256": "e37fbc502bf4d064aca7749202f0f90ed3275ea3d025de33e07911bef72274af",
+        "origin": "QUX netlist of user QSCH"
+      },
+      "measurements": {
+        "VCESAT_1P5": 0.588602,
+        "VBESAT_1P5": 0.710669,
+        "IB_AT_1P5": 0.3
+      },
+      "waveform_points": 12001,
+      "export_intervals": 12000,
+      "curve_metrics": [
+        {
+          "status": "FAIL",
+          "coverage": 1.0,
+          "rms_relative": 0.12155283698042847,
+          "p95_relative": 0.2050833919393326,
+          "max_relative": 0.22417263309942237,
+          "points": 123,
+          "kind": "vcesat",
+          "curve": "T+125",
+          "case": "saturation_Tp125",
+          "temperature_C": 125
+        },
+        {
+          "status": "PASS",
+          "coverage": 0.9903846153846154,
+          "rms_relative": 0.05185471497187011,
+          "p95_relative": 0.07421371213908755,
+          "max_relative": 0.0780015177217835,
+          "points": 103,
+          "kind": "vbesat",
+          "curve": "T+125",
+          "case": "saturation_Tp125",
+          "temperature_C": 125
+        }
+      ],
+      "grading_csv_sha256": "663ff3beaadbba05da1f0efdaf026b27f62cce53cf3b723a1b3a2222d35c1bf8",
+      "plot_data_sha256": "eff0052d3fa4ec51fb62561ff7afbba55181cce684551d294489c490d18ef43d",
+      "plot_data_points": 1001,
+      "grading_basis": "Full CSV before cleanup; compact data are for rendering only",
+      "cleanup": {
+        "removed": [
+          "case.qraw",
+          "waveforms.csv"
+        ],
+        "removed_bytes": 1541222,
+        "retained": []
+      }
+    }
+  ],
+  "hashes": {
+    "D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\comparison_results\\20261104T221101.576283Z\\mex_v8\\candidate_workspace\\profile.json": "e7374a0ed15820033e771c1bae5a8daa176d458861cae161ae05a11281667b51",
+    "D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\comparison_results\\20261104T221101.576283Z\\mex_v8\\candidate_workspace\\FJP5027.txt": "b838d87838d0e6cb71b2a838833ea84f95d502f3fcc074cf42b66dbbb0b20edd",
+    "D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\comparison_results\\20261104T221101.576283Z\\mex_v8\\candidate_workspace\\reference\\curves.csv": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813",
+    "D:\\2.github\\QSPICElib\\transistors\\BJT\\FJP5027\\comparison_results\\20261104T221101.576283Z\\mex_v8\\candidate_workspace\\reference\\FJP5027_RevA_2003.pdf": "b1488f766fcb8f25a83d24dadc9658cd8edda4b450ebdcac5c35435996df8ba3",
+    "D:\\2.github\\QSPICElib\\transistors\\_common\\bjt_suite.py": "bb609dc9fcf571e2bde951a1bcbb93932772525693b7de63373f7eda696dc9c2",
+    "D:\\2.github\\QSPICElib\\transistors\\_common\\qspice_io.py": "a2c57ccb5698e0fe6d48900db609c981459a01a5e102e38e3e37ed2dff3244b8",
+    "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\01_output_gummel_leakage_dc.qsch": "2ff8228369314ea763b021ac503bfea6d1a5cb365e8bfc8e855e8a4458da47de",
+    "D:\\2.github\\QSPICElib\\transistors\\Si\\transistor_common_cir_v1\\bjt\\05_forced_beta_saturation_dc.qsch": "e37fbc502bf4d064aca7749202f0f90ed3275ea3d025de33e07911bef72274af"
+  },
+  "reference_sha256": "d82acbd8fe697bafefa3b4e4ebd561f95f432b536e0067b806c9fdda3b18c813",
+  "format_version": 2,
+  "retention": {
+    "qraw": false,
+    "full_csv": false
+  },
+  "tool_hashes": {
+    "QUX": "73eca56709d1bf74dff16bacb0bb085693027d273d1969c4067d7289c0739f16",
+    "QPOST": "81906e03c6b6b39892b88f0d7c54bf1cc7c18d85d224382c1250972c88e4ffd6",
+    "engine": "2162bba2b19c7a61a6907ad33ac5883713fc840ef97bd434c89788a72065bfa7"
+  },
+  "cleanup_removed_bytes": 20889957,
+  "curve_comparison": [
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.06346731724881785,
+      "p95_relative": 0.11657469265863891,
+      "max_relative": 0.2792577312713128,
+      "points": 166,
+      "kind": "output",
+      "curve": "IB50mA",
+      "case": "output_Tp25_IB50mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "PASS",
+      "coverage": 1.0,
+      "rms_relative": 0.04977861996613814,
+      "p95_relative": 0.0750429607439632,
+      "max_relative": 0.289150225970955,
+      "points": 204,
+      "kind": "output",
+      "curve": "IB100mA",
+      "case": "output_Tp25_IB100mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.06841273863630531,
+      "p95_relative": 0.1301609179340955,
+      "max_relative": 0.3501053888307927,
+      "points": 222,
+      "kind": "output",
+      "curve": "IB150mA",
+      "case": "output_Tp25_IB150mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.0800332620370089,
+      "p95_relative": 0.15840524433491127,
+      "max_relative": 0.33666184952991685,
+      "points": 231,
+      "kind": "output",
+      "curve": "IB200mA",
+      "case": "output_Tp25_IB200mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.09336999654897138,
+      "p95_relative": 0.18083271578300822,
+      "max_relative": 0.3772448773937165,
+      "points": 228,
+      "kind": "output",
+      "curve": "IB250mA",
+      "case": "output_Tp25_IB250mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.10812682865986022,
+      "p95_relative": 0.20642038008808875,
+      "max_relative": 0.4484563298178057,
+      "points": 260,
+      "kind": "output",
+      "curve": "IB300mA",
+      "case": "output_Tp25_IB300mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.10327190358540767,
+      "p95_relative": 0.19468643139289624,
+      "max_relative": 0.3729014907681164,
+      "points": 270,
+      "kind": "output",
+      "curve": "IB350mA",
+      "case": "output_Tp25_IB350mA",
+      "temperature_C": 25
+    },
+    {
+      "status": "PASS",
+      "coverage": 1.0,
+      "rms_relative": 0.07005330657786851,
+      "p95_relative": 0.1283021252805786,
+      "max_relative": 0.16439284939308726,
+      "points": 106,
+      "kind": "gain",
+      "curve": "T-25",
+      "case": "gain_Tm25",
+      "temperature_C": -25
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.12415698917484295,
+      "p95_relative": 0.21938532890721787,
+      "max_relative": 0.2773700333283563,
+      "points": 106,
+      "kind": "vcesat",
+      "curve": "T-25",
+      "case": "saturation_Tm25",
+      "temperature_C": -25
+    },
+    {
+      "status": "PASS",
+      "coverage": 0.9868421052631579,
+      "rms_relative": 0.04730432338703347,
+      "p95_relative": 0.06705086840011557,
+      "max_relative": 0.0705415462239417,
+      "points": 75,
+      "kind": "vbesat",
+      "curve": "T-25",
+      "case": "saturation_Tm25",
+      "temperature_C": -25
+    },
+    {
+      "status": "PASS",
+      "coverage": 1.0,
+      "rms_relative": 0.07209071712565224,
+      "p95_relative": 0.12179321626268019,
+      "max_relative": 0.12899451531811532,
+      "points": 133,
+      "kind": "gain",
+      "curve": "T+25",
+      "case": "gain_Tp25",
+      "temperature_C": 25
+    },
+    {
+      "status": "PASS",
+      "coverage": 1.0,
+      "rms_relative": 0.08106016202576623,
+      "p95_relative": 0.1720483261742063,
+      "max_relative": 0.4133537040517832,
+      "points": 111,
+      "kind": "vcesat",
+      "curve": "T+25",
+      "case": "saturation_Tp25",
+      "temperature_C": 25
+    },
+    {
+      "status": "PASS",
+      "coverage": 0.989010989010989,
+      "rms_relative": 0.05015021959900785,
+      "p95_relative": 0.07207203656372597,
+      "max_relative": 0.0753857698163541,
+      "points": 90,
+      "kind": "vbesat",
+      "curve": "T+25",
+      "case": "saturation_Tp25",
+      "temperature_C": 25
+    },
+    {
+      "status": "PASS",
+      "coverage": 1.0,
+      "rms_relative": 0.06783039975057555,
+      "p95_relative": 0.11723278157563051,
+      "max_relative": 0.1937536711205622,
+      "points": 140,
+      "kind": "gain",
+      "curve": "T+75",
+      "case": "gain_Tp75",
+      "temperature_C": 75
+    },
+    {
+      "status": "PASS",
+      "coverage": 1.0,
+      "rms_relative": 0.09310514786857525,
+      "p95_relative": 0.14124433514322152,
+      "max_relative": 0.19358741075363142,
+      "points": 113,
+      "kind": "vcesat",
+      "curve": "T+75",
+      "case": "saturation_Tp75",
+      "temperature_C": 75
+    },
+    {
+      "status": "PASS",
+      "coverage": 0.9902912621359223,
+      "rms_relative": 0.04930567748922833,
+      "p95_relative": 0.07031270309415164,
+      "max_relative": 0.0750735947867755,
+      "points": 102,
+      "kind": "vbesat",
+      "curve": "T+75",
+      "case": "saturation_Tp75",
+      "temperature_C": 75
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.09734108673348915,
+      "p95_relative": 0.1621648676785547,
+      "max_relative": 0.23020684282534112,
+      "points": 132,
+      "kind": "gain",
+      "curve": "T+125",
+      "case": "gain_Tp125",
+      "temperature_C": 125
+    },
+    {
+      "status": "FAIL",
+      "coverage": 1.0,
+      "rms_relative": 0.12155283698042847,
+      "p95_relative": 0.2050833919393326,
+      "max_relative": 0.22417263309942237,
+      "points": 123,
+      "kind": "vcesat",
+      "curve": "T+125",
+      "case": "saturation_Tp125",
+      "temperature_C": 125
+    },
+    {
+      "status": "PASS",
+      "coverage": 0.9903846153846154,
+      "rms_relative": 0.05185471497187011,
+      "p95_relative": 0.07421371213908755,
+      "max_relative": 0.0780015177217835,
+      "points": 103,
+      "kind": "vbesat",
+      "curve": "T+125",
+      "case": "saturation_Tp125",
+      "temperature_C": 125
+    }
+  ],
+  "limits": [
+    {
+      "case": "gain_Tp25",
+      "name": "hFE at Ic=0.2 A, Vce=5 V",
+      "value": 23.2409,
+      "min": 10,
+      "max": 40,
+      "basis": "guaranteed table limit",
+      "status": "PASS"
+    },
+    {
+      "case": "gain_Tp25",
+      "name": "hFE at Ic=1 A, Vce=5 V",
+      "value": 14.7056,
+      "min": 8,
+      "max": null,
+      "basis": "guaranteed table limit",
+      "status": "PASS"
+    },
+    {
+      "case": "saturation_Tp25",
+      "name": "VCEsat at Ic=1.5 A, Ib=0.3 A [V]",
+      "value": 0.279059,
+      "min": 0,
+      "max": 2,
+      "basis": "guaranteed table limit",
+      "status": "PASS"
+    },
+    {
+      "case": "saturation_Tp25",
+      "name": "VBEsat at Ic=1.5 A, Ib=0.3 A [V]",
+      "value": 0.862467,
+      "min": 0,
+      "max": 1.5,
+      "basis": "guaranteed table limit",
+      "status": "PASS"
+    }
+  ],
+  "convergence": [],
+  "result": "NEEDS_CALIBRATION_OR_RESOLUTION"
+}
