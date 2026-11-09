@@ -1,2 +1,0 @@
-# Plotting only. QSPICE orchestration and reports use the Python standard library.
-matplotlib==3.10.8

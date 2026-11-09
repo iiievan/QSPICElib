@@ -1,0 +1,147 @@
+* FJP5027 flyback power-stage bench | QSPICE | 65 kHz
+* First open-loop run from a fixed DC bus, with a precharged output.
+* Transformer EE16V/P47, 105:25, 360 um, variant MV-29e872d030366567.
+* The base driver is a bench current source, with a short reverse pulse.
+* IPK_CMD only sets TON. Read IC_PK to see actual peak current.
+* VOUT is not regulated. VOUT_AVG_PREV and VOUT_AVG show residual drift.
+* VBUS_DC=240 is the lower design bus. For high line use 372.
+* Maxima are logged for the last measurement window, after initial transients.
+* MEXTRAM v13 switching and diode recovery are preliminary.
+
+.param FSW=65k VBUS_DC=240 RLOAD=40
+.param LM_REF=743.7540558385u IPK_CMD=0.61
+.param IB_FWD=120m IB_REV=180m TREV=500n TEDGE=10n
+.param RBASE=1 RBE=330 VDRV_MAX=3 VDRV_MIN=-2 RCOMP=100m
+.param RCLAMP=47k CCLAMP=47n COUT=940u RESR=20m
+.param VOUT_INIT=18 VCL_INIT=155
+.param NCYC=520 NMEAS=32 DTMAX=25n
+.param TPER={1/FSW}
+.param TON={LM_REF*IPK_CMD/VBUS_DC}
+.param TDELAY={2*TPER}
+.param TREVERSE={TDELAY+TON+2*TEDGE}
+.param TSTOP={TDELAY+NCYC*TPER}
+.param TMEAS={TSTOP-NMEAS*TPER}
+.param TPREV={TMEAS-NMEAS*TPER}
+
+V_BUS VBUS 0 {VBUS_DC}
+X_T1 VBUS SW SEC_RETURN SEC_RECT Flyback_MV_29e872d030366567
+V_IC SW COL 0
+Q_SW COL BASE 0 FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+
+* 1 V on the command nodes represents 1 A of driver current.
+V_ON CMD_ON 0 PULSE(0 {IB_FWD} {TDELAY} {TEDGE} {TEDGE} {TON} {TPER})
+V_REV CMD_REV 0 PULSE(0 {IB_REV} {TREVERSE} {TEDGE} {TEDGE} {TREV} {TPER})
+B_DRV 0 BDRV I={V(CMD_ON)-V(CMD_REV)}
+B_LIMIT BDRV 0 I={(max(V(BDRV)-VDRV_MAX,0)+min(V(BDRV)-VDRV_MIN,0))/RCOMP}
+R_BASE BDRV BFEED {RBASE}
+R_BE BFEED 0 {RBE}
+V_IB BFEED BASE 0
+
+* Primary RCD clamp. CLAMP is the cathode of ES1J. R and C return to VBUS.
+D_CLAMP SW CLAMP ES1J_PRELIM
+R_CLAMP CLAMP VBUS {RCLAMP}
+C_CLAMP CLAMP VBUS {CCLAMP}
+
+* S_DOT goes to SEC_RETURN. FR103 anode goes to S_UNDOT.
+V_ID SEC_RECT SEC_ANODE 0
+D_OUT SEC_ANODE VOUT FR103_PRELIM
+R_ESR VOUT OUT_CAP {RESR}
+C_OUT OUT_CAP SEC_RETURN {COUT}
+R_LOAD VOUT SEC_RETURN {RLOAD}
+* Weak DC reference for the isolated side, for the solver.
+R_SEC_REF SEC_RETURN 0 1G
+
+* Diagnostics. Probe voltages at IC_MON/IB_MON encode currents in A.
+B_VOUT VOUT_MON 0 V={V(VOUT,SEC_RETURN)}
+B_IC IC_MON 0 V={I(V_IC)}
+B_IB IB_MON 0 V={I(V_IB)}
+B_ID ID_MON 0 V={I(V_ID)}
+B_VCL VCL_MON 0 V={V(CLAMP,VBUS)}
+B_VR_OUT VR_OUT_MON 0 V={V(VOUT,SEC_ANODE)}
+B_VR_CL VR_CL_MON 0 V={V(CLAMP,SW)}
+B_P_RCD P_RCD_MON 0 V={V(VCL_MON)*V(VCL_MON)/RCLAMP}
+B_P_KEY P_KEY_MON 0 V={V(COL)*I(V_IC)+V(BASE)*I(V_IB)}
+B_P_OUT P_OUT_MON 0 V={V(VOUT_MON)*V(VOUT_MON)/RLOAD}
+B_P_FR P_FR_MON 0 V={V(SEC_ANODE,VOUT)*I(V_ID)}
+
+* Initialize capacitor voltages through the operating point, before PWM starts.
+.ic V(SEC_RETURN)=0 V(OUT_CAP)={VOUT_INIT} V(CLAMP)={VBUS_DC+VCL_INIT}
+.temp 25
+.options reltol=1e-4 abstol=1e-10 vntol=1e-7
+.tran 0 {TSTOP} 0 {DTMAX}
+.plot V(SW) V(VOUT_MON) V(IC_MON) V(IB_MON) V(ID_MON) V(VCL_MON) V(VR_OUT_MON)
+.plot V(BASE) V(IB_MON) V(IC_MON) V(ID_MON) V(VOUT_MON) V(VR_OUT_MON)
+.plot V(COL) V(VCL_MON) V(SW)
+.meas TRAN VOUT_AVG_PREV AVG V(VOUT_MON) FROM={TPREV} TO={TMEAS}
+.meas TRAN VOUT_AVG AVG V(VOUT_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VOUT_MIN MIN V(VOUT_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VOUT_MAX MAX V(VOUT_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VCE_PK MAX V(COL) FROM={TMEAS} TO={TSTOP}
+.meas TRAN IC_PK MAX V(IC_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN IB_PK MAX V(IB_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN IB_REV_PK MIN V(IB_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VBE_MIN MIN V(BASE) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VBE_MAX MAX V(BASE) FROM={TMEAS} TO={TSTOP}
+.meas TRAN I_FR103_PK MAX V(ID_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN I_FR103_AVG AVG V(ID_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VR_FR103_PK MAX V(VR_OUT_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN VR_ES1J_PK MAX V(VR_CL_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN V_RCD_CAP_PK MAX V(VCL_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN P_RCD_RES_AVG AVG V(P_RCD_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN P_KEY_TERM_AVG AVG V(P_KEY_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN P_FR103_AVG AVG V(P_FR_MON) FROM={TMEAS} TO={TSTOP}
+.meas TRAN P_LOAD_AVG AVG V(P_OUT_MON) FROM={TMEAS} TO={TSTOP}
+
+* Exact P47/360 um electrical values from the Flyback Designer export.
+.subckt Flyback_MV_29e872d030366567 P_DOT P_UNDOT S_DOT S_UNDOT
+R_P P_DOT p_leak 3.302050420572e+00
+R_S s_current S_DOT 9.101546392467e-02
+L_LKP p_leak p_mag 1.694018661481e-05
+L_MAG p_mag P_UNDOT 7.437540558385e-04
+E_SEC s_ideal S_UNDOT p_mag P_UNDOT 2.380952380952e-01
+V_SENSE s_ideal s_current 0
+F_REF p_mag P_UNDOT V_SENSE 2.380952380952e-01
+R_CORE p_mag P_UNDOT 5.112204527117e+04
+C_PS_D P_DOT S_DOT 3.836569162738e-11
+C_PS_U P_UNDOT S_UNDOT 3.836569162738e-11
+.ends Flyback_MV_29e872d030366567
+
+* Independent MEXTRAM 504 starting/fitted candidate. Not vendor SPICE.
+* Fit domain: isothermal DC at -25/25/75/125 C. Read the temperature report.
+* CJC comes from a separate native TRAN admittance calibration.
+* Other charge/transit/avalanche/thermal parameters remain unextracted.
+* Self-heating is disabled by RTH=0; no transient thermal impedance is claimed.
+.model FJP5027_MEXTRAM_DC25_CANDIDATE_V3 NPN(
++ AQBO=0.297244498617917 AE=0 AB=1.69400323062251 AEPI=0.132493021759137 AEX=0.62
++ AC=2 DAIS=0 DVGBF=0.0547723812329828 DVGBR=0.0167856373543117 LEVEL=504
++ TREF=25 IS=3.63204984302532e-14 BF=34.9460276254282 VEF=805.802159113597 VER=42.0423371846927
++ IK=1.19667567511733 IBF=4.8783379259058e-12 MLF=1.50881604259697 BRI=5.89566175149349 IBR=9.19790477411798e-11
++ RE=0.001 RBC=0.0163401988720245 RBV=0.03 RCC=0.00103037374248808 RCV=0.233785344720853
++ SCRCV=4.49732594421438 IHC=3.37677753390719 AXI=0.62772326080186 CJE=2e-09 CJC=9.66455197629649e-11
++ PE=0.33 PC=0.33 VDE=0.75 VDC=0.75 TAUE=5e-09
++ TAUB=5e-09 VGB=1.25997562420926 VGC=1.11 VGJ=1.00691145909525 EXAVL=0
++ WAVL=1k RTH=0)
+
+* Flyback rectifier models, preliminary, 25 C.
+* ES1J reference: onsemi ES1J-D, Aug 2024 rev 3, typical Fig. 3 and Cj at 4 V.
+* https://www.onsemi.com/download/data-sheet/pdf/es1j-d.pdf
+* FR103 reference: SMC FR101-FR107 N0441 rev A, 1.3 V max at 1 A and 15 pF at 4 V.
+* https://www.smc-diodes.com/propdf/FR101-FR107%20N0441%20REV.A.pdf
+* ES1J IS/N/RS fitted to approximate 25 C graph points, with IS limited to 1 uA.
+* FR103 IS anchors 1.3 V at 1 A; N and RS are assumed.
+* VJ/M are approximate. TT fitted in ngspice to an idealized current commutation
+* (0.5 A to -1 A in 1 ns, -30 V compliance, -0.25 A recovery threshold).
+* Reverse recovery targets 35 ns and 150 ns are datasheet maxima in their fixture.
+* These are independent estimates; recovery charge, softness, hot leakage and
+* avalanche are uncalibrated. Check rated voltage and current externally.
+* ES1J 600 V / 1 A, FR103 200 V / 1 A.
+* Usage: D_CLAMP SW CLAMP ES1J_PRELIM
+*        D_OUT SEC_RECT VOUT FR103_PRELIM
+
+.model ES1J_PRELIM D(IS=1e-06 N=2.89631 RS=0.0613492
++ CJO=1.07486e-11 VJ=0.75 M=0.16 TT=8.528e-08 TNOM=25)
+
+.model FR103_PRELIM D(IS=1.37919e-10 N=1.8 RS=0.25
++ CJO=2.70945e-11 VJ=0.8 M=0.33 TT=3.6851e-07 TNOM=25)
+
+.end
