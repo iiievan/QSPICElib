@@ -1,20 +1,26 @@
-* BJT adapter include, NOT a standalone bench. No .end in this file.
-* Shared adapter for benches 01-05. Select the model for manual QSCH runs.
-* The DEFAULT models below are explicitly SYNTHETIC topology examples.
-* They are NOT BUL216, FJP5027, a voltage rating, or a switching-time fit.
-* Replace the adapter body with the real Q model / vendor X subcircuit.
-* API: C B E K; K is a Kelvin/driver return, joined to E for 3-pin parts.
-* SELECT NPN: POL=1 and Q_CORE ... BENCH_NPN_DEMO.
-* SELECT PNP: POL=-1 and Q_CORE ... BENCH_PNP_DEMO.
-.param POL=-1
+* BJT adapter for bench 06. Connect to DUT_BJT in QSCH.
+* Pins: C B E K. K is the Kelvin return, linked to E for three-pin devices.
+* Select exactly one Q_CORE line. POL=1 for NPN and POL=-1 for PNP.
+* KSC5027 also requires enabling its optional .lib line.
+* BENCH_NPN_DEMO and BENCH_PNP_DEMO are synthetic examples.
+
+.param POL=1
+
+.lib "../../BJT/FJP5027/FJP5027_MEXTRAM_v13.txt"
+* .lib "../../BJT/FJP5027/FJP5027_KSC5027.txt"
+
 .model BENCH_NPN_DEMO NPN(Is=10f Bf=80 Vaf=60 Ikf=0.3 Br=3
 + Cje=30p Vje=0.75 Mje=0.33 Cjc=10p Vjc=0.75 Mjc=0.33
 + Tf=2n Tr=200n Rb=10 Rc=0.5 Re=0.05 Tnom=25)
 .model BENCH_PNP_DEMO PNP(Is=10f Bf=80 Vaf=60 Ikf=0.3 Br=3
 + Cje=30p Vje=0.75 Mje=0.33 Cjc=10p Vjc=0.75 Mjc=0.33
 + Tf=2n Tr=200n Rb=10 Rc=0.5 Re=0.05 Tnom=25)
+
 .subckt DUT_BJT C B E K
-;Q_CORE C B E BENCH_NPN_DEMO
-Q_CORE C B E BENCH_PNP_DEMO
+Q_CORE C B E FJP5027_MEXTRAM_DC25_CANDIDATE_V3
+* Q_CORE C B E KSC5027
+* Q_CORE C B E BENCH_NPN_DEMO
+* Q_CORE C B E BENCH_PNP_DEMO
 R_K K E 1u
 .ends DUT_BJT
+

@@ -51,7 +51,7 @@
     «symbol DUT_BJT
       «type: X»
       «description: Machine generated symbol for DUT_BJT»
-      «library file: 00_compare_devices.cir»
+      «library file: 00_device.cir»
       «shorted pins: false»
       «rect (-500,-400) (500,400) 0 0 0 0xff0000 0x4000000 -1 0 -1»
       «text (50,400) 1 6 0 0x1000000 -1 -1 "X_DUT"»
@@ -373,9 +373,11 @@
   «wire (-2300,-3000) (-2300,-3200) "GND"»
   «wire (5300,-1300) (5300,-1400) "ic_timing"»
   «wire (5300,-400) (5300,-500) "ib_timing"»
-  «text (-2450,-4500) 1 7 0 0x1000000 -1 -1 "ï»¿.temp 25\n.options reltol=1e-5 abstol=1e-12 vntol=1e-8\n.tran 0 {T_STOP} 0 {T_MAX}"»
-  «text (-2500,-5100) 1 7 0 0x1000000 -1 -1 "ï»¿.plot V(vce) V(ic) V(ib) V(vbe) V(p_collector) V(p_base)"»
-  «text (-2500,400) 1 7 0 0x1000000 -1 -1 "ï»¿.param VBUS=125 R_LOAD=250\n.param IB_ON=45m IB_OFF=-0.5 R_BASE=1\n.param VBE_MAX=3 VBE_MIN=-2 R_COMPLIANCE=1m\n.param T_DELAY=1u T_EDGE=5n T_ON=20u\n.param ENERGY_WINDOW=10u T_MAX=1n\n.param T_OFF={T_DELAY+T_EDGE+T_ON}\n.param T_PRE={T_OFF-100n}\n.param T_STOP={T_OFF+ENERGY_WINDOW+1u}\n.param IC_REFERENCE={VBUS/R_LOAD}"»
-  «text (-2450,-6700) 1 7 0 0x1000000 -1 -1 "ï»¿.meas TRAN IC_ON FIND V(ic) AT={T_PRE}\n.meas TRAN IB_ON_ACTUAL FIND V(ib) AT={T_PRE}\n.meas TRAN VCE_ON FIND V(vce) AT={T_PRE}\n.meas TRAN IB_REVERSE_PEAK MIN V(ib) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN E_OFF_HALF_WINDOW INTEG V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW/2}\n.meas TRAN E_OFF_WINDOW INTEG V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN E_OFF_BASE_WINDOW INTEG V(p_base) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN E_OFF_TOTAL_WINDOW INTEG V(p_total) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN IC_LATE FIND V(ic) AT={T_OFF+ENERGY_WINDOW}\n.meas TRAN VCE_LATE FIND V(vce) AT={T_OFF+ENERGY_WINDOW}\n.meas TRAN P_COLLECTOR_PEAK MAX V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN T_STORAGE_IB_NOM TRIG V(ib_timing)=0 FALL=1 TARG V(ic_timing)=0.9 FALL=1\n.meas TRAN T_FALL_IC_NOM TRIG V(ic_timing)=0.9 FALL=1 TARG V(ic_timing)=0.1 FALL=1"»
+  «text (-2500,-3950) 1 7 0 0x1000000 -1 -1 "ï»¿.temp 25\n.options reltol=1e-5 abstol=1e-12 vntol=1e-8\n.tran 0 {T_STOP} 0 {T_MAX}"»
+  «text (-2450,-5250) 1 7 0 0x1000000 -1 -1 "ï»¿.plot V(vce) V(ic) V(ib) V(vbe) V(p_collector) V(p_base)"»
+  «text (-2500,400) 1 7 0 0x1000000 -1 -1 "ï»¿.param VBUS=125 R_LOAD=250\n.param IB_ON=45m IB_OFF=-0.5 R_BASE=1\n.param VBE_MAX=3 VBE_MIN=-2 R_COMPLIANCE=1m\n.param T_DELAY=1Âµ T_EDGE=5n T_ON=20Âµ\n.param ENERGY_WINDOW=10Âµ T_MAX=0.5n\n.param T_OFF={T_DELAY+T_EDGE+T_ON}\n.param T_PRE={T_OFF-100n}\n.param T_STOP={T_OFF+ENERGY_WINDOW+1Âµ}\n.param IC_REFERENCE={VBUS/R_LOAD}"»
+  «text (-2450,-4950) 1 7 0 0x1000000 -1 -1 "ï»¿*.step param T_ON list 20u 100u"»
+  «text (-2450,-6700) 1 7 0 0x1000000 -1 -1 "ï»¿.meas TRAN IC_ON FIND V(ic) AT={T_PRE}\n.meas TRAN IB_ON_ACTUAL FIND V(ib) AT={T_PRE}\n.meas TRAN VCE_ON FIND V(vce) AT={T_PRE}\n.meas TRAN IB_REVERSE_PEAK MIN V(ib) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN T_STORAGE_IB_NOM TRIG V(ib_timing)=0 FALL=1 TARG V(ic_timing)=0.9 FALL=1\n.meas TRAN T_FALL_IC_NOM TRIG V(ic_timing)=0.9 FALL=1 TARG V(ic_timing)=0.1 FALL=1\n.meas TRAN E_OFF_HALF_WINDOW INTEG V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW/2}\n.meas TRAN E_OFF_WINDOW INTEG V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN E_OFF_BASE_WINDOW INTEG V(p_base) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN E_OFF_TOTAL_WINDOW INTEG V(p_total) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}\n.meas TRAN IC_LATE FIND V(ic) AT={T_OFF+ENERGY_WINDOW}\n.meas TRAN VCE_LATE FIND V(vce) AT={T_OFF+ENERGY_WINDOW}\n.meas TRAN P_COLLECTOR_PEAK MAX V(p_collector) FROM={T_OFF} TO={T_OFF+ENERGY_WINDOW}"»
+  «text (-2450,-4650) 1 7 0 0x1000000 -1 -1 "ï»¿.step param R_LOAD list 357.143 250 208.333 189.394"»
 »
 
